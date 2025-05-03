@@ -1,20 +1,27 @@
-
 import React, { useState } from 'react';
 import { Palette, Globe, Brain, Code, LineChart, Settings } from 'lucide-react';
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import ServiceCarouselCard from './ServiceCarouselCard';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 
+interface ServiceItem {
+  title: string;
+  description: string;
+}
+
+interface ServiceCategory {
+  icon: React.ElementType;
+  color: string;
+  title: string;
+  description: string;
+  services: ServiceItem[];
+}
+
 const Services = () => {
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [activeService, setActiveService] = useState<ServiceCategory | null>(null);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   
-  const serviceCategories = [
+  const serviceCategories: ServiceCategory[] = [
     {
       icon: Palette,
       color: 'bg-brand-primary',
@@ -113,6 +120,11 @@ const Services = () => {
     }
   ];
 
+  const handleServiceClick = (service: ServiceCategory) => {
+    setActiveService(service);
+    setIsSheetOpen(true);
+  };
+
   return (
     <section id="services" className="section bg-brand-light-gray py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-70"></div>
@@ -125,62 +137,54 @@ const Services = () => {
           </p>
         </div>
         
-        <div className="mb-10">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-            onSelect={(index) => {
-              if (typeof index === 'number') {
-                setActiveCardIndex(index);
-              }
-            }}
-          >
-            <CarouselContent>
-              {serviceCategories.map((category, index) => (
-                <CarouselItem 
-                  key={index} 
-                  className="pl-4 md:basis-1/2 lg:basis-1/3"
-                >
-                  <div 
-                    className="animate-fade-in-up h-full cursor-pointer"
-                    style={{ animationDelay: `${index * 150}ms` }}
-                    onClick={() => setActiveCardIndex(index)}
-                  >
-                    <ServiceCarouselCard 
-                      icon={category.icon} 
-                      color={category.color} 
-                      title={category.title} 
-                      description={category.description}
-                      services={category.services}
-                      isSelected={activeCardIndex === index}
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center mt-6 gap-2">
-              <CarouselPrevious className="static transform-none" />
-              <CarouselNext className="static transform-none" />
-            </div>
-          </Carousel>
-        </div>
-
-        <div className="flex justify-center mt-6 gap-3">
-          {serviceCategories.map((_, index) => (
-            <button
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {serviceCategories.map((category, index) => (
+            <div 
               key={index}
-              onClick={() => setActiveCardIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
-                activeCardIndex === index ? 'bg-brand-primary scale-125' : 'bg-gray-300 hover:bg-gray-400'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
+              className="animate-fade-in-up cursor-pointer"
+              style={{ animationDelay: `${index * 150}ms` }}
+              onClick={() => handleServiceClick(category)}
+            >
+              <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.02] border-t-4 border-t-transparent hover:border-t-brand-primary group">
+                <CardHeader>
+                  <div className="flex items-start">
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 ${category.color}`}>
+                      <category.icon className="h-7 w-7 text-white" />
+                    </div>
+                  </div>
+                  <CardTitle className="text-xl md:text-2xl">{category.title}</CardTitle>
+                  <CardDescription className="mt-2 text-gray-600">{category.description}</CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
           ))}
         </div>
         
+        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+          <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
+            {activeService && (
+              <>
+                <SheetHeader className="mb-6">
+                  <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 ${activeService.color}`}>
+                    <activeService.icon className="h-8 w-8 text-white" />
+                  </div>
+                  <SheetTitle className="text-2xl font-bold">{activeService.title}</SheetTitle>
+                  <SheetDescription className="text-lg">{activeService.description}</SheetDescription>
+                </SheetHeader>
+                
+                <div className="space-y-6">
+                  {activeService.services.map((service, idx) => (
+                    <div key={idx} className="py-4 border-b border-gray-100 last:border-0">
+                      <h4 className="text-lg font-semibold mb-2">{service.title}</h4>
+                      <p className="text-gray-600">{service.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </SheetContent>
+        </Sheet>
+
         <div className="mt-16 text-center animate-fade-in-up">
           <a 
             href="#contact" 
