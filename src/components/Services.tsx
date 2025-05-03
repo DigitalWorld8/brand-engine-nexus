@@ -132,7 +132,11 @@ const Services = () => {
               loop: true,
             }}
             className="w-full"
-            onSelect={(index) => setActiveCardIndex(index || 0)}
+            onSelect={(index) => {
+              if (typeof index === 'number') {
+                setActiveCardIndex(index);
+              }
+            }}
           >
             <CarouselContent>
               {serviceCategories.map((category, index) => (
