@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Palette, Globe, Brain, Code, LineChart, Settings, ChevronDown } from 'lucide-react';
 import { 
   Accordion, 
@@ -7,6 +7,8 @@ import {
   AccordionItem, 
   AccordionTrigger 
 } from "@/components/ui/accordion";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface ServiceItemProps {
   title: string;
@@ -36,35 +38,44 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
   services
 }) => {
   return (
-    <div className="service-card group">
-      <div 
-        className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${color}`}
-      >
-        <Icon className="h-8 w-8 text-white" />
-      </div>
+    <Card className="service-card overflow-hidden hover:shadow-xl transition-all duration-500 group border-t-4 border-t-transparent hover:border-t-4 hover:border-t-brand-primary">
+      <CardHeader>
+        <div className="flex items-start">
+          <div 
+            className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${color}`}
+          >
+            <Icon className="h-8 w-8 text-white" />
+          </div>
+        </div>
+        <CardTitle className="text-2xl mt-2">{title}</CardTitle>
+        <CardDescription className="mt-2 text-gray-600">{description}</CardDescription>
+      </CardHeader>
       
-      <h3 className="text-2xl font-bold mb-3">{title}</h3>
-      <p className="text-gray-600 mb-6">{description}</p>
-      
-      <Accordion type="single" collapsible className="w-full">
-        <AccordionItem value="services">
-          <AccordionTrigger className="text-brand-primary">
-            View Services
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="pt-2 pb-1">
-              {services.map((service, idx) => (
-                <ServiceItem 
-                  key={idx} 
-                  title={service.title} 
-                  description={service.description} 
-                />
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
+      <CardContent className="p-0">
+        <Accordion type="single" collapsible className="w-full">
+          <AccordionItem value="services" className="border-0">
+            <AccordionTrigger className="px-6 py-2 text-brand-primary hover:no-underline hover:bg-brand-light-gray">
+              <span className="flex items-center font-medium">
+                View Services
+              </span>
+            </AccordionTrigger>
+            <AccordionContent>
+              <ScrollArea className="h-[280px] px-6">
+                <div className="pt-2 pb-1">
+                  {services.map((service, idx) => (
+                    <ServiceItem 
+                      key={idx} 
+                      title={service.title} 
+                      description={service.description} 
+                    />
+                  ))}
+                </div>
+              </ScrollArea>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </CardContent>
+    </Card>
   );
 };
 
@@ -169,9 +180,11 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="section bg-brand-light-gray">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+    <section id="services" className="section bg-brand-light-gray py-24 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-70"></div>
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Services</h2>
           <p className="text-lg text-gray-600">
             We offer comprehensive digital solutions to help your business thrive in the digital landscape.
@@ -180,18 +193,23 @@ const Services = () => {
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {serviceCategories.map((category, index) => (
-            <ServiceCard 
-              key={index} 
-              icon={category.icon} 
-              color={category.color} 
-              title={category.title} 
-              description={category.description}
-              services={category.services}
-            />
+            <div 
+              key={index}
+              className="animate-fade-in-up"
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              <ServiceCard 
+                icon={category.icon} 
+                color={category.color} 
+                title={category.title} 
+                description={category.description}
+                services={category.services}
+              />
+            </div>
           ))}
         </div>
         
-        <div className="mt-16 text-center">
+        <div className="mt-16 text-center animate-fade-in-up">
           <a 
             href="#contact" 
             className="inline-flex items-center px-8 py-3 rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all hover:scale-105"
