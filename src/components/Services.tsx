@@ -1,85 +1,19 @@
 
-import React from 'react';
-import { Palette, Globe, Brain, Code, LineChart, Settings, ChevronDown } from 'lucide-react';
+import React, { useState } from 'react';
+import { Palette, Globe, Brain, Code, LineChart, Settings } from 'lucide-react';
 import { 
-  Accordion, 
-  AccordionContent, 
-  AccordionItem, 
-  AccordionTrigger 
-} from "@/components/ui/accordion";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-
-interface ServiceItemProps {
-  title: string;
-  description: string;
-}
-
-const ServiceItem: React.FC<ServiceItemProps> = ({ title, description }) => (
-  <div className="py-4 border-b border-gray-100 last:border-b-0">
-    <h4 className="text-lg font-semibold mb-1">{title}</h4>
-    <p className="text-gray-600">{description}</p>
-  </div>
-);
-
-interface ServiceCardProps {
-  icon: React.ElementType;
-  color: string;
-  title: string;
-  description: string;
-  services: ServiceItemProps[];
-}
-
-const ServiceCard: React.FC<ServiceCardProps> = ({ 
-  icon: Icon, 
-  color, 
-  title, 
-  description,
-  services
-}) => {
-  return (
-    <Card className="service-card overflow-hidden hover:shadow-xl transition-all duration-500 group border-t-4 border-t-transparent hover:border-t-4 hover:border-t-brand-primary">
-      <CardHeader>
-        <div className="flex items-start">
-          <div 
-            className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${color}`}
-          >
-            <Icon className="h-8 w-8 text-white" />
-          </div>
-        </div>
-        <CardTitle className="text-2xl mt-2">{title}</CardTitle>
-        <CardDescription className="mt-2 text-gray-600">{description}</CardDescription>
-      </CardHeader>
-      
-      <CardContent className="p-0">
-        <Accordion type="single" collapsible className="w-full">
-          <AccordionItem value="services" className="border-0">
-            <AccordionTrigger className="px-6 py-2 text-brand-primary hover:no-underline hover:bg-brand-light-gray">
-              <span className="flex items-center font-medium">
-                View Services
-              </span>
-            </AccordionTrigger>
-            <AccordionContent>
-              <ScrollArea className="h-[280px] px-6">
-                <div className="pt-2 pb-1">
-                  {services.map((service, idx) => (
-                    <ServiceItem 
-                      key={idx} 
-                      title={service.title} 
-                      description={service.description} 
-                    />
-                  ))}
-                </div>
-              </ScrollArea>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-      </CardContent>
-    </Card>
-  );
-};
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import ServiceCarouselCard from './ServiceCarouselCard';
+import { Button } from '@/components/ui/button';
 
 const Services = () => {
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  
   const serviceCategories = [
     {
       icon: Palette,
@@ -183,7 +117,7 @@ const Services = () => {
     <section id="services" className="section bg-brand-light-gray py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-70"></div>
       
-      <div className="max-w-7xl mx-auto relative z-10">
+      <div className="max-w-7xl mx-auto relative z-10 px-4 md:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Our Services</h2>
           <p className="text-lg text-gray-600">
@@ -191,21 +125,55 @@ const Services = () => {
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {serviceCategories.map((category, index) => (
-            <div 
-              key={index}
-              className="animate-fade-in-up"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              <ServiceCard 
-                icon={category.icon} 
-                color={category.color} 
-                title={category.title} 
-                description={category.description}
-                services={category.services}
-              />
+        <div className="mb-10">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+            onSelect={(index) => setActiveCardIndex(index || 0)}
+          >
+            <CarouselContent>
+              {serviceCategories.map((category, index) => (
+                <CarouselItem 
+                  key={index} 
+                  className="pl-4 md:basis-1/2 lg:basis-1/3"
+                >
+                  <div 
+                    className="animate-fade-in-up h-full cursor-pointer"
+                    style={{ animationDelay: `${index * 150}ms` }}
+                    onClick={() => setActiveCardIndex(index)}
+                  >
+                    <ServiceCarouselCard 
+                      icon={category.icon} 
+                      color={category.color} 
+                      title={category.title} 
+                      description={category.description}
+                      services={category.services}
+                      isSelected={activeCardIndex === index}
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center mt-6 gap-2">
+              <CarouselPrevious className="static transform-none" />
+              <CarouselNext className="static transform-none" />
             </div>
+          </Carousel>
+        </div>
+
+        <div className="flex justify-center mt-6 gap-3">
+          {serviceCategories.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setActiveCardIndex(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                activeCardIndex === index ? 'bg-brand-primary scale-125' : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
           ))}
         </div>
         
