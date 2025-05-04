@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Palette, Globe, Brain, Code, LineChart, Settings } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
