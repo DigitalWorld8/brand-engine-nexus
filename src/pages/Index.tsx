@@ -10,6 +10,7 @@ import Testimonials from '@/components/Testimonials';
 import FAQ from '@/components/FAQ';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import CTABanner from '@/components/CTABanner';
 
 const Index = () => {
   return (
@@ -17,10 +18,12 @@ const Index = () => {
       <Navbar />
       <Hero />
       <Services />
+      <CTABanner />
       <Industries />
       <About />
       <Testimonials />
       <FAQ />
+      <CTABanner />
       <Portfolio />
       <Contact />
       <Footer />
