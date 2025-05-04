@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 
 export function useNavbarScroll() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [showFlags, setShowFlags] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,13 +10,6 @@ export function useNavbarScroll() {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
-      }
-
-      // Show flags after scrolling down a bit
-      if (window.scrollY > 200) {
-        setShowFlags(true);
-      } else {
-        setShowFlags(false);
       }
     };
 
@@ -27,5 +19,6 @@ export function useNavbarScroll() {
     };
   }, []);
 
-  return { isScrolled, showFlags };
+  // Return only isScrolled, removing showFlags
+  return { isScrolled };
 }

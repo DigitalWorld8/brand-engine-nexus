@@ -8,7 +8,8 @@ import RightNavigation from './navbar/RightNavigation';
 import NavbarFlags from './navbar/NavbarFlags';
 
 const Navbar = () => {
-  const { isScrolled, showFlags } = useNavbarScroll();
+  // Now only destructure isScrolled since showFlags is no longer returned
+  const { isScrolled } = useNavbarScroll();
   const [servicesOpen, setServicesOpen] = useState(false);
 
   // Function to handle services menu toggle
@@ -37,8 +38,8 @@ const Navbar = () => {
           <RightNavigation onServicesToggle={handleServicesToggle} />
         </div>
         
-        {/* Dropdown Flags */}
-        <NavbarFlags showFlags={showFlags} />
+        {/* Removed passing showFlags to NavbarFlags component */}
+        <NavbarFlags showFlags={false} />
 
         {/* Services Mega Menu Overlay - Will slide under logo when active */}
         <div 
