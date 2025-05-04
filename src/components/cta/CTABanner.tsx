@@ -1,9 +1,10 @@
 
 import React from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
-import { Card, CardContent } from './ui/card';
-import CTAContent from './cta/CTAContent';
-import CTAActions from './cta/CTAActions';
+import { Card, CardContent } from '@/components/ui/card';
+import CTAContent from './CTAContent';
+import CTAActions from './CTAActions';
+import { cn } from '@/lib/utils';
 
 interface CTABannerProps {
   variant?: 'gradient' | 'dark' | 'purple-dots';
@@ -12,8 +13,6 @@ interface CTABannerProps {
   tags?: string[];
   primaryButtonText?: string;
   secondaryButtonText?: string;
-  leftSideCTA?: React.ReactNode;
-  rightSideCTA?: React.ReactNode;
 }
 
 const CTABanner = ({
@@ -23,8 +22,6 @@ const CTABanner = ({
   tags = ["Strategy", "Innovation", "Results", "Support"],
   primaryButtonText = 'Schedule a Consultation',
   secondaryButtonText = 'View Our Process',
-  leftSideCTA,
-  rightSideCTA
 }: CTABannerProps) => {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
 
@@ -50,7 +47,7 @@ const CTABanner = ({
   return (
     <section 
       ref={ref} 
-      className={`py-20 px-4 relative overflow-hidden ${isVisible ? 'reveal active' : 'reveal'}`}
+      className={cn('py-20 px-4 relative overflow-hidden', isVisible ? 'reveal active' : 'reveal')}
     >
       {/* Background */}
       <div className={`absolute inset-0 ${bgStyles[variant]} -z-10`}></div>

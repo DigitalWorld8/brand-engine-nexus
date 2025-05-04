@@ -10,9 +10,7 @@ import Testimonials from '@/components/Testimonials';
 import FAQ from '@/components/FAQ';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import CTABanner from '@/components/CTABanner';
-import { ExternalLink, ChevronRight, Award, Star } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import CTABanner from '@/components/cta/CTABanner';
 
 const Index = () => {
   return (
