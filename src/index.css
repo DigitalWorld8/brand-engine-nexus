@@ -168,3 +168,13 @@ html {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Portfolio card hover effects */
+.portfolio-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
