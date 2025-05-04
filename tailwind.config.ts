@@ -68,6 +68,7 @@ export default {
 					"primary": "#1B1464", // Primary Color - P102-8C
 					"accent-blue": "#09A4D5", // Accent Color 1 - P11-15C
 					"accent-violet": "#778DFC", // Accent Color 2 - P106-8C
+					"accent-yellow": "#F97316", // Accent Color 3 - Orange
 					"secondary": "#596AE9", // Secondary Color - P112-7C
 					"light-gray": "#F5F7FA",
 					"text": "#2B2E3A",
