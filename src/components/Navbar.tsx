@@ -43,7 +43,7 @@ const Navbar = () => {
         {/* Services Mega Menu Overlay - Will slide under logo when active */}
         <div 
           className={cn(
-            "absolute left-0 right-0 top-full mt-1 transition-all duration-300 overflow-hidden",
+            "absolute left-0 right-0 top-full mt-1 transition-all duration-300 overflow-hidden z-50",
             servicesOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
           )}
         >
@@ -51,75 +51,129 @@ const Navbar = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Design & Branding */}
               <div className="service-category">
-                <h3 className="text-lg font-semibold mb-3 text-brand-primary flex items-center">
-                  <span className="inline-block w-4 h-4 bg-brand-primary rounded-sm mr-2"></span>
+                <h3 className="text-lg font-semibold mb-5 text-[#9b87f5] flex items-center">
+                  <span className="inline-block w-4 h-4 bg-[#9b87f5] rounded-sm mr-2"></span>
                   Design & Branding
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-6">
                   <li className="mega-menu-item">
-                    <span className="font-medium">Brand Identity Design</span>
+                    <span className="font-medium block">Brand Identity Design</span>
                     <span className="text-sm text-gray-500 block">Visual identity that communicates trust</span>
                   </li>
                   <li className="mega-menu-item">
-                    <span className="font-medium">Logo Design</span>
+                    <span className="font-medium block">Logo Design</span>
                     <span className="text-sm text-gray-500 block">English + Arabic logos</span>
                   </li>
                   <li className="mega-menu-item">
-                    <span className="font-medium">Social Media Visuals</span>
+                    <span className="font-medium block">Social Media Visuals</span>
                     <span className="text-sm text-gray-500 block">Eye-catching social graphics</span>
+                  </li>
+                  <li className="mega-menu-item">
+                    <span className="font-medium block">Business Stationery</span>
+                    <span className="text-sm text-gray-500 block">Cards, letterheads & more</span>
+                  </li>
+                  <li className="mega-menu-item">
+                    <span className="font-medium block">Brand Guidelines</span>
+                    <span className="text-sm text-gray-500 block">Comprehensive brand rules</span>
+                  </li>
+                  <li className="mega-menu-item">
+                    <span className="font-medium block">Rebranding</span>
+                    <span className="text-sm text-gray-500 block">Refresh your brand identity</span>
                   </li>
                 </ul>
               </div>
               
               {/* Digital Marketing */}
               <div className="service-category">
-                <h3 className="text-lg font-semibold mb-3 text-brand-accent-yellow flex items-center">
-                  <span className="inline-block w-4 h-4 bg-brand-accent-yellow rounded-sm mr-2"></span>
+                <h3 className="text-lg font-semibold mb-5 text-[#F97316] flex items-center">
+                  <span className="inline-block w-4 h-4 bg-[#F97316] rounded-sm mr-2"></span>
                   Digital Marketing
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-6">
                   <li className="mega-menu-item">
-                    <span className="font-medium">Search Engine Optimization</span>
+                    <span className="font-medium block">SEO</span>
                     <span className="text-sm text-gray-500 block">Improve search visibility</span>
                   </li>
                   <li className="mega-menu-item">
-                    <span className="font-medium">Web Content Writing</span>
+                    <span className="font-medium block">Web Content Writing</span>
                     <span className="text-sm text-gray-500 block">Engaging website copy</span>
                   </li>
                   <li className="mega-menu-item">
-                    <span className="font-medium">Blogging Services</span>
+                    <span className="font-medium block">Blogging</span>
                     <span className="text-sm text-gray-500 block">English + Arabic blog posts</span>
+                  </li>
+                  <li className="mega-menu-item">
+                    <span className="font-medium block">Email Marketing</span>
+                    <span className="text-sm text-gray-500 block">Targeted email campaigns</span>
+                  </li>
+                  <li className="mega-menu-item">
+                    <span className="font-medium block">Social Media Strategy</span>
+                    <span className="text-sm text-gray-500 block">Content calendars & planning</span>
+                  </li>
+                  <li className="mega-menu-item">
+                    <span className="font-medium block">Analytics & Reporting</span>
+                    <span className="text-sm text-gray-500 block">Performance tracking</span>
                   </li>
                 </ul>
               </div>
               
               {/* Digital Services */}
               <div className="service-category">
-                <h3 className="text-lg font-semibold mb-3 text-brand-accent-blue flex items-center">
-                  <span className="inline-block w-4 h-4 bg-brand-accent-blue rounded-sm mr-2"></span>
+                <h3 className="text-lg font-semibold mb-5 text-[#1EAEDB] flex items-center">
+                  <span className="inline-block w-4 h-4 bg-[#1EAEDB] rounded-sm mr-2"></span>
                   Digital Services
                 </h3>
                 
-                <div className="mb-4">
-                  <h4 className="font-medium mb-2">AI Solutions</h4>
-                  <ul className="space-y-1">
-                    <li className="text-sm pl-4 py-1 hover:bg-brand-light-gray rounded transition-all">
-                      <span>AI Chat Agents</span>
+                <div className="mb-6">
+                  <h4 className="font-medium mb-2 flex items-center text-[#1EAEDB]">
+                    <span className="w-2 h-2 bg-[#1EAEDB] rounded-full mr-2"></span>
+                    AI Solutions
+                  </h4>
+                  <ul className="space-y-2 ml-4">
+                    <li className="text-sm py-1 hover:bg-brand-light-gray rounded transition-all">
+                      <span className="block">AI Chat Agents</span>
                     </li>
-                    <li className="text-sm pl-4 py-1 hover:bg-brand-light-gray rounded transition-all">
-                      <span>Persona Bots & Lead Capture</span>
+                    <li className="text-sm py-1 hover:bg-brand-light-gray rounded transition-all">
+                      <span className="block">Persona Bots & Lead Capture</span>
+                    </li>
+                    <li className="text-sm py-1 hover:bg-brand-light-gray rounded transition-all">
+                      <span className="block">Multilingual Flows</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div className="mb-6">
+                  <h4 className="font-medium mb-2 flex items-center text-[#1EAEDB]">
+                    <span className="w-2 h-2 bg-[#1EAEDB] rounded-full mr-2"></span>
+                    Digital Transformation
+                  </h4>
+                  <ul className="space-y-2 ml-4">
+                    <li className="text-sm py-1 hover:bg-brand-light-gray rounded transition-all">
+                      <span className="block">Website Design</span>
+                    </li>
+                    <li className="text-sm py-1 hover:bg-brand-light-gray rounded transition-all">
+                      <span className="block">E-Commerce Development</span>
+                    </li>
+                    <li className="text-sm py-1 hover:bg-brand-light-gray rounded transition-all">
+                      <span className="block">Multilingual Site Setup</span>
                     </li>
                   </ul>
                 </div>
                 
                 <div>
-                  <h4 className="font-medium mb-2">Digital Automation</h4>
-                  <ul className="space-y-1">
-                    <li className="text-sm pl-4 py-1 hover:bg-brand-light-gray rounded transition-all">
-                      <span>Smart Booking Systems</span>
+                  <h4 className="font-medium mb-2 flex items-center text-[#1EAEDB]">
+                    <span className="w-2 h-2 bg-[#1EAEDB] rounded-full mr-2"></span>
+                    Digital Automation
+                  </h4>
+                  <ul className="space-y-2 ml-4">
+                    <li className="text-sm py-1 hover:bg-brand-light-gray rounded transition-all">
+                      <span className="block">Smart Booking Systems</span>
                     </li>
-                    <li className="text-sm pl-4 py-1 hover:bg-brand-light-gray rounded transition-all">
-                      <span>CRM + Loyalty Deployment</span>
+                    <li className="text-sm py-1 hover:bg-brand-light-gray rounded transition-all">
+                      <span className="block">CRM + Loyalty Deployment</span>
+                    </li>
+                    <li className="text-sm py-1 hover:bg-brand-light-gray rounded transition-all">
+                      <span className="block">Workflow Automation</span>
                     </li>
                   </ul>
                 </div>

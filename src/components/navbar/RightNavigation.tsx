@@ -8,7 +8,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink
 } from "@/components/ui/navigation-menu";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from "@/components/ui/dropdown-menu";
 
 interface RightNavigationProps {
   onServicesToggle?: (isOpen: boolean) => void;
@@ -58,7 +57,7 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
       </NavigationMenu>
       
       {/* Right Side CTA Button */}
-      <Button size="sm" className="bg-brand-accent-blue hover:bg-brand-primary transition-colors">
+      <Button size="sm" className="bg-brand-accent-blue hover:bg-brand-primary text-white transition-colors">
         <Phone className="mr-1 h-4 w-4" />
         <span className="hidden sm:inline">Contact Us</span>
       </Button>
