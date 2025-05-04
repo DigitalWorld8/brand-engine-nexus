@@ -18,12 +18,26 @@ const Index = () => {
       <Navbar />
       <Hero />
       <Services />
-      <CTABanner />
+      <CTABanner 
+        variant="gradient"
+        title="Ready for Innovative Solutions?"
+        subtitle="Discover how our cutting-edge approaches can transform your business operations and drive growth in today's competitive landscape."
+        tags={["Strategy", "Innovation", "Results", "Support"]}
+        primaryButtonText="Schedule a Consultation"
+        secondaryButtonText="Explore Services"
+      />
       <Industries />
       <About />
       <Testimonials />
       <FAQ />
-      <CTABanner />
+      <CTABanner 
+        variant="dark"
+        title="Let's Build Something Amazing"
+        subtitle="Join the ranks of our successful clients who have experienced remarkable growth through our partnership and expertise."
+        tags={["Partnership", "Excellence", "Growth", "Success"]}
+        primaryButtonText="Start Your Journey"
+        secondaryButtonText="View Case Studies"
+      />
       <Portfolio />
       <Contact />
       <Footer />

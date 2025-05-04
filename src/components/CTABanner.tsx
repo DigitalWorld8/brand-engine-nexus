@@ -5,42 +5,109 @@ import { ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { Card, CardContent } from './ui/card';
 
-const CTABanner = () => {
+interface CTABannerProps {
+  variant?: 'gradient' | 'dark';
+  title?: string;
+  subtitle?: string;
+  tags?: string[];
+  primaryButtonText?: string;
+  secondaryButtonText?: string;
+}
+
+const CTABanner = ({
+  variant = 'gradient',
+  title = 'Ready to Transform Your Business?',
+  subtitle = 'Take the first step toward digital excellence with our innovative solutions. Our team of experts is ready to help you achieve your goals.',
+  tags = ["Strategy", "Innovation", "Results", "Support"],
+  primaryButtonText = 'Schedule a Consultation',
+  secondaryButtonText = 'View Our Process'
+}: CTABannerProps) => {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+
+  // Define styles based on variant
+  const bgStyles = {
+    gradient: 'bg-brand-light-gray',
+    dark: 'bg-brand-primary'
+  };
+
+  const patternStyles = {
+    gradient: 'opacity-10',
+    dark: 'opacity-5'
+  };
+
+  const cardStyles = {
+    gradient: 'border-brand-primary/10 shadow-md bg-white',
+    dark: 'border-brand-accent-blue/20 shadow-lg bg-brand-primary/95 text-white'
+  };
+
+  const tagStyles = {
+    gradient: 'bg-brand-light-gray text-gray-600',
+    dark: 'bg-brand-primary/80 text-brand-accent-blue/90'
+  };
+
+  const primaryButtonStyles = {
+    gradient: 'bg-brand-primary text-white hover:bg-brand-accent-blue hover:text-white',
+    dark: 'bg-brand-accent-blue text-white hover:bg-brand-accent-violet hover:text-white'
+  };
+
+  const secondaryButtonStyles = {
+    gradient: 'border-brand-primary text-brand-primary hover:bg-brand-primary/5',
+    dark: 'border-white text-white hover:bg-white/10'
+  };
+
+  const titleStyles = {
+    gradient: 'text-brand-primary',
+    dark: 'text-white'
+  };
+
+  const accentStyles = {
+    gradient: 'text-brand-secondary',
+    dark: 'text-brand-accent-blue'
+  };
+
+  const subtitleStyles = {
+    gradient: 'text-gray-600',
+    dark: 'text-gray-200'
+  };
+
+  const clientTextStyles = {
+    gradient: 'text-gray-500',
+    dark: 'text-gray-300'
+  };
 
   return (
     <section 
       ref={ref} 
       className={`py-20 px-4 relative overflow-hidden ${isVisible ? 'reveal active' : 'reveal'}`}
     >
-      {/* Subtle Background */}
-      <div className="absolute inset-0 bg-brand-primary/5 -z-10"></div>
+      {/* Background */}
+      <div className={`absolute inset-0 ${bgStyles[variant]} -z-10`}></div>
       
       {/* Subtle Pattern - Reduced opacity */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-10 -z-10"
+      <div className={`absolute top-0 left-0 w-full h-full ${patternStyles[variant]} -z-10`}
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231B1464' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
         }}
       ></div>
       
       <div className="max-w-7xl mx-auto relative z-10">
-        <Card className="border border-brand-primary/10 shadow-md bg-white">
+        <Card className={`${cardStyles[variant]}`}>
           <CardContent className="p-8 md:p-12">
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="max-w-2xl">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight mb-4 leading-tight text-brand-primary">
-                  Ready to Transform <span className="text-brand-secondary">Your Business?</span>
+                <h2 className={`text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight mb-4 leading-tight ${titleStyles[variant]}`}>
+                  <span>{title.split(' ').slice(0, -1).join(' ')} </span>
+                  <span className={accentStyles[variant]}>{title.split(' ').slice(-1)}</span>
                 </h2>
-                <p className="text-gray-600 text-lg mb-8 font-medium">
-                  Take the first step toward digital excellence with our innovative solutions. 
-                  Our team of experts is ready to help you achieve your goals.
+                <p className={`text-lg mb-8 font-medium ${subtitleStyles[variant]}`}>
+                  {subtitle}
                 </p>
                 
                 <div className="flex flex-wrap gap-3 mb-4">
-                  {["Strategy", "Innovation", "Results", "Support"].map((tag, i) => (
+                  {tags.map((tag, i) => (
                     <span 
                       key={i} 
-                      className="px-3 py-1 bg-brand-light-gray rounded-full text-sm text-gray-600 font-medium"
+                      className={`px-3 py-1 rounded-full text-sm font-medium ${tagStyles[variant]}`}
                     >
                       {tag}
                     </span>
@@ -51,21 +118,21 @@ const CTABanner = () => {
               <div className="flex flex-col gap-4 md:min-w-[240px]">
                 <Button 
                   size="lg" 
-                  className="bg-brand-primary text-white hover:bg-brand-accent-blue hover:text-white transition-all group relative overflow-hidden font-semibold"
+                  className={`${primaryButtonStyles[variant]} transition-all group relative overflow-hidden font-semibold`}
                 >
-                  <span className="relative z-10">Schedule a Consultation</span>
+                  <span className="relative z-10">{primaryButtonText}</span>
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-brand-primary text-brand-primary hover:bg-brand-primary/5 group font-semibold"
+                  className={`${secondaryButtonStyles[variant]} group font-semibold`}
                 >
-                  View Our Process 
+                  {secondaryButtonText}
                   <ArrowRight className="ml-1 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 
                 <div className="mt-4 text-center">
-                  <p className="text-gray-500 text-sm font-medium">Join 200+ satisfied clients</p>
+                  <p className={`text-sm font-medium ${clientTextStyles[variant]}`}>Join 200+ satisfied clients</p>
                 </div>
               </div>
             </div>
