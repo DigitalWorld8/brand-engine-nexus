@@ -13,30 +13,25 @@ const CTABanner = () => {
       ref={ref} 
       className={`py-20 px-4 relative overflow-hidden ${isVisible ? 'reveal active' : 'reveal'}`}
     >
-      {/* Decorative Background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent-blue -z-10"></div>
+      {/* Subtle Background */}
+      <div className="absolute inset-0 bg-brand-primary/5 -z-10"></div>
       
-      {/* Pattern Background - Fixed SVG encoding */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-20 -z-10"
+      {/* Subtle Pattern - Reduced opacity */}
+      <div className="absolute top-0 left-0 w-full h-full opacity-10 -z-10"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231B1464' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
         }}
       ></div>
       
-      {/* Animated Orbs */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl animate-float"></div>
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/3 blur-xl animate-float" style={{animationDelay: '2s'}}></div>
-      <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 blur-lg animate-float" style={{animationDelay: '3s'}}></div>
-      
       <div className="max-w-7xl mx-auto relative z-10">
-        <Card className="border-none shadow-xl bg-white/5 backdrop-blur-sm">
+        <Card className="border border-brand-primary/10 shadow-md bg-white">
           <CardContent className="p-8 md:p-12">
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               <div className="max-w-2xl">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight mb-4 leading-tight text-white">
-                  Ready to Transform <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet">Your Business?</span>
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight mb-4 leading-tight text-brand-primary">
+                  Ready to Transform <span className="text-brand-secondary">Your Business?</span>
                 </h2>
-                <p className="text-white/90 text-lg mb-8 font-medium">
+                <p className="text-gray-600 text-lg mb-8 font-medium">
                   Take the first step toward digital excellence with our innovative solutions. 
                   Our team of experts is ready to help you achieve your goals.
                 </p>
@@ -45,7 +40,7 @@ const CTABanner = () => {
                   {["Strategy", "Innovation", "Results", "Support"].map((tag, i) => (
                     <span 
                       key={i} 
-                      className="px-3 py-1 bg-white/10 rounded-full text-sm text-white/80 font-medium"
+                      className="px-3 py-1 bg-brand-light-gray rounded-full text-sm text-gray-600 font-medium"
                     >
                       {tag}
                     </span>
@@ -56,21 +51,21 @@ const CTABanner = () => {
               <div className="flex flex-col gap-4 md:min-w-[240px]">
                 <Button 
                   size="lg" 
-                  className="bg-white text-brand-primary hover:bg-brand-accent-blue hover:text-white transition-all group relative overflow-hidden font-semibold"
+                  className="bg-brand-primary text-white hover:bg-brand-accent-blue hover:text-white transition-all group relative overflow-hidden font-semibold"
                 >
                   <span className="relative z-10">Schedule a Consultation</span>
                 </Button>
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-white text-white hover:bg-white/10 group font-semibold"
+                  className="border-brand-primary text-brand-primary hover:bg-brand-primary/5 group font-semibold"
                 >
                   View Our Process 
                   <ArrowRight className="ml-1 group-hover:translate-x-1 transition-transform" />
                 </Button>
                 
                 <div className="mt-4 text-center">
-                  <p className="text-white/75 text-sm font-medium">Join 200+ satisfied clients</p>
+                  <p className="text-gray-500 text-sm font-medium">Join 200+ satisfied clients</p>
                 </div>
               </div>
             </div>
