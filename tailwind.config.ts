@@ -63,12 +63,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Brand Engine custom colors
+				// Brand Engine custom colors - Updated with brand guidelines values
 				"brand": {
-					"primary": "#1B1464",
-					"accent-blue": "#09A4D5",
-					"accent-violet": "#778DFC",
-					"secondary": "#596AE9",
+					"primary": "#1B1464", // Primary Color - P102-8C
+					"accent-blue": "#09A4D5", // Accent Color 1 - P11-15C
+					"accent-violet": "#778DFC", // Accent Color 2 - P106-8C
+					"secondary": "#596AE9", // Secondary Color - P112-7C
 					"light-gray": "#F5F7FA",
 					"text": "#2B2E3A",
 				}
@@ -130,8 +130,15 @@ export default {
 				'fade-in-up': 'fade-in-up 0.7s ease-out'
 			},
 			fontFamily: {
-				'sans': ['Inter', 'sans-serif'],
-				'heading': ['Montserrat', 'sans-serif'],
+				'sans': ['Inter Tight', 'Inter', 'sans-serif'],
+				'heading': ['Inter Tight', 'Montserrat', 'sans-serif'],
+			},
+			fontWeight: {
+				'book': '400',
+				'medium': '500',
+				'semibold': '600',
+				'bold': '700',
+				'black': '900',
 			},
 		}
 	},
