@@ -25,40 +25,40 @@ const Services = () => {
   
   const serviceCategories: ServiceCategory[] = [
     {
-      icon: Palette,
-      color: 'bg-brand-primary',
-      title: 'Design & Branding',
-      description: 'Crafting visual identities that communicate trust, style, and purpose. From logos to complete brand guidelines.',
+      icon: Code,
+      color: 'bg-[#1b1464]',
+      title: 'Digital Services',
+      description: 'Transform your business with intelligent solutions for automation, AI integration, and digital transformation.',
       services: [
         {
-          title: 'Brand Identity Design',
-          description: 'Comprehensive brand identity development to establish your unique market position.'
+          title: 'AI Solutions',
+          description: 'Implement AI chat agents, persona-based lead bots, and multilingual support assistants.'
         },
         {
-          title: 'Logo Design (English + Arabic)',
-          description: 'Professional bilingual logo design that resonates with diverse audiences.'
+          title: 'Digital Transformation',
+          description: 'Build custom websites, e-commerce solutions, and mobile-first UX strategies.'
         },
         {
-          title: 'Social Media Visuals',
-          description: 'Eye-catching templates and graphics optimized for social media platforms.'
+          title: 'Digital Automation',
+          description: 'Streamline operations with smart booking systems, CRM integration, and workflow automation.'
         },
         {
-          title: 'Business Cards & Stationery',
-          description: 'Professional print materials that extend your brand presence offline.'
+          title: 'Multilingual Support',
+          description: 'Create fully localized digital experiences for diverse language audiences.'
         },
         {
-          title: 'Brand Guidelines Creation',
-          description: 'Detailed documentation to ensure brand consistency across all touchpoints.'
+          title: 'Custom Web Applications',
+          description: 'Develop tailored web solutions that address your specific business challenges.'
         },
         {
-          title: 'Rebranding & Brand Refresh',
-          description: 'Revitalize your existing brand while preserving brand equity and recognition.'
+          title: 'System Integration',
+          description: 'Connect and optimize your business tools for seamless data flow and productivity.'
         }
       ]
     },
     {
       icon: Globe,
-      color: 'bg-brand-accent-blue',
+      color: 'bg-[#596ae9]',
       title: 'Digital Marketing',
       description: 'Drive visibility and engagement through strategic content, SEO optimization and targeted campaigns.',
       services: [
@@ -89,34 +89,34 @@ const Services = () => {
       ]
     },
     {
-      icon: Code,
-      color: 'bg-brand-secondary',
-      title: 'Digital Services',
-      description: 'Transform your business with intelligent solutions for automation, AI integration, and digital transformation.',
+      icon: Palette,
+      color: 'bg-[#09a4d5]',
+      title: 'Design & Branding',
+      description: 'Crafting visual identities that communicate trust, style, and purpose. From logos to complete brand guidelines.',
       services: [
         {
-          title: 'AI Solutions',
-          description: 'Implement AI chat agents, persona-based lead bots, and multilingual support assistants.'
+          title: 'Brand Identity Design',
+          description: 'Comprehensive brand identity development to establish your unique market position.'
         },
         {
-          title: 'Digital Transformation',
-          description: 'Build custom websites, e-commerce solutions, and mobile-first UX strategies.'
+          title: 'Logo Design (English + Arabic)',
+          description: 'Professional bilingual logo design that resonates with diverse audiences.'
         },
         {
-          title: 'Digital Automation',
-          description: 'Streamline operations with smart booking systems, CRM integration, and workflow automation.'
+          title: 'Social Media Visuals',
+          description: 'Eye-catching templates and graphics optimized for social media platforms.'
         },
         {
-          title: 'Multilingual Support',
-          description: 'Create fully localized digital experiences for diverse language audiences.'
+          title: 'Business Cards & Stationery',
+          description: 'Professional print materials that extend your brand presence offline.'
         },
         {
-          title: 'Custom Web Applications',
-          description: 'Develop tailored web solutions that address your specific business challenges.'
+          title: 'Brand Guidelines Creation',
+          description: 'Detailed documentation to ensure brand consistency across all touchpoints.'
         },
         {
-          title: 'System Integration',
-          description: 'Connect and optimize your business tools for seamless data flow and productivity.'
+          title: 'Rebranding & Brand Refresh',
+          description: 'Revitalize your existing brand while preserving brand equity and recognition.'
         }
       ]
     }

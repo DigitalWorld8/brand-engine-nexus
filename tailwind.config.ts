@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -63,16 +62,19 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Brand Engine custom colors - Updated with brand guidelines values
+				// Brand Engine custom colors - Updated with exact brand guidelines values
 				"brand": {
-					"primary": "#1B1464", // Primary Color - P102-8C
-					"accent-blue": "#09A4D5", // Accent Color 1 - P11-15C
+					"primary": "#1b1464", // Digital Services
+					"accent-blue": "#09a4d5", // Design
 					"accent-violet": "#778DFC", // Accent Color 2 - P106-8C
-					"secondary": "#596AE9", // Secondary Color - P112-7C
+					"secondary": "#596ae9", // Digital Marketing
 					"light-gray": "#F5F7FA",
 					"light-blue": "#EDF2FA", // Light blue background for services menu
 					"text": "#2B2E3A",
 					"accent-yellow": "#FFD166", // Additional accent color for variety
+					"digital-services": "#1b1464",
+					"digital-marketing": "#596ae9",
+					"design": "#09a4d5"
 				}
 			},
 			borderRadius: {

@@ -35,8 +35,8 @@ const ServicesMegaMenu = () => {
           
           {/* Digital Services - First */}
           <div className="service-category z-10">
-            <h3 className="text-lg font-semibold mb-3 text-brand-accent-blue flex items-center">
-              <span className="inline-block w-4 h-4 bg-brand-accent-blue rounded-sm mr-2"></span>
+            <h3 className="text-lg font-semibold mb-3 text-[#1b1464] flex items-center">
+              <span className="inline-block w-4 h-4 bg-[#1b1464] rounded-sm mr-2"></span>
               Digital Services
             </h3>
             
@@ -88,8 +88,8 @@ const ServicesMegaMenu = () => {
           
           {/* Digital Marketing - Second */}
           <div className="service-category z-10">
-            <h3 className="text-lg font-semibold mb-3 text-brand-accent-yellow flex items-center">
-              <span className="inline-block w-4 h-4 bg-brand-accent-yellow rounded-sm mr-2"></span>
+            <h3 className="text-lg font-semibold mb-3 text-[#596ae9] flex items-center">
+              <span className="inline-block w-4 h-4 bg-[#596ae9] rounded-sm mr-2"></span>
               Digital Marketing
             </h3>
             <ul className="space-y-2">
@@ -122,8 +122,8 @@ const ServicesMegaMenu = () => {
           
           {/* Design & Branding - Third */}
           <div className="service-category z-10">
-            <h3 className="text-lg font-semibold mb-3 text-brand-primary flex items-center">
-              <span className="inline-block w-4 h-4 bg-brand-primary rounded-sm mr-2"></span>
+            <h3 className="text-lg font-semibold mb-3 text-[#09a4d5] flex items-center">
+              <span className="inline-block w-4 h-4 bg-[#09a4d5] rounded-sm mr-2"></span>
               Design & Branding
             </h3>
             <ul className="space-y-2">
