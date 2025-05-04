@@ -14,7 +14,7 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 md:pr-12">
-            <div>
+            <div className="animate-fade-in-up">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
                 Empower Your Brand with Digital <span className="text-gradient">Innovation</span>
               </h1>
@@ -22,10 +22,10 @@ const Hero = () => {
                 Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-brand-primary hover:bg-brand-primary/90 text-white">
+                <Button size="lg" className="bg-brand-primary hover:bg-brand-primary/90 text-white hover:scale-105 transition-transform">
                   Explore Our Services
                 </Button>
-                <Button size="lg" variant="outline" className="border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10">
+                <Button size="lg" variant="outline" className="border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-transform">
                   View Our Work
                 </Button>
               </div>
@@ -40,7 +40,7 @@ const Hero = () => {
                     {[1, 2, 3, 4, 5, 6].map((item) => (
                       <div 
                         key={item}
-                        className="aspect-square rounded-lg flex items-center justify-center bg-gradient-to-br from-brand-light-gray to-white shadow-md"
+                        className="aspect-square rounded-lg flex items-center justify-center bg-gradient-to-br from-brand-light-gray to-white shadow-md hover:shadow-lg transition-all hover:-translate-y-1"
                       >
                         <div className={`w-12 h-12 rounded-full ${
                           item % 3 === 0 ? 'bg-brand-primary' : 
@@ -71,8 +71,12 @@ const Hero = () => {
         <div className="mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left">
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-            {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company) => (
-              <div key={company} className="text-gray-400 font-heading font-bold text-xl md:text-2xl">
+            {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => (
+              <div 
+                key={company} 
+                className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up" 
+                style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'forwards' }}
+              >
                 {company}
               </div>
             ))}

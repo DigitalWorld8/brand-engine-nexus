@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
 import { Palette, Globe, Brain, Code, LineChart, Settings } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 
 interface ServiceItem {
   title: string;
@@ -145,15 +147,16 @@ const Services = () => {
               style={{ animationDelay: `${index * 150}ms` }}
               onClick={() => handleServiceClick(category)}
             >
-              <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.02] border-t-4 border-t-transparent hover:border-t-brand-primary group">
-                <CardHeader>
-                  <div className="flex items-start">
-                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 ${category.color}`}>
-                      <category.icon className="h-7 w-7 text-white" />
-                    </div>
+              <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.03] border-t-4 border-t-transparent hover:border-t-brand-primary group overflow-hidden">
+                <CardHeader className="relative">
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ${category.color} group-hover:rotate-3`}>
+                    <category.icon className="h-7 w-7 text-white transition-transform group-hover:scale-110" />
                   </div>
-                  <CardTitle className="text-xl md:text-2xl">{category.title}</CardTitle>
-                  <CardDescription className="mt-2 text-gray-600">{category.description}</CardDescription>
+                  <CardTitle className="text-xl md:text-2xl relative z-10">{category.title}</CardTitle>
+                  <CardDescription className="mt-2 text-gray-600 relative z-10">{category.description}</CardDescription>
+                  
+                  {/* Interactive background element */}
+                  <div className="absolute -bottom-16 -right-16 w-32 h-32 rounded-full bg-gradient-to-tr from-transparent to-brand-light-gray opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </CardHeader>
               </Card>
             </div>
@@ -174,8 +177,23 @@ const Services = () => {
                 
                 <div className="space-y-6">
                   {activeService.services.map((service, idx) => (
-                    <div key={idx} className="py-4 border-b border-gray-100 last:border-0">
-                      <h4 className="text-lg font-semibold mb-2">{service.title}</h4>
+                    <div 
+                      key={idx} 
+                      className="py-4 border-b border-gray-100 last:border-0 hover:bg-brand-light-gray/50 p-4 rounded-lg transition-all"
+                    >
+                      <HoverCard>
+                        <HoverCardTrigger asChild>
+                          <h4 className="text-lg font-semibold mb-2 cursor-pointer">{service.title}</h4>
+                        </HoverCardTrigger>
+                        <HoverCardContent className="w-80">
+                          <div className="space-y-2">
+                            <h4 className="text-sm font-semibold">{service.title}</h4>
+                            <p className="text-sm">
+                              {service.description}
+                            </p>
+                          </div>
+                        </HoverCardContent>
+                      </HoverCard>
                       <p className="text-gray-600">{service.description}</p>
                     </div>
                   ))}
@@ -188,9 +206,10 @@ const Services = () => {
         <div className="mt-16 text-center animate-fade-in-up">
           <a 
             href="#contact" 
-            className="inline-flex items-center px-8 py-3 rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all hover:scale-105"
+            className="inline-flex items-center px-8 py-3 rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all hover:scale-105 relative overflow-hidden group"
           >
-            Let's Discuss Your Project
+            <span className="relative z-10">Let's Discuss Your Project</span>
+            <span className="absolute bottom-0 left-0 h-1 w-0 bg-brand-accent-blue group-hover:w-full transition-all duration-300"></span>
           </a>
         </div>
       </div>
