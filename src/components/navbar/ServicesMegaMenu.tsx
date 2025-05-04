@@ -27,20 +27,19 @@ const ServicesMegaMenu = () => {
         "absolute left-1/2 transform -translate-x-1/2 transition-all duration-300",
         isOpen ? "opacity-100" : "opacity-0"
       )}>
-        <div className="w-screen max-w-6xl rounded-xl shadow-xl p-6 grid grid-cols-3 gap-8 text-left relative overflow-hidden">
+        <div className="w-screen max-w-4xl rounded-xl shadow-xl p-6 grid grid-cols-1 gap-8 text-left relative overflow-hidden">
           {/* Animated Border */}
           <div className="absolute inset-0 rounded-xl z-10">
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-accent-blue via-brand-accent-violet to-brand-primary animate-gradient-x opacity-20"></div>
+            <div className="absolute inset-0 bg-[#e2f5fe]/90 opacity-90"></div>
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-accent-blue via-brand-accent-violet to-brand-primary animate-gradient-x"></div>
             <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-brand-primary via-brand-accent-violet to-brand-accent-blue animate-gradient-x"></div>
+            <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-brand-accent-blue via-brand-accent-violet to-brand-primary animate-gradient-y"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-brand-primary via-brand-accent-violet to-brand-accent-blue animate-gradient-y"></div>
           </div>
           
-          {/* Background with subtle pattern */}
-          <div className="absolute inset-0 bg-brand-light-gray opacity-60 z-0"></div>
-          
           {/* Content Container */}
-          <div className="col-span-3 grid grid-cols-3 gap-8 relative z-20">
-            {/* Digital Services - Now First */}
+          <div className="relative z-20 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Digital Services - First */}
             <div className="service-category">
               <h3 className="text-lg font-semibold mb-3 text-brand-accent-blue flex items-center">
                 <span className="inline-block w-4 h-4 bg-brand-accent-blue rounded-sm mr-2"></span>
@@ -93,70 +92,58 @@ const ServicesMegaMenu = () => {
               </div>
             </div>
             
-            {/* Digital Marketing - Now Second */}
+            {/* Digital Marketing - Second */}
             <div className="service-category">
               <h3 className="text-lg font-semibold mb-3 text-brand-accent-yellow flex items-center">
                 <span className="inline-block w-4 h-4 bg-brand-accent-yellow rounded-sm mr-2"></span>
                 Digital Marketing
               </h3>
-              <ul className="space-y-2">
-                <li className="mega-menu-item bg-white/80">
+              <ul className="space-y-1">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Search Engine Optimization</span>
-                  <span className="text-sm text-gray-500 block">Improve search visibility</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Web Content Writing</span>
-                  <span className="text-sm text-gray-500 block">Engaging website copy</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Blogging Services</span>
-                  <span className="text-sm text-gray-500 block">English + Arabic blog posts</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Email Marketing</span>
-                  <span className="text-sm text-gray-500 block">Targeted email campaigns</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Social Media Strategy</span>
-                  <span className="text-sm text-gray-500 block">Content calendars & planning</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Analytics & Reporting</span>
-                  <span className="text-sm text-gray-500 block">Performance tracking</span>
                 </li>
               </ul>
             </div>
             
-            {/* Design & Branding - Now Third */}
+            {/* Design & Branding - Third */}
             <div className="service-category">
               <h3 className="text-lg font-semibold mb-3 text-brand-primary flex items-center">
                 <span className="inline-block w-4 h-4 bg-brand-primary rounded-sm mr-2"></span>
                 Design & Branding
               </h3>
-              <ul className="space-y-2">
-                <li className="mega-menu-item bg-white/80">
+              <ul className="space-y-1">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Brand Identity Design</span>
-                  <span className="text-sm text-gray-500 block">Visual identity that communicates trust</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Logo Design</span>
-                  <span className="text-sm text-gray-500 block">English + Arabic logos</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Social Media Visuals</span>
-                  <span className="text-sm text-gray-500 block">Eye-catching social graphics</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Business Stationery</span>
-                  <span className="text-sm text-gray-500 block">Cards, letterheads & more</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Brand Guidelines</span>
-                  <span className="text-sm text-gray-500 block">Comprehensive brand rules</span>
                 </li>
-                <li className="mega-menu-item bg-white/80">
+                <li className="text-sm pl-4 py-1 bg-white/80 hover:bg-brand-light-gray rounded transition-all">
                   <span className="font-medium">Rebranding</span>
-                  <span className="text-sm text-gray-500 block">Refresh your brand identity</span>
                 </li>
               </ul>
             </div>
