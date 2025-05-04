@@ -122,14 +122,25 @@ export default {
 						opacity: '1',
 						transform: 'translateY(0)'
 					},
-				}
+				},
+				'glow': {
+					'0%, 100%': {
+						'box-shadow': '0 0 15px rgba(9, 164, 213, 0.7), 0 0 25px rgba(27, 20, 100, 0.5), 0 0 35px rgba(119, 141, 252, 0.3)',
+						'opacity': '1',
+					},
+					'50%': {
+						'box-shadow': '0 0 25px rgba(9, 164, 213, 0.9), 0 0 45px rgba(27, 20, 100, 0.7), 0 0 60px rgba(119, 141, 252, 0.5)',
+						'opacity': '0.8',
+					},
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 6s ease-in-out infinite',
 				'gradient-x': 'gradient-x 10s ease infinite',
-				'fade-in-up': 'fade-in-up 0.7s ease-out'
+				'fade-in-up': 'fade-in-up 0.7s ease-out',
+				'glow-border': 'gradient-x 6s ease infinite, glow 3s ease-in-out infinite',
 			},
 			fontFamily: {
 				'sans': ['Inter Tight', 'Inter', 'sans-serif'],
