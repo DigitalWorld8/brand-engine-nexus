@@ -34,7 +34,7 @@ const Navbar = () => {
 
         {/* Services Mega Menu Overlay - Will slide under logo when active */}
         <div className={cn("absolute left-0 right-0 top-full mt-1 transition-all duration-300 overflow-visible z-50", servicesOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0")}>
-          <div className="bg-white rounded-b-xl shadow-xl p-6 transform transition-transform duration-300">
+          <div className="rounded-b-xl shadow-xl p-6 transform transition-transform duration-300 bg-[#c3e5f2]">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Digital Services - Now First */}
               <div className="service-category">
