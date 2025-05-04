@@ -31,7 +31,7 @@ const Index = () => {
       <Testimonials />
       <FAQ />
       <CTABanner 
-        variant="dark"
+        variant="purple-dots"
         title="Let's Build Something Amazing"
         subtitle="Join the ranks of our successful clients who have experienced remarkable growth through our partnership and expertise."
         tags={["Partnership", "Excellence", "Growth", "Success"]}
