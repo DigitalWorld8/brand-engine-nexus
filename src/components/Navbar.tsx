@@ -49,75 +49,7 @@ const Navbar = () => {
         >
           <div className="bg-white rounded-b-xl shadow-xl p-6 transform transition-transform duration-300">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Design & Branding */}
-              <div className="service-category">
-                <h3 className="text-lg font-semibold mb-5 text-[#9b87f5] flex items-center">
-                  <span className="inline-block w-4 h-4 bg-[#9b87f5] rounded-sm mr-2"></span>
-                  Design & Branding
-                </h3>
-                <ul className="space-y-4">
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Brand Identity Design</span>
-                    <span className="text-sm text-gray-500 block">Visual identity that communicates trust</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Logo Design</span>
-                    <span className="text-sm text-gray-500 block">English + Arabic logos</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Social Media Visuals</span>
-                    <span className="text-sm text-gray-500 block">Eye-catching social graphics</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Business Stationery</span>
-                    <span className="text-sm text-gray-500 block">Cards, letterheads & more</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Brand Guidelines</span>
-                    <span className="text-sm text-gray-500 block">Comprehensive brand rules</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Rebranding</span>
-                    <span className="text-sm text-gray-500 block">Refresh your brand identity</span>
-                  </li>
-                </ul>
-              </div>
-              
-              {/* Digital Marketing */}
-              <div className="service-category">
-                <h3 className="text-lg font-semibold mb-5 text-[#F97316] flex items-center">
-                  <span className="inline-block w-4 h-4 bg-[#F97316] rounded-sm mr-2"></span>
-                  Digital Marketing
-                </h3>
-                <ul className="space-y-4">
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">SEO</span>
-                    <span className="text-sm text-gray-500 block">Improve search visibility</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Web Content Writing</span>
-                    <span className="text-sm text-gray-500 block">Engaging website copy</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Blogging</span>
-                    <span className="text-sm text-gray-500 block">English + Arabic blog posts</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Email Marketing</span>
-                    <span className="text-sm text-gray-500 block">Targeted email campaigns</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Social Media Strategy</span>
-                    <span className="text-sm text-gray-500 block">Content calendars & planning</span>
-                  </li>
-                  <li className="mega-menu-item">
-                    <span className="font-medium block">Analytics & Reporting</span>
-                    <span className="text-sm text-gray-500 block">Performance tracking</span>
-                  </li>
-                </ul>
-              </div>
-              
-              {/* Digital Services */}
+              {/* Digital Services - Now First */}
               <div className="service-category">
                 <h3 className="text-lg font-semibold mb-5 text-[#33C3F0] flex items-center">
                   <span className="inline-block w-4 h-4 bg-[#33C3F0] rounded-sm mr-2"></span>
@@ -177,6 +109,74 @@ const Navbar = () => {
                     </li>
                   </ul>
                 </div>
+              </div>
+              
+              {/* Digital Marketing - Now Second */}
+              <div className="service-category">
+                <h3 className="text-lg font-semibold mb-5 text-[#F97316] flex items-center">
+                  <span className="inline-block w-4 h-4 bg-[#F97316] rounded-sm mr-2"></span>
+                  Digital Marketing
+                </h3>
+                <ul className="space-y-4">
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">SEO</span>
+                    <span className="text-sm text-gray-500 block">Improve search visibility</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Web Content Writing</span>
+                    <span className="text-sm text-gray-500 block">Engaging website copy</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Blogging</span>
+                    <span className="text-sm text-gray-500 block">English + Arabic blog posts</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Email Marketing</span>
+                    <span className="text-sm text-gray-500 block">Targeted email campaigns</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Social Media Strategy</span>
+                    <span className="text-sm text-gray-500 block">Content calendars & planning</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Analytics & Reporting</span>
+                    <span className="text-sm text-gray-500 block">Performance tracking</span>
+                  </li>
+                </ul>
+              </div>
+              
+              {/* Design & Branding - Now Third */}
+              <div className="service-category">
+                <h3 className="text-lg font-semibold mb-5 text-[#9b87f5] flex items-center">
+                  <span className="inline-block w-4 h-4 bg-[#9b87f5] rounded-sm mr-2"></span>
+                  Design & Branding
+                </h3>
+                <ul className="space-y-4">
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Brand Identity Design</span>
+                    <span className="text-sm text-gray-500 block">Visual identity that communicates trust</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Logo Design</span>
+                    <span className="text-sm text-gray-500 block">English + Arabic logos</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Social Media Visuals</span>
+                    <span className="text-sm text-gray-500 block">Eye-catching social graphics</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Business Stationery</span>
+                    <span className="text-sm text-gray-500 block">Cards, letterheads & more</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Brand Guidelines</span>
+                    <span className="text-sm text-gray-500 block">Comprehensive brand rules</span>
+                  </li>
+                  <li className="mega-menu-item bg-gray-50 hover:bg-gray-100">
+                    <span className="font-medium block">Rebranding</span>
+                    <span className="text-sm text-gray-500 block">Refresh your brand identity</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>

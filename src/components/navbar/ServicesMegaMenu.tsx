@@ -28,75 +28,7 @@ const ServicesMegaMenu = () => {
         isOpen ? "opacity-100" : "opacity-0"
       )}>
         <div className="w-screen max-w-6xl bg-white rounded-xl shadow-xl p-6 grid grid-cols-3 gap-8 text-left">
-          {/* Design & Branding */}
-          <div className="service-category">
-            <h3 className="text-lg font-semibold mb-3 text-brand-primary flex items-center">
-              <span className="inline-block w-4 h-4 bg-brand-primary rounded-sm mr-2"></span>
-              Design & Branding
-            </h3>
-            <ul className="space-y-2">
-              <li className="mega-menu-item">
-                <span className="font-medium">Brand Identity Design</span>
-                <span className="text-sm text-gray-500 block">Visual identity that communicates trust</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Logo Design</span>
-                <span className="text-sm text-gray-500 block">English + Arabic logos</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Social Media Visuals</span>
-                <span className="text-sm text-gray-500 block">Eye-catching social graphics</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Business Stationery</span>
-                <span className="text-sm text-gray-500 block">Cards, letterheads & more</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Brand Guidelines</span>
-                <span className="text-sm text-gray-500 block">Comprehensive brand rules</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Rebranding</span>
-                <span className="text-sm text-gray-500 block">Refresh your brand identity</span>
-              </li>
-            </ul>
-          </div>
-          
-          {/* Digital Marketing */}
-          <div className="service-category">
-            <h3 className="text-lg font-semibold mb-3 text-brand-accent-yellow flex items-center">
-              <span className="inline-block w-4 h-4 bg-brand-accent-yellow rounded-sm mr-2"></span>
-              Digital Marketing
-            </h3>
-            <ul className="space-y-2">
-              <li className="mega-menu-item">
-                <span className="font-medium">Search Engine Optimization</span>
-                <span className="text-sm text-gray-500 block">Improve search visibility</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Web Content Writing</span>
-                <span className="text-sm text-gray-500 block">Engaging website copy</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Blogging Services</span>
-                <span className="text-sm text-gray-500 block">English + Arabic blog posts</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Email Marketing</span>
-                <span className="text-sm text-gray-500 block">Targeted email campaigns</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Social Media Strategy</span>
-                <span className="text-sm text-gray-500 block">Content calendars & planning</span>
-              </li>
-              <li className="mega-menu-item">
-                <span className="font-medium">Analytics & Reporting</span>
-                <span className="text-sm text-gray-500 block">Performance tracking</span>
-              </li>
-            </ul>
-          </div>
-          
-          {/* Digital Services */}
+          {/* Digital Services - Now First */}
           <div className="service-category">
             <h3 className="text-lg font-semibold mb-3 text-brand-accent-blue flex items-center">
               <span className="inline-block w-4 h-4 bg-brand-accent-blue rounded-sm mr-2"></span>
@@ -147,6 +79,74 @@ const ServicesMegaMenu = () => {
                 </li>
               </ul>
             </div>
+          </div>
+          
+          {/* Digital Marketing - Now Second */}
+          <div className="service-category">
+            <h3 className="text-lg font-semibold mb-3 text-brand-accent-yellow flex items-center">
+              <span className="inline-block w-4 h-4 bg-brand-accent-yellow rounded-sm mr-2"></span>
+              Digital Marketing
+            </h3>
+            <ul className="space-y-2">
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Search Engine Optimization</span>
+                <span className="text-sm text-gray-500 block">Improve search visibility</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Web Content Writing</span>
+                <span className="text-sm text-gray-500 block">Engaging website copy</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Blogging Services</span>
+                <span className="text-sm text-gray-500 block">English + Arabic blog posts</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Email Marketing</span>
+                <span className="text-sm text-gray-500 block">Targeted email campaigns</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Social Media Strategy</span>
+                <span className="text-sm text-gray-500 block">Content calendars & planning</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Analytics & Reporting</span>
+                <span className="text-sm text-gray-500 block">Performance tracking</span>
+              </li>
+            </ul>
+          </div>
+          
+          {/* Design & Branding - Now Third */}
+          <div className="service-category">
+            <h3 className="text-lg font-semibold mb-3 text-brand-primary flex items-center">
+              <span className="inline-block w-4 h-4 bg-brand-primary rounded-sm mr-2"></span>
+              Design & Branding
+            </h3>
+            <ul className="space-y-2">
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Brand Identity Design</span>
+                <span className="text-sm text-gray-500 block">Visual identity that communicates trust</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Logo Design</span>
+                <span className="text-sm text-gray-500 block">English + Arabic logos</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Social Media Visuals</span>
+                <span className="text-sm text-gray-500 block">Eye-catching social graphics</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Business Stationery</span>
+                <span className="text-sm text-gray-500 block">Cards, letterheads & more</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Brand Guidelines</span>
+                <span className="text-sm text-gray-500 block">Comprehensive brand rules</span>
+              </li>
+              <li className="mega-menu-item bg-gray-50">
+                <span className="font-medium">Rebranding</span>
+                <span className="text-sm text-gray-500 block">Refresh your brand identity</span>
+              </li>
+            </ul>
           </div>
         </div>
       </NavigationMenuContent>
