@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
@@ -6,26 +5,18 @@ import NavbarLogo from './navbar/NavbarLogo';
 import LeftNavigation from './navbar/LeftNavigation';
 import RightNavigation from './navbar/RightNavigation';
 import NavbarFlags from './navbar/NavbarFlags';
-
 const Navbar = () => {
   // Now only destructure isScrolled since showFlags is no longer returned
-  const { isScrolled } = useNavbarScroll();
+  const {
+    isScrolled
+  } = useNavbarScroll();
   const [servicesOpen, setServicesOpen] = useState(false);
 
   // Function to handle services menu toggle
-  const handleServicesToggle = (isOpen) => {
+  const handleServicesToggle = isOpen => {
     setServicesOpen(isOpen);
   };
-
-  return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled 
-          ? 'bg-white/90 backdrop-blur-md shadow-md py-3' 
-          : 'bg-transparent py-5'
-      )}
-    >
+  return <header className={cn('fixed top-0 left-0 right-0 z-50 transition-all duration-300', isScrolled ? 'bg-white/90 backdrop-blur-md shadow-md py-3' : 'bg-transparent py-5')}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center">
           {/* Left Side Navigation */}
@@ -42,12 +33,7 @@ const Navbar = () => {
         <NavbarFlags showFlags={false} />
 
         {/* Services Mega Menu Overlay - Will slide under logo when active */}
-        <div 
-          className={cn(
-            "absolute left-0 right-0 top-full mt-1 transition-all duration-300 overflow-visible z-50",
-            servicesOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
-          )}
-        >
+        <div className={cn("absolute left-0 right-0 top-full mt-1 transition-all duration-300 overflow-visible z-50", servicesOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0")}>
           <div className="bg-white rounded-b-xl shadow-xl p-6 transform transition-transform duration-300">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Digital Services - Now First */}
@@ -114,7 +100,7 @@ const Navbar = () => {
               
               {/* Digital Marketing - Now Second */}
               <div className="service-category">
-                <h3 className="text-lg font-semibold mb-5 text-[#F97316] flex items-center">
+                <h3 className="text-lg font-semibold mb-5 flex items-center text-brand-secondary">
                   <span className="inline-block w-4 h-4 bg-[#F97316] rounded-sm mr-2"></span>
                   Digital Marketing
                 </h3>
@@ -183,8 +169,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </header>
-  );
+    </header>;
 };
-
 export default Navbar;
