@@ -68,7 +68,6 @@ export default {
 					"primary": "#1B1464", // Primary Color - P102-8C
 					"accent-blue": "#09A4D5", // Accent Color 1 - P11-15C
 					"accent-violet": "#778DFC", // Accent Color 2 - P106-8C
-					"accent-yellow": "#F97316", // Accent Color 3 - Orange
 					"secondary": "#596AE9", // Secondary Color - P112-7C
 					"light-gray": "#F5F7FA",
 					"text": "#2B2E3A",
@@ -112,14 +111,6 @@ export default {
 						'background-position': '100% 50%',
 					},
 				},
-				'gradient-y': {
-					'0%, 100%': {
-						'background-position': '50% 0%',
-					},
-					'50%': {
-						'background-position': '50% 100%',
-					},
-				},
 				'fade-in-up': {
 					'0%': {
 						opacity: '0',
@@ -136,7 +127,6 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 6s ease-in-out infinite',
 				'gradient-x': 'gradient-x 10s ease infinite',
-				'gradient-y': 'gradient-y 10s ease infinite',
 				'fade-in-up': 'fade-in-up 0.7s ease-out'
 			},
 			fontFamily: {
