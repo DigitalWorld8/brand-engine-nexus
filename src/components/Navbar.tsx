@@ -9,7 +9,6 @@ import NavbarFlags from './navbar/NavbarFlags';
 
 const Navbar = () => {
   const { isScrolled, showFlags } = useNavbarScroll();
-  const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
 
   return (
     <header
