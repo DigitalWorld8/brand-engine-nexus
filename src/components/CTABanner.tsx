@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from './ui/button';
-import { ArrowRight, ChevronRight, ExternalLink } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { Card, CardContent } from './ui/card';
 
@@ -89,12 +89,6 @@ const CTABanner = ({
     'purple-dots': 'text-gray-500'
   };
 
-  const sideCTAStyles = {
-    gradient: 'bg-white/80 backdrop-blur-sm border border-brand-primary/10',
-    dark: 'bg-brand-primary/80 backdrop-blur-sm border border-brand-accent-blue/20',
-    'purple-dots': 'bg-white/80 backdrop-blur-sm border border-brand-accent-violet/20'
-  };
-
   return (
     <section 
       ref={ref} 
@@ -133,18 +127,8 @@ const CTABanner = ({
         />
       )}
       
-      {/* Side CTAs */}
-      <div className="max-w-7xl mx-auto relative z-10 flex justify-between items-center">
-        {/* Left Side CTA */}
-        {leftSideCTA && (
-          <div className="hidden lg:block absolute left-0 -translate-x-1/2 transform">
-            <div className={`rounded-lg p-4 ${sideCTAStyles[variant]} shadow-lg rotate-[-3deg] animate-float`}>
-              {leftSideCTA}
-            </div>
-          </div>
-        )}
-        
-        {/* Main Card */}
+      {/* Main Card */}
+      <div className="max-w-7xl mx-auto relative z-10">
         <Card className={`${cardStyles[variant]} w-full`}>
           <CardContent className="p-8 md:p-12">
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
@@ -192,15 +176,6 @@ const CTABanner = ({
             </div>
           </CardContent>
         </Card>
-        
-        {/* Right Side CTA */}
-        {rightSideCTA && (
-          <div className="hidden lg:block absolute right-0 translate-x-1/2 transform">
-            <div className={`rounded-lg p-4 ${sideCTAStyles[variant]} shadow-lg rotate-[3deg] animate-float`}>
-              {rightSideCTA}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );

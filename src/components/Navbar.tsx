@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { ChevronDown, Phone, Calendar, ArrowRight } from 'lucide-react';
+import { ChevronDown, Phone, Calendar, ArrowRight, ArrowDown, ArrowUp } from 'lucide-react';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,6 +14,7 @@ import {
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showFlags, setShowFlags] = useState(false);
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -22,6 +23,13 @@ const Navbar = () => {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
+      }
+
+      // Show flags after scrolling down a bit
+      if (window.scrollY > 200) {
+        setShowFlags(true);
+      } else {
+        setShowFlags(false);
       }
     };
 
@@ -40,7 +48,7 @@ const Navbar = () => {
           : 'bg-transparent py-5'
       )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="flex justify-between items-center">
           {/* Left Side Navigation */}
           <div className="flex-1 flex items-center justify-start space-x-4">
@@ -193,6 +201,49 @@ const Navbar = () => {
               <Phone className="mr-1 h-4 w-4" />
               <span className="hidden sm:inline">Contact Us</span>
             </Button>
+          </div>
+        </div>
+        
+        {/* Dropdown Flags */}
+        <div className="absolute left-0 w-full flex justify-between pointer-events-none">
+          {/* Left Flag */}
+          <div 
+            className={cn(
+              "transition-all duration-700 transform",
+              showFlags 
+                ? "translate-y-20 opacity-100" 
+                : "-translate-y-20 opacity-0"
+            )}
+          >
+            <div className="bg-brand-accent-blue text-white p-4 rounded-b-lg shadow-lg pointer-events-auto">
+              <div className="flex flex-col items-center space-y-2">
+                <ArrowDown className="h-4 w-4 animate-bounce" />
+                <p className="font-medium">Book a Call</p>
+                <Button size="sm" variant="outline" className="border-white text-white hover:bg-white/20">
+                  Schedule Now
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          {/* Right Flag */}
+          <div 
+            className={cn(
+              "transition-all duration-700 transform",
+              showFlags 
+                ? "translate-y-20 opacity-100" 
+                : "-translate-y-20 opacity-0"
+            )}
+          >
+            <div className="bg-brand-accent-violet text-white p-4 rounded-b-lg shadow-lg pointer-events-auto">
+              <div className="flex flex-col items-center space-y-2">
+                <ArrowDown className="h-4 w-4 animate-bounce" />
+                <p className="font-medium">Free Audit</p>
+                <Button size="sm" variant="outline" className="border-white text-white hover:bg-white/20">
+                  Get Started
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
