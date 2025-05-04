@@ -43,8 +43,8 @@ const Navbar = () => {
         {/* Services Mega Menu Overlay - Will slide under logo when active */}
         <div 
           className={cn(
-            "absolute left-0 right-0 top-full mt-1 transition-all duration-300 overflow-hidden z-50",
-            servicesOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+            "absolute left-0 right-0 top-full mt-1 transition-all duration-300 overflow-visible z-50",
+            servicesOpen ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"
           )}
         >
           <div className="bg-white rounded-b-xl shadow-xl p-6 transform transition-transform duration-300">
@@ -55,7 +55,7 @@ const Navbar = () => {
                   <span className="inline-block w-4 h-4 bg-[#9b87f5] rounded-sm mr-2"></span>
                   Design & Branding
                 </h3>
-                <ul className="space-y-6">
+                <ul className="space-y-4">
                   <li className="mega-menu-item">
                     <span className="font-medium block">Brand Identity Design</span>
                     <span className="text-sm text-gray-500 block">Visual identity that communicates trust</span>
@@ -89,7 +89,7 @@ const Navbar = () => {
                   <span className="inline-block w-4 h-4 bg-[#F97316] rounded-sm mr-2"></span>
                   Digital Marketing
                 </h3>
-                <ul className="space-y-6">
+                <ul className="space-y-4">
                   <li className="mega-menu-item">
                     <span className="font-medium block">SEO</span>
                     <span className="text-sm text-gray-500 block">Improve search visibility</span>
@@ -119,14 +119,14 @@ const Navbar = () => {
               
               {/* Digital Services */}
               <div className="service-category">
-                <h3 className="text-lg font-semibold mb-5 text-[#1EAEDB] flex items-center">
-                  <span className="inline-block w-4 h-4 bg-[#1EAEDB] rounded-sm mr-2"></span>
+                <h3 className="text-lg font-semibold mb-5 text-[#33C3F0] flex items-center">
+                  <span className="inline-block w-4 h-4 bg-[#33C3F0] rounded-sm mr-2"></span>
                   Digital Services
                 </h3>
                 
-                <div className="mb-6">
-                  <h4 className="font-medium mb-2 flex items-center text-[#1EAEDB]">
-                    <span className="w-2 h-2 bg-[#1EAEDB] rounded-full mr-2"></span>
+                <div className="mb-5">
+                  <h4 className="font-medium mb-2 flex items-center text-[#33C3F0]">
+                    <span className="w-2 h-2 bg-[#33C3F0] rounded-full mr-2"></span>
                     AI Solutions
                   </h4>
                   <ul className="space-y-2 ml-4">
@@ -142,9 +142,9 @@ const Navbar = () => {
                   </ul>
                 </div>
                 
-                <div className="mb-6">
-                  <h4 className="font-medium mb-2 flex items-center text-[#1EAEDB]">
-                    <span className="w-2 h-2 bg-[#1EAEDB] rounded-full mr-2"></span>
+                <div className="mb-5">
+                  <h4 className="font-medium mb-2 flex items-center text-[#33C3F0]">
+                    <span className="w-2 h-2 bg-[#33C3F0] rounded-full mr-2"></span>
                     Digital Transformation
                   </h4>
                   <ul className="space-y-2 ml-4">
@@ -161,8 +161,8 @@ const Navbar = () => {
                 </div>
                 
                 <div>
-                  <h4 className="font-medium mb-2 flex items-center text-[#1EAEDB]">
-                    <span className="w-2 h-2 bg-[#1EAEDB] rounded-full mr-2"></span>
+                  <h4 className="font-medium mb-2 flex items-center text-[#33C3F0]">
+                    <span className="w-2 h-2 bg-[#33C3F0] rounded-full mr-2"></span>
                     Digital Automation
                   </h4>
                   <ul className="space-y-2 ml-4">

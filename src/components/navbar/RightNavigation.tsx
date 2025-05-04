@@ -34,6 +34,7 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
             <button 
               onClick={handleServicesClick}
               className={`text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2 flex items-center ${servicesOpen ? 'text-brand-primary' : ''}`}
+              aria-expanded={servicesOpen}
             >
               Services
               <svg 
