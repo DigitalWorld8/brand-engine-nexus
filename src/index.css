@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
@@ -106,7 +105,7 @@
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-primary to-brand-accent-blue;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet;
   }
 
   .section {
@@ -177,4 +176,18 @@ html {
 .portfolio-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Add float animation for decorative elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
 }
