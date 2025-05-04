@@ -70,7 +70,9 @@ export default {
 					"accent-violet": "#778DFC", // Accent Color 2 - P106-8C
 					"secondary": "#596AE9", // Secondary Color - P112-7C
 					"light-gray": "#F5F7FA",
+					"light-blue": "#EDF2FA", // Light blue background for services menu
 					"text": "#2B2E3A",
+					"accent-yellow": "#FFD166", // Additional accent color for variety
 				}
 			},
 			borderRadius: {
