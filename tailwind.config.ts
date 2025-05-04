@@ -131,7 +131,7 @@ export default {
 			},
 			fontFamily: {
 				'sans': ['Inter Tight', 'Inter', 'sans-serif'],
-				'heading': ['Inter Tight', 'Montserrat', 'sans-serif'],
+				'heading': ['Inter Tight', 'sans-serif'],
 			},
 			fontWeight: {
 				'book': '400',

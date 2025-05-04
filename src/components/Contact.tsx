@@ -17,11 +17,11 @@ const Contact = () => {
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-black mb-6">
               Let's Create Something <span className="text-gradient">Amazing</span> Together
             </h2>
             
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-lg text-gray-600 mb-8 font-medium">
               Ready to transform your digital presence? Get in touch with us to discuss your project and discover how Brand Engine can help you achieve your goals.
             </p>
             
@@ -31,8 +31,8 @@ const Contact = () => {
                   <Mail className="h-6 w-6 text-brand-primary" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-lg">Email Us</h3>
-                  <p className="text-gray-600">info@brandengine.com</p>
+                  <h3 className="font-semibold text-lg">Email Us</h3>
+                  <p className="text-gray-600 font-medium">info@brandengine.com</p>
                 </div>
               </div>
               
@@ -41,8 +41,8 @@ const Contact = () => {
                   <Phone className="h-6 w-6 text-brand-accent-blue" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-lg">Call Us</h3>
-                  <p className="text-gray-600">+1 (555) 123-4567</p>
+                  <h3 className="font-semibold text-lg">Call Us</h3>
+                  <p className="text-gray-600 font-medium">+1 (555) 123-4567</p>
                 </div>
               </div>
               
@@ -51,8 +51,8 @@ const Contact = () => {
                   <Globe className="h-6 w-6 text-brand-accent-violet" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-lg">Visit Us</h3>
-                  <p className="text-gray-600">123 Innovation St, Digital City</p>
+                  <h3 className="font-semibold text-lg">Visit Us</h3>
+                  <p className="text-gray-600 font-medium">123 Innovation St, Digital City</p>
                 </div>
               </div>
             </div>
@@ -64,7 +64,7 @@ const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label htmlFor="name" className="block text-sm font-medium">
+                  <label htmlFor="name" className="block text-sm font-semibold">
                     Full Name
                   </label>
                   <Input 
@@ -77,7 +77,7 @@ const Contact = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <label htmlFor="email" className="block text-sm font-medium">
+                  <label htmlFor="email" className="block text-sm font-semibold">
                     Email Address
                   </label>
                   <Input 
@@ -92,7 +92,7 @@ const Contact = () => {
               </div>
               
               <div className="space-y-2">
-                <label htmlFor="company" className="block text-sm font-medium">
+                <label htmlFor="company" className="block text-sm font-semibold">
                   Company
                 </label>
                 <Input 
@@ -104,7 +104,7 @@ const Contact = () => {
               </div>
               
               <div className="space-y-2">
-                <label htmlFor="service" className="block text-sm font-medium">
+                <label htmlFor="service" className="block text-sm font-semibold">
                   Service You're Interested In
                 </label>
                 <select 
@@ -123,7 +123,7 @@ const Contact = () => {
               </div>
               
               <div className="space-y-2">
-                <label htmlFor="message" className="block text-sm font-medium">
+                <label htmlFor="message" className="block text-sm font-semibold">
                   Your Message
                 </label>
                 <Textarea 
@@ -138,7 +138,7 @@ const Contact = () => {
               
               <Button 
                 type="submit" 
-                className="w-full bg-brand-primary hover:bg-brand-primary/90 text-white"
+                className="w-full bg-brand-primary hover:bg-brand-primary/90 text-white font-semibold"
                 size="lg"
               >
                 Send Message

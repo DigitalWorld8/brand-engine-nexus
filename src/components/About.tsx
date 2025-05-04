@@ -52,15 +52,15 @@ const About = () => {
           </div>
           
           <div className="space-y-6">
-            <h2 className="text-3xl md:text-4xl font-bold">
+            <h2 className="text-3xl md:text-4xl font-black">
               About <span className="text-gradient">Brand Engine</span>
             </h2>
             
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 font-medium">
               Brand Engine is a full-service digital agency that empowers businesses through smart branding, marketing, and automation solutions. With a bold, bilingual approach and deep expertise across industries, we transform ideas into scalable digital experiences.
             </p>
             
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-600 font-book">
               Whether you're launching, growing, or streamlining, Brand Engine is your partner in achieving more through innovation, design, and digital strategy.
             </p>
             

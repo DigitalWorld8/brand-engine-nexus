@@ -140,6 +140,44 @@
   .staggered-fade-in > *:nth-child(4) { animation-delay: 0.4s; }
   .staggered-fade-in > *:nth-child(5) { animation-delay: 0.5s; }
   .staggered-fade-in > *:nth-child(6) { animation-delay: 0.6s; }
+  
+  /* Brand Specific Typography Classes */
+  .heading-black {
+    @apply font-heading font-black tracking-tight;
+  }
+  
+  .heading-bold {
+    @apply font-heading font-bold tracking-tight;
+  }
+  
+  .heading-semibold {
+    @apply font-heading font-semibold;
+  }
+  
+  .body-medium {
+    @apply font-sans font-medium;
+  }
+  
+  .body-book {
+    @apply font-sans font-book;
+  }
+  
+  /* Brand Specific Button Styles */
+  .btn-brand-primary {
+    @apply bg-brand-primary text-white hover:bg-brand-primary/90 transition-all;
+  }
+  
+  .btn-brand-secondary {
+    @apply bg-brand-secondary text-white hover:bg-brand-secondary/90 transition-all;
+  }
+  
+  .btn-brand-accent {
+    @apply bg-brand-accent-blue text-white hover:bg-brand-accent-blue/90 transition-all;
+  }
+  
+  .btn-brand-outline {
+    @apply border-2 border-brand-primary text-brand-primary hover:bg-brand-primary/10 transition-all;
+  }
 }
 
 @keyframes fade-in {

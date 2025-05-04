@@ -15,14 +15,14 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 md:pr-12">
             <div className="animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
                 Empower Your Brand with Digital <span className="text-gradient">Innovation</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 mb-8">
+              <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium">
                 Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-brand-primary hover:bg-brand-primary/90 text-white hover:scale-105 transition-transform">
+                <Button size="lg" className="btn-brand-primary hover:scale-105 transition-transform">
                   Explore Our Services
                 </Button>
                 <Button size="lg" variant="outline" className="border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-transform">
@@ -51,7 +51,7 @@ const Hero = () => {
                     ))}
                   </div>
                   <div className="mt-6 bg-brand-light-gray rounded-lg p-4 flex items-center">
-                    <div className="w-12 h-12 bg-brand-accent-violet rounded-full flex items-center justify-center text-white text-xl font-bold mr-4">
+                    <div className="w-12 h-12 bg-brand-primary rounded-full flex items-center justify-center text-white text-xl font-bold mr-4">
                       BE
                     </div>
                     <div>
