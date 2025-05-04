@@ -1,18 +1,32 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   NavigationMenuItem,
   NavigationMenuTrigger,
   NavigationMenuContent,
 } from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
 const ServicesMegaMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <NavigationMenuItem>
-      <NavigationMenuTrigger className="text-brand-text hover:text-brand-primary font-medium transition-colors">
+      <NavigationMenuTrigger 
+        className="text-brand-text hover:text-brand-primary font-medium transition-colors"
+        onClick={toggleMenu}
+        data-state={isOpen ? 'open' : 'closed'}
+      >
         Services
       </NavigationMenuTrigger>
-      <NavigationMenuContent>
+      <NavigationMenuContent className={cn(
+        "absolute left-1/2 transform -translate-x-1/2 transition-all duration-300",
+        isOpen ? "opacity-100" : "opacity-0"
+      )}>
         <div className="w-screen max-w-6xl bg-white rounded-xl shadow-xl p-6 grid grid-cols-3 gap-8 text-left">
           {/* Design & Branding */}
           <div className="service-category">
