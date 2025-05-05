@@ -4,14 +4,14 @@ import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   return (
-    <section className="relative pb-20 md:pb-32 overflow-hidden mt-16">
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden">
         <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl"></div>
         <div className="absolute -left-20 top-1/2 w-80 h-80 bg-brand-accent-violet/20 rounded-full blur-3xl"></div>
       </div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-24 md:pt-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 md:pr-12">
             <div className="animate-fade-in-up">

@@ -35,7 +35,7 @@ const Index = () => {
       {/* Top curved border - visible only when at the top */}
       <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
       
-      <div className={`content-container transition-all duration-700 ${isScrolled ? 'w-full rounded-none' : 'w-[90%] rounded-t-[3rem]'}`}>
+      <div className={`content-container ${isScrolled ? 'w-full rounded-none' : 'w-[90%] rounded-t-[3rem]'} transition-all duration-500`}>
         <div 
           style={{
             opacity: opacityFactor
