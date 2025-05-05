@@ -24,17 +24,11 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
 
   if (!visible) return null;
 
-  // Handle click to navigate to services section
+  // Handle click to navigate to the top of the page
   const handleBannerClick = () => {
     onBannerClick();
-    // Scroll to services section
-    const servicesSection = document.getElementById('services');
-    if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      // Fallback if services section isn't found
-      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
-    }
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (

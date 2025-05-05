@@ -27,17 +27,10 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   if (!isVisible) return null;
   
   const handleClick = () => {
-    // Find the services section and scroll to it
-    const servicesSection = document.getElementById('services');
-    if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: 'smooth' });
-      // Hide the indicator after clicking
-      setTimeout(() => setIsVisible(false), 800);
-    } else {
-      // Fallback if services section isn't found
-      window.scrollTo({top: window.innerHeight, behavior: 'smooth'});
-      setTimeout(() => setIsVisible(false), 800);
-    }
+    // Scroll to the top of the page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Hide the indicator after clicking
+    setTimeout(() => setIsVisible(false), 800);
   };
   
   return (
