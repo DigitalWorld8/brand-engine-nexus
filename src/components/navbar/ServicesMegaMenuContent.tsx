@@ -4,7 +4,7 @@ import { ChevronRight } from 'lucide-react';
 
 const ServicesMegaMenuContent = () => {
   return (
-    <div className="rounded-b-xl shadow-xl p-6 transform transition-transform duration-300 bg-[#e9f8fd]">
+    <div className="rounded-b-xl shadow-xl p-6 transform transition-transform duration-300 bg-[#e9f8fd] max-w-7xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Digital Services - Now First */}
         <div className="service-category">

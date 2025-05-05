@@ -130,3 +130,8 @@
   filter: blur(0);
   transition: all 0.5s ease-out;
 }
+
+/* Mega menu overlay */
+.menu-overlay {
+  @apply fixed inset-0 bg-black/50 z-40;
+}
