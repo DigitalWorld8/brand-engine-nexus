@@ -23,17 +23,17 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 md:pr-12">
             <div className="animate-fade-in-up">
-              {/* Headline - with improved text clarity */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300 text-brand-text">
+              {/* Headline - this will stay clear (key-content class added) */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300 initial-clear-content">
                 Empower Your Brand with Digital <span className="text-gradient relative inline-block">
                   Innovation
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet"></span>
                 </span>
               </h1>
               
-              {/* The rest of the content with improved clarity */}
+              {/* The rest of the content will be blurred initially (blur-on-load class) */}
               <div className={isScrolled ? '' : 'blur-on-load'}>
-                <p className="text-lg md:text-xl text-brand-text mb-8 font-medium animate-fade-in-up" style={{
+                <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{
                 animationDelay: '0.2s'
               }}>
                   Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
@@ -91,7 +91,7 @@ const Hero = () => {
         <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isScrolled ? '' : 'blur-on-load'}`}>
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-            {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => <div key={company} className="text-gray-600 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up cursor-pointer hover:text-brand-primary transition-colors duration-300" style={{
+            {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => <div key={company} className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up cursor-pointer hover:text-brand-primary transition-colors duration-300" style={{
             animationDelay: `${index * 150 + 600}ms`,
             animationFillMode: 'forwards'
           }}>
