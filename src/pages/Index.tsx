@@ -12,6 +12,7 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import CTABanner from '@/components/cta/CTABanner';
 import ScrollIndicator from '@/components/ScrollIndicator';
+import Banner from '@/components/Banner';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 
 const Index = () => {
@@ -21,6 +22,7 @@ const Index = () => {
     isScrolled
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
+  const [showBanner, setShowBanner] = useState(true);
   
   useEffect(() => {
     setMounted(true);
@@ -30,8 +32,20 @@ const Index = () => {
   const scaleFactor = isInitialView ? 0.9 : 1;
   const opacityFactor = mounted ? 1 : 0;
   
+  const handleBannerClick = () => {
+    setShowBanner(false);
+    // Scroll to the hero section
+    window.scrollTo({
+      top: window.innerHeight * 0.1, // Scroll slightly down to show the hero
+      behavior: 'smooth'
+    });
+  };
+  
   return (
     <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
+      {/* Show Banner if enabled */}
+      {showBanner && <Banner onBannerClick={handleBannerClick} />}
+      
       {/* Top curved border - visible only when at the top */}
       <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
       
@@ -78,8 +92,8 @@ const Index = () => {
             <Footer />
           </div>
           
-          {/* Scroll indicator that shows only when at the top of the page */}
-          <ScrollIndicator />
+          {/* Only show scroll indicator when banner is hidden and at the top of the page */}
+          {!showBanner && <ScrollIndicator />}
         </div>
       </div>
     </div>
