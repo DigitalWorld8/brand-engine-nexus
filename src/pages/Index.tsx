@@ -27,50 +27,48 @@ const Index = () => {
   const opacityFactor = mounted ? 1 : 0;
   
   return (
-    <div className="homepage-border-container">
+    <div 
+      className="min-h-screen transition-all duration-700"
+      style={{ opacity: opacityFactor }}
+    >
+      <Navbar />
       <div 
-        className="homepage-border min-h-screen transition-all duration-700"
-        style={{ opacity: opacityFactor }}
+        className="transform-gpu transition-all duration-700" 
+        style={{ 
+          transform: `scale(${scaleFactor})`,
+          transformOrigin: 'center top',
+          marginBottom: isInitialView ? '-5vh' : '0'
+        }}
       >
-        <Navbar />
-        <div 
-          className="transform-gpu transition-all duration-700" 
-          style={{ 
-            transform: `scale(${scaleFactor})`,
-            transformOrigin: 'center top',
-            marginBottom: isInitialView ? '-5vh' : '0'
-          }}
-        >
-          <Hero />
-          <Services />
-          <CTABanner 
-            variant="gradient"
-            title="Ready for Innovative Solutions?"
-            subtitle="Discover how our cutting-edge approaches can transform your business operations and drive growth in today's competitive landscape."
-            tags={["Strategy", "Innovation", "Results", "Support"]}
-            primaryButtonText="Schedule a Consultation"
-            secondaryButtonText="Explore Services"
-          />
-          <Industries />
-          <About />
-          <Testimonials />
-          <FAQ />
-          <CTABanner 
-            variant="purple-dots"
-            title="Let's Build Something Amazing"
-            subtitle="Join the ranks of our successful clients who have experienced remarkable growth through our partnership and expertise."
-            tags={["Partnership", "Excellence", "Growth", "Success"]}
-            primaryButtonText="Start Your Journey"
-            secondaryButtonText="View Case Studies"
-          />
-          <Portfolio />
-          <Contact />
-          <Footer />
-        </div>
-        
-        {/* Scroll indicator that shows only when at the top of the page */}
-        <ScrollIndicator />
+        <Hero />
+        <Services />
+        <CTABanner 
+          variant="gradient"
+          title="Ready for Innovative Solutions?"
+          subtitle="Discover how our cutting-edge approaches can transform your business operations and drive growth in today's competitive landscape."
+          tags={["Strategy", "Innovation", "Results", "Support"]}
+          primaryButtonText="Schedule a Consultation"
+          secondaryButtonText="Explore Services"
+        />
+        <Industries />
+        <About />
+        <Testimonials />
+        <FAQ />
+        <CTABanner 
+          variant="purple-dots"
+          title="Let's Build Something Amazing"
+          subtitle="Join the ranks of our successful clients who have experienced remarkable growth through our partnership and expertise."
+          tags={["Partnership", "Excellence", "Growth", "Success"]}
+          primaryButtonText="Start Your Journey"
+          secondaryButtonText="View Case Studies"
+        />
+        <Portfolio />
+        <Contact />
+        <Footer />
       </div>
+      
+      {/* Scroll indicator that shows only when at the top of the page */}
+      <ScrollIndicator />
     </div>
   );
 };
