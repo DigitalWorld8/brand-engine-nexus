@@ -21,7 +21,10 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
 
   return (
     <div className={cn(
-      "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative transition-all duration-500",
+      "transition-all duration-500",
+      isScrolled 
+        ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" 
+        : "w-full px-4 sm:px-6 lg:px-8 relative",
       isInitialView ? "scale-95" : "scale-100"
     )}>
       <div className="flex justify-between items-center">

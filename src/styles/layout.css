@@ -7,7 +7,7 @@
   }
   
   .content-container {
-    @apply w-[90%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden;
+    @apply w-[90%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden transition-all duration-500;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
   }
   
