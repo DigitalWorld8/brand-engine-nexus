@@ -16,6 +16,11 @@ export function useNavbarScroll() {
         setIsScrolled(true);
         setIsInitialView(false);
         setHasScrolled(true);
+      } else {
+        setIsScrolled(false);
+        setIsInitialView(true);
+        // Reset buffer when at the top
+        setInitialScrollBuffer(0);
       }
     };
     
@@ -30,6 +35,13 @@ export function useNavbarScroll() {
     const handleScroll = () => {
       // Calculate how much the user has scrolled
       const currentScrollY = window.scrollY;
+      
+      // Check if user has scrolled back to top
+      if (currentScrollY <= 10) {
+        setIsScrolled(false);
+        setIsInitialView(true);
+        setInitialScrollBuffer(0);
+      }
       
       // Implement scroll resistance for initial scrolling
       if (currentScrollY < 100) {

@@ -1,25 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 
 const Hero = () => {
   const [hovered, setHovered] = useState<string | null>(null);
-  const [isScrolled, setIsScrolled] = useState(false);
-  
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setIsScrolled(true);
-      }
-    };
-    
-    // Check initial scroll position
-    handleScroll();
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+  const { isScrolled } = useNavbarScroll();
   
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
@@ -43,7 +29,7 @@ const Hero = () => {
               </h1>
               
               {/* The rest of the content will be blurred initially (blur-on-load class) */}
-              <div className="blur-on-load">
+              <div className={isScrolled ? '' : 'blur-on-load'}>
                 <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{animationDelay: '0.2s'}}>
                   Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
                 </p>
@@ -55,7 +41,7 @@ const Hero = () => {
                   
                   <Button 
                     size="lg" 
-                    className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'pointer-events-none opacity-70' : ''}`}
+                    className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`}
                     onMouseEnter={() => isScrolled && setHovered('primary')}
                     onMouseLeave={() => setHovered(null)}
                     disabled={!isScrolled}
@@ -68,7 +54,7 @@ const Hero = () => {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'pointer-events-none opacity-70' : ''}`}
+                    className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`}
                     onMouseEnter={() => isScrolled && setHovered('secondary')}
                     onMouseLeave={() => setHovered(null)}
                     disabled={!isScrolled}
@@ -83,7 +69,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className="relative blur-on-load">
+          <div className={`relative ${isScrolled ? '' : 'blur-on-load'}`}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl animate-float">
               <div className="bg-gradient-to-tr from-brand-primary to-brand-accent-blue p-1">
                 <div className="bg-white rounded-xl p-6 md:p-8">
@@ -120,7 +106,7 @@ const Hero = () => {
           </div>
         </div>
         
-        <div className="mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left blur-on-load">
+        <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isScrolled ? '' : 'blur-on-load'}`}>
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => (
