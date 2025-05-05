@@ -64,3 +64,27 @@
   animation: subtle-bounce 2s ease-in-out infinite;
 }
 
+/* Blur effect classes */
+.blur-effect {
+  @apply relative transition-all duration-500;
+}
+
+/* Key content stands out from blurred background */
+.key-content {
+  @apply relative z-20;
+  filter: blur(0px);
+  transition: all 0.5s ease-out;
+}
+
+/* Content that should be blurred initially */
+.blur-content {
+  @apply relative transition-all duration-500;
+  filter: blur(4px);
+  opacity: 0.7;
+}
+
+/* Glass morphism effect for overlays */
+.glass-overlay {
+  @apply bg-white/20 backdrop-blur-md;
+  transition: all 0.5s ease;
+}

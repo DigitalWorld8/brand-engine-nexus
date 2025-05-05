@@ -63,41 +63,61 @@ const Index = () => {
         >
           <Navbar />
           <div 
-            className="transform-gpu transition-all duration-700" 
+            className={`transform-gpu transition-all duration-700 relative ${
+              isInitialView ? 'blur-effect' : ''
+            }`}
             style={{
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
               marginBottom: isInitialView ? '-5vh' : '0'
             }}
           >
-            <Hero />
-            <Services />
-            <CTABanner 
-              variant="gradient" 
-              title="Ready for Innovative Solutions?" 
-              subtitle="Discover how our cutting-edge approaches can transform your business operations and drive growth in today's competitive landscape." 
-              tags={["Strategy", "Innovation", "Results", "Support"]} 
-              primaryButtonText="Schedule a Consultation" 
-              secondaryButtonText="Explore Services" 
-            />
-            <Industries />
-            <About />
-            <Testimonials />
-            <FAQ />
-            <CTABanner 
-              variant="purple-dots" 
-              title="Let's Build Something Amazing" 
-              subtitle="Join the ranks of our successful clients who have experienced remarkable growth through our partnership and expertise." 
-              tags={["Partnership", "Excellence", "Growth", "Success"]} 
-              primaryButtonText="Start Your Journey" 
-              secondaryButtonText="View Case Studies" 
-            />
-            <Portfolio />
-            <Contact />
-            <Footer />
+            {/* Add overlay div that controls the blur opacity based on scroll */}
+            {isInitialView && (
+              <div 
+                className="absolute inset-0 z-10 pointer-events-none"
+                style={{
+                  backgroundColor: `rgba(255, 255, 255, ${0.2 + (initialScrollBuffer / 400)})`,
+                  backdropFilter: `blur(${8 - initialScrollBuffer / 20}px)`,
+                }}
+              />
+            )}
+            
+            {/* Only key elements are clearly visible initially */}
+            <div className={`relative z-20 ${isInitialView ? 'key-content' : ''}`}>
+              <Hero />
+            </div>
+            
+            {/* The rest of the content that should be more blurred initially */}
+            <div className={isInitialView ? 'blur-content' : ''}>
+              <Services />
+              <CTABanner 
+                variant="gradient" 
+                title="Ready for Innovative Solutions?" 
+                subtitle="Discover how our cutting-edge approaches can transform your business operations and drive growth in today's competitive landscape." 
+                tags={["Strategy", "Innovation", "Results", "Support"]} 
+                primaryButtonText="Schedule a Consultation" 
+                secondaryButtonText="Explore Services" 
+              />
+              <Industries />
+              <About />
+              <Testimonials />
+              <FAQ />
+              <CTABanner 
+                variant="purple-dots" 
+                title="Let's Build Something Amazing" 
+                subtitle="Join the ranks of our successful clients who have experienced remarkable growth through our partnership and expertise." 
+                tags={["Partnership", "Excellence", "Growth", "Success"]} 
+                primaryButtonText="Start Your Journey" 
+                secondaryButtonText="View Case Studies" 
+              />
+              <Portfolio />
+              <Contact />
+              <Footer />
+            </div>
           </div>
           
-          {/* Show scroll indicator when not at the top of the page */}
+          {/* Show scroll indicator */}
           <ScrollIndicator />
         </div>
       </div>
