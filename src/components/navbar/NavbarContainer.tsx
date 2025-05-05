@@ -21,7 +21,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
 
   return (
     <div className={cn(
-      "transition-all duration-500",
+      "transition-all duration-700 ease-in-out",
       isScrolled 
         ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" 
         : "w-full px-4 sm:px-6 lg:px-8 relative",
