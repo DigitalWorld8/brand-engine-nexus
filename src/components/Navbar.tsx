@@ -9,9 +9,7 @@ import { ChevronRight } from 'lucide-react';
 
 const Navbar = () => {
   // Now only destructure isScrolled since showFlags is no longer returned
-  const {
-    isScrolled
-  } = useNavbarScroll();
+  const { isScrolled } = useNavbarScroll();
   const [servicesOpen, setServicesOpen] = useState(false);
 
   // Function to handle services menu toggle
@@ -32,7 +30,7 @@ const Navbar = () => {
           <RightNavigation onServicesToggle={handleServicesToggle} />
         </div>
         
-        {/* Removed passing showFlags to NavbarFlags component */}
+        {/* NavbarFlags component without showFlags prop */}
         <NavbarFlags />
 
         {/* Services Mega Menu Overlay - Will slide under logo when active */}
