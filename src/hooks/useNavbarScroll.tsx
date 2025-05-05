@@ -5,6 +5,7 @@ export function useNavbarScroll() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isInitialView, setIsInitialView] = useState(true);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     // For a smoother initial load experience
@@ -12,6 +13,7 @@ export function useNavbarScroll() {
       if (window.scrollY > 20) {
         setIsScrolled(true);
         setIsInitialView(false);
+        setHasScrolled(true);
       }
     };
     
@@ -25,6 +27,11 @@ export function useNavbarScroll() {
     
     const handleScroll = () => {
       lastScrollY = window.scrollY;
+      
+      // Set hasScrolled to true when user scrolls
+      if (!hasScrolled && lastScrollY > 20) {
+        setHasScrolled(true);
+      }
       
       if (!ticking) {
         // Use requestAnimationFrame for better performance
@@ -71,7 +78,7 @@ export function useNavbarScroll() {
       if (scrollTimeoutId) window.clearTimeout(scrollTimeoutId);
       if (transitionTimeoutId) window.clearTimeout(transitionTimeoutId);
     };
-  }, [isScrolled]);
+  }, [isScrolled, hasScrolled]);
 
-  return { isScrolled, scrollProgress, isInitialView };
+  return { isScrolled, scrollProgress, isInitialView, hasScrolled };
 }

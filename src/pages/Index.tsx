@@ -19,7 +19,8 @@ const Index = () => {
   const {
     isInitialView,
     scrollProgress,
-    isScrolled
+    isScrolled,
+    hasScrolled
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
@@ -44,7 +45,7 @@ const Index = () => {
   return (
     <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
       {/* Show Banner if enabled */}
-      {showBanner && <Banner onBannerClick={handleBannerClick} />}
+      <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       
       {/* Top curved border - visible only when at the top */}
       <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
