@@ -9,9 +9,9 @@ const Hero = () => {
     isScrolled
   } = useNavbarScroll();
   
-  return <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden mx-0 my-[55px] px-0 py-[240px] hero-tear-shape">
+  return <section className={`relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden mx-0 my-[55px] px-0 py-[240px] ${!isScrolled ? 'hero-tear-shape' : ''}`}>
       {/* Background elements with enhanced animations */}
-      <div className="absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden hero-tear-shape">
+      <div className={`absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden ${!isScrolled ? 'hero-tear-shape' : ''}`}>
         <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl animate-pulse opacity-70"></div>
         <div className="absolute -left-20 top-1/2 w-80 h-80 bg-brand-accent-violet/20 rounded-full blur-3xl animate-float"></div>
         <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-brand-accent-yellow/10 rounded-full blur-2xl animate-float" style={{
