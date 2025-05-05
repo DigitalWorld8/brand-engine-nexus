@@ -9,9 +9,10 @@ import ServicesMegaOverlay from './ServicesMegaOverlay';
 
 interface NavbarContainerProps {
   isScrolled: boolean;
+  isInitialView?: boolean;
 }
 
-const NavbarContainer = ({ isScrolled }: NavbarContainerProps) => {
+const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerProps) => {
   const [servicesOpen, setServicesOpen] = useState(false);
 
   const handleServicesToggle = (isOpen: boolean) => {
@@ -19,7 +20,10 @@ const NavbarContainer = ({ isScrolled }: NavbarContainerProps) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div className={cn(
+      "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative transition-all duration-500",
+      isInitialView ? "scale-95" : "scale-100"
+    )}>
       <div className="flex justify-between items-center">
         {/* Left Side Navigation */}
         <LeftNavigation />
