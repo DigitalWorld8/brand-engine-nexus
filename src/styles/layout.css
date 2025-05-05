@@ -30,10 +30,6 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 /* Add support for hardware acceleration */
 .transform-gpu {
   transform: translate3d(0, 0, 0);
