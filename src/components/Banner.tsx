@@ -24,11 +24,17 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
 
   if (!visible) return null;
 
-  // Handle click to navigate to the top of the page
+  // Handle click to navigate to the Hero section
   const handleBannerClick = () => {
     onBannerClick();
-    // Scroll to the top of the page
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Find and scroll to the Hero section
+    const heroSection = document.querySelector('section.hero-section') || document.querySelector('section');
+    if (heroSection) {
+      heroSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Fallback if Hero section isn't found
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (

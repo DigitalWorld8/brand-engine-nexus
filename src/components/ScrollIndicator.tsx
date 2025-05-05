@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { ArrowDown } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 interface ScrollIndicatorProps {
   className?: string;
@@ -27,8 +27,14 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   if (!isVisible) return null;
   
   const handleClick = () => {
-    // Scroll to the top of the page
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Find and scroll to the Hero section
+    const heroSection = document.querySelector('section.hero-section') || document.querySelector('section');
+    if (heroSection) {
+      heroSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Fallback to scrolling to the content
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     // Hide the indicator after clicking
     setTimeout(() => setIsVisible(false), 800);
   };
@@ -73,11 +79,11 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           
           {/* Button with animation */}
           <div className="relative bg-white p-3 w-14 h-14 rounded-full flex items-center justify-center shadow-lg border border-brand-light-gray animate-subtle-bounce">
-            <ArrowDown 
+            <ArrowUp 
               className={cn(
                 "h-6 w-6 text-brand-primary",
                 "transition-all duration-800 ease-ios",
-                isHovered ? "translate-y-[2px]" : ""
+                isHovered ? "translate-y-[-2px]" : ""
               )} 
               strokeWidth={2.5} 
             />
