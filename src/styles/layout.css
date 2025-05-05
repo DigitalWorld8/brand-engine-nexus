@@ -1,0 +1,22 @@
+
+@layer components {
+  /* Page wrapper and content container */
+  .page-wrapper {
+    @apply min-h-screen flex flex-col items-center w-full overflow-hidden;
+    background-color: #1b1464; /* This is the brand-primary color */
+  }
+  
+  .content-container {
+    @apply w-[90%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+  }
+  
+  .top-curved-border {
+    @apply w-full h-16 absolute top-0 left-0;
+    background-color: #1b1464; /* This is the brand-primary color */
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}

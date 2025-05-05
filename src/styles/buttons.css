@@ -1,0 +1,19 @@
+
+@layer components {
+  /* Brand Specific Button Styles */
+  .btn-brand-primary {
+    @apply bg-brand-primary text-white hover:bg-brand-primary/90 transition-all;
+  }
+  
+  .btn-brand-secondary {
+    @apply bg-brand-secondary text-white hover:bg-brand-secondary/90 transition-all;
+  }
+  
+  .btn-brand-accent {
+    @apply bg-brand-accent-blue text-white hover:bg-brand-accent-blue/90 transition-all;
+  }
+  
+  .btn-brand-outline {
+    @apply border-2 border-brand-primary text-brand-primary hover:bg-brand-primary/10 transition-all;
+  }
+}

@@ -1,0 +1,23 @@
+
+@layer components {
+  /* Brand Specific Typography Classes */
+  .heading-black {
+    @apply font-heading font-black tracking-tight;
+  }
+  
+  .heading-bold {
+    @apply font-heading font-bold tracking-tight;
+  }
+  
+  .heading-semibold {
+    @apply font-heading font-semibold;
+  }
+  
+  .body-medium {
+    @apply font-sans font-medium;
+  }
+  
+  .body-book {
+    @apply font-sans font-book;
+  }
+}

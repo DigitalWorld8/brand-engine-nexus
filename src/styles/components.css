@@ -1,0 +1,38 @@
+
+@layer components {
+  .gradient-bg {
+    @apply bg-gradient-to-tr from-brand-primary via-brand-secondary to-brand-accent-violet bg-animate-gradient-x;
+  }
+
+  .mega-menu-item {
+    @apply flex flex-col gap-1 p-3 rounded-lg transition-colors hover:bg-brand-light-gray;
+  }
+
+  .service-card {
+    @apply p-6 rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet;
+  }
+
+  .section {
+    @apply py-20 px-4 md:px-8 lg:px-12;
+  }
+  
+  .animated-border-button {
+    @apply relative inline-flex items-center px-8 py-3 rounded-lg overflow-hidden;
+  }
+  
+  .animated-border-button::after {
+    @apply content-[''] absolute bottom-0 left-0 h-1 w-0 bg-brand-accent-blue transition-all duration-300;
+  }
+  
+  .animated-border-button:hover::after {
+    @apply w-full;
+  }
+  
+  .card-hover-effect {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+}
