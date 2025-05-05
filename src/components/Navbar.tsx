@@ -10,10 +10,10 @@ const Navbar = () => {
   return (
     <header className={cn(
       'fixed left-0 right-0 z-50 will-change-transform',
-      'transition-all duration-800 ease-in-out', 
+      'transition-all duration-1000 ease-smooth', 
       isScrolled 
         ? 'bg-white/90 backdrop-blur-md shadow-md py-3 top-0 w-full transform-gpu' 
-        : 'bg-transparent py-5 top-24 w-full transform-gpu'
+        : 'bg-transparent py-5 top-28 w-full transform-gpu'
     )}>
       <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
     </header>

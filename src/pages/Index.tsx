@@ -27,36 +27,38 @@ const Index = () => {
   const [showBanner, setShowBanner] = useState(false);
   
   useEffect(() => {
-    setMounted(true);
-    
-    // Add class to body when mounted to control blur effects
-    if (mounted) {
+    // Allow a small delay for page elements to initialize before starting animations
+    const timer = setTimeout(() => {
+      setMounted(true);
+      
+      // Add class to body when mounted to control blur effects
       document.body.classList.add('page-loaded');
-    }
+    }, 100);
     
     return () => {
+      clearTimeout(timer);
       document.body.classList.remove('page-loaded');
     };
-  }, [mounted]);
+  }, []);
 
-  // Scale factor that increases as user scrolls (85% to 100%)
-  // Create a more noticeable visual response to initial scroll attempts
+  // More gradual scale factor that increases as user scrolls (88% to 100%)
+  // Create a more noticeable but smooth visual response to initial scroll attempts
   const scaleFactor = isInitialView 
-    ? Math.max(0.85, 0.85 + (initialScrollBuffer / 1000)) 
+    ? Math.max(0.88, 0.88 + (initialScrollBuffer / 800)) 
     : 1;
   const opacityFactor = mounted ? 1 : 0;
   
   const handleBannerClick = () => {
     setShowBanner(false);
-    // Scroll to the hero section
+    // Scroll to the hero section with improved smoothness
     window.scrollTo({
-      top: window.innerHeight * 0.05,
+      top: window.innerHeight * 0.08,
       behavior: 'smooth'
     });
   };
   
   return (
-    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
+    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-800 ease-smooth`}>
       {/* Left and right purple side edges */}
       <div className="side-edge side-edge-left"></div>
       <div className="side-edge side-edge-right"></div>
@@ -65,35 +67,38 @@ const Index = () => {
       <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       
       {/* Top curved border - visible only when at the top */}
-      <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
+      <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-800 ease-smooth`}></div>
       
-      <div className={`content-container ${isScrolled ? 'w-full rounded-none' : ''} transition-all duration-500 z-10 relative`}>
+      <div className={`content-container ${isScrolled ? 'w-full rounded-none' : ''} transition-all duration-800 ease-smooth z-10 relative`}>
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isInitialView ? '80px' : '0' // Increased margin-top to move content down further initially
+            transition: 'opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1), margin-top 1200ms cubic-bezier(0.4, 0, 0.2, 1)',
+            marginTop: isInitialView ? '90px' : '0' // Increased margin-top to move content down further initially
           }} 
-          className="min-h-screen transition-all duration-700"
+          className="min-h-screen"
         >
           <Navbar />
           <div 
-            className={`transform-gpu transition-all duration-700 relative ${
+            className={`transform-gpu transition-all duration-1000 ease-smooth relative ${
               isInitialView ? 'blur-effect' : ''
             }`}
             style={{
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
-              marginBottom: isInitialView ? '-8vh' : '0', // Increased negative margin for longer scroll
-              marginTop: isInitialView ? '20vh' : '0', // Significantly increased top margin to move content down further initially
+              transition: 'transform 1200ms cubic-bezier(0.16, 1, 0.3, 1), margin-bottom 1200ms cubic-bezier(0.16, 1, 0.3, 1), margin-top 1200ms cubic-bezier(0.16, 1, 0.3, 1)',
+              marginBottom: isInitialView ? '-10vh' : '0', // Increased negative margin for longer scroll
+              marginTop: isInitialView ? '22vh' : '0', // Significantly increased top margin to move content down further initially
             }}
           >
-            {/* Add overlay div that controls the blur opacity based on scroll */}
+            {/* Add overlay div that controls the blur opacity based on scroll with improved transition */}
             {isInitialView && (
               <div 
-                className="absolute inset-0 z-10 pointer-events-none"
+                className="absolute inset-0 z-10 pointer-events-none transition-all duration-800 ease-smooth"
                 style={{
-                  backgroundColor: `rgba(255, 255, 255, ${0.2 + (initialScrollBuffer / 400)})`,
-                  backdropFilter: `blur(${8 - initialScrollBuffer / 20}px)`,
+                  backgroundColor: `rgba(255, 255, 255, ${0.15 + (initialScrollBuffer / 500)})`,
+                  backdropFilter: `blur(${9 - initialScrollBuffer / 15}px)`,
+                  transition: 'backdrop-filter 800ms ease-in-out, background-color 800ms ease-in-out',
                 }}
               />
             )}
