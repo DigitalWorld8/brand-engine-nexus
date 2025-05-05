@@ -1,32 +1,55 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
+  const [hovered, setHovered] = useState<string | null>(null);
+  
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
-      {/* Background elements */}
+      {/* Background elements with enhanced animations */}
       <div className="absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden">
-        <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl"></div>
-        <div className="absolute -left-20 top-1/2 w-80 h-80 bg-brand-accent-violet/20 rounded-full blur-3xl"></div>
+        <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl animate-pulse opacity-70"></div>
+        <div className="absolute -left-20 top-1/2 w-80 h-80 bg-brand-accent-violet/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-brand-accent-yellow/10 rounded-full blur-2xl animate-float" style={{animationDelay: '2s'}}></div>
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 md:pr-12">
             <div className="animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
-                Empower Your Brand with Digital <span className="text-gradient">Innovation</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300">
+                Empower Your Brand with Digital <span className="text-gradient relative inline-block">
+                  Innovation
+                  <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet"></span>
+                </span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium">
+              <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{animationDelay: '0.2s'}}>
                 Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="btn-brand-primary hover:scale-105 transition-transform">
-                  Explore Our Services
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+                <Button 
+                  size="lg" 
+                  className="btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group"
+                  onMouseEnter={() => setHovered('primary')}
+                  onMouseLeave={() => setHovered(null)}
+                >
+                  <span className="relative z-10">Explore Our Services</span>
+                  {hovered === 'primary' && (
+                    <span className="absolute inset-0 bg-brand-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  )}
                 </Button>
-                <Button size="lg" variant="outline" className="border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-transform">
-                  View Our Work
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all"
+                  onMouseEnter={() => setHovered('secondary')}
+                  onMouseLeave={() => setHovered(null)}
+                >
+                  <span className="relative z-10">View Our Work</span>
+                  {hovered === 'secondary' && (
+                    <span className="absolute bottom-0 left-0 h-[2px] bg-brand-accent-blue w-0 group-hover:w-full transition-all duration-300"></span>
+                  )}
                 </Button>
               </div>
             </div>
@@ -40,9 +63,10 @@ const Hero = () => {
                     {[1, 2, 3, 4, 5, 6].map((item) => (
                       <div 
                         key={item}
-                        className="aspect-square rounded-lg flex items-center justify-center bg-gradient-to-br from-brand-light-gray to-white shadow-md hover:shadow-lg transition-all hover:-translate-y-1"
+                        className="aspect-square rounded-lg flex items-center justify-center bg-gradient-to-br from-brand-light-gray to-white shadow-md hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer"
+                        style={{ animationDelay: `${item * 100}ms` }}
                       >
-                        <div className={`w-12 h-12 rounded-full ${
+                        <div className={`w-12 h-12 rounded-full transition-all duration-300 hover:scale-110 ${
                           item % 3 === 0 ? 'bg-brand-primary' : 
                           item % 3 === 1 ? 'bg-brand-accent-blue' : 
                           'bg-brand-accent-violet'
@@ -51,7 +75,7 @@ const Hero = () => {
                     ))}
                   </div>
                   <div className="mt-6 bg-brand-light-gray rounded-lg p-4 flex items-center">
-                    <div className="w-12 h-12 bg-brand-primary rounded-full flex items-center justify-center text-white text-xl font-bold mr-4">
+                    <div className="w-12 h-12 bg-brand-primary rounded-full flex items-center justify-center text-white text-xl font-bold mr-4 animate-pulse">
                       BE
                     </div>
                     <div>
@@ -74,8 +98,8 @@ const Hero = () => {
             {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => (
               <div 
                 key={company} 
-                className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up" 
-                style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'forwards' }}
+                className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up cursor-pointer hover:text-brand-primary transition-colors duration-300" 
+                style={{ animationDelay: `${index * 150 + 600}ms`, animationFillMode: 'forwards' }}
               >
                 {company}
               </div>

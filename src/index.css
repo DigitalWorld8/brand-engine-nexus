@@ -193,6 +193,33 @@
     @apply w-full h-16 absolute top-0 left-0;
     background-color: #1b1464; /* This is the brand-primary color */
   }
+  
+  /* Enhanced animations for scroll indicator */
+  @keyframes pulse-down {
+    0%, 100% {
+      transform: translateY(-100%);
+    }
+    50% {
+      transform: translateY(100%);
+    }
+  }
+  
+  .animate-pulse-down {
+    animation: pulse-down 2s ease-in-out infinite;
+  }
+  
+  @keyframes subtle-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  .animate-subtle-bounce {
+    animation: subtle-bounce 2s ease-in-out infinite;
+  }
 }
 
 @keyframes fade-in {
