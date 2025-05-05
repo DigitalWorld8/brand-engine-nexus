@@ -20,7 +20,8 @@ const Index = () => {
     isInitialView,
     scrollProgress,
     isScrolled,
-    hasScrolled
+    hasScrolled,
+    initialScrollBuffer
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
@@ -30,7 +31,10 @@ const Index = () => {
   }, []);
 
   // Scale factor that increases as user scrolls (90% to 100%)
-  const scaleFactor = isInitialView ? 0.9 : 1;
+  // Create a more noticeable visual response to initial scroll attempts
+  const scaleFactor = isInitialView 
+    ? Math.max(0.9, 0.9 + (initialScrollBuffer / 1000)) 
+    : 1;
   const opacityFactor = mounted ? 1 : 0;
   
   const handleBannerClick = () => {

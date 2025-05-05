@@ -12,14 +12,15 @@ interface BannerProps {
 
 const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { hasScrolled } = useNavbarScroll();
+  const { hasScrolled, initialScrollBuffer } = useNavbarScroll();
   
-  // Hide banner when user has scrolled
+  // Enhanced banner interaction - respond to scroll attempts
   useEffect(() => {
-    if (hasScrolled && visible) {
+    // Only hide banner when user has scrolled past threshold
+    if (hasScrolled && visible && initialScrollBuffer > 50) {
       onBannerClick();
     }
-  }, [hasScrolled, visible, onBannerClick]);
+  }, [hasScrolled, visible, onBannerClick, initialScrollBuffer]);
 
   if (!visible) return null;
 
