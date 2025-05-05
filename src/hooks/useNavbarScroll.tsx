@@ -62,11 +62,17 @@ export function useNavbarScroll() {
       // Calculate how much the user has scrolled
       const currentScrollY = window.scrollY;
       
-      // First scroll behavior - automatically go to top
-      if (!hasCompletedFirstScroll && currentScrollY > 10) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+      // First scroll behavior - handle the initial scroll specially
+      if (!hasCompletedFirstScroll && currentScrollY > 20) {
+        // Instead of auto-scrolling to top, let the first scroll complete naturally
+        // This allows the user to see the initial scroll animation
+        // Then mark first scroll as completed for future scrolls
         setHasCompletedFirstScroll(true);
-        return; // Exit early to prevent other scroll logic
+        
+        // On first scroll, trigger visual changes but don't interfere with scroll
+        setIsScrolled(true);
+        setIsInitialView(false);
+        return; // Exit early after handling first scroll
       }
       
       // Check if user has scrolled back to top with increased buffer zone

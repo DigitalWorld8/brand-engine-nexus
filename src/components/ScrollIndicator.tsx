@@ -27,8 +27,8 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   if (!isVisible) return null;
   
   const handleClick = () => {
-    // Scroll to the top of the page (instead of window.innerHeight)
-    window.scrollTo({top: 0, behavior: 'smooth'});
+    // Scroll down to start exploring content (window.innerHeight provides a full viewport scroll)
+    window.scrollTo({top: window.innerHeight, behavior: 'smooth'});
     // Hide the indicator after clicking
     setTimeout(() => setIsVisible(false), 800);
   };

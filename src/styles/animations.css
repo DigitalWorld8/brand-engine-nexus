@@ -1,5 +1,4 @@
 
-
 @layer components {
   .staggered-fade-in > * {
     @apply opacity-0;
@@ -181,3 +180,34 @@
 .scale-transition:hover {
   transform: scale(1.05);
 }
+
+/* Enhanced expansion effect for slider feeling */
+@keyframes expansion-grow {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-expansion-grow {
+  animation: expansion-grow 1.4s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Smoother page transitions */
+.page-transition {
+  transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Add a slight delay effect for staggered animations */
+.delay-50 { animation-delay: 50ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }

@@ -21,7 +21,8 @@ const Index = () => {
     scrollProgress,
     isScrolled,
     hasScrolled,
-    initialScrollBuffer
+    initialScrollBuffer,
+    hasCompletedFirstScroll
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
@@ -50,9 +51,9 @@ const Index = () => {
   
   const handleBannerClick = () => {
     setShowBanner(false);
-    // Scroll to the hero section with improved smoothness
+    // Scroll to the content section with smooth behavior
     window.scrollTo({
-      top: window.innerHeight * 0.08,
+      top: window.innerHeight,
       behavior: 'smooth'
     });
   };

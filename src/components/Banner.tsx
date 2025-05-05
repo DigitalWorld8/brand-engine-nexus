@@ -24,11 +24,11 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
 
   if (!visible) return null;
 
-  // Handle click to navigate to top
+  // Handle click to navigate to content
   const handleBannerClick = () => {
     onBannerClick();
-    // Scroll to top with smooth behavior
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll down to start exploring content
+    window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
   };
 
   return (
