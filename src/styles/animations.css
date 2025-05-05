@@ -13,7 +13,7 @@
   .staggered-fade-in > *:nth-child(6) { animation-delay: 0.6s; }
 }
 
-/* Add some interactive scroll reveal animations */
+/* Interactive scroll reveal animations */
 .reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -25,16 +25,7 @@
   transform: translateY(0);
 }
 
-/* Add float animation for decorative elements */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-}
-
+/* Animation keyframes */
 @keyframes fade-in {
   from {
     opacity: 0;
@@ -46,11 +37,21 @@
   }
 }
 
+/* Float animation for decorative elements */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
 .animate-float {
   animation: float 8s ease-in-out infinite;
 }
 
-/* Add subtle bounce animation for the down arrow */
+/* Subtle bounce animation for the down arrow */
 @keyframes subtle-bounce {
   0%, 100% {
     transform: translateY(0);
@@ -64,7 +65,7 @@
   animation: subtle-bounce 2s ease-in-out infinite;
 }
 
-/* Add pulse-down animation for the line */
+/* Pulse-down animation for the line */
 @keyframes pulse-down {
   0% {
     transform: translateY(-100%);

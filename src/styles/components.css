@@ -35,4 +35,29 @@
   .card-hover-effect {
     @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
+  
+  /* Transform and hardware acceleration utilities */
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Extended duration classes */
+  .duration-800 {
+    transition-duration: 800ms;
+  }
+
+  .duration-900 {
+    transition-duration: 900ms;
+  }
+
+  .duration-1000 {
+    transition-duration: 1000ms;
+  }
+
+  /* Transition easing functions */
+  .ease-smooth {
+    transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
 }

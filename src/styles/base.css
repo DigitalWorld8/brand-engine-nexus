@@ -91,3 +91,8 @@
     @apply font-heading font-bold;
   }
 }
+
+/* Basic HTML behavior */
+html {
+  scroll-behavior: smooth;
+}
