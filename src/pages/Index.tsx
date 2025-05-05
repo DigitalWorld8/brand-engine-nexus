@@ -71,7 +71,7 @@ const Index = () => {
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isInitialView ? '40px' : '0' // Added margin-top to move content down initially
+            marginTop: isInitialView ? '80px' : '0' // Increased margin-top to move content down further initially
           }} 
           className="min-h-screen transition-all duration-700"
         >
@@ -84,7 +84,7 @@ const Index = () => {
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
               marginBottom: isInitialView ? '-8vh' : '0', // Increased negative margin for longer scroll
-              marginTop: isInitialView ? '10vh' : '0', // Increased top margin to move content down initially
+              marginTop: isInitialView ? '20vh' : '0', // Significantly increased top margin to move content down further initially
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}
