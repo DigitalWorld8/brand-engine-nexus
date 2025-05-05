@@ -45,31 +45,36 @@ export function useNavbarScroll() {
       
       // Implement scroll resistance for initial scrolling
       if (currentScrollY < 100) {
-        // Only increment buffer on downward scroll
-        if (currentScrollY > lastScrollY) {
-          setInitialScrollBuffer(prev => Math.min(prev + (currentScrollY - lastScrollY) * 0.5, 100));
-        }
-        
-        // Only mark as scrolled once we pass the buffer threshold
-        if (initialScrollBuffer > 70) {
-          setHasScrolled(true);
-          setIsScrolled(true);
+        // Prevent default scroll behavior for initial movements
+        if (!hasScrolled) {
+          // Only increment buffer on downward scroll
+          if (currentScrollY > lastScrollY) {
+            setInitialScrollBuffer(prev => Math.min(prev + (currentScrollY - lastScrollY) * 0.3, 100));
+          }
           
-          // Delay the initial view transition to create a stepped effect
-          if (isInitialView) {
+          // Only mark as scrolled once we pass the buffer threshold
+          if (initialScrollBuffer > 80) {
+            setHasScrolled(true);
+          }
+          
+          // Visual indication of scrolling before actual page movement
+          if (currentScrollY > 20 && !isScrolled) {
+            setIsScrolled(true);
+            
+            // Delay the initial view transition to create a stepped effect
             transitionTimeoutId = window.setTimeout(() => {
               setIsInitialView(false);
             }, 150);
           }
-        }
-        
-        // Prevent immediate default scrolling if we're still in buffer mode
-        if (initialScrollBuffer < 70 && currentScrollY < 100) {
-          // Let the visual effects happen but delay actual scrolling
-          window.scrollTo({
-            top: Math.min(10, currentScrollY * 0.2),
-            behavior: 'auto'
-          });
+          
+          // Prevent immediate default scrolling if we're still in buffer mode
+          if (initialScrollBuffer < 80 && currentScrollY < 100) {
+            // Let the visual effects happen but delay actual scrolling
+            window.scrollTo({
+              top: Math.min(3, currentScrollY * 0.15),
+              behavior: 'auto'
+            });
+          }
         }
       }
       
@@ -98,7 +103,7 @@ export function useNavbarScroll() {
                 // Delay the initial view transition slightly
                 transitionTimeoutId = window.setTimeout(() => {
                   setIsInitialView(false);
-                }, 150);
+                }, 50);
               }
             } else {
               setIsScrolled(false);
@@ -113,7 +118,7 @@ export function useNavbarScroll() {
             setScrollProgress(Math.min(progress, 100));
             
             ticking = false;
-          }, 50);
+          }, 10);
         });
         
         ticking = true;
@@ -127,7 +132,7 @@ export function useNavbarScroll() {
       if (scrollTimeoutId) window.clearTimeout(scrollTimeoutId);
       if (transitionTimeoutId) window.clearTimeout(transitionTimeoutId);
     };
-  }, [isScrolled, hasScrolled, initialScrollBuffer, isInitialView]);
+  }, [isScrolled, hasScrolled, initialScrollBuffer]);
 
   return { isScrolled, scrollProgress, isInitialView, hasScrolled, initialScrollBuffer };
 }

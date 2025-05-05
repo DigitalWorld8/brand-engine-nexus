@@ -136,19 +136,3 @@
 .menu-overlay {
   @apply fixed inset-0 bg-black/50 z-40;
 }
-
-/* Scroll resistance effect */
-@keyframes scroll-indicator-pulse {
-  0%, 100% {
-    opacity: 0.8;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
-.scroll-indicator-pulse {
-  animation: scroll-indicator-pulse 2s ease-in-out infinite;
-}

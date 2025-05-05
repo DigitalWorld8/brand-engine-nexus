@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ArrowDown } from 'lucide-react';
-import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 
 interface ScrollIndicatorProps {
   className?: string;
@@ -11,7 +10,6 @@ interface ScrollIndicatorProps {
 const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-  const { isInitialView, initialScrollBuffer } = useNavbarScroll();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -28,15 +26,11 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   
   if (!isVisible) return null;
   
-  // Calculate pulsing effect based on scroll buffer
-  const pulseIntensity = initialScrollBuffer / 100;
-  
   return (
     <div 
       className={cn(
         "fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 transition-all duration-500",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-        isInitialView ? "scroll-indicator-pulse" : "",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -56,13 +50,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
         
         {/* Animated line */}
         <div className="w-[2px] h-10 relative overflow-hidden bg-gradient-to-b from-brand-accent-blue/20 to-brand-primary/20 rounded-full">
-          <div 
-            className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-accent-blue to-brand-primary animate-pulse-down"
-            style={{ 
-              animationDuration: isInitialView ? '1.5s' : '2s',
-              animationTimingFunction: isInitialView ? 'cubic-bezier(0.4, 0, 0.6, 1)' : 'ease-in-out'
-            }}
-          ></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-accent-blue to-brand-primary animate-pulse-down"></div>
         </div>
         
         {/* Animated arrow in glowing circle */}
@@ -70,19 +58,11 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           className={cn(
             "relative flex items-center justify-center",
             "transition-all duration-300 ease-in-out",
-            isHovered || isInitialView ? "scale-110" : "scale-100"
+            isHovered ? "scale-110" : "scale-100"
           )}
-          style={{
-            transform: `scale(${1 + (pulseIntensity * 0.1)})`
-          }}
         >
           {/* Glowing background effect */}
-          <div 
-            className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-20 blur-md"
-            style={{
-              opacity: 0.2 + (pulseIntensity * 0.3)
-            }}
-          ></div>
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-20 blur-md"></div>
           
           {/* Button with animation */}
           <div className="relative bg-white p-3 w-12 h-12 rounded-full flex items-center justify-center shadow-lg border border-brand-light-gray animate-subtle-bounce">
