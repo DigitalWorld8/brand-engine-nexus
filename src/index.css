@@ -245,3 +245,6 @@ html {
 .animate-float {
   animation: float 8s ease-in-out infinite;
 }
+
+/* Import engine animations */
+@import './styles/engine.css';

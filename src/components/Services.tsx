@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Palette, Globe, Brain, Code, LineChart, Settings } from 'lucide-react';
+import { Palette, Globe, CircuitBoard } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import ServiceCard from './ServiceCard';
 
 interface ServiceItem {
   title: string;
@@ -24,7 +23,7 @@ const Services = () => {
   
   const serviceCategories: ServiceCategory[] = [
     {
-      icon: Code,
+      icon: CircuitBoard,
       color: 'bg-[#1b1464]',
       title: 'Digital Services',
       description: 'Transform your business with intelligent solutions for automation, AI integration, and digital transformation.',
@@ -140,25 +139,15 @@ const Services = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {serviceCategories.map((category, index) => (
-            <div 
+            <ServiceCard 
               key={index}
-              className="animate-fade-in-up cursor-pointer"
-              style={{ animationDelay: `${index * 150}ms` }}
+              icon={category.icon}
+              color={category.color}
+              title={category.title}
+              description={category.description}
               onClick={() => handleServiceClick(category)}
-            >
-              <Card className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.03] border-t-4 border-t-transparent hover:border-t-brand-primary group overflow-hidden">
-                <CardHeader className="relative">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ${category.color} group-hover:rotate-3`}>
-                    <category.icon className="h-7 w-7 text-white transition-transform group-hover:scale-110" />
-                  </div>
-                  <CardTitle className="text-xl md:text-2xl relative z-10">{category.title}</CardTitle>
-                  <CardDescription className="mt-2 text-gray-600 relative z-10">{category.description}</CardDescription>
-                  
-                  {/* Interactive background element */}
-                  <div className="absolute -bottom-16 -right-16 w-32 h-32 rounded-full bg-gradient-to-tr from-transparent to-brand-light-gray opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </CardHeader>
-              </Card>
-            </div>
+              index={index}
+            />
           ))}
         </div>
         
