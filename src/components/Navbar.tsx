@@ -11,7 +11,7 @@ const Navbar = () => {
     <header className={cn('fixed left-0 right-0 z-50 transition-all duration-500 w-[90%] mx-auto', 
       isScrolled 
         ? 'bg-white/90 backdrop-blur-md shadow-md py-3 top-0' 
-        : 'bg-transparent py-5 top-6')}>
+        : 'bg-transparent py-5 top-16')}>
       <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
     </header>
   );
