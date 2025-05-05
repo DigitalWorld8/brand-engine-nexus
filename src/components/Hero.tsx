@@ -1,19 +1,19 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
-
 const Hero = () => {
   const [hovered, setHovered] = useState<string | null>(null);
-  const { isScrolled } = useNavbarScroll();
-  
-  return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+  const {
+    isScrolled
+  } = useNavbarScroll();
+  return <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden mx-0 my-[55px] px-0 py-[240px]">
       {/* Background elements with enhanced animations */}
       <div className="absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden">
         <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl animate-pulse opacity-70"></div>
         <div className="absolute -left-20 top-1/2 w-80 h-80 bg-brand-accent-violet/20 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-brand-accent-yellow/10 rounded-full blur-2xl animate-float" style={{animationDelay: '2s'}}></div>
+        <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-brand-accent-yellow/10 rounded-full blur-2xl animate-float" style={{
+        animationDelay: '2s'
+      }}></div>
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -30,39 +30,24 @@ const Hero = () => {
               
               {/* The rest of the content will be blurred initially (blur-on-load class) */}
               <div className={isScrolled ? '' : 'blur-on-load'}>
-                <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+                <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{
+                animationDelay: '0.2s'
+              }}>
                   Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up relative" style={{animationDelay: '0.4s'}}>
+                <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up relative" style={{
+                animationDelay: '0.4s'
+              }}>
                   {/* Add a glass overlay until scrolled */}
-                  {!isScrolled && (
-                    <div className="absolute inset-0 bg-white/30 backdrop-blur-md z-10 pointer-events-none transition-all duration-500"></div>
-                  )}
+                  {!isScrolled && <div className="absolute inset-0 bg-white/30 backdrop-blur-md z-10 pointer-events-none transition-all duration-500"></div>}
                   
-                  <Button 
-                    size="lg" 
-                    className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`}
-                    onMouseEnter={() => isScrolled && setHovered('primary')}
-                    onMouseLeave={() => setHovered(null)}
-                    disabled={!isScrolled}
-                  >
+                  <Button size="lg" className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => isScrolled && setHovered('primary')} onMouseLeave={() => setHovered(null)} disabled={!isScrolled}>
                     <span className="relative z-10">Explore Our Services</span>
-                    {hovered === 'primary' && (
-                      <span className="absolute inset-0 bg-brand-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                    )}
+                    {hovered === 'primary' && <span className="absolute inset-0 bg-brand-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>}
                   </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`}
-                    onMouseEnter={() => isScrolled && setHovered('secondary')}
-                    onMouseLeave={() => setHovered(null)}
-                    disabled={!isScrolled}
-                  >
+                  <Button size="lg" variant="outline" className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => isScrolled && setHovered('secondary')} onMouseLeave={() => setHovered(null)} disabled={!isScrolled}>
                     <span className="relative z-10">View Our Work</span>
-                    {hovered === 'secondary' && (
-                      <span className="absolute bottom-0 left-0 h-[2px] bg-brand-accent-blue w-0 group-hover:w-full transition-all duration-300"></span>
-                    )}
+                    {hovered === 'secondary' && <span className="absolute bottom-0 left-0 h-[2px] bg-brand-accent-blue w-0 group-hover:w-full transition-all duration-300"></span>}
                   </Button>
                 </div>
               </div>
@@ -74,19 +59,11 @@ const Hero = () => {
               <div className="bg-gradient-to-tr from-brand-primary to-brand-accent-blue p-1">
                 <div className="bg-white rounded-xl p-6 md:p-8">
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-                    {[1, 2, 3, 4, 5, 6].map((item) => (
-                      <div 
-                        key={item}
-                        className="aspect-square rounded-lg flex items-center justify-center bg-gradient-to-br from-brand-light-gray to-white shadow-md hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer"
-                        style={{ animationDelay: `${item * 100}ms` }}
-                      >
-                        <div className={`w-12 h-12 rounded-full transition-all duration-300 hover:scale-110 ${
-                          item % 3 === 0 ? 'bg-brand-primary' : 
-                          item % 3 === 1 ? 'bg-brand-accent-blue' : 
-                          'bg-brand-accent-violet'
-                        }`}></div>
-                      </div>
-                    ))}
+                    {[1, 2, 3, 4, 5, 6].map(item => <div key={item} className="aspect-square rounded-lg flex items-center justify-center bg-gradient-to-br from-brand-light-gray to-white shadow-md hover:shadow-lg transition-all hover:-translate-y-1 cursor-pointer" style={{
+                    animationDelay: `${item * 100}ms`
+                  }}>
+                        <div className={`w-12 h-12 rounded-full transition-all duration-300 hover:scale-110 ${item % 3 === 0 ? 'bg-brand-primary' : item % 3 === 1 ? 'bg-brand-accent-blue' : 'bg-brand-accent-violet'}`}></div>
+                      </div>)}
                   </div>
                   <div className="mt-6 bg-brand-light-gray rounded-lg p-4 flex items-center">
                     <div className="w-12 h-12 bg-brand-primary rounded-full flex items-center justify-center text-white text-xl font-bold mr-4 animate-pulse">
@@ -102,27 +79,24 @@ const Hero = () => {
             </div>
             
             <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-brand-accent-violet rounded-xl rotate-12 animate-float"></div>
-            <div className="absolute -top-6 -right-6 w-16 h-16 bg-brand-accent-blue rounded-xl -rotate-12 animate-float" style={{animationDelay: '1s'}}></div>
+            <div className="absolute -top-6 -right-6 w-16 h-16 bg-brand-accent-blue rounded-xl -rotate-12 animate-float" style={{
+            animationDelay: '1s'
+          }}></div>
           </div>
         </div>
         
         <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isScrolled ? '' : 'blur-on-load'}`}>
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-            {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => (
-              <div 
-                key={company} 
-                className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up cursor-pointer hover:text-brand-primary transition-colors duration-300" 
-                style={{ animationDelay: `${index * 150 + 600}ms`, animationFillMode: 'forwards' }}
-              >
+            {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => <div key={company} className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up cursor-pointer hover:text-brand-primary transition-colors duration-300" style={{
+            animationDelay: `${index * 150 + 600}ms`,
+            animationFillMode: 'forwards'
+          }}>
                 {company}
-              </div>
-            ))}
+              </div>)}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
