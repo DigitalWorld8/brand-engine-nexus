@@ -57,13 +57,17 @@ const Index = () => {
   
   return (
     <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
+      {/* Left and right purple side edges */}
+      <div className="side-edge side-edge-left"></div>
+      <div className="side-edge side-edge-right"></div>
+      
       {/* Show Banner if enabled */}
       <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       
       {/* Top curved border - visible only when at the top */}
       <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
       
-      <div className={`content-container ${isScrolled ? 'w-full rounded-none' : 'w-[90%] rounded-t-[3rem]'} transition-all duration-500`}>
+      <div className={`content-container ${isScrolled ? 'w-full rounded-none' : ''} transition-all duration-500 z-10 relative`}>
         <div 
           style={{
             opacity: opacityFactor
