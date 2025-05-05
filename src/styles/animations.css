@@ -64,6 +64,20 @@
   animation: subtle-bounce 2s ease-in-out infinite;
 }
 
+/* Add pulse-down animation for the line */
+@keyframes pulse-down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.animate-pulse-down {
+  animation: pulse-down 2s ease-in-out infinite;
+}
+
 /* Blur effect classes */
 .blur-effect {
   @apply relative transition-all duration-500;
