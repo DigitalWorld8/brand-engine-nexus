@@ -12,13 +12,16 @@ export function useNavbarScroll() {
   useEffect(() => {
     // For a smoother initial load experience
     const initialScrollCheck = () => {
+      // Check if scrolled beyond threshold (20px)
       if (window.scrollY > 20) {
         setIsScrolled(true);
         setIsInitialView(false);
         setHasScrolled(true);
       } else {
+        // Important: Reset all states when user scrolls back to top
         setIsScrolled(false);
         setIsInitialView(true);
+        setHasScrolled(false); // Reset hasScrolled when back at top
         // Reset buffer when at the top
         setInitialScrollBuffer(0);
       }
@@ -40,6 +43,7 @@ export function useNavbarScroll() {
       if (currentScrollY <= 10) {
         setIsScrolled(false);
         setIsInitialView(true);
+        setHasScrolled(false); // Reset hasScrolled when back at top
         setInitialScrollBuffer(0);
       }
       
@@ -108,6 +112,7 @@ export function useNavbarScroll() {
             } else {
               setIsScrolled(false);
               setIsInitialView(true);
+              setHasScrolled(false); // Reset hasScrolled when back at top
               // Reset buffer when back at the top
               setInitialScrollBuffer(0);
             }
