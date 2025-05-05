@@ -52,7 +52,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
         
         {/* Center Logo - Always visible and centered */}
         <div className={cn(
-          "transition-all duration-800 ease-smooth flex-none z-10",
+          "transition-all duration-800 ease-in-out flex-none z-10",
           isScrolled ? "" : ""
         )}>
           <NavbarLogo />
