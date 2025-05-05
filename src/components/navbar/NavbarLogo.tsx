@@ -22,8 +22,15 @@ const NavbarLogo = () => {
       isScrolled ? "scale-100" : "scale-125",
       logoReady ? "opacity-100" : "opacity-0"
     )}>
-      <a href="/" className="flex items-center space-x-1">
-        <span className="text-2xl font-bold font-heading text-brand-primary">Brand<span className="text-brand-accent-blue">Engine</span></span>
+      <a href="/" className="flex items-center">
+        <img 
+          src="/lovable-uploads/a83efaae-4e9a-445e-b969-2cd36982edc5.png" 
+          alt="BrandEngine Logo" 
+          className={cn(
+            "h-8 transition-all duration-800 ease-in-out",
+            isScrolled ? "h-8" : "h-10"
+          )} 
+        />
       </a>
     </div>
   );
