@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 
@@ -18,44 +17,49 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 md:pr-12">
             <div className="animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300">
+              {/* Headline - this will stay clear (key-content class added) */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300 initial-clear-content">
                 Empower Your Brand with Digital <span className="text-gradient relative inline-block">
                   Innovation
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet"></span>
                 </span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-                Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
-                <Button 
-                  size="lg" 
-                  className="btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group"
-                  onMouseEnter={() => setHovered('primary')}
-                  onMouseLeave={() => setHovered(null)}
-                >
-                  <span className="relative z-10">Explore Our Services</span>
-                  {hovered === 'primary' && (
-                    <span className="absolute inset-0 bg-brand-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
-                  )}
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all"
-                  onMouseEnter={() => setHovered('secondary')}
-                  onMouseLeave={() => setHovered(null)}
-                >
-                  <span className="relative z-10">View Our Work</span>
-                  {hovered === 'secondary' && (
-                    <span className="absolute bottom-0 left-0 h-[2px] bg-brand-accent-blue w-0 group-hover:w-full transition-all duration-300"></span>
-                  )}
-                </Button>
+              
+              {/* The rest of the content will be blurred initially (blur-on-load class) */}
+              <div className="blur-on-load">
+                <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+                  Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+                  <Button 
+                    size="lg" 
+                    className="btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group"
+                    onMouseEnter={() => setHovered('primary')}
+                    onMouseLeave={() => setHovered(null)}
+                  >
+                    <span className="relative z-10">Explore Our Services</span>
+                    {hovered === 'primary' && (
+                      <span className="absolute inset-0 bg-brand-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    )}
+                  </Button>
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all"
+                    onMouseEnter={() => setHovered('secondary')}
+                    onMouseLeave={() => setHovered(null)}
+                  >
+                    <span className="relative z-10">View Our Work</span>
+                    {hovered === 'secondary' && (
+                      <span className="absolute bottom-0 left-0 h-[2px] bg-brand-accent-blue w-0 group-hover:w-full transition-all duration-300"></span>
+                    )}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
           
-          <div className="relative">
+          <div className="relative blur-on-load">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl animate-float">
               <div className="bg-gradient-to-tr from-brand-primary to-brand-accent-blue p-1">
                 <div className="bg-white rounded-xl p-6 md:p-8">
@@ -92,7 +96,7 @@ const Hero = () => {
           </div>
         </div>
         
-        <div className="mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left">
+        <div className="mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left blur-on-load">
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => (

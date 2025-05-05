@@ -28,7 +28,27 @@ const Index = () => {
   
   useEffect(() => {
     setMounted(true);
-  }, []);
+    
+    // Add class to body when mounted to control blur effects
+    if (mounted) {
+      document.body.classList.add('page-loaded');
+      
+      // Remove blur from hero content when user starts scrolling
+      const handleFirstScroll = () => {
+        const blurElements = document.querySelectorAll('.blur-on-load');
+        blurElements.forEach(el => {
+          el.classList.remove('blur-on-load');
+        });
+        window.removeEventListener('scroll', handleFirstScroll);
+      };
+      
+      window.addEventListener('scroll', handleFirstScroll, { once: true });
+    }
+    
+    return () => {
+      document.body.classList.remove('page-loaded');
+    };
+  }, [mounted]);
 
   // Scale factor that increases as user scrolls (90% to 100%)
   // Create a more noticeable visual response to initial scroll attempts
@@ -83,10 +103,8 @@ const Index = () => {
               />
             )}
             
-            {/* Only key elements are clearly visible initially */}
-            <div className={`relative z-20 ${isInitialView ? 'key-content' : ''}`}>
-              <Hero />
-            </div>
+            {/* Show hero section with specially controlled blur effects */}
+            <Hero />
             
             {/* The rest of the content that should be more blurred initially */}
             <div className={isInitialView ? 'blur-content' : ''}>
