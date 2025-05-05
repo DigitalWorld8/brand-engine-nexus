@@ -1,13 +1,8 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { EngineAssembly } from './engine/EngineComponents';
-import { useEngineReveal } from '@/hooks/useEngineReveal';
 
 const Hero = () => {
-  // Initialize the engine reveal mechanism
-  useEngineReveal();
-  
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
       {/* Background elements */}
@@ -67,9 +62,6 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Engine assembly components */}
-            <EngineAssembly className="absolute h-full w-full top-0 left-0 pointer-events-none" />
             
             <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-brand-accent-violet rounded-xl rotate-12 animate-float"></div>
             <div className="absolute -top-6 -right-6 w-16 h-16 bg-brand-accent-blue rounded-xl -rotate-12 animate-float" style={{animationDelay: '1s'}}></div>
