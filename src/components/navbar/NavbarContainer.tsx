@@ -20,7 +20,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarReady(true);
-    }, 100);
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -31,7 +31,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
   return (
     <div className={cn(
       "transform-gpu will-change-transform",
-      "transition-all duration-800 ease-in-out",
+      "transition-all duration-1200 ease-ios",
       isScrolled 
         ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" 
         : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative",
@@ -40,19 +40,19 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
     )}>
       <div className={cn(
         "flex w-full justify-center",
-        "transition-all duration-800 ease-in-out"
+        "transition-all duration-1200 ease-ios"
       )}>
         {/* Left Side Navigation - Only visible when scrolled */}
         <div className={cn(
-          "transition-all duration-500 ease-in-out flex-1",
-          isScrolled ? "opacity-100" : "opacity-0 invisible absolute"
+          "transition-all duration-800 ease-ios flex-1",
+          isScrolled ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8 invisible absolute"
         )}>
           {isScrolled && <LeftNavigation />}
         </div>
         
         {/* Center Logo - Always visible and centered */}
         <div className={cn(
-          "transition-all duration-800 ease-in-out flex-none z-10",
+          "transition-all duration-1200 ease-ios flex-none z-10",
           isScrolled ? "" : ""
         )}>
           <NavbarLogo />
@@ -60,8 +60,8 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
         
         {/* Right Side Navigation - Only visible when scrolled */}
         <div className={cn(
-          "transition-all duration-500 ease-in-out flex-1",
-          isScrolled ? "opacity-100" : "opacity-0 invisible absolute"
+          "transition-all duration-800 ease-ios flex-1",
+          isScrolled ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8 invisible absolute"
         )}>
           {isScrolled && <RightNavigation onServicesToggle={handleServicesToggle} />}
         </div>
@@ -69,8 +69,8 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
       
       {/* NavbarFlags component - Only visible when scrolled */}
       <div className={cn(
-        "transition-all duration-500 ease-in-out",
-        isScrolled ? "opacity-100" : "opacity-0 invisible"
+        "transition-all duration-800 ease-ios",
+        isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 invisible"
       )}>
         {isScrolled && <NavbarFlags />}
       </div>

@@ -11,14 +11,14 @@ const NavbarLogo = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLogoReady(true);
-    }, 200);
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
 
   return (
     <div className={cn(
       "flex items-center transform-gpu will-change-transform", 
-      "transition-all duration-800 ease-in-out", 
+      "transition-all duration-1200 ease-ios", 
       isScrolled ? "scale-100" : "scale-125",
       logoReady ? "opacity-100" : "opacity-0"
     )}>
