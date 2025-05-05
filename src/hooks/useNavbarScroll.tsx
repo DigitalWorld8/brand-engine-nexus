@@ -7,40 +7,71 @@ export function useNavbarScroll() {
   const [isInitialView, setIsInitialView] = useState(true);
 
   useEffect(() => {
+    // For a smoother initial load experience
+    const initialScrollCheck = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+        setIsInitialView(false);
+      }
+    };
+    
+    initialScrollCheck();
+    
+    // Advanced debounce technique for smoother transitions
+    let lastScrollY = window.scrollY;
+    let ticking = false;
     let scrollTimeoutId: number;
+    let transitionTimeoutId: number;
     
     const handleScroll = () => {
-      // Clear the timeout if it's set
-      if (scrollTimeoutId) {
-        window.clearTimeout(scrollTimeoutId);
-      }
+      lastScrollY = window.scrollY;
       
-      // Set a timeout to update the state
-      scrollTimeoutId = window.setTimeout(() => {
-        // Determine if the page has been scrolled past threshold
-        if (window.scrollY > 20) {
-          setIsScrolled(true);
-          setIsInitialView(false);
-        } else {
-          setIsScrolled(false);
-          setIsInitialView(true);
-        }
+      if (!ticking) {
+        // Use requestAnimationFrame for better performance
+        window.requestAnimationFrame(() => {
+          // Clear existing timeouts to prevent jerking
+          if (scrollTimeoutId) {
+            window.clearTimeout(scrollTimeoutId);
+          }
+          
+          // Set timeout for actual state update
+          scrollTimeoutId = window.setTimeout(() => {
+            // Smooth transition between states
+            if (lastScrollY > 20) {
+              if (!isScrolled) {
+                setIsScrolled(true);
+                
+                // Delay the initial view transition slightly
+                transitionTimeoutId = window.setTimeout(() => {
+                  setIsInitialView(false);
+                }, 50);
+              }
+            } else {
+              setIsScrolled(false);
+              setIsInitialView(true);
+            }
 
-        // Calculate scroll progress percentage (0-100)
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = (window.scrollY / scrollHeight) * 100;
-        setScrollProgress(Math.min(progress, 100));
-      }, 10); // Slight delay to smooth out rapid scroll events
+            // Calculate scroll progress with improved smoothing
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (lastScrollY / scrollHeight) * 100;
+            setScrollProgress(Math.min(progress, 100));
+            
+            ticking = false;
+          }, 10);
+        });
+        
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutId) {
-        window.clearTimeout(scrollTimeoutId);
-      }
+      if (scrollTimeoutId) window.clearTimeout(scrollTimeoutId);
+      if (transitionTimeoutId) window.clearTimeout(transitionTimeoutId);
     };
-  }, []);
+  }, [isScrolled]);
 
   return { isScrolled, scrollProgress, isInitialView };
 }

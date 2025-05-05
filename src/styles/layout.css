@@ -7,16 +7,36 @@
   }
   
   .content-container {
-    @apply w-[90%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden transition-all duration-700 ease-in-out;
+    @apply w-[90%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden transition-all duration-800 ease-in-out;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
   }
   
   .top-curved-border {
-    @apply w-full h-16 absolute top-0 left-0;
+    @apply w-full h-16 absolute top-0 left-0 transition-opacity duration-800 ease-in-out;
     background-color: #1b1464; /* This is the brand-primary color */
   }
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Add support for hardware acceleration */
+.transform-gpu {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Extended duration classes */
+.duration-800 {
+  transition-duration: 800ms;
+}
+
+.duration-900 {
+  transition-duration: 900ms;
+}
+
+.duration-1000 {
+  transition-duration: 1000ms;
 }

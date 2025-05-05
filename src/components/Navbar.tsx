@@ -8,10 +8,13 @@ const Navbar = () => {
   const { isScrolled, isInitialView } = useNavbarScroll();
   
   return (
-    <header className={cn('fixed left-0 right-0 z-50 transition-all duration-700 ease-in-out', 
+    <header className={cn(
+      'fixed left-0 right-0 z-50 will-change-transform',
+      'transition-all duration-800 ease-in-out', 
       isScrolled 
-        ? 'bg-white/90 backdrop-blur-md shadow-md py-3 top-0 w-full' 
-        : 'bg-transparent py-5 top-16 w-[90%] mx-auto')}>
+        ? 'bg-white/90 backdrop-blur-md shadow-md py-3 top-0 w-full transform-gpu' 
+        : 'bg-transparent py-5 top-16 w-[90%] mx-auto transform-gpu'
+    )}>
       <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
     </header>
   );
