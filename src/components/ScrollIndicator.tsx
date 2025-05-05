@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { ArrowDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 interface ScrollIndicatorProps {
   className?: string;
@@ -33,15 +33,11 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
         className
       )}
     >
-      <div className="flex flex-col items-center gap-3">
-        <p className="text-base font-semibold text-brand-accent-blue">Scroll to Explore</p>
-        <div className="relative">
-          <div className="absolute -inset-1.5 bg-white/30 rounded-full blur-sm"></div>
-          <div className="animate-bounce bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet p-3 w-14 h-14 ring-2 ring-white shadow-lg rounded-full flex items-center justify-center relative z-10">
-            <ArrowDown className="h-7 w-7 text-white" strokeWidth={2.5} />
-          </div>
+      <div className="flex flex-col items-center gap-2">
+        <p className="text-sm font-medium text-brand-primary">Scroll to Explore</p>
+        <div className="animate-bounce bg-white p-2 w-10 h-10 ring-1 ring-brand-light-gray shadow-lg rounded-full flex items-center justify-center">
+          <ChevronDown className="h-6 w-6 text-brand-primary" />
         </div>
-        <div className="h-6 w-1 bg-brand-accent-blue/40 rounded-full animate-pulse"></div>
       </div>
     </div>
   );
