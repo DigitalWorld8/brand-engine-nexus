@@ -1,5 +1,4 @@
 
-
 @layer components {
   .gradient-bg {
     @apply bg-gradient-to-tr from-brand-primary via-brand-secondary to-brand-accent-violet bg-animate-gradient-x;
@@ -37,9 +36,9 @@
     @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
   
-  /* Hero tear-shape styling - static border radius from top-left to bottom-right */
+  /* Hero tear-shape styling - static border radius from top-right to bottom-left (inverted) */
   .hero-tear-shape {
-    border-radius: 70% 30% 70% 30% / 60% 40% 60% 40%;
+    border-radius: 30% 70% 30% 70% / 40% 60% 40% 60%;
   }
   
   /* Transform and hardware acceleration utilities */
@@ -67,4 +66,3 @@
     transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
   }
 }
-
