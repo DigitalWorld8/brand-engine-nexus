@@ -37,11 +37,11 @@ export function useNavbarScroll() {
         if (!hasScrolled) {
           // Only increment buffer on downward scroll
           if (currentScrollY > lastScrollY) {
-            setInitialScrollBuffer(prev => Math.min(prev + (currentScrollY - lastScrollY) * 0.5, 100));
+            setInitialScrollBuffer(prev => Math.min(prev + (currentScrollY - lastScrollY) * 0.3, 100));
           }
           
           // Only mark as scrolled once we pass the buffer threshold
-          if (initialScrollBuffer > 70) {
+          if (initialScrollBuffer > 80) {
             setHasScrolled(true);
           }
           
@@ -52,14 +52,14 @@ export function useNavbarScroll() {
             // Delay the initial view transition to create a stepped effect
             transitionTimeoutId = window.setTimeout(() => {
               setIsInitialView(false);
-            }, 100);
+            }, 150);
           }
           
           // Prevent immediate default scrolling if we're still in buffer mode
-          if (initialScrollBuffer < 70 && currentScrollY < 100) {
+          if (initialScrollBuffer < 80 && currentScrollY < 100) {
             // Let the visual effects happen but delay actual scrolling
             window.scrollTo({
-              top: Math.min(5, currentScrollY * 0.2),
+              top: Math.min(3, currentScrollY * 0.15),
               behavior: 'auto'
             });
           }

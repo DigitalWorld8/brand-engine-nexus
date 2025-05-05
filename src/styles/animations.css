@@ -49,3 +49,18 @@
 .animate-float {
   animation: float 8s ease-in-out infinite;
 }
+
+/* Add subtle bounce animation for the down arrow */
+@keyframes subtle-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+.animate-subtle-bounce {
+  animation: subtle-bounce 2s ease-in-out infinite;
+}
+
