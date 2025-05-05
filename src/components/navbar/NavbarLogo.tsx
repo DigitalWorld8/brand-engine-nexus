@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 
 const NavbarLogo = () => {
-  const { isScrolled } = useNavbarScroll();
+  const { isScrolled, hasCompletedFirstScroll } = useNavbarScroll();
   const [logoReady, setLogoReady] = useState(false);
 
   // Add a slight delay before animations to ensure smooth loading
@@ -15,11 +15,15 @@ const NavbarLogo = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Calculate logo scale based on scroll state and first scroll completion
+  const logoScale = isScrolled ? "scale-100" : 
+                  hasCompletedFirstScroll ? "scale-115" : "scale-125";
+
   return (
     <div className={cn(
       "flex items-center transform-gpu will-change-transform", 
       "transition-all duration-1200 ease-ios", 
-      isScrolled ? "scale-100" : "scale-125",
+      logoScale,
       logoReady ? "opacity-100" : "opacity-0"
     )}>
       <a href="/" className="flex items-center space-x-1">

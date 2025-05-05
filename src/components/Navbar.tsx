@@ -5,7 +5,7 @@ import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import NavbarContainer from './navbar/NavbarContainer';
 
 const Navbar = () => {
-  const { isScrolled, isInitialView } = useNavbarScroll();
+  const { isScrolled, isInitialView, hasCompletedFirstScroll } = useNavbarScroll();
   
   return (
     <header className={cn(
@@ -15,7 +15,11 @@ const Navbar = () => {
         ? 'bg-white/90 backdrop-blur-md shadow-md py-3 top-0 w-full transform-gpu' 
         : 'bg-transparent py-5 top-28 w-full transform-gpu'
     )}>
-      <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
+      <NavbarContainer 
+        isScrolled={isScrolled} 
+        isInitialView={isInitialView} 
+        hasCompletedFirstScroll={hasCompletedFirstScroll} 
+      />
     </header>
   );
 };

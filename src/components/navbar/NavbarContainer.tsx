@@ -10,9 +10,10 @@ import ServicesMegaOverlay from './ServicesMegaOverlay';
 interface NavbarContainerProps {
   isScrolled: boolean;
   isInitialView?: boolean;
+  hasCompletedFirstScroll?: boolean;
 }
 
-const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerProps) => {
+const NavbarContainer = ({ isScrolled, isInitialView = true, hasCompletedFirstScroll = false }: NavbarContainerProps) => {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [navbarReady, setNavbarReady] = useState(false);
 
@@ -28,6 +29,9 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
     setServicesOpen(isOpen);
   };
 
+  // Use the hasCompletedFirstScroll prop to determine scale
+  const navbarScale = (!hasCompletedFirstScroll && isInitialView) ? "scale-95" : "scale-100";
+
   return (
     <div className={cn(
       "transform-gpu will-change-transform",
@@ -35,7 +39,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
       isScrolled 
         ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" 
         : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative",
-      isInitialView ? "scale-95" : "scale-100",
+      navbarScale,
       !navbarReady && "opacity-0"
     )}>
       <div className={cn(

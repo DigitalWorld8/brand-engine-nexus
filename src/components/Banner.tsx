@@ -12,17 +12,24 @@ interface BannerProps {
 
 const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { hasScrolled, initialScrollBuffer } = useNavbarScroll();
+  const { hasScrolled, initialScrollBuffer, hasCompletedFirstScroll } = useNavbarScroll();
   
   // Enhanced banner interaction - respond to scroll attempts
   useEffect(() => {
-    // Only hide banner when user has scrolled past threshold
-    if (hasScrolled && visible && initialScrollBuffer > 50) {
+    // Only hide banner when user has scrolled past threshold or completed first scroll
+    if ((hasScrolled && visible && initialScrollBuffer > 50) || hasCompletedFirstScroll) {
       onBannerClick();
     }
-  }, [hasScrolled, visible, onBannerClick, initialScrollBuffer]);
+  }, [hasScrolled, visible, onBannerClick, initialScrollBuffer, hasCompletedFirstScroll]);
 
   if (!visible) return null;
+
+  // Handle click to navigate to top
+  const handleBannerClick = () => {
+    onBannerClick();
+    // Scroll to top with smooth behavior
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <AnimatePresence>
@@ -33,7 +40,7 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-brand-primary/95 via-brand-secondary/95 to-brand-accent-violet/95 text-white backdrop-blur-sm cursor-pointer"
-          onClick={onBannerClick}
+          onClick={handleBannerClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

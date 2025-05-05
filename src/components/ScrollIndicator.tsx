@@ -13,7 +13,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 120) {
+      if (window.scrollY > 80) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
@@ -25,6 +25,13 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   }, []);
   
   if (!isVisible) return null;
+  
+  const handleClick = () => {
+    // Scroll to the top of the page (instead of window.innerHeight)
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    // Hide the indicator after clicking
+    setTimeout(() => setIsVisible(false), 800);
+  };
   
   return (
     <div 
@@ -42,7 +49,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           "transition-all duration-800 ease-ios",
           isHovered ? "translate-y-[-5px]" : ""
         )}
-        onClick={() => window.scrollTo({top: window.innerHeight, behavior: 'smooth'})}
+        onClick={handleClick}
       >
         <p className="text-sm font-medium bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-primary">
           Scroll to Explore
