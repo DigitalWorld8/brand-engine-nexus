@@ -12,7 +12,7 @@ export function useNavbarScroll() {
   useEffect(() => {
     // For a smoother initial load experience
     const initialScrollCheck = () => {
-      if (window.scrollY > 20) {
+      if (window.scrollY > 50) { // Increased scroll threshold to 50px
         setIsScrolled(true);
         setIsInitialView(false);
         setHasScrolled(true);
@@ -37,41 +37,41 @@ export function useNavbarScroll() {
       const currentScrollY = window.scrollY;
       
       // Check if user has scrolled back to top
-      if (currentScrollY <= 10) {
+      if (currentScrollY <= 20) { // Increased this threshold for better top-of-page detection
         setIsScrolled(false);
         setIsInitialView(true);
         setInitialScrollBuffer(0);
       }
       
       // Implement scroll resistance for initial scrolling
-      if (currentScrollY < 100) {
+      if (currentScrollY < 150) { // Increased to allow more scroll before transitioning
         // Prevent default scroll behavior for initial movements
         if (!hasScrolled) {
           // Only increment buffer on downward scroll
           if (currentScrollY > lastScrollY) {
-            setInitialScrollBuffer(prev => Math.min(prev + (currentScrollY - lastScrollY) * 0.3, 100));
+            setInitialScrollBuffer(prev => Math.min(prev + (currentScrollY - lastScrollY) * 0.2, 100)); // Reduced multiplier to slow resistance
           }
           
           // Only mark as scrolled once we pass the buffer threshold
-          if (initialScrollBuffer > 80) {
+          if (initialScrollBuffer > 90) { // Increased threshold for longer scroll experience
             setHasScrolled(true);
           }
           
           // Visual indication of scrolling before actual page movement
-          if (currentScrollY > 20 && !isScrolled) {
+          if (currentScrollY > 50 && !isScrolled) { // Increased threshold to 50px
             setIsScrolled(true);
             
             // Delay the initial view transition to create a stepped effect
             transitionTimeoutId = window.setTimeout(() => {
               setIsInitialView(false);
-            }, 150);
+            }, 200); // Increased delay for smoother transition
           }
           
           // Prevent immediate default scrolling if we're still in buffer mode
-          if (initialScrollBuffer < 80 && currentScrollY < 100) {
+          if (initialScrollBuffer < 90 && currentScrollY < 150) { // Increased both thresholds
             // Let the visual effects happen but delay actual scrolling
             window.scrollTo({
-              top: Math.min(3, currentScrollY * 0.15),
+              top: Math.min(5, currentScrollY * 0.1), // Reduced multiplier for slower scroll
               behavior: 'auto'
             });
           }
@@ -81,7 +81,7 @@ export function useNavbarScroll() {
       lastScrollY = window.scrollY;
       
       // Set hasScrolled to true when user scrolls beyond threshold
-      if (!hasScrolled && lastScrollY > 50) {
+      if (!hasScrolled && lastScrollY > 80) { // Increased threshold to 80px
         setHasScrolled(true);
       }
       
@@ -96,14 +96,14 @@ export function useNavbarScroll() {
           // Set timeout for actual state update
           scrollTimeoutId = window.setTimeout(() => {
             // Smooth transition between states
-            if (lastScrollY > 20) {
+            if (lastScrollY > 50) { // Increased threshold to 50px
               if (!isScrolled) {
                 setIsScrolled(true);
                 
                 // Delay the initial view transition slightly
                 transitionTimeoutId = window.setTimeout(() => {
                   setIsInitialView(false);
-                }, 50);
+                }, 100); // Increased delay
               }
             } else {
               setIsScrolled(false);
@@ -118,7 +118,7 @@ export function useNavbarScroll() {
             setScrollProgress(Math.min(progress, 100));
             
             ticking = false;
-          }, 10);
+          }, 20); // Increased delay for smoother transitions
         });
         
         ticking = true;

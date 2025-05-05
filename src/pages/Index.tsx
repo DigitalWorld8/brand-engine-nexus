@@ -39,10 +39,10 @@ const Index = () => {
     };
   }, [mounted]);
 
-  // Scale factor that increases as user scrolls (90% to 100%)
+  // Scale factor that increases as user scrolls (85% to 100%)
   // Create a more noticeable visual response to initial scroll attempts
   const scaleFactor = isInitialView 
-    ? Math.max(0.9, 0.9 + (initialScrollBuffer / 1000)) 
+    ? Math.max(0.85, 0.85 + (initialScrollBuffer / 1000)) 
     : 1;
   const opacityFactor = mounted ? 1 : 0;
   
@@ -50,7 +50,7 @@ const Index = () => {
     setShowBanner(false);
     // Scroll to the hero section
     window.scrollTo({
-      top: window.innerHeight * 0.1, // Scroll slightly down to show the hero
+      top: window.innerHeight * 0.05,
       behavior: 'smooth'
     });
   };
@@ -82,7 +82,8 @@ const Index = () => {
             style={{
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
-              marginBottom: isInitialView ? '-5vh' : '0'
+              marginBottom: isInitialView ? '-8vh' : '0', // Increased negative margin for longer scroll
+              marginTop: isInitialView ? '5vh' : '0', // Added top margin to move content down initially
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}

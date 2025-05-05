@@ -9,7 +9,7 @@ const Hero = () => {
     isScrolled
   } = useNavbarScroll();
   
-  return <section className={`relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden mx-0 my-[45px] px-0 py-[240px] ${!isScrolled ? 'hero-tear-shape' : ''}`}>
+  return <section className={`relative pt-40 pb-20 md:pt-56 md:pb-32 overflow-hidden mx-0 my-[45px] px-0 py-[320px] ${!isScrolled ? 'hero-tear-shape' : ''}`}>
       {/* Background elements with enhanced animations */}
       <div className={`absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden ${!isScrolled ? 'hero-tear-shape' : ''}`}>
         <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl animate-pulse opacity-70"></div>
@@ -24,7 +24,7 @@ const Hero = () => {
           <div className="space-y-8 md:pr-12">
             <div className="animate-fade-in-up">
               {/* Headline - adjusted positioning to work better with tear shape */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300 initial-clear-content relative z-20">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300 initial-clear-content relative z-20 mt-10">
                 Empower Your Brand with Digital <span className="text-gradient relative inline-block">
                   Innovation
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet"></span>
