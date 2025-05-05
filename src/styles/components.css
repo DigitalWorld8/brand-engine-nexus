@@ -36,9 +36,9 @@
     @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
   
-  /* Hero tear-shape styling - static border radius from top-right to bottom-left (inverted) */
+  /* Hero tear-shape styling - adjusted to better reveal the "Empower" text */
   .hero-tear-shape {
-    border-radius: 30% 70% 30% 70% / 40% 60% 40% 60%;
+    border-radius: 60% 40% 45% 55% / 30% 50% 50% 70%;
   }
   
   /* Transform and hardware acceleration utilities */
