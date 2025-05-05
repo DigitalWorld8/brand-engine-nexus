@@ -17,7 +17,8 @@ import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 const Index = () => {
   const {
     isInitialView,
-    scrollProgress
+    scrollProgress,
+    isScrolled
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
   
@@ -30,11 +31,11 @@ const Index = () => {
   const opacityFactor = mounted ? 1 : 0;
   
   return (
-    <div className="page-wrapper bg-brand-primary">
-      {/* Top curved border */}
-      <div className="top-curved-border"></div>
+    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
+      {/* Top curved border - visible only when at the top */}
+      <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
       
-      <div className="content-container">
+      <div className={`content-container ${isScrolled ? 'w-full rounded-none' : 'w-[90%] rounded-t-[3rem]'} transition-all duration-500`}>
         <div 
           style={{
             opacity: opacityFactor
