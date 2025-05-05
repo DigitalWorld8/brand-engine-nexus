@@ -41,23 +41,28 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
       <div className={cn(
         "flex justify-between items-center w-full",
         "transition-all duration-800 ease-in-out",
-        !isScrolled && "justify-center" 
+        !isScrolled ? "justify-center" : "justify-between"
       )}>
         {/* Left Side Navigation - Only visible when scrolled */}
         <div className={cn(
           "flex-1 transition-all duration-500 ease-in-out",
-          isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+          isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 absolute"
         )}>
           {isScrolled && <LeftNavigation />}
         </div>
         
-        {/* Center Logo - Always visible */}
-        <NavbarLogo />
+        {/* Center Logo - Always visible but position changes */}
+        <div className={cn(
+          "transition-all duration-800 ease-in-out",
+          isScrolled ? "flex-initial" : "flex-initial"
+        )}>
+          <NavbarLogo />
+        </div>
         
         {/* Right Side Navigation - Only visible when scrolled */}
         <div className={cn(
           "flex-1 transition-all duration-500 ease-in-out",
-          isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+          isScrolled ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 absolute"
         )}>
           {isScrolled && <RightNavigation onServicesToggle={handleServicesToggle} />}
         </div>
