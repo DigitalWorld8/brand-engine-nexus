@@ -6,7 +6,9 @@ import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 const Hero = () => {
   const [hovered, setHovered] = useState<string | null>(null);
   const {
-    isScrolled
+    isScrolled,
+    isInitialView,
+    initialScrollBuffer
   } = useNavbarScroll();
   
   return <section className={`relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden mx-0 my-[55px] px-0 py-[240px] ${!isScrolled ? 'hero-tear-shape' : ''}`}>
@@ -32,7 +34,7 @@ const Hero = () => {
               </h1>
               
               {/* The rest of the content will be blurred initially (blur-on-load class) */}
-              <div className={isScrolled ? '' : 'blur-on-load'}>
+              <div className={isInitialView ? 'blur-on-load' : ''}>
                 <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{
                 animationDelay: '0.2s'
               }}>
@@ -42,13 +44,13 @@ const Hero = () => {
                 animationDelay: '0.4s'
               }}>
                   {/* Add a glass overlay until scrolled */}
-                  {!isScrolled && <div className="absolute inset-0 bg-white/30 backdrop-blur-md z-10 pointer-events-none transition-all duration-500"></div>}
+                  {isInitialView && <div className="absolute inset-0 bg-white/30 backdrop-blur-md z-10 pointer-events-none transition-all duration-500"></div>}
                   
-                  <Button size="lg" className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => isScrolled && setHovered('primary')} onMouseLeave={() => setHovered(null)} disabled={!isScrolled}>
+                  <Button size="lg" className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${isInitialView ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => !isInitialView && setHovered('primary')} onMouseLeave={() => setHovered(null)} disabled={isInitialView}>
                     <span className="relative z-10">Explore Our Services</span>
                     {hovered === 'primary' && <span className="absolute inset-0 bg-brand-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>}
                   </Button>
-                  <Button size="lg" variant="outline" className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => isScrolled && setHovered('secondary')} onMouseLeave={() => setHovered(null)} disabled={!isScrolled}>
+                  <Button size="lg" variant="outline" className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${isInitialView ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => !isInitialView && setHovered('secondary')} onMouseLeave={() => setHovered(null)} disabled={isInitialView}>
                     <span className="relative z-10">View Our Work</span>
                     {hovered === 'secondary' && <span className="absolute bottom-0 left-0 h-[2px] bg-brand-accent-blue w-0 group-hover:w-full transition-all duration-300"></span>}
                   </Button>
@@ -57,7 +59,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className={`relative ${isScrolled ? '' : 'blur-on-load'}`}>
+          <div className={`relative ${isInitialView ? 'blur-on-load' : ''}`}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl animate-float">
               <div className="bg-gradient-to-tr from-brand-primary to-brand-accent-blue p-1">
                 <div className="bg-white rounded-xl p-6 md:p-8">
@@ -88,7 +90,7 @@ const Hero = () => {
           </div>
         </div>
         
-        <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isScrolled ? '' : 'blur-on-load'}`}>
+        <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isInitialView ? 'blur-on-load' : ''}`}>
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => <div key={company} className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up cursor-pointer hover:text-brand-primary transition-colors duration-300" style={{

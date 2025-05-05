@@ -42,7 +42,7 @@ const Index = () => {
   // Scale factor that increases as user scrolls (90% to 100%)
   // Create a more noticeable visual response to initial scroll attempts
   const scaleFactor = isInitialView 
-    ? Math.max(0.9, 0.9 + (initialScrollBuffer / 1000)) 
+    ? Math.max(0.9, 0.9 + (initialScrollBuffer / 100)) 
     : 1;
   const opacityFactor = mounted ? 1 : 0;
   
@@ -90,8 +90,8 @@ const Index = () => {
               <div 
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
-                  backgroundColor: `rgba(255, 255, 255, ${0.2 + (initialScrollBuffer / 400)})`,
-                  backdropFilter: `blur(${8 - initialScrollBuffer / 20}px)`,
+                  backgroundColor: `rgba(255, 255, 255, ${0.2 + (initialScrollBuffer / 200)})`,
+                  backdropFilter: `blur(${8 - initialScrollBuffer / 10}px)`,
                 }}
               />
             )}
