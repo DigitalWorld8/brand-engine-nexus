@@ -1,31 +1,48 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 
 const Hero = () => {
+  const { isPausedOnHero } = useNavbarScroll();
+  
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
+    <section className={`relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden transition-all duration-700 ${
+      isPausedOnHero ? 'pb-40 md:pb-48' : ''
+    }`}>
       {/* Background elements */}
       <div className="absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden">
-        <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl"></div>
-        <div className="absolute -left-20 top-1/2 w-80 h-80 bg-brand-accent-violet/20 rounded-full blur-3xl"></div>
+        <div className={`absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl transition-all duration-700 ${
+          isPausedOnHero ? 'scale-125' : ''
+        }`}></div>
+        <div className={`absolute -left-20 top-1/2 w-80 h-80 bg-brand-accent-violet/20 rounded-full blur-3xl transition-all duration-700 ${
+          isPausedOnHero ? 'scale-125' : ''
+        }`}></div>
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 md:pr-12">
             <div className="animate-fade-in-up">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight">
+              <h1 className={`text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-500 ${
+                isPausedOnHero ? 'text-5xl md:text-6xl lg:text-7xl' : ''
+              }`}>
                 Empower Your Brand with Digital <span className="text-gradient">Innovation</span>
               </h1>
-              <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium">
+              <p className={`text-lg md:text-xl text-gray-600 mb-8 font-medium transition-all duration-500 ${
+                isPausedOnHero ? 'text-xl md:text-2xl' : ''
+              }`}>
                 Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="btn-brand-primary hover:scale-105 transition-transform">
+                <Button size="lg" className={`btn-brand-primary hover:scale-105 transition-transform ${
+                  isPausedOnHero ? 'scale-105' : ''
+                }`}>
                   Explore Our Services
                 </Button>
-                <Button size="lg" variant="outline" className="border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-transform">
+                <Button size="lg" variant="outline" className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-transform ${
+                  isPausedOnHero ? 'scale-105' : ''
+                }`}>
                   View Our Work
                 </Button>
               </div>
@@ -33,7 +50,9 @@ const Hero = () => {
           </div>
           
           <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl animate-float">
+            <div className={`relative rounded-2xl overflow-hidden shadow-2xl animate-float transition-all duration-700 ${
+              isPausedOnHero ? 'scale-105 shadow-3xl' : ''
+            }`}>
               <div className="bg-gradient-to-tr from-brand-primary to-brand-accent-blue p-1">
                 <div className="bg-white rounded-xl p-6 md:p-8">
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
@@ -63,8 +82,12 @@ const Hero = () => {
               </div>
             </div>
             
-            <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-brand-accent-violet rounded-xl rotate-12 animate-float"></div>
-            <div className="absolute -top-6 -right-6 w-16 h-16 bg-brand-accent-blue rounded-xl -rotate-12 animate-float" style={{animationDelay: '1s'}}></div>
+            <div className={`absolute -bottom-6 -left-6 w-24 h-24 bg-brand-accent-violet rounded-xl rotate-12 animate-float transition-all duration-700 ${
+              isPausedOnHero ? 'scale-110' : ''
+            }`}></div>
+            <div className={`absolute -top-6 -right-6 w-16 h-16 bg-brand-accent-blue rounded-xl -rotate-12 animate-float transition-all duration-700 ${
+              isPausedOnHero ? 'scale-110' : ''
+            }`} style={{animationDelay: '1s'}}></div>
           </div>
         </div>
         

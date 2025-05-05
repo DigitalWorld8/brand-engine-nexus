@@ -15,15 +15,37 @@ import ScrollIndicator from '@/components/ScrollIndicator';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 
 const Index = () => {
-  const { isInitialView, scrollProgress } = useNavbarScroll();
+  const { isInitialView, scrollProgress, isPausedOnHero } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
   
   useEffect(() => {
     setMounted(true);
-  }, []);
+    
+    // Add scroll snapping behavior for Hero
+    const handleWheel = (e) => {
+      const hero = document.querySelector('section');
+      if (isPausedOnHero) {
+        const rect = hero.getBoundingClientRect();
+        if ((rect.bottom > 0 && e.deltaY > 0) || (rect.top < window.innerHeight && e.deltaY < 0)) {
+          e.preventDefault();
+          window.scrollTo({
+            top: e.deltaY > 0 ? rect.height : 0,
+            behavior: 'smooth'
+          });
+        }
+      }
+    };
+    
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [isPausedOnHero]);
 
   // Scale factor that increases as user scrolls (90% to 100%)
-  const scaleFactor = isInitialView ? 0.9 : 1;
+  const initialScaleFactor = isInitialView ? 0.9 : 1;
+  // Enhanced scale factor for Hero section when paused
+  const scaleFactor = isPausedOnHero ? 1.05 : initialScaleFactor;
   const opacityFactor = mounted ? 1 : 0;
   
   return (
