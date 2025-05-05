@@ -1,8 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   const [hovered, setHovered] = useState<string | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setIsScrolled(true);
+      }
+    };
+    
+    // Check initial scroll position
+    handleScroll();
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 overflow-hidden">
@@ -30,12 +47,18 @@ const Hero = () => {
                 <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{animationDelay: '0.2s'}}>
                   Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+                <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up relative" style={{animationDelay: '0.4s'}}>
+                  {/* Add a glass overlay until scrolled */}
+                  {!isScrolled && (
+                    <div className="absolute inset-0 bg-white/30 backdrop-blur-md z-10 pointer-events-none transition-all duration-500"></div>
+                  )}
+                  
                   <Button 
                     size="lg" 
-                    className="btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group"
-                    onMouseEnter={() => setHovered('primary')}
+                    className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'pointer-events-none opacity-70' : ''}`}
+                    onMouseEnter={() => isScrolled && setHovered('primary')}
                     onMouseLeave={() => setHovered(null)}
+                    disabled={!isScrolled}
                   >
                     <span className="relative z-10">Explore Our Services</span>
                     {hovered === 'primary' && (
@@ -45,9 +68,10 @@ const Hero = () => {
                   <Button 
                     size="lg" 
                     variant="outline" 
-                    className="border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all"
-                    onMouseEnter={() => setHovered('secondary')}
+                    className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'pointer-events-none opacity-70' : ''}`}
+                    onMouseEnter={() => isScrolled && setHovered('secondary')}
                     onMouseLeave={() => setHovered(null)}
+                    disabled={!isScrolled}
                   >
                     <span className="relative z-10">View Our Work</span>
                     {hovered === 'secondary' && (
