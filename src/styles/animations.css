@@ -120,13 +120,13 @@
 
 /* CTA buttons that should be disabled until scroll */
 .cta-disabled {
-  @apply relative opacity-70 pointer-events-none cursor-not-allowed;
+  @apply relative opacity-70 pointer-events-none;
   filter: blur(2px);
   transition: all 0.5s ease-out;
 }
 
 .cta-enabled {
-  @apply relative opacity-100 cursor-pointer;
+  @apply relative opacity-100;
   filter: blur(0);
   transition: all 0.5s ease-out;
 }
