@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Palette, Globe, CircuitBoard } from 'lucide-react';
+import { Palette, Globe, CircuitBoard, LucideIcon } from 'lucide-react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import ServiceCard from './ServiceCard';
