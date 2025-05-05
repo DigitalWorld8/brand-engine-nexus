@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Cylinder, Gears, CircuitBoard } from 'lucide-react';
+import { Cylinder, Cog, CircuitBoard } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface EnginePartProps {
@@ -23,13 +23,13 @@ export const EnginePart: React.FC<EnginePartProps> = ({
   const getIcon = () => {
     switch (type) {
       case 'gear':
-        return <Gears className="h-full w-full" />;
+        return <Cog className="h-full w-full" />; // Changed from Gears to Cog
       case 'piston':
         return <Cylinder className="h-full w-full" />;
       case 'circuit':
         return <CircuitBoard className="h-full w-full" />;
       default:
-        return <Gears className="h-full w-full" />;
+        return <Cog className="h-full w-full" />; // Changed from Gears to Cog
     }
   };
   

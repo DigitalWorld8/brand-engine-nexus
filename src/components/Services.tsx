@@ -21,7 +21,8 @@ const Services = () => {
   const [activeService, setActiveService] = useState<ServiceCategory | null>(null);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   
-  const serviceCategories: ServiceCategory[] = [
+  // Using proper type for Lucide icons
+  const serviceCategories = [
     {
       icon: CircuitBoard,
       color: 'bg-[#1b1464]',
@@ -141,7 +142,7 @@ const Services = () => {
           {serviceCategories.map((category, index) => (
             <ServiceCard 
               key={index}
-              icon={category.icon}
+              icon={category.icon as LucideIcon}
               color={category.color}
               title={category.title}
               description={category.description}
@@ -157,7 +158,7 @@ const Services = () => {
               <>
                 <SheetHeader className="mb-6">
                   <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 ${activeService.color}`}>
-                    <activeService.icon className="h-8 w-8 text-white" />
+                    {React.createElement(activeService.icon, { className: "h-8 w-8 text-white" })}
                   </div>
                   <SheetTitle className="text-2xl font-bold">{activeService.title}</SheetTitle>
                   <SheetDescription className="text-lg">{activeService.description}</SheetDescription>
