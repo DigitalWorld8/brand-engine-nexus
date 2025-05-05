@@ -24,7 +24,7 @@ const Index = () => {
     initialScrollBuffer
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
-  const [showBanner, setShowBanner] = useState(true);
+  const [showBanner, setShowBanner] = useState(false);
   
   useEffect(() => {
     setMounted(true);
@@ -97,8 +97,8 @@ const Index = () => {
             <Footer />
           </div>
           
-          {/* Only show scroll indicator when banner is hidden and at the top of the page */}
-          {!showBanner && <ScrollIndicator />}
+          {/* Show scroll indicator when not at the top of the page */}
+          <ScrollIndicator />
         </div>
       </div>
     </div>
