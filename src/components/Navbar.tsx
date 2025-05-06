@@ -10,8 +10,8 @@ const Navbar = () => {
   
   return (
     <header className={cn(
-      'fixed left-0 right-0 z-50 will-change-transform transform-gpu w-full',
-      'transition-all duration-800 ease-smooth top-0',
+      'fixed top-0 left-0 right-0 z-50 will-change-transform transform-gpu w-full',
+      'transition-all duration-800 ease-smooth',
       isScrolled 
         ? 'bg-white/90 backdrop-blur-md shadow-md py-3' 
         : 'bg-transparent py-5'
