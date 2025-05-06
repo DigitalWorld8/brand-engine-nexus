@@ -32,8 +32,8 @@ const Hero = () => {
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet"></span>
                 </span>
                 
-                {/* Adding ScrollIndicator inside the headline, positioned to the right of "Innovation" */}
-                <ScrollIndicator className="hidden md:block absolute -right-16 top-0" />
+                {/* ScrollIndicator positioned further to the right */}
+                <ScrollIndicator className="hidden md:block absolute -right-28 top-0" />
               </h1>
               
               {/* The rest of the content will be blurred initially (blur-on-load class) */}
