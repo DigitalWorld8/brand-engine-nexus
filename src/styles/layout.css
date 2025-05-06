@@ -39,7 +39,7 @@
   
   /* Initial view bottom edge */
   .initial-view-bottom-edge {
-    @apply w-full h-16 bg-brand-primary z-0;
+    @apply w-full h-16 bg-brand-primary z-10;
     position: fixed;
     bottom: 0;
     left: 0;
