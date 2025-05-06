@@ -30,9 +30,9 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     
     setIsScrolling(true);
     
-    // Set the target position to the top of the page (0)
+    // Changed: Scroll down to explore content (set target to the height of the viewport)
     const startPosition = window.scrollY;
-    const targetPosition = 0;
+    const targetPosition = window.innerHeight; // Scroll down one viewport height
     const distance = targetPosition - startPosition;
     const duration = 800;
     const startTime = performance.now();
