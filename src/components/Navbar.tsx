@@ -18,9 +18,9 @@ const Navbar = () => {
       "will-change-transform",
       isScrolled ? "bg-white shadow-md" : "bg-transparent"
     )}>
-      {/* When not scrolled, show only logo centered */}
+      {/* When not scrolled, show only logo centered with white background */}
       {!isScrolled ? (
-        <div className="flex justify-center w-full py-4">
+        <div className="flex justify-center w-full py-4 bg-white rounded-b-lg mx-auto" style={{ maxWidth: '300px' }}>
           <NavbarLogo />
         </div>
       ) : (
