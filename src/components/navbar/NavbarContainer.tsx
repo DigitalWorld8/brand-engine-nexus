@@ -38,8 +38,13 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
       isInitialView ? "scale-95" : "scale-100",
       !navbarReady && "opacity-0"
     )}>
+      {/* Logo is positioned first, above all other elements */}
+      <div className="flex justify-center w-full py-2">
+        <NavbarLogo />
+      </div>
+      
       <div className={cn(
-        "flex w-full justify-center",
+        "flex w-full justify-center mt-2",
         "transition-all duration-800 ease-in-out"
       )}>
         {/* Left Side Navigation - Only visible when scrolled */}
@@ -48,14 +53,6 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
           isScrolled ? "opacity-100" : "opacity-0 invisible absolute"
         )}>
           {isScrolled && <LeftNavigation />}
-        </div>
-        
-        {/* Center Logo - Always visible and centered */}
-        <div className={cn(
-          "transition-all duration-800 ease-in-out flex-none z-10",
-          isScrolled ? "" : ""
-        )}>
-          <NavbarLogo />
         </div>
         
         {/* Right Side Navigation - Only visible when scrolled */}
