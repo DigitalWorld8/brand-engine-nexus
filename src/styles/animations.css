@@ -1,3 +1,5 @@
+
+
 @layer components {
   .staggered-fade-in > * {
     @apply opacity-0;
@@ -20,21 +22,6 @@
 }
 
 .reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Scroll Reveal Animations */
-.scroll-fade-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-  transform: translateZ(0);
-}
-
-.scroll-fade-up.active {
   opacity: 1;
   transform: translateY(0);
 }
@@ -150,3 +137,4 @@
 .menu-overlay {
   @apply fixed inset-0 bg-black/50 z-40;
 }
+

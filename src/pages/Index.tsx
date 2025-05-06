@@ -14,7 +14,6 @@ import CTABanner from '@/components/cta/CTABanner';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import Banner from '@/components/Banner';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
-import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const Index = () => {
   const {
@@ -26,9 +25,6 @@ const Index = () => {
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
-  
-  // Initialize scroll reveal animations
-  useScrollReveal();
   
   useEffect(() => {
     setMounted(true);
@@ -60,7 +56,7 @@ const Index = () => {
   };
   
   return (
-    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
+    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-1000`}>
       {/* Left and right purple side edges */}
       <div className="side-edge side-edge-left"></div>
       <div className="side-edge side-edge-right"></div>
@@ -69,19 +65,24 @@ const Index = () => {
       <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       
       {/* Top curved border - visible only when at the top */}
-      <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
+      <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-1000`}></div>
       
-      <div className={`content-container ${isScrolled ? 'w-full rounded-none' : ''} transition-all duration-500 z-10 relative`}>
+      <div className={`content-container ${isScrolled ? 'w-full rounded-none' : ''} transition-all duration-1000 ease-smooth z-10 relative`} 
+           style={{
+             marginTop: isInitialView ? '80px' : '0',
+             transition: 'margin-top 1000ms cubic-bezier(0.65, 0, 0.35, 1)'
+           }}>
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isInitialView ? '80px' : '0' // Increased margin-top to move content down further initially
+            marginTop: isInitialView ? '80px' : '0', // Increased margin-top to move content down further initially
+            transition: 'opacity 1000ms ease-out, margin-top 1000ms cubic-bezier(0.65, 0, 0.35, 1)'
           }} 
-          className="min-h-screen transition-all duration-700"
+          className="min-h-screen transition-all duration-1000 ease-smooth"
         >
           <Navbar />
           <div 
-            className={`transform-gpu transition-all duration-700 relative ${
+            className={`transform-gpu transition-all duration-1000 ease-smooth relative ${
               isInitialView ? 'blur-effect' : ''
             }`}
             style={{
@@ -89,6 +90,7 @@ const Index = () => {
               transformOrigin: 'center top',
               marginBottom: isInitialView ? '-8vh' : '0', // Increased negative margin for longer scroll
               marginTop: isInitialView ? '20vh' : '0', // Significantly increased top margin to move content down further initially
+              transition: 'transform 1200ms cubic-bezier(0.25, 0.1, 0.25, 1), margin-top 1200ms cubic-bezier(0.25, 0.1, 0.25, 1), margin-bottom 1200ms cubic-bezier(0.25, 0.1, 0.25, 1)'
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}
@@ -98,6 +100,7 @@ const Index = () => {
                 style={{
                   backgroundColor: `rgba(255, 255, 255, ${0.2 + (initialScrollBuffer / 400)})`,
                   backdropFilter: `blur(${8 - initialScrollBuffer / 20}px)`,
+                  transition: 'backdrop-filter 800ms ease-out, background-color 800ms ease-out'
                 }}
               />
             )}
@@ -106,7 +109,7 @@ const Index = () => {
             <Hero />
             
             {/* The rest of the content that should be more blurred initially */}
-            <div className={isInitialView ? 'blur-content' : ''}>
+            <div className={isInitialView ? 'blur-content' : ''} style={{ transition: 'filter 1000ms ease-out, opacity 1000ms ease-out' }}>
               <Services />
               <CTABanner 
                 variant="gradient" 
