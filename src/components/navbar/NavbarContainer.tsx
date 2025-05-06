@@ -16,11 +16,11 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
   const [servicesOpen, setServicesOpen] = useState(false);
   const [navbarReady, setNavbarReady] = useState(false);
 
-  // Make the navbar render faster
+  // Add a slight delay before animations to ensure smooth loading
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarReady(true);
-    }, 50);
+    }, 100);
     return () => clearTimeout(timer);
   }, []);
 
@@ -30,25 +30,26 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
 
   return (
     <div className={cn(
-      "transition-all duration-300 ease-in-out",
-      "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "transform-gpu will-change-transform",
+      "transition-all duration-800 ease-in-out",
+      "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative",
       !navbarReady && "opacity-0"
     )}>
       <div className={cn(
         "flex w-full items-center justify-between",
-        "transition-all duration-300 ease-in-out"
+        "transition-all duration-800 ease-in-out"
       )}>
-        {/* Left Side Navigation */}
+        {/* Left Side Navigation - Always visible when in scrolled navbar */}
         <div className="flex-1">
           <LeftNavigation />
         </div>
         
-        {/* Center Logo */}
+        {/* Center Logo - Always visible */}
         <div className="flex-none z-10 mx-4">
           <NavbarLogo />
         </div>
         
-        {/* Right Side Navigation */}
+        {/* Right Side Navigation - Always visible when in scrolled navbar */}
         <div className="flex-1 flex justify-end">
           <RightNavigation onServicesToggle={handleServicesToggle} />
         </div>
