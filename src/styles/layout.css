@@ -18,15 +18,20 @@
   
   /* Side edges - purple sidebars */
   .side-edge {
-    @apply fixed top-0 h-full w-[5%] md:w-[7.5%] lg:w-[10%] bg-brand-primary z-0;
+    @apply fixed h-full w-[5%] md:w-[7.5%] lg:w-[10%] bg-brand-primary z-0;
   }
   
   .side-edge-left {
-    @apply left-0;
+    @apply left-0 top-0;
   }
   
   .side-edge-right {
-    @apply right-0;
+    @apply right-0 top-0;
+  }
+  
+  /* Bottom edge - purple footer edge */
+  .bottom-edge {
+    @apply fixed bottom-0 left-0 w-full h-16 bg-brand-primary z-0;
   }
 }
 

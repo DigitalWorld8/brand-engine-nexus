@@ -61,6 +61,9 @@ const Index = () => {
       <div className="side-edge side-edge-left"></div>
       <div className="side-edge side-edge-right"></div>
       
+      {/* Bottom purple edge */}
+      <div className="bottom-edge"></div>
+      
       {/* Show Banner if enabled */}
       <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       
