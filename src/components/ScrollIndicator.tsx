@@ -30,7 +30,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     
     setIsScrolling(true);
     
-    // Changed: Scroll down to explore content (set target to the height of the viewport)
+    // Scroll down to explore content
     const startPosition = window.scrollY;
     const targetPosition = window.innerHeight; // Scroll down one viewport height
     const distance = targetPosition - startPosition;
@@ -88,12 +88,12 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           SCROLL TO EXPLORE
         </p>
         
-        {/* Animated line - made thicker */}
+        {/* Animated line */}
         <div className="w-[3px] h-16 relative overflow-hidden bg-gradient-to-b from-brand-accent-blue/20 to-brand-primary/20 rounded-full">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-accent-blue to-brand-primary animate-pulse-down"></div>
         </div>
         
-        {/* Animated mouse pointer in glowing circle - replacing the arrow */}
+        {/* Animated mouse pointer in glowing circle */}
         <div 
           className={cn(
             "relative flex items-center justify-center",
@@ -101,10 +101,10 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
             isHovered ? "scale-110" : "scale-100"
           )}
         >
-          {/* Glowing background effect - enhanced glow */}
+          {/* Glowing background effect */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-30 blur-md scale-125"></div>
           
-          {/* Button with animation - changed from arrow to mouse pointer */}
+          {/* Button with animation */}
           <div className="relative bg-white p-3 w-16 h-16 rounded-full flex items-center justify-center shadow-lg border border-brand-light-gray animate-subtle-bounce">
             <MousePointerClick 
               className={cn(
