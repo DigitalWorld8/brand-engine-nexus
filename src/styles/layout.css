@@ -16,9 +16,9 @@
     background-color: #1b1464; /* This is the brand-primary color */
   }
   
-  /* Side edges - purple sidebars */
+  /* Side edges - purple sidebars with scroll-dependent width */
   .side-edge {
-    @apply fixed top-0 h-full w-[5%] md:w-[7.5%] lg:w-[10%] bg-brand-primary z-0;
+    @apply fixed top-0 h-full bg-brand-primary z-0 transition-all duration-500 ease-out;
   }
   
   .side-edge-left {
@@ -27,6 +27,23 @@
   
   .side-edge-right {
     @apply right-0;
+  }
+  
+  /* Different width states for progressive narrowing */
+  .side-edge-width-full {
+    @apply w-[5%] md:w-[7.5%] lg:w-[10%];
+  }
+  
+  .side-edge-width-medium {
+    @apply w-[3.5%] md:w-[5%] lg:w-[7%];
+  }
+  
+  .side-edge-width-small {
+    @apply w-[2%] md:w-[3%] lg:w-[4%];
+  }
+  
+  .side-edge-width-minimal {
+    @apply w-[1%] md:w-[1.5%] lg:w-[2%];
   }
 }
 

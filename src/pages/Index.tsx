@@ -25,6 +25,7 @@ const Index = () => {
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
+  const [sideEdgeState, setSideEdgeState] = useState('full'); // 'full', 'medium', 'small', 'minimal'
   
   useEffect(() => {
     setMounted(true);
@@ -34,10 +35,41 @@ const Index = () => {
       document.body.classList.add('page-loaded');
     }
     
+    // Handle progressive side edge narrowing based on scroll position
+    const handleScrollForSideEdges = () => {
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      if (scrollY < windowHeight * 0.2) {
+        setSideEdgeState('full');
+      } else if (scrollY < windowHeight * 0.5) {
+        setSideEdgeState('medium');
+      } else if (scrollY < windowHeight) {
+        setSideEdgeState('small');
+      } else {
+        setSideEdgeState('minimal');
+      }
+    };
+    
+    window.addEventListener('scroll', handleScrollForSideEdges, { passive: true });
+    
     return () => {
       document.body.classList.remove('page-loaded');
+      window.removeEventListener('scroll', handleScrollForSideEdges);
     };
   }, [mounted]);
+
+  // Get side edge classes based on current state
+  const getSideEdgeClasses = () => {
+    const baseClasses = 'side-edge';
+    switch (sideEdgeState) {
+      case 'full': return `${baseClasses} side-edge-width-full`;
+      case 'medium': return `${baseClasses} side-edge-width-medium`;
+      case 'small': return `${baseClasses} side-edge-width-small`;
+      case 'minimal': return `${baseClasses} side-edge-width-minimal`;
+      default: return `${baseClasses} side-edge-width-full`;
+    }
+  };
 
   // Scale factor that increases as user scrolls (85% to 100%)
   // Create a more noticeable visual response to initial scroll attempts
@@ -57,9 +89,9 @@ const Index = () => {
   
   return (
     <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
-      {/* Left and right purple side edges */}
-      <div className="side-edge side-edge-left"></div>
-      <div className="side-edge side-edge-right"></div>
+      {/* Left and right purple side edges with dynamic width */}
+      <div className={`${getSideEdgeClasses()} side-edge-left`}></div>
+      <div className={`${getSideEdgeClasses()} side-edge-right`}></div>
       
       {/* Show Banner if enabled */}
       <Banner onBannerClick={handleBannerClick} visible={showBanner} />
