@@ -24,6 +24,20 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
+  const handleClick = () => {
+    // Calculate a better scroll position - scroll to the first section below the hero
+    const scrollTarget = window.innerHeight * 0.9;
+    window.scrollTo({
+      top: scrollTarget,
+      behavior: 'smooth'
+    });
+    
+    // After scrolling, add a small delay before hiding the indicator
+    setTimeout(() => {
+      setIsVisible(false);
+    }, 500);
+  };
+  
   if (!isVisible) return null;
   
   return (
@@ -42,7 +56,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           "transition-all duration-300",
           isHovered ? "translate-y-[-5px]" : ""
         )}
-        onClick={() => window.scrollTo({top: window.innerHeight, behavior: 'smooth'})}
+        onClick={handleClick}
       >
         <p className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-primary drop-shadow-sm">
           SCROLL TO EXPLORE
