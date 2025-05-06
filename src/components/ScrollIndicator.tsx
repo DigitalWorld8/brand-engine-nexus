@@ -29,7 +29,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   return (
     <div 
       className={cn(
-        "fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 transition-all duration-500",
+        "absolute md:right-16 right-4 bottom-32 z-40 transition-all duration-500",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
         className
       )}
