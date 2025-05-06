@@ -1,5 +1,4 @@
 
-
 @layer components {
   .staggered-fade-in > * {
     @apply opacity-0;
@@ -138,3 +137,94 @@
   @apply fixed inset-0 bg-black/50 z-40;
 }
 
+/* Advanced animation effects */
+@keyframes wave {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.animate-wave {
+  animation: wave 3s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-breathe {
+  animation: breathe 6s ease-in-out infinite;
+}
+
+/* Scroll direction-based animations */
+.scroll-down-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.scroll-up-reveal {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.scroll-reveal-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Velocity-based animations */
+.velocity-scale {
+  transition: transform 0.3s var(--ease-elastic);
+}
+
+/* New easing functions */
+:root {
+  --ease-elastic: cubic-bezier(0.5, 1.5, 0.75, 1.25);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 3D perspective effects */
+.perspective-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.perspective-item {
+  transform: translateZ(0);
+  transition: transform 0.5s var(--ease-smooth);
+}
+
+.perspective-item:hover {
+  transform: translateZ(50px);
+}
+
+/* Scroll-triggered text animation */
+.text-reveal-container {
+  overflow: hidden;
+}
+
+.text-reveal {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.6s var(--ease-smooth), opacity 0.6s var(--ease-smooth);
+}
+
+.text-reveal.active {
+  transform: translateY(0);
+  opacity: 1;
+}
