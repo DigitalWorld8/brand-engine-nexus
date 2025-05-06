@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
@@ -27,6 +27,20 @@ const Index = () => {
   const [showBanner, setShowBanner] = useState(false);
   const [sideEdgeState, setSideEdgeState] = useState('full'); // 'full', 'medium', 'small', 'minimal'
   
+  // Throttled scroll handler to prevent excessive state updates
+  const throttledScrollHandler = useCallback((callback: () => void) => {
+    let waiting = false;
+    return () => {
+      if (!waiting) {
+        waiting = true;
+        window.requestAnimationFrame(() => {
+          callback();
+          waiting = false;
+        });
+      }
+    };
+  }, []);
+  
   useEffect(() => {
     setMounted(true);
     
@@ -36,20 +50,24 @@ const Index = () => {
     }
     
     // Handle progressive side edge narrowing based on scroll position
-    const handleScrollForSideEdges = () => {
+    const handleScrollForSideEdges = throttledScrollHandler(() => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       
-      if (scrollY < windowHeight * 0.2) {
+      // Using smooth thresholds to reduce jitter
+      if (scrollY < windowHeight * 0.25) {
         setSideEdgeState('full');
-      } else if (scrollY < windowHeight * 0.5) {
+      } else if (scrollY < windowHeight * 0.6) {
         setSideEdgeState('medium');
-      } else if (scrollY < windowHeight) {
+      } else if (scrollY < windowHeight * 1.2) {
         setSideEdgeState('small');
       } else {
         setSideEdgeState('minimal');
       }
-    };
+    });
+    
+    // Initial check on component mount
+    handleScrollForSideEdges();
     
     window.addEventListener('scroll', handleScrollForSideEdges, { passive: true });
     
@@ -57,7 +75,7 @@ const Index = () => {
       document.body.classList.remove('page-loaded');
       window.removeEventListener('scroll', handleScrollForSideEdges);
     };
-  }, [mounted]);
+  }, [mounted, throttledScrollHandler]);
 
   // Get side edge classes based on current state
   const getSideEdgeClasses = () => {

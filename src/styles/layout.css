@@ -7,18 +7,19 @@
   }
   
   .content-container {
-    @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden transition-all duration-800 ease-in-out;
+    @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden transition-all duration-800 ease-smooth;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
   }
   
   .top-curved-border {
-    @apply w-full h-16 absolute top-0 left-0 transition-opacity duration-800 ease-in-out;
+    @apply w-full h-16 absolute top-0 left-0 transition-opacity duration-800 ease-smooth;
     background-color: #1b1464; /* This is the brand-primary color */
   }
   
   /* Side edges - purple sidebars with scroll-dependent width */
   .side-edge {
-    @apply fixed top-0 h-full bg-brand-primary z-0 transition-all duration-500 ease-out;
+    @apply fixed top-0 h-full bg-brand-primary z-0 will-change-transform transform-gpu;
+    transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
   
   .side-edge-left {
