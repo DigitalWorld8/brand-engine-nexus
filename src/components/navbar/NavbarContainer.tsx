@@ -16,11 +16,11 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
   const [servicesOpen, setServicesOpen] = useState(false);
   const [navbarReady, setNavbarReady] = useState(false);
 
-  // Add a slight delay before animations to ensure smooth loading
+  // Make the navbar render faster
   useEffect(() => {
     const timer = setTimeout(() => {
       setNavbarReady(true);
-    }, 100);
+    }, 50);
     return () => clearTimeout(timer);
   }, []);
 
@@ -30,13 +30,13 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
 
   return (
     <div className={cn(
-      "transition-all duration-500 ease-in-out",
+      "transition-all duration-300 ease-in-out",
       "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
       !navbarReady && "opacity-0"
     )}>
       <div className={cn(
         "flex w-full items-center justify-between",
-        "transition-all duration-500 ease-in-out"
+        "transition-all duration-300 ease-in-out"
       )}>
         {/* Left Side Navigation */}
         <div className="flex-1">
