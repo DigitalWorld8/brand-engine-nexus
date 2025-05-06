@@ -64,6 +64,9 @@ const Index = () => {
       {/* Initial view bottom edge - only visible when at the top */}
       <div className={`initial-view-bottom-edge ${isScrolled ? 'opacity-0' : 'opacity-100'}`}></div>
       
+      {/* Bottom frame border - completing the frame around the initial view */}
+      <div className={`initial-page-frame-bottom ${isScrolled ? 'opacity-0' : 'opacity-100'}`}></div>
+      
       {/* Show Banner if enabled */}
       <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       

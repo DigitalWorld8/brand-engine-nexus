@@ -45,6 +45,15 @@
     left: 0;
     transition: opacity 500ms ease-in-out;
   }
+  
+  /* Initial page frame - complete border around initial view */
+  .initial-page-frame-bottom {
+    @apply w-full h-8 bg-brand-primary z-20;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transition: opacity 500ms ease-in-out;
+  }
 }
 
 /* Add support for hardware acceleration */
