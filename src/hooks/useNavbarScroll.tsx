@@ -25,7 +25,7 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = (scrollY / scrollHeight) * 100;
     
-    // Update navbar state based on scroll position
+    // Update navbar state based on scroll position - trigger sticky at 50px
     if (scrollY > 50) {
       setNavbarState(prev => ({
         ...prev,
