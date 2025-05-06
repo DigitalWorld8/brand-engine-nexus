@@ -31,7 +31,7 @@ const Portfolio = () => {
   return (
     <section id="portfolio" className="section bg-brand-light-gray overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 scroll-fade-up">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Our Portfolio
@@ -45,12 +45,9 @@ const Portfolio = () => {
           </a>
         </div>
         
-        <div 
-          ref={ref}
-          className={`grid md:grid-cols-2 gap-6 lg:gap-10 ${isVisible ? 'reveal active' : 'reveal'}`}
-        >
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
           {projects.map((project, index) => (
-            <div key={index} className="rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+            <div key={index} className="rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 scroll-fade-up">
               <div className={`aspect-[16/9] ${project.image}`}></div>
               <div className="p-6 bg-white">
                 <div className="text-sm text-brand-accent-blue font-medium mb-1">{project.category}</div>

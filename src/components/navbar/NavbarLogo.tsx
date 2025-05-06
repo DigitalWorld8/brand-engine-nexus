@@ -20,7 +20,8 @@ const NavbarLogo = () => {
       "flex items-center transform-gpu will-change-transform", 
       "transition-all duration-800 ease-in-out", 
       isScrolled ? "scale-100" : "scale-125",
-      logoReady ? "opacity-100" : "opacity-0"
+      logoReady ? "opacity-100" : "opacity-0",
+      "scroll-fade-up" // Add scroll fade up class
     )}>
       <a href="/" className="flex items-center space-x-1">
         <span className="text-2xl font-bold font-heading text-brand-primary">Brand<span className="text-brand-accent-blue">Engine</span></span>

@@ -9,7 +9,7 @@ const Hero = () => {
     isScrolled
   } = useNavbarScroll();
   
-  return <section className={`relative pt-40 pb-20 md:pt-56 md:pb-32 overflow-hidden mx-0 my-[45px] px-0 py-[320px] ${!isScrolled ? 'hero-tear-shape' : ''}`}>
+  return <section className={`relative pt-40 pb-20 md:pt-56 md:pb-32 overflow-hidden mx-0 my-[45px] px-0 py-[320px] ${!isScrolled ? 'hero-tear-shape' : ''} hero-section`}>
       {/* Background elements with enhanced animations */}
       <div className={`absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden ${!isScrolled ? 'hero-tear-shape' : ''}`}>
         <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl animate-pulse opacity-70"></div>
@@ -22,7 +22,7 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 md:pr-12">
-            <div className="animate-fade-in-up">
+            <div className="animate-fade-in-up scroll-fade-up">
               {/* Headline - adjusted positioning to work better with tear shape */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300 initial-clear-content relative z-20 mt-10">
                 Empower Your Brand with Digital <span className="text-gradient relative inline-block">
@@ -57,7 +57,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className={`relative ${isScrolled ? '' : 'blur-on-load'}`}>
+          <div className={`relative ${isScrolled ? '' : 'blur-on-load'} scroll-fade-up`}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl animate-float">
               <div className="bg-gradient-to-tr from-brand-primary to-brand-accent-blue p-1">
                 <div className="bg-white rounded-xl p-6 md:p-8">
@@ -88,7 +88,7 @@ const Hero = () => {
           </div>
         </div>
         
-        <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isScrolled ? '' : 'blur-on-load'}`}>
+        <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isScrolled ? '' : 'blur-on-load'} scroll-fade-up`}>
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => <div key={company} className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up cursor-pointer hover:text-brand-primary transition-colors duration-300" style={{

@@ -14,6 +14,7 @@ import CTABanner from '@/components/cta/CTABanner';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import Banner from '@/components/Banner';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const Index = () => {
   const {
@@ -25,6 +26,9 @@ const Index = () => {
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
+  
+  // Initialize scroll reveal animations
+  useScrollReveal();
   
   useEffect(() => {
     setMounted(true);

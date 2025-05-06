@@ -3,9 +3,11 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import NavbarContainer from './navbar/NavbarContainer';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const Navbar = () => {
   const { isScrolled, isInitialView } = useNavbarScroll();
+  useScrollReveal();
   
   return (
     <header className={cn(
