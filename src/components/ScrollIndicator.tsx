@@ -38,22 +38,22 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     >
       <div 
         className={cn(
-          "flex flex-col items-center gap-3 cursor-pointer",
+          "flex flex-col items-center gap-4 cursor-pointer",
           "transition-all duration-300",
           isHovered ? "translate-y-[-5px]" : ""
         )}
         onClick={() => window.scrollTo({top: window.innerHeight, behavior: 'smooth'})}
       >
-        <p className="text-sm font-medium bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-primary">
-          Scroll to Explore
+        <p className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-primary drop-shadow-sm">
+          SCROLL TO EXPLORE
         </p>
         
-        {/* Animated line */}
-        <div className="w-[2px] h-10 relative overflow-hidden bg-gradient-to-b from-brand-accent-blue/20 to-brand-primary/20 rounded-full">
+        {/* Animated line - made thicker */}
+        <div className="w-[3px] h-16 relative overflow-hidden bg-gradient-to-b from-brand-accent-blue/20 to-brand-primary/20 rounded-full">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-accent-blue to-brand-primary animate-pulse-down"></div>
         </div>
         
-        {/* Animated arrow in glowing circle */}
+        {/* Animated arrow in glowing circle - made larger */}
         <div 
           className={cn(
             "relative flex items-center justify-center",
@@ -61,14 +61,14 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
             isHovered ? "scale-110" : "scale-100"
           )}
         >
-          {/* Glowing background effect */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-20 blur-md"></div>
+          {/* Glowing background effect - enhanced glow */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-30 blur-md scale-125"></div>
           
-          {/* Button with animation */}
-          <div className="relative bg-white p-3 w-12 h-12 rounded-full flex items-center justify-center shadow-lg border border-brand-light-gray animate-subtle-bounce">
+          {/* Button with animation - made larger */}
+          <div className="relative bg-white p-3 w-16 h-16 rounded-full flex items-center justify-center shadow-lg border border-brand-light-gray animate-subtle-bounce">
             <ArrowDown 
               className={cn(
-                "h-6 w-6 text-brand-primary",
+                "h-8 w-8 text-brand-primary",
                 "transition-all duration-300",
                 isHovered ? "translate-y-[2px]" : ""
               )} 
