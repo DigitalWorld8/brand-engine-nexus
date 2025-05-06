@@ -23,7 +23,7 @@ export function useNavbarScroll() {
   useEffect(() => {
     // Calculate scroll progress
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (scrollY / scrollHeight) * 100;
+    const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
     
     // Update navbar state based on scroll position - show full navbar when scrolled past threshold
     if (scrollY > 50) {

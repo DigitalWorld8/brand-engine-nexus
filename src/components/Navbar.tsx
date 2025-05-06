@@ -10,7 +10,7 @@ const Navbar = () => {
   
   return (
     <header className={cn(
-      'fixed top-0 left-0 right-0 z-50 w-full',
+      'fixed top-0 left-0 right-0 z-[100] w-full', // Increased z-index to ensure it stays on top
       'transition-all duration-800 ease-smooth',
       isScrolled 
         ? 'bg-white/90 backdrop-blur-md shadow-md py-3' 
