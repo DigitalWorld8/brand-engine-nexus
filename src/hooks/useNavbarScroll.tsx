@@ -25,9 +25,8 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
     
-    // Use an even lower threshold and ensure we force isScrolled to true for any scroll
-    // beyond this minimal threshold to maintain navbar visibility
-    if (scrollY > 2) {
+    // Use an extremely low threshold to ensure the navbar becomes sticky immediately upon scroll
+    if (scrollY > 1) {
       setNavbarState({
         isScrolled: true,
         isInitialView: false,
