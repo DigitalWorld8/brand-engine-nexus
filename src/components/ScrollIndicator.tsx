@@ -30,15 +30,14 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     
     setIsScrolling(true);
     
-    // Change the target position to the beginning of the website content
-    // Use a small offset instead of going to services section
+    // Set the target position to the top of the page (0)
     const startPosition = window.scrollY;
-    const targetPosition = 0; // Scroll to the top of the page
+    const targetPosition = 0;
     const distance = targetPosition - startPosition;
-    const duration = 800; // Keep the same smooth duration
+    const duration = 800;
     const startTime = performance.now();
     
-    // Custom easing function for smoother scroll
+    // Cubic easing function for smooth scrolling
     const easeInOutCubic = (t: number) => 
       t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     
@@ -47,15 +46,11 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
       const progress = Math.min(elapsed / duration, 1);
       const easedProgress = easeInOutCubic(progress);
       
-      window.scrollTo({
-        top: startPosition + distance * easedProgress,
-        behavior: 'auto' // We're handling the smoothness ourselves
-      });
+      window.scrollTo(0, startPosition + distance * easedProgress);
       
       if (progress < 1) {
         window.requestAnimationFrame(scrollStep);
       } else {
-        // Once scrolling is complete
         setIsScrolling(false);
         
         // Hide indicator after scrolling is complete
