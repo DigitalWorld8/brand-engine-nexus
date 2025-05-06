@@ -30,13 +30,13 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
 
   return (
     <div className={cn(
-      "transition-all duration-800 ease-in-out",
+      "transition-all duration-500 ease-in-out",
       "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
       !navbarReady && "opacity-0"
     )}>
       <div className={cn(
         "flex w-full items-center justify-between",
-        "transition-all duration-800 ease-in-out"
+        "transition-all duration-500 ease-in-out"
       )}>
         {/* Left Side Navigation */}
         <div className="flex-1">

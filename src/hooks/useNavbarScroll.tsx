@@ -25,9 +25,9 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
     
-    // Simplify the logic to ensure consistent behavior
-    // Use a lower threshold to ensure navbar appears faster when scrolling
-    if (scrollY > 20) {
+    // Very strict threshold - as soon as user scrolls even slightly, show the navbar
+    // This ensures the navbar appears immediately when scrolling starts
+    if (scrollY > 10) {
       setNavbarState({
         isScrolled: true,
         isInitialView: false,
@@ -39,7 +39,7 @@ export function useNavbarScroll() {
       setNavbarState({
         isScrolled: false,
         isInitialView: true,
-        hasScrolled: scrollY > 5, // Track even minor scrolling
+        hasScrolled: scrollY > 0, // Track even the slightest scroll
         initialScrollBuffer: 0,
         scrollProgress: Math.min(progress, 100)
       });
