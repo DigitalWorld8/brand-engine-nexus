@@ -1,5 +1,4 @@
 
-
 @layer components {
   /* Page wrapper and content container */
   .page-wrapper {
@@ -71,12 +70,17 @@
     50% { transform: translateY(100%); }
   }
 
-  /* Sticky header styles */
+  /* Sticky header styles - Correctly defined for actual stickiness */
   header.sticky {
-    position: sticky;
-    top: 0;
+    position: sticky !important; /* Use !important to override any conflicting styles */
+    top: 0 !important;
     z-index: 50;
-    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Smooth transformations for header */
+  header {
+    transition: all 0.3s ease-in-out;
+    will-change: transform, opacity, background-color;
   }
 
   /* Header slide-in animation when sticking */
@@ -133,4 +137,3 @@
 .page-reveal {
   animation: page-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
-

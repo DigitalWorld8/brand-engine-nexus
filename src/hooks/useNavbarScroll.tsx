@@ -22,17 +22,20 @@ export function useNavbarScroll() {
 
   useEffect(() => {
     // Calculate scroll progress
-    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (scrollY / scrollHeight) * 100;
+    const scrollHeight = Math.max(
+      document.documentElement.scrollHeight,
+      document.body.scrollHeight
+    ) - window.innerHeight;
+    const progress = Math.min((scrollY / Math.max(scrollHeight, 1)) * 100, 100);
     
-    // Update navbar state based on scroll position - trigger sticky at 50px
+    // Update navbar state based on scroll position - make sticky at 50px
     if (scrollY > 50) {
       setNavbarState(prev => ({
         ...prev,
         isScrolled: true,
         isInitialView: false,
         hasScrolled: true,
-        scrollProgress: Math.min(progress, 100)
+        scrollProgress: progress
       }));
     } else if (scrollY <= 20) {
       setNavbarState(prev => ({
@@ -40,13 +43,13 @@ export function useNavbarScroll() {
         isScrolled: false,
         isInitialView: true,
         initialScrollBuffer: 0,
-        scrollProgress: Math.min(progress, 100)
+        scrollProgress: progress
       }));
     } else {
       // Handle the in-between zone (20-50px)
       setNavbarState(prev => ({
         ...prev,
-        scrollProgress: Math.min(progress, 100)
+        scrollProgress: progress
       }));
     }
     
