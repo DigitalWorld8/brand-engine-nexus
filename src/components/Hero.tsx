@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
@@ -31,9 +30,6 @@ const Hero = () => {
                   Innovation
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet"></span>
                 </span>
-                
-                {/* ScrollIndicator positioned further to the right */}
-                <ScrollIndicator className="hidden md:block absolute -right-28 top-0" />
               </h1>
               
               {/* The rest of the content will be blurred initially (blur-on-load class) */}
@@ -63,6 +59,9 @@ const Hero = () => {
           </div>
           
           <div className={`relative ${isScrolled ? '' : 'blur-on-load'}`}>
+            {/* Moved ScrollIndicator here to be on top of the grid */}
+            <ScrollIndicator className="absolute -top-16 right-1/2 transform translate-x-1/2 md:right-0 md:translate-x-0 z-10" />
+            
             <div className="relative rounded-2xl overflow-hidden shadow-2xl animate-float">
               <div className="bg-gradient-to-tr from-brand-primary to-brand-accent-blue p-1">
                 <div className="bg-white rounded-xl p-6 md:p-8">
@@ -106,7 +105,7 @@ const Hero = () => {
         </div>
         
         {/* Mobile ScrollIndicator - only shown on smaller screens */}
-        <ScrollIndicator className="md:hidden mt-8" />
+        {/* Removed duplicate mobile ScrollIndicator since we now have it positioned on the grid */}
       </div>
     </section>
   );
