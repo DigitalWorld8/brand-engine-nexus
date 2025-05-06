@@ -6,8 +6,6 @@ interface NavbarScrollState {
   isScrolled: boolean;
   scrollProgress: number;
   isInitialView: boolean;
-  hasScrolled: boolean;
-  initialScrollBuffer: number;
 }
 
 export function useNavbarScroll() {
@@ -16,8 +14,6 @@ export function useNavbarScroll() {
     isScrolled: false,
     scrollProgress: 0,
     isInitialView: true,
-    hasScrolled: false,
-    initialScrollBuffer: 0
   });
 
   useEffect(() => {
@@ -27,21 +23,17 @@ export function useNavbarScroll() {
     
     // Update navbar state based on scroll position - show full navbar when scrolled past threshold
     if (scrollY > 50) {
-      setNavbarState(prev => ({
-        ...prev,
+      setNavbarState({
         isScrolled: true,
         isInitialView: false,
-        hasScrolled: true,
         scrollProgress: Math.min(progress, 100)
-      }));
+      });
     } else if (scrollY <= 20) {
-      setNavbarState(prev => ({
-        ...prev,
+      setNavbarState({
         isScrolled: false,
         isInitialView: true,
-        initialScrollBuffer: 0,
         scrollProgress: Math.min(progress, 100)
-      }));
+      });
     } else {
       // Handle the in-between zone (20-50px)
       setNavbarState(prev => ({

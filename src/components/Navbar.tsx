@@ -16,7 +16,6 @@ const Navbar = () => {
         ? 'bg-white/90 backdrop-blur-md shadow-md py-3' 
         : 'bg-transparent py-5'
     )}>
-      {/* Only show logo when not scrolled */}
       {!isScrolled ? (
         <div className="flex justify-center w-full py-4">
           <NavbarLogo />
