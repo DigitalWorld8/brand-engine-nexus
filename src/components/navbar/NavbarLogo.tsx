@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
+import { Section } from 'lucide-react';
 
 const NavbarLogo = () => {
   const { isScrolled } = useNavbarScroll();
@@ -23,6 +24,7 @@ const NavbarLogo = () => {
       logoReady ? "opacity-100" : "opacity-0"
     )}>
       <a href="/" className="flex items-center space-x-1">
+        <Section className="h-6 w-6 text-brand-accent-blue mr-1" />
         <span className="text-2xl font-bold font-heading text-brand-primary">Brand<span className="text-brand-accent-blue">Engine</span></span>
       </a>
     </div>
