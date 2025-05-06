@@ -70,35 +70,18 @@
     50% { transform: translateY(100%); }
   }
 
-  /* Sticky header styles - Correctly defined for actual stickiness */
-  header.sticky {
-    position: sticky !important; /* Use !important to override any conflicting styles */
-    top: 0 !important;
-    z-index: 50;
-  }
-
-  /* Smooth transformations for header */
+  /* Header styling with fixed positioning */
   header {
     transition: all 0.3s ease-in-out;
     will-change: transform, opacity, background-color;
   }
 
-  /* Header slide-in animation when sticking */
-  header.sticky.slide-in {
-    transform: translateY(0);
+  /* Smooth transformations */
+  .transform-gpu {
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
-
-  /* Header slide-out animation when scrolling up from sticky */
-  header.sticky.slide-out {
-    transform: translateY(-100%);
-  }
-}
-
-/* Add support for hardware acceleration */
-.transform-gpu {
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
 }
 
 /* Extended duration classes */
