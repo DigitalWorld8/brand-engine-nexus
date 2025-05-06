@@ -30,15 +30,17 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       {/* Top curved border - visible only when at the top */}
       <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
       
+      {/* The navbar is now outside the content-container since it's fixed positioned */}
+      <Navbar />
+      
       <div className={`content-container ${isScrolled ? 'w-full rounded-none' : ''} transition-all duration-500 z-10 relative`}>
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isInitialView ? '80px' : '0' 
+            marginTop: isScrolled ? '80px' : '120px' // Adjust margins to account for fixed navbar
           }} 
           className="min-h-screen transition-all duration-700 page-reveal"
         >
-          <Navbar />
           <div 
             className={`transform-gpu transition-all duration-700 relative ${
               isInitialView ? 'blur-effect' : ''
@@ -47,7 +49,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
               marginBottom: isInitialView ? '-8vh' : '0',
-              marginTop: isInitialView ? '20vh' : '0',
+              marginTop: isInitialView ? '26vh' : '6vh',
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}
