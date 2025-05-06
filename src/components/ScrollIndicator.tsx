@@ -13,7 +13,13 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   const [isScrolling, setIsScrolling] = useState(false);
   
   useEffect(() => {
+    // Set initial visibility based on scroll position when component mounts
+    if (window.scrollY > 100) {
+      setIsVisible(false);
+    }
+    
     const handleScroll = () => {
+      // Hide the indicator when user scrolls down more than 100px
       if (window.scrollY > 100) {
         setIsVisible(false);
       } else {
@@ -21,8 +27,13 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
       }
     };
     
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Cleanup function to remove event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
   
   const handleClick = () => {
@@ -54,22 +65,21 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
         setIsScrolling(false);
         
         // Hide indicator after scrolling is complete
-        setTimeout(() => {
-          setIsVisible(false);
-        }, 100);
+        setIsVisible(false);
       }
     };
     
     window.requestAnimationFrame(scrollStep);
   };
   
+  // If not visible, don't render the component at all
   if (!isVisible) return null;
   
   return (
     <div 
       className={cn(
         "fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 transition-all duration-500",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
