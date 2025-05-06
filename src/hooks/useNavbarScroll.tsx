@@ -1,94 +1,70 @@
+
 import { useState, useEffect } from 'react';
+import { useScroll } from './useScroll';
+
+interface NavbarScrollState {
+  isScrolled: boolean;
+  scrollProgress: number;
+  isInitialView: boolean;
+  hasScrolled: boolean;
+  initialScrollBuffer: number;
+}
 
 export function useNavbarScroll() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isInitialView, setIsInitialView] = useState(true);
-  const [hasScrolled, setHasScrolled] = useState(false);
-  // Track initial scroll amount to create a threshold effect
-  const [initialScrollBuffer, setInitialScrollBuffer] = useState(0);
+  const { scrollY } = useScroll();
+  const [navbarState, setNavbarState] = useState<NavbarScrollState>({
+    isScrolled: false,
+    scrollProgress: 0,
+    isInitialView: true,
+    hasScrolled: false,
+    initialScrollBuffer: 0
+  });
 
   useEffect(() => {
-    // For a smoother initial load experience
-    const initialScrollCheck = () => {
-      if (window.scrollY > 50) { // Increased scroll threshold to 50px
-        setIsScrolled(true);
-        setIsInitialView(false);
-        setHasScrolled(true);
-      } else {
-        setIsScrolled(false);
-        setIsInitialView(true);
-        // Reset buffer when at the top
-        setInitialScrollBuffer(0);
-      }
-    };
+    // Calculate scroll progress
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollY / scrollHeight) * 100;
     
-    initialScrollCheck();
+    // Update navbar state based on scroll position
+    if (scrollY > 50) {
+      setNavbarState(prev => ({
+        ...prev,
+        isScrolled: true,
+        isInitialView: false,
+        hasScrolled: true,
+        scrollProgress: Math.min(progress, 100)
+      }));
+    } else if (scrollY <= 20) {
+      setNavbarState(prev => ({
+        ...prev,
+        isScrolled: false,
+        isInitialView: true,
+        initialScrollBuffer: 0,
+        scrollProgress: Math.min(progress, 100)
+      }));
+    } else {
+      // Handle the in-between zone (20-50px)
+      setNavbarState(prev => ({
+        ...prev,
+        scrollProgress: Math.min(progress, 100)
+      }));
+    }
     
-    // Advanced debounce technique for smoother transitions
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-    let scrollTimeoutId: number;
-    let transitionTimeoutId: number;
-    
-    const handleScroll = () => {
-      // Calculate how much the user has scrolled
-      const currentScrollY = window.scrollY;
-      
-      // Once scrolled past threshold, always keep navbar in scrolled state
-      if (currentScrollY > 50) {
-        if (!isScrolled) {
-          setIsScrolled(true);
-          
-          // Delay the initial view transition slightly for smoother appearance
-          transitionTimeoutId = window.setTimeout(() => {
-            setIsInitialView(false);
-          }, 100);
-        }
-        setHasScrolled(true);
-      } 
-      // Only reset to initial state if user goes completely back to top
-      else if (currentScrollY <= 20) {
-        setIsScrolled(false);
-        setIsInitialView(true);
-        setInitialScrollBuffer(0);
-      }
-      
-      // Implement scroll resistance for initial scrolling
-      if (currentScrollY < 150) {
-        // Only increment buffer on downward scroll
-        if (currentScrollY > lastScrollY && !hasScrolled) {
-          setInitialScrollBuffer(prev => Math.min(prev + (currentScrollY - lastScrollY) * 0.2, 100));
-        }
-        
+    // Implement scroll resistance for initial scrolling
+    if (scrollY < 150 && !navbarState.hasScrolled) {
+      setNavbarState(prev => {
+        const newBuffer = Math.min(prev.initialScrollBuffer + scrollY * 0.2, 100);
         // Only mark as scrolled once we pass the buffer threshold
-        if (initialScrollBuffer > 90 && !hasScrolled) {
-          setHasScrolled(true);
-        }
-      }
-      
-      lastScrollY = window.scrollY;
-      
-      // Calculate scroll progress with improved smoothing
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-          const progress = (lastScrollY / scrollHeight) * 100;
-          setScrollProgress(Math.min(progress, 100));
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
+        const hasReachedThreshold = newBuffer > 90;
+        
+        return {
+          ...prev,
+          initialScrollBuffer: newBuffer,
+          hasScrolled: hasReachedThreshold ? true : prev.hasScrolled
+        };
+      });
+    }
+  }, [scrollY, navbarState.hasScrolled]);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutId) window.clearTimeout(scrollTimeoutId);
-      if (transitionTimeoutId) window.clearTimeout(transitionTimeoutId);
-    };
-  }, [isScrolled, hasScrolled, initialScrollBuffer]);
-
-  return { isScrolled, scrollProgress, isInitialView, hasScrolled, initialScrollBuffer };
+  return navbarState;
 }
