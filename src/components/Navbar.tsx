@@ -24,7 +24,7 @@ const Navbar = () => {
           <NavbarLogo />
         </div>
       ) : (
-        /* When scrolled, show full navbar container */
+        /* When scrolled, show full navbar container with curved sidebars */
         <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
       )}
     </header>
