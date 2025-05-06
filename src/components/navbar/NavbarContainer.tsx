@@ -43,14 +43,14 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
         </div>
       </div>
       
-      <div className="flex justify-between items-start w-full">
-        {/* Left Side Navigation */}
-        <div className="flex-none max-w-[45%]">
+      <div className="flex justify-between items-center w-full h-screen pointer-events-none">
+        {/* Left Side Navigation - Vertically Centered */}
+        <div className="flex-none max-w-[45%] pointer-events-auto">
           <LeftNavigation />
         </div>
         
-        {/* Right Side Navigation */}
-        <div className="flex-none max-w-[45%]">
+        {/* Right Side Navigation - Vertically Centered */}
+        <div className="flex-none max-w-[45%] pointer-events-auto">
           <RightNavigation onServicesToggle={handleServicesToggle} />
         </div>
       </div>

@@ -25,11 +25,11 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
   };
 
   return (
-    <div className="rounded-l-3xl bg-white shadow-md py-4 px-6 mr-0">
-      <div className="flex flex-col space-y-4 md:flex-row md:items-center md:space-y-0 md:space-x-4">
+    <div className="rounded-l-3xl bg-white shadow-md py-4 px-6 mr-0 fixed right-0 top-1/2 transform -translate-y-1/2">
+      <div className="flex flex-col space-y-4">
         {/* Right Side Nav Items */}
         <NavigationMenu>
-          <NavigationMenuList className="flex flex-col md:flex-row space-y-2 md:space-y-0">
+          <NavigationMenuList className="flex flex-col space-y-2">
             {/* Services with custom toggle behavior */}
             <NavigationMenuItem>
               <button 
