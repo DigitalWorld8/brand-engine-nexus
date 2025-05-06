@@ -49,7 +49,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
               marginBottom: isInitialView ? '-8vh' : '0',
-              marginTop: isInitialView ? '26vh' : '6vh',
+              marginTop: isInitialView ? '8vh' : '0', // Adjust this value to ensure content is visible
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Calendar } from 'lucide-react';
+import { Calendar, Info, Briefcase } from 'lucide-react';
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -23,14 +23,16 @@ const LeftNavigation = () => {
         <NavigationMenu>
           <NavigationMenuList className="flex flex-col space-y-2">
             <NavigationMenuItem>
-              <NavigationMenuLink href="#about" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2">
-                About Us
+              <NavigationMenuLink href="#about" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2 flex items-center">
+                <Info className="mr-1 h-4 w-4" />
+                <span>About Us</span>
               </NavigationMenuLink>
             </NavigationMenuItem>
             
             <NavigationMenuItem>
-              <NavigationMenuLink href="#portfolio" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2">
-                Portfolio
+              <NavigationMenuLink href="#portfolio" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2 flex items-center">
+                <Briefcase className="mr-1 h-4 w-4" />
+                <span>Portfolio</span>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>

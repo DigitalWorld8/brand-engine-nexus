@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Phone } from 'lucide-react';
+import { Phone, Folder, Newspaper } from 'lucide-react';
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -37,9 +37,10 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
                 className={`text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2 flex items-center ${servicesOpen ? 'text-brand-primary' : ''}`}
                 aria-expanded={servicesOpen}
               >
-                Services
+                <Folder className="mr-1 h-4 w-4" />
+                <span>Services</span>
                 <svg 
-                  className={`ml-1 h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} 
+                  className={`ml-1 h-3 w-3 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} 
                   xmlns="http://www.w3.org/2000/svg" 
                   fill="none" 
                   viewBox="0 0 24 24" 
@@ -51,8 +52,9 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
             </NavigationMenuItem>
             
             <NavigationMenuItem>
-              <NavigationMenuLink href="#blog" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2">
-                Blog
+              <NavigationMenuLink href="#blog" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2 flex items-center">
+                <Newspaper className="mr-1 h-4 w-4" />
+                <span>Blog</span>
               </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
