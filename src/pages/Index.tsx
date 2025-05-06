@@ -61,8 +61,8 @@ const Index = () => {
       <div className="side-edge side-edge-left"></div>
       <div className="side-edge side-edge-right"></div>
       
-      {/* Bottom purple edge */}
-      <div className="bottom-edge"></div>
+      {/* Initial view bottom edge - only visible when at the top */}
+      <div className={`initial-view-bottom-edge ${isScrolled ? 'opacity-0' : 'opacity-100'}`}></div>
       
       {/* Show Banner if enabled */}
       <Banner onBannerClick={handleBannerClick} visible={showBanner} />
