@@ -57,9 +57,15 @@ const Index = () => {
   
   return (
     <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
-      {/* Left and right purple side edges */}
+      {/* Left and right purple side edges with corner fixes */}
       <div className="side-edge side-edge-left"></div>
       <div className="side-edge side-edge-right"></div>
+      
+      {/* Corner fixes - these divs will cover the white corners */}
+      <div className="fixed top-0 left-0 w-[5%] md:w-[7.5%] lg:w-[10%] h-16 bg-brand-primary rounded-br-[3rem] z-10"></div>
+      <div className="fixed top-0 right-0 w-[5%] md:w-[7.5%] lg:w-[10%] h-16 bg-brand-primary rounded-bl-[3rem] z-10"></div>
+      <div className="fixed bottom-0 left-0 w-[5%] md:w-[7.5%] lg:w-[10%] h-16 bg-brand-primary rounded-tr-[3rem] z-10"></div>
+      <div className="fixed bottom-0 right-0 w-[5%] md:w-[7.5%] lg:w-[10%] h-16 bg-brand-primary rounded-tl-[3rem] z-10"></div>
       
       {/* Initial view bottom edge - only visible when at the top */}
       <div className={`initial-view-bottom-edge ${isScrolled ? 'opacity-0' : 'opacity-100'}`}></div>
