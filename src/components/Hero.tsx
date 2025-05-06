@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
@@ -23,17 +24,17 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-8 md:pr-12 relative">
-            <div className="animate-fade-in-up">
+            <div className="animate-fade-in-up relative">
               {/* Headline - adjusted positioning to work better with tear shape */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300 initial-clear-content relative z-20 mt-10">
                 Empower Your Brand with Digital <span className="text-gradient relative inline-block">
                   Innovation
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet"></span>
                 </span>
+                
+                {/* Adding ScrollIndicator inside the headline, positioned to the right of "Innovation" */}
+                <ScrollIndicator className="hidden md:block absolute -right-16 top-0" />
               </h1>
-              
-              {/* Adding ScrollIndicator here, positioned relative to the headline */}
-              <ScrollIndicator className="hidden md:block" />
               
               {/* The rest of the content will be blurred initially (blur-on-load class) */}
               <div className={isScrolled ? '' : 'blur-on-load'}>
