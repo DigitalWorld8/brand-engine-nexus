@@ -61,9 +61,9 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
         </NavigationMenu>
         
         {/* Right Side CTA Button */}
-        <Button size="sm" className="bg-brand-accent-blue hover:bg-brand-primary text-white transition-colors">
+        <Button size="sm" className="bg-brand-accent-blue hover:bg-brand-primary text-white transition-colors flex items-center">
           <Phone className="mr-1 h-4 w-4" />
-          <span className="hidden sm:inline">Contact Us</span>
+          <span className="hidden xl:inline">Contact Us</span>
         </Button>
       </div>
     </div>
