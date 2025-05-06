@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import Services from '@/components/Services';
@@ -23,19 +23,27 @@ const Index = () => {
     hasScrolled,
     initialScrollBuffer
   } = useNavbarScroll();
+  
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [sideEdgeState, setSideEdgeState] = useState('full'); // 'full', 'medium', 'small', 'minimal'
+  const [isAnimating, setIsAnimating] = useState(false);
+  const lastScrollY = useRef(0);
+  const animationTimeoutRef = useRef<number | null>(null);
   
-  // Throttled scroll handler to prevent excessive state updates
+  // Enhanced throttled scroll handler with debounce for state changes
   const throttledScrollHandler = useCallback((callback: () => void) => {
     let waiting = false;
+    const throttleMs = 50; // Higher value = less frequent updates, smoother animation
+    
     return () => {
       if (!waiting) {
         waiting = true;
         window.requestAnimationFrame(() => {
-          callback();
-          waiting = false;
+          setTimeout(() => {
+            callback();
+            waiting = false;
+          }, throttleMs);
         });
       }
     };
@@ -49,20 +57,45 @@ const Index = () => {
       document.body.classList.add('page-loaded');
     }
     
-    // Handle progressive side edge narrowing based on scroll position
+    // Handle progressive side edge narrowing with improved smoothing
     const handleScrollForSideEdges = throttledScrollHandler(() => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
+      const scrollDirection = scrollY > lastScrollY.current ? 'down' : 'up';
+      lastScrollY.current = scrollY;
       
-      // Using smooth thresholds to reduce jitter
-      if (scrollY < windowHeight * 0.25) {
-        setSideEdgeState('full');
-      } else if (scrollY < windowHeight * 0.6) {
-        setSideEdgeState('medium');
-      } else if (scrollY < windowHeight * 1.2) {
-        setSideEdgeState('small');
+      // Only update state if significant scroll has occurred (prevents micro-jitters)
+      const significantScrollThreshold = windowHeight * 0.05;
+      const hasSignificantScroll = Math.abs(scrollY - lastScrollY.current) > significantScrollThreshold;
+      
+      // Don't trigger new animations if one is already in progress
+      if (isAnimating) return;
+
+      // Using wider thresholds with hysteresis to reduce state changes
+      let newState = sideEdgeState;
+      
+      if (scrollY < windowHeight * 0.3) {
+        newState = 'full';
+      } else if (scrollY < windowHeight * 0.7) {
+        newState = 'medium';
+      } else if (scrollY < windowHeight * 1.4) {
+        newState = 'small';
       } else {
-        setSideEdgeState('minimal');
+        newState = 'minimal';
+      }
+      
+      if (newState !== sideEdgeState) {
+        setIsAnimating(true);
+        setSideEdgeState(newState);
+        
+        // Allow next animation after current one completes (matches transition time)
+        if (animationTimeoutRef.current) {
+          window.clearTimeout(animationTimeoutRef.current);
+        }
+        
+        animationTimeoutRef.current = window.setTimeout(() => {
+          setIsAnimating(false);
+        }, 800);
       }
     });
     
@@ -74,12 +107,15 @@ const Index = () => {
     return () => {
       document.body.classList.remove('page-loaded');
       window.removeEventListener('scroll', handleScrollForSideEdges);
+      if (animationTimeoutRef.current) {
+        window.clearTimeout(animationTimeoutRef.current);
+      }
     };
-  }, [mounted, throttledScrollHandler]);
+  }, [mounted, throttledScrollHandler, sideEdgeState, isAnimating]);
 
-  // Get side edge classes based on current state
+  // Get side edge classes based on current state with animation class
   const getSideEdgeClasses = () => {
-    const baseClasses = 'side-edge';
+    const baseClasses = 'side-edge side-edge-animated';
     switch (sideEdgeState) {
       case 'full': return `${baseClasses} side-edge-width-full`;
       case 'medium': return `${baseClasses} side-edge-width-medium`;
@@ -123,7 +159,7 @@ const Index = () => {
             opacity: opacityFactor,
             marginTop: isInitialView ? '80px' : '0' // Increased margin-top to move content down further initially
           }} 
-          className="min-h-screen transition-all duration-700"
+          className="min-h-screen transition-all duration-700 page-reveal"
         >
           <Navbar />
           <div 

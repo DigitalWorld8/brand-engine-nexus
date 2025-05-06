@@ -1,4 +1,5 @@
 
+
 @layer components {
   /* Page wrapper and content container */
   .page-wrapper {
@@ -46,6 +47,29 @@
   .side-edge-width-minimal {
     @apply w-[1%] md:w-[1.5%] lg:w-[2%];
   }
+
+  /* New animated background for side edges */
+  .side-edge-animated {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .side-edge-animated::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(27,20,100,0) 0%, rgba(9,164,213,0.15) 50%, rgba(27,20,100,0) 100%);
+    transform: translateY(-100%);
+    animation: side-edge-flow 8s infinite ease-in-out;
+  }
+
+  @keyframes side-edge-flow {
+    0%, 100% { transform: translateY(-100%); }
+    50% { transform: translateY(100%); }
+  }
 }
 
 /* Add support for hardware acceleration */
@@ -72,3 +96,23 @@
 .ease-smooth {
   transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 }
+
+/* Additional easing functions for smoother animations */
+.ease-out-expo {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ease-in-out-back {
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* Page transition effect */
+@keyframes page-reveal {
+  0% { transform: translateY(15px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.page-reveal {
+  animation: page-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
