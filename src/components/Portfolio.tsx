@@ -3,7 +3,8 @@ import React from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const Portfolio = () => {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
+  // Use the global scroll reveal hook
+  useScrollReveal();
   
   const projects = [
     {

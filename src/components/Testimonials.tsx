@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Quote } from "lucide-react";
-import useScrollReveal from '@/hooks/useScrollReveal';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 type TestimonialItem = {
   content: string;
@@ -51,7 +51,8 @@ const testimonials: TestimonialItem[] = [
 ];
 
 const Testimonials = () => {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  // Use the global scroll reveal hook
+  useScrollReveal();
   const [activeIndex, setActiveIndex] = useState(0);
 
   // Auto-rotate testimonials
@@ -72,8 +73,7 @@ const Testimonials = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div 
-          ref={ref} 
-          className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-10'}`}
+          className="text-center mb-16 transition-all duration-1000 scroll-fade-up"
         >
           <Badge variant="outline" className="mb-3 border-brand-primary text-brand-primary px-3 py-1">
             SUCCESS STORIES

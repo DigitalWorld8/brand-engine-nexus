@@ -23,7 +23,8 @@ const CTABanner = ({
   primaryButtonText = 'Schedule a Consultation',
   secondaryButtonText = 'View Our Process',
 }: CTABannerProps) => {
-  const { ref, isVisible } = useScrollReveal({ threshold: 0.2 });
+  // Use the global scroll reveal hook
+  useScrollReveal();
 
   // Define styles based on variant
   const bgStyles = {
@@ -46,8 +47,7 @@ const CTABanner = ({
 
   return (
     <section 
-      ref={ref} 
-      className={cn('py-20 px-4 relative overflow-hidden', isVisible ? 'reveal active' : 'reveal')}
+      className="py-20 px-4 relative overflow-hidden scroll-fade-up"
     >
       {/* Background */}
       <div className={`absolute inset-0 ${bgStyles[variant]} -z-10`}></div>
