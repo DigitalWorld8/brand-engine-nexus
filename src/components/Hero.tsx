@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import ScrollIndicator from './ScrollIndicator';
@@ -33,7 +33,7 @@ const Hero = () => {
               </h1>
               
               {/* The rest of the content will be blurred initially (blur-on-load class) */}
-              <div className={isScrolled ? '' : 'blur-on-load'}>
+              <div className={isScrolled ? '' : ''}>
                 <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{
                 animationDelay: '0.2s'
               }}>
@@ -42,14 +42,13 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up relative" style={{
                 animationDelay: '0.4s'
               }}>
-                  {/* Add a glass overlay until scrolled */}
-                  {!isScrolled && <div className="absolute inset-0 bg-white/30 backdrop-blur-md z-10 pointer-events-none transition-all duration-500"></div>}
+                  {/* Removed the glass overlay */}
                   
-                  <Button size="lg" className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => isScrolled && setHovered('primary')} onMouseLeave={() => setHovered(null)} disabled={!isScrolled}>
+                  <Button size="lg" className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'cta-enabled' : 'cta-enabled'}`} onMouseEnter={() => setHovered('primary')} onMouseLeave={() => setHovered(null)}>
                     <span className="relative z-10">Explore Our Services</span>
                     {hovered === 'primary' && <span className="absolute inset-0 bg-brand-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>}
                   </Button>
-                  <Button size="lg" variant="outline" className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => isScrolled && setHovered('secondary')} onMouseLeave={() => setHovered(null)} disabled={!isScrolled}>
+                  <Button size="lg" variant="outline" className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'cta-enabled' : 'cta-enabled'}`} onMouseEnter={() => setHovered('secondary')} onMouseLeave={() => setHovered(null)}>
                     <span className="relative z-10">View Our Work</span>
                     {hovered === 'secondary' && <span className="absolute bottom-0 left-0 h-[2px] bg-brand-accent-blue w-0 group-hover:w-full transition-all duration-300"></span>}
                   </Button>
@@ -58,9 +57,9 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className={`relative ${isScrolled ? '' : 'blur-on-load'}`}>
-            {/* Moved ScrollIndicator here to be on top of the grid */}
-            <ScrollIndicator className="absolute -top-16 right-1/2 transform translate-x-1/2 md:right-0 md:translate-x-0 z-10" />
+          <div className="relative">
+            {/* ScrollIndicator positioned without blur effect */}
+            <ScrollIndicator className="absolute -top-16 right-1/2 transform translate-x-1/2 md:right-0 md:translate-x-0" />
             
             <div className="relative rounded-2xl overflow-hidden shadow-2xl animate-float">
               <div className="bg-gradient-to-tr from-brand-primary to-brand-accent-blue p-1">
@@ -92,7 +91,7 @@ const Hero = () => {
           </div>
         </div>
         
-        <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isScrolled ? '' : 'blur-on-load'}`}>
+        <div className="mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left">
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => <div key={company} className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up cursor-pointer hover:text-brand-primary transition-colors duration-300" style={{
@@ -103,9 +102,6 @@ const Hero = () => {
               </div>)}
           </div>
         </div>
-        
-        {/* Mobile ScrollIndicator - only shown on smaller screens */}
-        {/* Removed duplicate mobile ScrollIndicator since we now have it positioned on the grid */}
       </div>
     </section>
   );

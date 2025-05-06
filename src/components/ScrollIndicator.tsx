@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { ArrowDown } from 'lucide-react';
@@ -28,7 +29,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   return (
     <div 
       className={cn(
-        "absolute z-40 transition-all duration-500",
+        "absolute z-50 transition-all duration-500", // Increased z-index
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
         className
       )}
