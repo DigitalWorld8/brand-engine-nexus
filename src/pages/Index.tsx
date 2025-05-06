@@ -61,35 +61,11 @@ const Index = () => {
       <div className="side-edge side-edge-left"></div>
       <div className="side-edge side-edge-right"></div>
       
-      {/* Complete frame for initial view with curved corners */}
-      {!isScrolled && (
-        <>
-          {/* Frame top border */}
-          <div className="initial-page-frame-top"></div>
-          
-          {/* Frame bottom border */}
-          <div className="initial-page-frame-bottom"></div>
-          
-          {/* Frame left and right borders */}
-          <div className="initial-page-frame-left"></div>
-          <div className="initial-page-frame-right"></div>
-          
-          {/* Frame corners - these create the rounded corners effect */}
-          <div className="frame-corner frame-corner-topleft"></div>
-          <div className="frame-corner frame-corner-topright"></div>
-          <div className="frame-corner frame-corner-bottomleft"></div>
-          <div className="frame-corner frame-corner-bottomright"></div>
-        </>
-      )}
-      
-      {/* Initial view bottom edge - only visible when at the top */}
-      <div className={`initial-view-bottom-edge ${isScrolled ? 'opacity-0' : 'opacity-100'}`}></div>
+      {/* Show Banner if enabled */}
+      <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       
       {/* Top curved border - visible only when at the top */}
       <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
-      
-      {/* Show Banner if enabled */}
-      <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       
       <div className={`content-container ${isScrolled ? 'w-full rounded-none' : ''} transition-all duration-500 z-10 relative`}>
         <div 

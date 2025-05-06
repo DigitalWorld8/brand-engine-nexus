@@ -65,11 +65,4 @@
   .ease-smooth {
     transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
   }
-
-  /* Corner fixes for the frame */
-  .rounded-frame-corner {
-    @apply fixed bg-brand-primary z-20;
-    width: 3rem;
-    height: 3rem;
-  }
 }
