@@ -2,16 +2,43 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
+import { cn } from '@/lib/utils';
 
 const Hero = () => {
   const [hovered, setHovered] = useState<string | null>(null);
   const {
-    isScrolled
+    isScrolled,
+    scrollStage
   } = useNavbarScroll();
   
-  return <section className={`relative pt-40 pb-20 md:pt-56 md:pb-32 overflow-hidden mx-0 my-[45px] px-0 py-[320px] ${!isScrolled ? 'hero-tear-shape' : ''}`}>
-      {/* Background elements with enhanced animations */}
-      <div className={`absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden ${!isScrolled ? 'hero-tear-shape' : ''}`}>
+  // Dynamic tear shape based on scroll stage
+  const getTearShapeStyle = () => {
+    const baseRadius = "60% 40% 45% 55% / 30% 50% 50% 70%";
+    
+    if (scrollStage === 0) {
+      return baseRadius;
+    } else if (scrollStage === 1) {
+      return "55% 45% 40% 60% / 35% 45% 55% 65%";
+    } else if (scrollStage === 2) {
+      return "50% 50% 35% 65% / 40% 40% 60% 60%";
+    } else {
+      return "0% 0% 0% 0% / 0% 0% 0% 0%"; // No border radius when fully zoomed
+    }
+  };
+  
+  return <section 
+    className={cn(
+      "relative pt-40 pb-20 md:pt-56 md:pb-32 overflow-hidden mx-0 my-[45px] px-0 py-[320px]",
+      !isScrolled ? 'hero-tear-shape' : ''
+    )}>
+      {/* Background elements with enhanced animations and dynamic tear shape */}
+      <div 
+        className={cn(
+          "absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden",
+          !isScrolled ? 'hero-tear-shape' : ''
+        )}
+        style={!isScrolled ? { borderRadius: getTearShapeStyle() } : {}}
+      >
         <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl animate-pulse opacity-70"></div>
         <div className="absolute -left-20 top-1/2 w-80 h-80 bg-brand-accent-violet/20 rounded-full blur-3xl animate-float"></div>
         <div className="absolute bottom-20 right-1/4 w-64 h-64 bg-brand-accent-yellow/10 rounded-full blur-2xl animate-float" style={{

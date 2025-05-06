@@ -36,9 +36,10 @@
     @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
   
-  /* Hero tear-shape styling - adjusted to better reveal the "Empower" text */
+  /* Hero tear-shape styling - can be dynamically adjusted with inline styles */
   .hero-tear-shape {
     border-radius: 60% 40% 45% 55% / 30% 50% 50% 70%;
+    transition: border-radius 0.8s ease-in-out;
   }
   
   /* Transform and hardware acceleration utilities */

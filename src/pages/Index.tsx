@@ -14,6 +14,7 @@ import CTABanner from '@/components/cta/CTABanner';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import Banner from '@/components/Banner';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
+import { cn } from '@/lib/utils';
 
 const Index = () => {
   const {
@@ -21,7 +22,8 @@ const Index = () => {
     scrollProgress,
     isScrolled,
     hasScrolled,
-    initialScrollBuffer
+    initialScrollBuffer,
+    scrollStage
   } = useNavbarScroll();
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
@@ -56,35 +58,54 @@ const Index = () => {
   };
   
   return (
-    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
-      {/* Left and right purple side edges */}
-      <div className="side-edge side-edge-left"></div>
-      <div className="side-edge side-edge-right"></div>
+    <div className={cn(
+      "page-wrapper",
+      isScrolled ? 'bg-transparent' : 'bg-brand-primary',
+      "transition-colors duration-500"
+    )}>
+      {/* Left and right purple side edges with dynamic width based on scroll stage */}
+      <div className={cn(
+        "side-edge side-edge-left", 
+        `side-edge-stage-${scrollStage}`
+      )}></div>
+      <div className={cn(
+        "side-edge side-edge-right",
+        `side-edge-stage-${scrollStage}`
+      )}></div>
       
       {/* Show Banner if enabled */}
       <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       
       {/* Top curved border - visible only when at the top */}
-      <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'} transition-opacity duration-500`}></div>
+      <div className={cn(
+        "top-curved-border",
+        isScrolled ? "opacity-0" : "opacity-100",
+        "transition-opacity duration-500"
+      )}></div>
       
-      <div className={`content-container ${isScrolled ? 'w-full rounded-none' : ''} transition-all duration-500 z-10 relative`}>
+      <div className={cn(
+        "content-container",
+        `stage-${scrollStage}`,
+        "z-10 relative"
+      )}>
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isInitialView ? '80px' : '0' // Increased margin-top to move content down further initially
+            marginTop: isInitialView ? '80px' : '0'
           }} 
           className="min-h-screen transition-all duration-700"
         >
           <Navbar />
           <div 
-            className={`transform-gpu transition-all duration-700 relative ${
-              isInitialView ? 'blur-effect' : ''
-            }`}
+            className={cn(
+              "transform-gpu transition-all duration-700 relative",
+              isInitialView ? "blur-effect" : ""
+            )}
             style={{
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
-              marginBottom: isInitialView ? '-8vh' : '0', // Increased negative margin for longer scroll
-              marginTop: isInitialView ? '20vh' : '0', // Significantly increased top margin to move content down further initially
+              marginBottom: isInitialView ? '-8vh' : '0',
+              marginTop: isInitialView ? '20vh' : '0',
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}
