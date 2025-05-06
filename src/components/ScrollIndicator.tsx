@@ -10,6 +10,7 @@ interface ScrollIndicatorProps {
 const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -25,17 +26,45 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   }, []);
   
   const handleClick = () => {
-    // Calculate a better scroll position - scroll to the first section below the hero
-    const scrollTarget = window.innerHeight * 0.9;
-    window.scrollTo({
-      top: scrollTarget,
-      behavior: 'smooth'
-    });
+    if (isScrolling) return; // Prevent multiple clicks during animation
     
-    // After scrolling, add a small delay before hiding the indicator
-    setTimeout(() => {
-      setIsVisible(false);
-    }, 500);
+    setIsScrolling(true);
+    
+    // Use a more gentle scrolling behavior
+    const startPosition = window.scrollY;
+    const targetPosition = window.innerHeight * 0.9;
+    const distance = targetPosition - startPosition;
+    const duration = 800; // Longer duration for smoother scroll
+    const startTime = performance.now();
+    
+    // Custom easing function for smoother scroll
+    const easeInOutCubic = (t: number) => 
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    
+    const scrollStep = (timestamp: number) => {
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeInOutCubic(progress);
+      
+      window.scrollTo({
+        top: startPosition + distance * easedProgress,
+        behavior: 'auto' // We're handling the smoothness ourselves
+      });
+      
+      if (progress < 1) {
+        window.requestAnimationFrame(scrollStep);
+      } else {
+        // Once scrolling is complete
+        setIsScrolling(false);
+        
+        // Hide indicator after scrolling is complete
+        setTimeout(() => {
+          setIsVisible(false);
+        }, 100);
+      }
+    };
+    
+    window.requestAnimationFrame(scrollStep);
   };
   
   if (!isVisible) return null;
@@ -54,7 +83,8 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
         className={cn(
           "flex flex-col items-center gap-4 cursor-pointer",
           "transition-all duration-300",
-          isHovered ? "translate-y-[-5px]" : ""
+          isHovered ? "translate-y-[-5px]" : "",
+          isScrolling ? "pointer-events-none" : ""
         )}
         onClick={handleClick}
       >
