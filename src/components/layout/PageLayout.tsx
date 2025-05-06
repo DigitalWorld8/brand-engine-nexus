@@ -38,7 +38,11 @@ const PageLayout: React.FC<PageLayoutProps> = ({
           }} 
           className="min-h-screen transition-all duration-700 page-reveal"
         >
-          <Navbar />
+          {/* Move Navbar outside the transform container to avoid stacking context issues */}
+          <div className="fixed-navbar-wrapper w-full z-[99999]">
+            <Navbar />
+          </div>
+          
           <div 
             className={`transform-gpu transition-all duration-700 relative ${
               isInitialView ? 'blur-effect' : ''
@@ -47,7 +51,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
               marginBottom: isInitialView ? '-8vh' : '0',
-              marginTop: isInitialView ? '20vh' : '0',
+              marginTop: isInitialView ? '26vh' : '6vh', // Increased top margin to account for navbar
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}

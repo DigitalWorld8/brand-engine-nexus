@@ -19,7 +19,7 @@ const NavbarLogo = () => {
     <div className={cn(
       "flex items-center",
       "transition-all duration-300 ease-in-out", 
-      isScrolled ? "scale-100" : "scale-115", // Reduced scaling to avoid potential issues
+      isScrolled ? "scale-100" : "scale-110", // Further reduced scaling to avoid potential issues
       logoReady ? "opacity-100" : "opacity-0"
     )}>
       <a href="/" className="flex items-center space-x-1">
