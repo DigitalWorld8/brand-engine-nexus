@@ -30,7 +30,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
 
   return (
     <div className={cn(
-      "transform-gpu will-change-transform",
+      "will-change-transform",
       "transition-all duration-800 ease-in-out",
       "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative",
       !navbarReady && "opacity-0"
