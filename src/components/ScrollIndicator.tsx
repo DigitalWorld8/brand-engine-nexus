@@ -30,11 +30,12 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     
     setIsScrolling(true);
     
-    // Use a more gentle scrolling behavior
+    // Change the target position to the beginning of the website content
+    // Use a small offset instead of going to services section
     const startPosition = window.scrollY;
-    const targetPosition = window.innerHeight * 0.9;
+    const targetPosition = 0; // Scroll to the top of the page
     const distance = targetPosition - startPosition;
-    const duration = 800; // Longer duration for smoother scroll
+    const duration = 800; // Keep the same smooth duration
     const startTime = performance.now();
     
     // Custom easing function for smoother scroll
