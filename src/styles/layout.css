@@ -7,7 +7,7 @@
   }
   
   .content-container {
-    @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden transition-all duration-800 ease-smooth;
+    @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-32 overflow-hidden transition-all duration-800 ease-smooth;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
   }
   
@@ -72,6 +72,7 @@
 
   /* Header styling with fixed positioning */
   header {
+    @apply fixed top-0 left-0 right-0 w-full z-50;
     transition: all 0.3s ease-in-out;
     will-change: transform, opacity, background-color;
   }
