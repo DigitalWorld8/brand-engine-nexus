@@ -17,8 +17,7 @@ const NavbarLogo = () => {
 
   return (
     <div className={cn(
-      "flex items-center transform-gpu will-change-transform", 
-      "transition-all duration-800 ease-in-out", 
+      "flex items-center transition-all duration-800 ease-in-out", 
       isScrolled ? "scale-100" : "scale-125",
       logoReady ? "opacity-100" : "opacity-0"
     )}>

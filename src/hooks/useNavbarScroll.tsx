@@ -25,30 +25,24 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
     
-    // Update navbar state based on scroll position - show full navbar when scrolled past threshold
-    if (scrollY > 50) {
-      setNavbarState(prev => ({
-        ...prev,
+    // Simplify the logic to ensure consistent behavior
+    // Use a lower threshold to ensure navbar appears faster when scrolling
+    if (scrollY > 20) {
+      setNavbarState({
         isScrolled: true,
         isInitialView: false,
         hasScrolled: true,
-        scrollProgress: Math.min(progress, 100)
-      }));
-    } else if (scrollY <= 20) {
-      setNavbarState(prev => ({
-        ...prev,
-        isScrolled: false,
-        isInitialView: true,
         initialScrollBuffer: 0,
         scrollProgress: Math.min(progress, 100)
-      }));
+      });
     } else {
-      // Handle the in-between zone (20-50px)
-      setNavbarState(prev => ({
-        ...prev,
-        initialScrollBuffer: prev.initialScrollBuffer + 1,
+      setNavbarState({
+        isScrolled: false,
+        isInitialView: true,
+        hasScrolled: scrollY > 5, // Track even minor scrolling
+        initialScrollBuffer: 0,
         scrollProgress: Math.min(progress, 100)
-      }));
+      });
     }
   }, [scrollY]);
 
