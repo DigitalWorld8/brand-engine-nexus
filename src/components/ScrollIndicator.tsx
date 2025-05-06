@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import { ArrowDown } from 'lucide-react';
+import { MousePointerClick } from 'lucide-react';
 
 interface ScrollIndicatorProps {
   className?: string;
@@ -93,7 +93,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-accent-blue to-brand-primary animate-pulse-down"></div>
         </div>
         
-        {/* Animated arrow in glowing circle - made larger */}
+        {/* Animated mouse pointer in glowing circle - replacing the arrow */}
         <div 
           className={cn(
             "relative flex items-center justify-center",
@@ -104,9 +104,9 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           {/* Glowing background effect - enhanced glow */}
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-30 blur-md scale-125"></div>
           
-          {/* Button with animation - made larger */}
+          {/* Button with animation - changed from arrow to mouse pointer */}
           <div className="relative bg-white p-3 w-16 h-16 rounded-full flex items-center justify-center shadow-lg border border-brand-light-gray animate-subtle-bounce">
-            <ArrowDown 
+            <MousePointerClick 
               className={cn(
                 "h-8 w-8 text-brand-primary",
                 "transition-all duration-300",
