@@ -13,7 +13,7 @@ const ServicesMegaOverlay = ({ isOpen }: ServicesMegaOverlayProps) => {
       "fixed left-0 right-0 top-0 h-screen transition-all duration-300 overflow-visible z-40", 
       isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
     )}>
-      <div className="absolute top-1/2 left-0 right-0 w-full transform -translate-y-1/2">
+      <div className="absolute top-[72px] left-0 right-0 w-full">
         <ServicesMegaMenuContent />
       </div>
     </div>

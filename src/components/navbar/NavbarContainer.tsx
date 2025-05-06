@@ -30,33 +30,32 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
 
   return (
     <div className={cn(
-      "transition-all duration-300 ease-in-out w-full",
+      "transition-all duration-300 ease-in-out",
+      "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
       !navbarReady && "opacity-0"
     )}>
       <div className={cn(
-        "flex items-center justify-center",
+        "flex w-full items-center justify-between",
         "transition-all duration-300 ease-in-out"
       )}>
-        {/* Center Logo */}
-        <div className="absolute z-10 top-0 mx-auto bg-white px-6 py-2 rounded-b-xl shadow-md">
-          <NavbarLogo />
-        </div>
-      </div>
-      
-      <div className="flex justify-between items-center w-full h-screen pointer-events-none">
-        {/* Left Side Navigation - Vertically Centered */}
-        <div className="flex-none max-w-[45%] pointer-events-auto">
+        {/* Left Side Navigation */}
+        <div className="flex-1">
           <LeftNavigation />
         </div>
         
-        {/* Right Side Navigation - Vertically Centered */}
-        <div className="flex-none max-w-[45%] pointer-events-auto">
+        {/* Center Logo */}
+        <div className="flex-none z-10 mx-4">
+          <NavbarLogo />
+        </div>
+        
+        {/* Right Side Navigation */}
+        <div className="flex-1 flex justify-end">
           <RightNavigation onServicesToggle={handleServicesToggle} />
         </div>
       </div>
       
       {/* NavbarFlags component */}
-      <div className="mt-2 hidden">
+      <div className="mt-2">
         <NavbarFlags />
       </div>
 

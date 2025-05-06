@@ -37,7 +37,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isScrolled ? '80px' : '120px' // Adjust margins for navbar
+            marginTop: isScrolled ? '80px' : '120px' // Adjust margins to account for fixed navbar
           }} 
           className="min-h-screen transition-all duration-700 page-reveal"
         >
@@ -49,7 +49,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
               marginBottom: isInitialView ? '-8vh' : '0',
-              marginTop: isInitialView ? '0' : '0', // Removed margin that was pushing content down
+              marginTop: isInitialView ? '26vh' : '6vh',
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}
