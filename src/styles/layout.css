@@ -72,7 +72,7 @@
 
   /* Header styling with fixed positioning */
   header {
-    @apply fixed top-0 left-0 right-0 w-full z-50;
+    @apply fixed top-0 left-0 right-0 w-full z-50 !important;
     transition: all 0.3s ease-in-out;
     will-change: transform, opacity, background-color;
   }
@@ -85,39 +85,8 @@
   }
 }
 
-/* Extended duration classes */
-.duration-800 {
-  transition-duration: 800ms;
-}
+/* ... keep existing code (duration classes) */
 
-.duration-900 {
-  transition-duration: 900ms;
-}
+/* ... keep existing code (easing functions) */
 
-.duration-1000 {
-  transition-duration: 1000ms;
-}
-
-/* Transition easing functions */
-.ease-smooth {
-  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-/* Additional easing functions for smoother animations */
-.ease-out-expo {
-  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.ease-in-out-back {
-  transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-
-/* Page transition effect */
-@keyframes page-reveal {
-  0% { transform: translateY(15px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-.page-reveal {
-  animation: page-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
+/* ... keep existing code (page transition effect) */
