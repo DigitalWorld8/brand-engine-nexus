@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 export function useNavbarScroll() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -8,40 +8,14 @@ export function useNavbarScroll() {
   const [hasScrolled, setHasScrolled] = useState(false);
   // Track initial scroll amount to create a threshold effect
   const [initialScrollBuffer, setInitialScrollBuffer] = useState(0);
-  // New state to track if first scroll has been completed
-  const [hasCompletedFirstScroll, setHasCompletedFirstScroll] = useState(false);
-  // Ref to track initial load
-  const initialLoadRef = useRef(true);
-
-  useEffect(() => {
-    // Auto-scroll to top on first load with slight delay for better UX
-    if (initialLoadRef.current) {
-      initialLoadRef.current = false;
-      
-      // Set a small timeout to allow for initial render
-      const initialTimer = setTimeout(() => {
-        if (window.scrollY > 0) {
-          // If page loads scrolled down, smoothly bring back to top
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      }, 300);
-      
-      return () => clearTimeout(initialTimer);
-    }
-  }, []);
 
   useEffect(() => {
     // For a smoother initial load experience
     const initialScrollCheck = () => {
-      if (window.scrollY > 80) {
+      if (window.scrollY > 50) { // Increased scroll threshold to 50px
         setIsScrolled(true);
         setIsInitialView(false);
         setHasScrolled(true);
-        
-        // If we're already scrolled on load, consider first scroll completed
-        if (!hasCompletedFirstScroll) {
-          setHasCompletedFirstScroll(true);
-        }
       } else {
         setIsScrolled(false);
         setIsInitialView(true);
@@ -52,7 +26,7 @@ export function useNavbarScroll() {
     
     initialScrollCheck();
     
-    // Advanced debounce technique for smoother iPhone-like transitions
+    // Advanced debounce technique for smoother transitions
     let lastScrollY = window.scrollY;
     let ticking = false;
     let scrollTimeoutId: number;
@@ -62,85 +36,44 @@ export function useNavbarScroll() {
       // Calculate how much the user has scrolled
       const currentScrollY = window.scrollY;
       
-      // First scroll behavior - handle the initial scroll specially
-      if (!hasCompletedFirstScroll && currentScrollY > 20) {
-        // Instead of auto-scrolling to top, let the first scroll complete naturally
-        // This allows the user to see the initial scroll animation
-        // Then mark first scroll as completed for future scrolls
-        setHasCompletedFirstScroll(true);
-        
-        // On first scroll, trigger visual changes but don't interfere with scroll
-        setIsScrolled(true);
-        setIsInitialView(false);
-        return; // Exit early after handling first scroll
-      }
-      
-      // Check if user has scrolled back to top with increased buffer zone
-      if (currentScrollY <= 40) {
+      // Check if user has scrolled back to top
+      if (currentScrollY <= 20) { // Increased this threshold for better top-of-page detection
         setIsScrolled(false);
         setIsInitialView(true);
         setInitialScrollBuffer(0);
       }
       
-      // Normal scrolling behavior after first scroll is completed
-      if (hasCompletedFirstScroll) {
-        // If we're not ticking, request animation frame for performance
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            // Clear existing timeouts to prevent jerking
-            if (scrollTimeoutId) {
-              window.clearTimeout(scrollTimeoutId);
-            }
-            
-            // Set timeout for actual state update with increased delay for smoother transitions
-            scrollTimeoutId = window.setTimeout(() => {
-              // Smooth transition between states with increased threshold
-              if (lastScrollY > 70) {
-                if (!isScrolled) {
-                  setIsScrolled(true);
-                  
-                  // Delay the initial view transition slightly
-                  transitionTimeoutId = window.setTimeout(() => {
-                    setIsInitialView(false);
-                  }, 200);
-                }
-              } else {
-                setIsScrolled(false);
-                setIsInitialView(true);
-                // Reset buffer when back at the top
-                setInitialScrollBuffer(0);
-              }
-
-              // Calculate scroll progress with improved smoothing
-              const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-              const progress = (lastScrollY / scrollHeight) * 100;
-              setScrollProgress(Math.min(progress, 100));
-              
-              ticking = false;
-            }, 60);
-          });
-          
-          ticking = true;
-        }
-      } else {
-        // Implement scroll resistance for initial scrolling behavior
-        if (currentScrollY < 200 && !hasCompletedFirstScroll) {
-          // Visual indication of scrolling before actual page movement
-          if (currentScrollY > 70 && !isScrolled) { 
-            setIsScrolled(true);
-            
-            // Delay the initial view transition to create a smoother stepped effect
-            transitionTimeoutId = window.setTimeout(() => {
-              setIsInitialView(false);
-            }, 400);
+      // Implement scroll resistance for initial scrolling
+      if (currentScrollY < 150) { // Increased to allow more scroll before transitioning
+        // Prevent default scroll behavior for initial movements
+        if (!hasScrolled) {
+          // Only increment buffer on downward scroll
+          if (currentScrollY > lastScrollY) {
+            setInitialScrollBuffer(prev => Math.min(prev + (currentScrollY - lastScrollY) * 0.2, 100)); // Reduced multiplier to slow resistance
           }
           
-          if (initialScrollBuffer < 90) {
+          // Only mark as scrolled once we pass the buffer threshold
+          if (initialScrollBuffer > 90) { // Increased threshold for longer scroll experience
+            setHasScrolled(true);
+          }
+          
+          // Visual indication of scrolling before actual page movement
+          if (currentScrollY > 50 && !isScrolled) { // Increased threshold to 50px
+            setIsScrolled(true);
+            
+            // Delay the initial view transition to create a stepped effect
+            transitionTimeoutId = window.setTimeout(() => {
+              setIsInitialView(false);
+            }, 200); // Increased delay for smoother transition
+          }
+          
+          // Prevent immediate default scrolling if we're still in buffer mode
+          if (initialScrollBuffer < 90 && currentScrollY < 150) { // Increased both thresholds
             // Let the visual effects happen but delay actual scrolling
-            setInitialScrollBuffer(prev => Math.min(prev + 5, 100));
-          } else {
-            // Mark as complete once buffer threshold is reached
-            setHasCompletedFirstScroll(true);
+            window.scrollTo({
+              top: Math.min(5, currentScrollY * 0.1), // Reduced multiplier for slower scroll
+              behavior: 'auto'
+            });
           }
         }
       }
@@ -148,8 +81,47 @@ export function useNavbarScroll() {
       lastScrollY = window.scrollY;
       
       // Set hasScrolled to true when user scrolls beyond threshold
-      if (!hasScrolled && lastScrollY > 120) {
+      if (!hasScrolled && lastScrollY > 80) { // Increased threshold to 80px
         setHasScrolled(true);
+      }
+      
+      if (!ticking) {
+        // Use requestAnimationFrame for better performance
+        window.requestAnimationFrame(() => {
+          // Clear existing timeouts to prevent jerking
+          if (scrollTimeoutId) {
+            window.clearTimeout(scrollTimeoutId);
+          }
+          
+          // Set timeout for actual state update
+          scrollTimeoutId = window.setTimeout(() => {
+            // Smooth transition between states
+            if (lastScrollY > 50) { // Increased threshold to 50px
+              if (!isScrolled) {
+                setIsScrolled(true);
+                
+                // Delay the initial view transition slightly
+                transitionTimeoutId = window.setTimeout(() => {
+                  setIsInitialView(false);
+                }, 100); // Increased delay
+              }
+            } else {
+              setIsScrolled(false);
+              setIsInitialView(true);
+              // Reset buffer when back at the top
+              setInitialScrollBuffer(0);
+            }
+
+            // Calculate scroll progress with improved smoothing
+            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = (lastScrollY / scrollHeight) * 100;
+            setScrollProgress(Math.min(progress, 100));
+            
+            ticking = false;
+          }, 20); // Increased delay for smoother transitions
+        });
+        
+        ticking = true;
       }
     };
 
@@ -160,14 +132,7 @@ export function useNavbarScroll() {
       if (scrollTimeoutId) window.clearTimeout(scrollTimeoutId);
       if (transitionTimeoutId) window.clearTimeout(transitionTimeoutId);
     };
-  }, [isScrolled, hasScrolled, initialScrollBuffer, hasCompletedFirstScroll]);
+  }, [isScrolled, hasScrolled, initialScrollBuffer]);
 
-  return { 
-    isScrolled, 
-    scrollProgress, 
-    isInitialView, 
-    hasScrolled, 
-    initialScrollBuffer,
-    hasCompletedFirstScroll
-  };
+  return { isScrolled, scrollProgress, isInitialView, hasScrolled, initialScrollBuffer };
 }

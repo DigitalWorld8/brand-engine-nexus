@@ -12,30 +12,17 @@ interface BannerProps {
 
 const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const { hasScrolled, initialScrollBuffer, hasCompletedFirstScroll } = useNavbarScroll();
+  const { hasScrolled, initialScrollBuffer } = useNavbarScroll();
   
   // Enhanced banner interaction - respond to scroll attempts
   useEffect(() => {
-    // Only hide banner when user has scrolled past threshold or completed first scroll
-    if ((hasScrolled && visible && initialScrollBuffer > 50) || hasCompletedFirstScroll) {
+    // Only hide banner when user has scrolled past threshold
+    if (hasScrolled && visible && initialScrollBuffer > 50) {
       onBannerClick();
     }
-  }, [hasScrolled, visible, onBannerClick, initialScrollBuffer, hasCompletedFirstScroll]);
+  }, [hasScrolled, visible, onBannerClick, initialScrollBuffer]);
 
   if (!visible) return null;
-
-  // Handle click to navigate to the Hero section
-  const handleBannerClick = () => {
-    onBannerClick();
-    // Find and scroll to the Hero section
-    const heroSection = document.querySelector('section.hero-section') || document.querySelector('section');
-    if (heroSection) {
-      heroSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      // Fallback if Hero section isn't found
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
 
   return (
     <AnimatePresence>
@@ -46,7 +33,7 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-brand-primary/95 via-brand-secondary/95 to-brand-accent-violet/95 text-white backdrop-blur-sm cursor-pointer"
-          onClick={handleBannerClick}
+          onClick={onBannerClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
