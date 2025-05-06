@@ -3,19 +3,27 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import NavbarContainer from './navbar/NavbarContainer';
+import NavbarLogo from './navbar/NavbarLogo';
 
 const Navbar = () => {
   const { isScrolled, isInitialView } = useNavbarScroll();
   
   return (
     <header className={cn(
-      'fixed left-0 right-0 z-50 will-change-transform transform-gpu',
-      'transition-all duration-800 ease-smooth', 
+      'fixed left-0 right-0 z-50 will-change-transform transform-gpu w-full',
+      'transition-all duration-800 ease-smooth top-0',
       isScrolled 
-        ? 'bg-white/90 backdrop-blur-md shadow-md py-3 top-0 w-full' 
-        : 'bg-transparent py-5 top-16 w-full'
+        ? 'bg-white/90 backdrop-blur-md shadow-md py-3' 
+        : 'bg-transparent py-5'
     )}>
-      <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
+      {/* Only show logo when not scrolled */}
+      {!isScrolled ? (
+        <div className="flex justify-center w-full py-4">
+          <NavbarLogo />
+        </div>
+      ) : (
+        <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
+      )}
     </header>
   );
 };

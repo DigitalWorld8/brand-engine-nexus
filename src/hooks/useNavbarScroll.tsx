@@ -25,7 +25,7 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = (scrollY / scrollHeight) * 100;
     
-    // Update navbar state based on scroll position
+    // Update navbar state based on scroll position - show full navbar when scrolled past threshold
     if (scrollY > 50) {
       setNavbarState(prev => ({
         ...prev,
@@ -49,22 +49,7 @@ export function useNavbarScroll() {
         scrollProgress: Math.min(progress, 100)
       }));
     }
-    
-    // Implement scroll resistance for initial scrolling
-    if (scrollY < 150 && !navbarState.hasScrolled) {
-      setNavbarState(prev => {
-        const newBuffer = Math.min(prev.initialScrollBuffer + scrollY * 0.2, 100);
-        // Only mark as scrolled once we pass the buffer threshold
-        const hasReachedThreshold = newBuffer > 90;
-        
-        return {
-          ...prev,
-          initialScrollBuffer: newBuffer,
-          hasScrolled: hasReachedThreshold ? true : prev.hasScrolled
-        };
-      });
-    }
-  }, [scrollY, navbarState.hasScrolled]);
+  }, [scrollY]);
 
   return navbarState;
 }

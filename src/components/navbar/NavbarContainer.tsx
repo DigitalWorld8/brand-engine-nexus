@@ -32,51 +32,36 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
     <div className={cn(
       "transform-gpu will-change-transform",
       "transition-all duration-800 ease-in-out",
-      isScrolled 
-        ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" 
-        : "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative",
-      isInitialView ? "scale-95" : "scale-100",
+      "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative",
       !navbarReady && "opacity-0"
     )}>
       <div className={cn(
-        "flex w-full justify-center",
+        "flex w-full items-center justify-between",
         "transition-all duration-800 ease-in-out"
       )}>
-        {/* Left Side Navigation - Only visible when scrolled */}
-        <div className={cn(
-          "transition-all duration-500 ease-in-out flex-1",
-          isScrolled ? "opacity-100" : "opacity-0 invisible absolute"
-        )}>
-          {isScrolled && <LeftNavigation />}
+        {/* Left Side Navigation - Always visible when in scrolled navbar */}
+        <div className="flex-1">
+          <LeftNavigation />
         </div>
         
-        {/* Center Logo - Always visible and centered */}
-        <div className={cn(
-          "transition-all duration-800 ease-in-out flex-none z-10",
-          isScrolled ? "" : ""
-        )}>
+        {/* Center Logo - Always visible */}
+        <div className="flex-none z-10 mx-4">
           <NavbarLogo />
         </div>
         
-        {/* Right Side Navigation - Only visible when scrolled */}
-        <div className={cn(
-          "transition-all duration-500 ease-in-out flex-1",
-          isScrolled ? "opacity-100" : "opacity-0 invisible absolute"
-        )}>
-          {isScrolled && <RightNavigation onServicesToggle={handleServicesToggle} />}
+        {/* Right Side Navigation - Always visible when in scrolled navbar */}
+        <div className="flex-1 flex justify-end">
+          <RightNavigation onServicesToggle={handleServicesToggle} />
         </div>
       </div>
       
-      {/* NavbarFlags component - Only visible when scrolled */}
-      <div className={cn(
-        "transition-all duration-500 ease-in-out",
-        isScrolled ? "opacity-100" : "opacity-0 invisible"
-      )}>
-        {isScrolled && <NavbarFlags />}
+      {/* NavbarFlags component */}
+      <div className="mt-2">
+        <NavbarFlags />
       </div>
 
       {/* Services Mega Menu Overlay */}
-      <ServicesMegaOverlay isOpen={servicesOpen && isScrolled} />
+      <ServicesMegaOverlay isOpen={servicesOpen} />
     </div>
   );
 };
