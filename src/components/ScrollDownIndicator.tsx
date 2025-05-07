@@ -32,16 +32,16 @@ const ScrollDownIndicator = ({ className }: ScrollDownIndicatorProps) => {
     <div 
       className={cn(
         "flex flex-col items-center cursor-pointer",
-        "transition-all duration-300 hover:opacity-80",
+        "transition-all duration-300 hover:opacity-90",
         className
       )}
       onClick={handleScrollDown}
       aria-label="Scroll down"
       role="button"
     >
-      <div className="text-white text-sm font-medium mb-1">Scroll</div>
-      <div className="animate-bounce">
-        <ChevronDown className="h-6 w-6 text-white" strokeWidth={3} />
+      <div className="text-white text-sm font-medium mb-1 pulse-opacity">Scroll</div>
+      <div className="bg-brand-accent-blue rounded-full p-1 animate-bounce shadow-lg">
+        <ChevronDown className="h-5 w-5 text-white" strokeWidth={2.5} />
       </div>
     </div>
   );
