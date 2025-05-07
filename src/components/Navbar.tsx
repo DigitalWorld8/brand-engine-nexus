@@ -20,7 +20,7 @@ const Navbar = () => {
     )}>
       {/* When not scrolled, show logo centered with elegant gradient background */}
       {!isScrolled ? (
-        <div className="flex justify-center w-full py-4 bg-gradient-to-b from-white via-white to-white/80 backdrop-blur-sm rounded-b-lg mx-auto max-w-7xl" style={{ maxWidth: '90%' }}>
+        <div className="flex justify-center w-full py-4 bg-gradient-to-b from-white via-white to-white/80 backdrop-blur-sm rounded-b-lg mx-auto" style={{ maxWidth: '320px' }}>
           <div className="scale-110 transition-all duration-300">
             <NavbarLogo />
           </div>
