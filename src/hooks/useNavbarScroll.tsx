@@ -25,8 +25,8 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
     
-    // Use an extremely low threshold to ensure the navbar becomes sticky immediately upon scroll
-    if (scrollY > 1) {
+    // More elegant threshold logic - smoother transition between initial and scrolled states
+    if (scrollY > 5) {
       setNavbarState({
         isScrolled: true,
         isInitialView: false,
@@ -39,7 +39,7 @@ export function useNavbarScroll() {
         isScrolled: false,
         isInitialView: true,
         hasScrolled: scrollY > 0, 
-        initialScrollBuffer: 0,
+        initialScrollBuffer: scrollY * 5, // Amplify small scroll movements for smoother transitions
         scrollProgress: Math.min(progress, 100)
       });
     }

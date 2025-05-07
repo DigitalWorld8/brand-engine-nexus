@@ -9,7 +9,7 @@ const Hero = () => {
     isScrolled
   } = useNavbarScroll();
   
-  return <section className={`relative pt-40 pb-20 md:pt-56 md:pb-32 overflow-hidden mx-0 my-[45px] px-0 py-[320px] ${!isScrolled ? 'hero-tear-shape' : ''}`}>
+  return <section className={`relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden mx-0 my-[25px] px-0 py-[280px] ${!isScrolled ? 'hero-tear-shape' : ''}`}>
       {/* Background elements with enhanced animations */}
       <div className={`absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden ${!isScrolled ? 'hero-tear-shape' : ''}`}>
         <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl animate-pulse opacity-70"></div>
@@ -24,15 +24,15 @@ const Hero = () => {
           <div className="space-y-8 md:pr-12">
             <div className="animate-fade-in-up">
               {/* Headline - adjusted positioning to work better with tear shape */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300 initial-clear-content relative z-20 mt-10">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight transition-all duration-300 initial-clear-content relative z-20 mt-0">
                 Empower Your Brand with Digital <span className="text-gradient relative inline-block">
                   Innovation
                   <span className="absolute -bottom-1 left-0 w-full h-[3px] bg-gradient-to-r from-brand-accent-blue to-brand-accent-violet"></span>
                 </span>
               </h1>
               
-              {/* The rest of the content will be blurred initially (blur-on-load class) */}
-              <div className={isScrolled ? '' : 'blur-on-load'}>
+              {/* Make content visible on initial load with reduced blur */}
+              <div className={isScrolled ? '' : 'initial-view-content'}>
                 <p className="text-lg md:text-xl text-gray-600 mb-8 font-medium animate-fade-in-up" style={{
                 animationDelay: '0.2s'
               }}>
@@ -41,14 +41,14 @@ const Hero = () => {
                 <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up relative" style={{
                 animationDelay: '0.4s'
               }}>
-                  {/* Add a glass overlay until scrolled */}
-                  {!isScrolled && <div className="absolute inset-0 bg-white/30 backdrop-blur-md z-10 pointer-events-none transition-all duration-500"></div>}
+                  {/* Reduced glass overlay opacity for better visibility */}
+                  {!isScrolled && <div className="absolute inset-0 bg-white/20 backdrop-blur-sm z-10 pointer-events-none transition-all duration-500"></div>}
                   
-                  <Button size="lg" className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => isScrolled && setHovered('primary')} onMouseLeave={() => setHovered(null)} disabled={!isScrolled}>
+                  <Button size="lg" className={`btn-brand-primary hover:scale-105 transition-transform relative overflow-hidden group ${!isScrolled ? 'cta-semi-active' : 'cta-enabled'}`} onMouseEnter={() => setHovered('primary')} onMouseLeave={() => setHovered(null)}>
                     <span className="relative z-10">Explore Our Services</span>
                     {hovered === 'primary' && <span className="absolute inset-0 bg-brand-accent-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>}
                   </Button>
-                  <Button size="lg" variant="outline" className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'cta-disabled' : 'cta-enabled'}`} onMouseEnter={() => isScrolled && setHovered('secondary')} onMouseLeave={() => setHovered(null)} disabled={!isScrolled}>
+                  <Button size="lg" variant="outline" className={`border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10 hover:scale-105 transition-all ${!isScrolled ? 'cta-semi-active' : 'cta-enabled'}`} onMouseEnter={() => setHovered('secondary')} onMouseLeave={() => setHovered(null)}>
                     <span className="relative z-10">View Our Work</span>
                     {hovered === 'secondary' && <span className="absolute bottom-0 left-0 h-[2px] bg-brand-accent-blue w-0 group-hover:w-full transition-all duration-300"></span>}
                   </Button>
@@ -57,7 +57,7 @@ const Hero = () => {
             </div>
           </div>
           
-          <div className={`relative ${isScrolled ? '' : 'blur-on-load'}`}>
+          <div className={`relative ${isScrolled ? '' : 'initial-view-content'}`}>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl animate-float">
               <div className="bg-gradient-to-tr from-brand-primary to-brand-accent-blue p-1">
                 <div className="bg-white rounded-xl p-6 md:p-8">
@@ -88,7 +88,7 @@ const Hero = () => {
           </div>
         </div>
         
-        <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isScrolled ? '' : 'blur-on-load'}`}>
+        <div className={`mt-16 md:mt-24 flex flex-wrap justify-center md:justify-between items-center gap-8 text-center md:text-left ${isScrolled ? '' : 'initial-view-content'}`}>
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => <div key={company} className="text-gray-400 font-heading font-bold text-xl md:text-2xl opacity-0 animate-fade-in-up cursor-pointer hover:text-brand-primary transition-colors duration-300" style={{

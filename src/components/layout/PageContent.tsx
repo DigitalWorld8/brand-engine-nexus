@@ -21,8 +21,8 @@ const PageContent: React.FC<PageContentProps> = ({ isInitialView }) => {
       {/* Show hero section */}
       <Hero />
       
-      {/* The rest of the content that should be more blurred initially */}
-      <div className={isInitialView ? 'blur-content' : ''}>
+      {/* The rest of the content with reduced blur effect */}
+      <div className={isInitialView ? 'opacity-95' : ''}>
         <Services />
         <CTABanner 
           variant="gradient" 
