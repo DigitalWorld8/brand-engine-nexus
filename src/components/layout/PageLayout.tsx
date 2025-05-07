@@ -37,7 +37,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isScrolled ? '80px' : '100px' // Reduced from 120px to 100px to avoid blank space
+            marginTop: isScrolled ? '80px' : '120px' // Increased from 100px to 120px to accommodate taller header
           }} 
           className="min-h-screen transition-all duration-700 page-reveal"
         >
@@ -48,8 +48,8 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             style={{
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
-              marginBottom: isInitialView ? '0' : '0', // Changed from -8vh to 0 to prevent content shifting
-              marginTop: isInitialView ? '16vh' : '6vh', // Reduced from 26vh to 16vh for more visible content
+              marginBottom: isInitialView ? '0' : '0',
+              marginTop: isInitialView ? '20vh' : '8vh', // Increased from 16vh to 20vh for more spacing
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}
@@ -57,8 +57,8 @@ const PageLayout: React.FC<PageLayoutProps> = ({
               <div 
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
-                  backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`, // Reduced opacity
-                  backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`, // Reduced blur intensity
+                  backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
+                  backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
                 }}
               />
             )}

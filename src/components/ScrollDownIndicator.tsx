@@ -22,7 +22,7 @@ const ScrollDownIndicator = ({
     // Scroll to first content section
     const firstSection = document.querySelector('section');
     if (firstSection) {
-      const yOffset = -50; // Offset to account for fixed header
+      const yOffset = -80; // Increased offset to account for taller header
       const y = firstSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({
         top: y,
