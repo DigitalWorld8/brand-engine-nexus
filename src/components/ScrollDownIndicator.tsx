@@ -27,7 +27,7 @@ const ScrollDownIndicator = ({
     }
   };
   return <div className={cn("flex flex-col items-center cursor-pointer", "transition-all duration-300 hover:opacity-90", className)} onClick={handleScrollDown} aria-label="Scroll down" role="button">
-      <div className="text-blue-text-sm font-medium mb-1 pulse-opacity">Scroll</div>
+      <div className="text-blue-text-sm font-medium mb-1 pulse-opacity">Scroll to know more about us</div>
       <div className="bg-brand-accent-blue rounded-full p-1 animate-bounce shadow-lg">
         <ChevronDown className="h-5 w-5 text-white" strokeWidth={2.5} />
       </div>
