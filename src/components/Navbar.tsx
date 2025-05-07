@@ -18,11 +18,13 @@ const Navbar = () => {
       "will-change-transform",
       isScrolled ? "bg-white shadow-md" : "bg-transparent"
     )}>
-      {/* When not scrolled, show logo centered with elegant gradient background */}
+      {/* When not scrolled, show logo absolutely positioned in the primary brand color area */}
       {!isScrolled ? (
-        <div className="flex justify-center w-full py-4 bg-gradient-to-b from-white via-white to-white/80 backdrop-blur-sm rounded-b-lg mx-auto" style={{ maxWidth: '320px' }}>
-          <div className="scale-110 transition-all duration-300">
-            <NavbarLogo />
+        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
+          <div className="bg-brand-primary py-4 px-6 rounded-full shadow-lg">
+            <div className="scale-110 transition-all duration-300 text-white">
+              <NavbarLogo />
+            </div>
           </div>
         </div>
       ) : (

@@ -21,11 +21,12 @@ const NavbarLogo = () => {
       "flex items-center",
       "transition-all duration-300 ease-in-out", 
       isScrolled ? "scale-95" : "scale-100", // Reduce scale when scrolled for better header fit
-      logoReady ? "opacity-100" : "opacity-0"
+      logoReady ? "opacity-100" : "opacity-0",
+      !isScrolled ? "text-white" : "text-brand-primary" // Use white text when not scrolled (in the primary brand color area)
     )}>
       <a href="/" className="flex items-center space-x-1">
-        <Section className="h-6 w-6 text-brand-accent-blue mr-1" />
-        <span className="text-2xl font-bold font-heading text-brand-primary">Brand<span className="text-brand-accent-blue">Engine</span></span>
+        <Section className={cn("h-6 w-6 mr-1", !isScrolled ? "text-white" : "text-brand-accent-blue")} />
+        <span className="text-2xl font-bold font-heading">Brand<span className={!isScrolled ? "text-white" : "text-brand-accent-blue"}>Engine</span></span>
       </a>
     </div>
   );
