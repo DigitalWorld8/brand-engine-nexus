@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import NavbarContainer from './navbar/NavbarContainer';
 import NavbarLogo from './navbar/NavbarLogo';
+import ScrollDownIndicator from './ScrollDownIndicator';
 
 const Navbar = () => {
   const {
@@ -25,6 +26,11 @@ const Navbar = () => {
             <div className="scale-110 transition-all duration-300 text-white">
               <NavbarLogo />
             </div>
+          </div>
+          
+          {/* Add scroll down indicator below the logo */}
+          <div className="mt-4 flex justify-center">
+            <ScrollDownIndicator />
           </div>
         </div>
       ) : (
