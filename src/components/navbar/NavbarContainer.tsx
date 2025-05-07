@@ -36,7 +36,6 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
     )}>
       <div className={cn(
         "flex w-full items-center justify-between",
-        "py-4", // Added padding to increase the height of the navbar
         "transition-all duration-300 ease-in-out"
       )}>
         {/* Left Side Navigation */}
@@ -56,7 +55,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
       </div>
       
       {/* NavbarFlags component */}
-      <div className="mt-2 mb-2"> {/* Added bottom margin for extra height */}
+      <div className="mt-2">
         <NavbarFlags />
       </div>
 
