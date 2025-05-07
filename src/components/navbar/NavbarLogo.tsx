@@ -20,12 +20,12 @@ const NavbarLogo = () => {
     <div className={cn(
       "flex items-center",
       "transition-all duration-300 ease-in-out", 
-      isScrolled ? "scale-95" : "scale-100", // Reduce scale when scrolled for better header fit
+      isScrolled ? "scale-100" : "scale-100", // Keep the scale consistent for better visibility
       logoReady ? "opacity-100" : "opacity-0",
       !isScrolled ? "text-white" : "text-brand-primary" // Use white text when not scrolled (in the primary brand color area)
     )}>
       <a href="/" className="flex items-center space-x-1">
-        <Section className={cn("h-6 w-6 mr-1", !isScrolled ? "text-white" : "text-brand-accent-blue")} />
+        <Section className={cn("h-7 w-7 mr-1", !isScrolled ? "text-white" : "text-brand-accent-blue")} /> {/* Increased icon size */}
         <span className="text-2xl font-bold font-heading">Brand<span className={!isScrolled ? "text-white" : "text-brand-accent-blue"}>Engine</span></span>
       </a>
     </div>
