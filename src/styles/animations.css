@@ -81,7 +81,7 @@
   left: 5%;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 1.5rem;
   border-radius: 2rem;
   box-shadow: 0 8px 32px rgba(27, 20, 100, 0.18);
@@ -101,7 +101,7 @@
   right: 5%;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.95);
   padding: 1.5rem;
   border-radius: 2rem;
   box-shadow: 0 8px 32px rgba(27, 20, 100, 0.18);
@@ -257,4 +257,14 @@
 .navbar-right-morph .morph-element {
   animation: none;
   transition: all 0.3s ease;
+}
+
+/* Glass morphism style that matches the image */
+.navbar-left-morph,
+.navbar-right-morph {
+  background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.18);
+  padding: 1.75rem 1.25rem;
 }

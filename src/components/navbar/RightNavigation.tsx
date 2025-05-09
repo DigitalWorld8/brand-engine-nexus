@@ -39,6 +39,16 @@ const RightNavigation = ({ onServicesToggle, isMorphed = false }: RightNavigatio
         <NavigationMenuList className={cn(
           isMorphed && "flex-col items-center gap-3"
         )}>
+          {/* Blog link */}
+          <NavigationMenuItem>
+            <NavigationMenuLink href="#blog" className={cn(
+              "text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 text-base text-center block",
+              isMorphed && "hover:bg-brand-primary/5 rounded-lg"
+            )}>
+              Blog
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+
           {/* Services with custom toggle behavior */}
           <NavigationMenuItem>
             <button 
@@ -66,19 +76,10 @@ const RightNavigation = ({ onServicesToggle, isMorphed = false }: RightNavigatio
               </svg>
             </button>
           </NavigationMenuItem>
-          
-          <NavigationMenuItem>
-            <NavigationMenuLink href="#blog" className={cn(
-              "text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 text-base text-center block",
-              isMorphed && "hover:bg-brand-primary/5 rounded-lg"
-            )}>
-              Blog
-            </NavigationMenuLink>
-          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
       
-      {/* Right Side CTA Button */}
+      {/* Contact Button */}
       <Button 
         size="sm" 
         className={cn(
