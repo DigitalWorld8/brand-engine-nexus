@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Calendar } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -9,17 +10,34 @@ import {
   NavigationMenuLink
 } from "@/components/ui/navigation-menu";
 
-const LeftNavigation = () => {
+interface LeftNavigationProps {
+  isMorphed?: boolean;
+}
+
+const LeftNavigation = ({ isMorphed = false }: LeftNavigationProps) => {
   return (
-    <div className="flex-1 flex items-center justify-start space-x-4">
+    <div className={cn(
+      "flex-1 flex items-center justify-start space-x-4",
+      isMorphed && "morph-transition"
+    )}>
       {/* Left Side CTA Button */}
-      <Button size="sm" variant="outline" className="hidden lg:flex items-center border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10">
+      <Button 
+        size="sm" 
+        variant="outline" 
+        className={cn(
+          "hidden lg:flex items-center border-brand-accent-blue text-brand-accent-blue hover:bg-brand-accent-blue/10",
+          isMorphed && "morph-element"
+        )}
+      >
         <Calendar className="mr-1 h-4 w-4" />
         <span className="hidden xl:inline">Quick Schedule</span>
       </Button>
       
       {/* Left Side Nav Items */}
-      <NavigationMenu className="hidden md:flex">
+      <NavigationMenu className={cn(
+        "hidden md:flex",
+        isMorphed && "morph-nav-menu"
+      )}>
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink href="#about" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2">

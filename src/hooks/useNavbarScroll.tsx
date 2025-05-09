@@ -8,6 +8,7 @@ interface NavbarScrollState {
   isInitialView: boolean;
   hasScrolled: boolean;
   initialScrollBuffer: number;
+  isMorphed: boolean; // New state for morph effect
 }
 
 export function useNavbarScroll() {
@@ -17,13 +18,18 @@ export function useNavbarScroll() {
     scrollProgress: 0,
     isInitialView: true,
     hasScrolled: false,
-    initialScrollBuffer: 0
+    initialScrollBuffer: 0,
+    isMorphed: false
   });
 
   useEffect(() => {
     // Calculate scroll progress
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
+    
+    // Morph threshold - engage morph effect after scrolling 25% of viewport height
+    const morphThreshold = window.innerHeight * 0.25;
+    const isMorphed = scrollY > morphThreshold;
     
     // More elegant threshold logic - smoother transition between initial and scrolled states
     if (scrollY > 5) {
@@ -32,7 +38,8 @@ export function useNavbarScroll() {
         isInitialView: false,
         hasScrolled: true,
         initialScrollBuffer: 0,
-        scrollProgress: Math.min(progress, 100)
+        scrollProgress: Math.min(progress, 100),
+        isMorphed: isMorphed
       });
     } else {
       setNavbarState({
@@ -40,7 +47,8 @@ export function useNavbarScroll() {
         isInitialView: true,
         hasScrolled: scrollY > 0, 
         initialScrollBuffer: scrollY * 5, // Amplify small scroll movements for smoother transitions
-        scrollProgress: Math.min(progress, 100)
+        scrollProgress: Math.min(progress, 100),
+        isMorphed: false
       });
     }
   }, [scrollY]);

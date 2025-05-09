@@ -9,7 +9,8 @@ import ScrollDownIndicator from './ScrollDownIndicator';
 const Navbar = () => {
   const {
     isScrolled,
-    isInitialView
+    isInitialView,
+    isMorphed
   } = useNavbarScroll();
   
   return (
@@ -17,7 +18,8 @@ const Navbar = () => {
       "fixed top-0 left-0 right-0 w-full z-[9999]",
       "transition-all duration-500 ease-in-out",
       "will-change-transform",
-      isScrolled ? "bg-white shadow-md" : "bg-transparent"
+      isScrolled ? "bg-white shadow-md" : "bg-transparent",
+      isMorphed && "navbar-morph"
     )}>
       {/* When not scrolled, show logo absolutely positioned in the primary brand color area */}
       {!isScrolled ? (

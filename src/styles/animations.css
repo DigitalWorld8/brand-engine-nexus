@@ -74,3 +74,106 @@
 .pulse-opacity {
   animation: pulse-opacity 2s ease-in-out infinite;
 }
+
+/* Navbar Morph Animation */
+.navbar-morph {
+  transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.navbar-morph-active {
+  transform: translateY(-50%);
+}
+
+.navbar-split-layout {
+  margin-top: 0;
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.navbar-left-morph {
+  position: fixed;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.navbar-right-morph {
+  position: fixed;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 0.75rem 1.5rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+}
+
+.navbar-logo-morph {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--brand-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 51;
+}
+
+.morph-transition {
+  transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.morph-element {
+  opacity: 0.9;
+  transform: scale(0.95);
+}
+
+.morph-element:hover {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.morph-nav-menu {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Floating Animation for Morphed Elements */
+@keyframes subtle-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.navbar-left-morph,
+.navbar-right-morph {
+  animation: subtle-float 4s ease-in-out infinite;
+}
+
+.navbar-logo-morph {
+  animation: subtle-float 3s ease-in-out infinite;
+}
+
+/* Offset animation timings for a more natural look */
+.navbar-left-morph {
+  animation-delay: 0s;
+}
+
+.navbar-logo-morph {
+  animation-delay: 0.5s;
+}
+
+.navbar-right-morph {
+  animation-delay: 1s;
+}
