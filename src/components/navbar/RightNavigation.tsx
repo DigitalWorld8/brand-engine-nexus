@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Phone } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -12,10 +11,9 @@ import {
 
 interface RightNavigationProps {
   onServicesToggle?: (isOpen: boolean) => void;
-  isMorphed?: boolean;
 }
 
-const RightNavigation = ({ onServicesToggle, isMorphed = false }: RightNavigationProps) => {
+const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
   const [servicesOpen, setServicesOpen] = useState(false);
 
   const handleServicesClick = () => {
@@ -27,46 +25,20 @@ const RightNavigation = ({ onServicesToggle, isMorphed = false }: RightNavigatio
   };
 
   return (
-    <div className={cn(
-      "flex items-center",
-      isMorphed ? "flex-col space-y-4" : "justify-end space-x-4"
-    )}>
+    <div className="flex-1 flex items-center justify-end space-x-4">
       {/* Right Side Nav Items */}
-      <NavigationMenu className={cn(
-        "hidden md:flex",
-        isMorphed && "morph-nav-menu"
-      )}>
-        <NavigationMenuList className={cn(
-          isMorphed && "flex-col items-center gap-3"
-        )}>
-          {/* Blog link */}
-          <NavigationMenuItem>
-            <NavigationMenuLink href="#blog" className={cn(
-              "text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 text-base text-center block",
-              isMorphed && "hover:bg-brand-primary/5 rounded-lg"
-            )}>
-              Blog
-            </NavigationMenuLink>
-          </NavigationMenuItem>
-
+      <NavigationMenu className="hidden md:flex">
+        <NavigationMenuList>
           {/* Services with custom toggle behavior */}
           <NavigationMenuItem>
             <button 
               onClick={handleServicesClick}
-              className={cn(
-                "text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 flex items-center text-base",
-                servicesOpen && "text-brand-primary",
-                isMorphed && "flex-col hover:bg-brand-primary/5 rounded-lg"
-              )}
+              className={`text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 flex items-center text-base ${servicesOpen ? 'text-brand-primary' : ''}`}
               aria-expanded={servicesOpen}
             >
               Services
               <svg 
-                className={cn(
-                  isMorphed ? "mt-1 h-4 w-4" : "ml-1 h-4 w-4", 
-                  "transition-transform",
-                  servicesOpen ? "rotate-180" : ""
-                )}
+                className={`ml-1 h-4 w-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
                 viewBox="0 0 24 24" 
@@ -76,23 +48,19 @@ const RightNavigation = ({ onServicesToggle, isMorphed = false }: RightNavigatio
               </svg>
             </button>
           </NavigationMenuItem>
+          
+          <NavigationMenuItem>
+            <NavigationMenuLink href="#blog" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 text-base">
+              Blog
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
       
-      {/* Contact Button */}
-      <Button 
-        size="sm" 
-        className={cn(
-          "bg-brand-accent-blue hover:bg-brand-primary text-white transition-colors",
-          isMorphed ? "py-3 px-4 flex-col morph-element" : "py-5 px-6"
-        )}
-      >
-        <Phone className={cn("h-5 w-5", isMorphed ? "mb-2" : "mr-2")} />
-        <span className={cn(
-          isMorphed ? "block text-xs font-medium" : "hidden sm:inline text-base"
-        )}>
-          {isMorphed ? "Contact" : "Contact Us"}
-        </span>
+      {/* Right Side CTA Button */}
+      <Button size="sm" className="bg-brand-accent-blue hover:bg-brand-primary text-white transition-colors py-5 px-6">
+        <Phone className="mr-2 h-5 w-5" />
+        <span className="hidden sm:inline text-base">Contact Us</span>
       </Button>
     </div>
   );

@@ -4,6 +4,73 @@
 @import './animations/transitions.css';
 @import './animations/effects.css';
 @import './animations/interactions.css';
-@import './animations/navbar.css';
-@import './animations/initial-view.css';
-@import './animations/decorative.css';
+
+/* Add new initial view styling */
+.initial-view-content {
+  opacity: 0.95;
+  filter: blur(0px);
+  animation: initial-view-fade-in 0.8s ease-out forwards;
+  position: relative;
+}
+
+@keyframes initial-view-fade-in {
+  0% {
+    opacity: 0.6;
+    filter: blur(2px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+/* Better handling for CTA buttons in initial view */
+.cta-semi-active {
+  opacity: 0.9;
+  transform: scale(1);
+  transition: all 0.3s ease;
+  pointer-events: auto;
+}
+
+.cta-semi-active:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
+
+/* New floating logo animation */
+@keyframes logo-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.logo-float {
+  animation: logo-float 3s ease-in-out infinite;
+}
+
+/* Glowing effect for the brand logo container */
+.logo-glow {
+  box-shadow: 0 0 15px rgba(27, 20, 100, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.logo-glow:hover {
+  box-shadow: 0 0 25px rgba(27, 20, 100, 0.7);
+}
+
+/* Scroll down indicator animation */
+@keyframes pulse-opacity {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.pulse-opacity {
+  animation: pulse-opacity 2s ease-in-out infinite;
+}
