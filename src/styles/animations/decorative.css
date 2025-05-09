@@ -16,6 +16,11 @@
   animation: rotate-gradient 8s linear infinite;
 }
 
+/* Special border radius for left navigation */
+.navbar-left-morph::after {
+  border-radius: 0 2rem 2rem 0;
+}
+
 @keyframes rotate-gradient {
   0% {
     transform: rotate(0deg);
