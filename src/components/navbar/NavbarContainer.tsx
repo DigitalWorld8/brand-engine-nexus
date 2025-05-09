@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import NavbarLogo from './NavbarLogo';
 import LeftNavigation from './LeftNavigation';
 import RightNavigation from './RightNavigation';
-import NavbarFlags from './NavbarFlags';
 import ServicesMegaOverlay from './ServicesMegaOverlay';
 
 interface NavbarContainerProps {
@@ -52,11 +51,6 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
         <div className="flex-1 flex justify-end">
           <RightNavigation onServicesToggle={handleServicesToggle} />
         </div>
-      </div>
-      
-      {/* NavbarFlags component */}
-      <div className="mt-2">
-        <NavbarFlags />
       </div>
 
       {/* Services Mega Menu Overlay */}

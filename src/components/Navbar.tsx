@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import NavbarContainer from './navbar/NavbarContainer';
 import NavbarLogo from './navbar/NavbarLogo';
-import ScrollDownIndicator from './ScrollDownIndicator';
+import ScrollDownIndicator from './navbar/ScrollDownIndicator';
 
 const Navbar = () => {
   const {
