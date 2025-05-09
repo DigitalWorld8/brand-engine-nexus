@@ -8,7 +8,7 @@ interface NavbarScrollState {
   isInitialView: boolean;
   hasScrolled: boolean;
   initialScrollBuffer: number;
-  isMorphed: boolean; // New state for morph effect
+  isMorphed: boolean; // State for morph effect
 }
 
 export function useNavbarScroll() {
@@ -27,8 +27,8 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
     
-    // Morph threshold - engage morph effect after scrolling 25% of viewport height
-    const morphThreshold = window.innerHeight * 0.25;
+    // Morph threshold - engage morph effect after scrolling 30% of viewport height
+    const morphThreshold = window.innerHeight * 0.3;
     const isMorphed = scrollY > morphThreshold;
     
     // More elegant threshold logic - smoother transition between initial and scrolled states

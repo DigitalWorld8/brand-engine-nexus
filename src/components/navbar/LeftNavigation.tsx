@@ -17,8 +17,8 @@ interface LeftNavigationProps {
 const LeftNavigation = ({ isMorphed = false }: LeftNavigationProps) => {
   return (
     <div className={cn(
-      "flex-1 flex items-center justify-start space-x-4",
-      isMorphed && "morph-transition"
+      "flex-1 flex items-center justify-start",
+      isMorphed ? "flex-col space-y-3" : "space-x-4"
     )}>
       {/* Left Side CTA Button */}
       <Button 
@@ -30,7 +30,7 @@ const LeftNavigation = ({ isMorphed = false }: LeftNavigationProps) => {
         )}
       >
         <Calendar className="mr-1 h-4 w-4" />
-        <span className="hidden xl:inline">Quick Schedule</span>
+        <span className={cn(isMorphed ? "block text-xs mt-1" : "hidden xl:inline")}>Quick Schedule</span>
       </Button>
       
       {/* Left Side Nav Items */}
@@ -38,15 +38,21 @@ const LeftNavigation = ({ isMorphed = false }: LeftNavigationProps) => {
         "hidden md:flex",
         isMorphed && "morph-nav-menu"
       )}>
-        <NavigationMenuList>
+        <NavigationMenuList className={cn(isMorphed && "flex-col items-center")}>
           <NavigationMenuItem>
-            <NavigationMenuLink href="#about" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2">
+            <NavigationMenuLink href="#about" className={cn(
+              "text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2",
+              isMorphed && "text-center block"
+            )}>
               About Us
             </NavigationMenuLink>
           </NavigationMenuItem>
           
           <NavigationMenuItem>
-            <NavigationMenuLink href="#portfolio" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2">
+            <NavigationMenuLink href="#portfolio" className={cn(
+              "text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2",
+              isMorphed && "text-center block"
+            )}>
               Portfolio
             </NavigationMenuLink>
           </NavigationMenuItem>

@@ -28,20 +28,23 @@ const RightNavigation = ({ onServicesToggle, isMorphed = false }: RightNavigatio
 
   return (
     <div className={cn(
-      "flex-1 flex items-center justify-end space-x-4",
-      isMorphed && "morph-transition"
+      "flex-1 flex items-center justify-end",
+      isMorphed ? "flex-col space-y-3" : "space-x-4"
     )}>
       {/* Right Side Nav Items */}
       <NavigationMenu className={cn(
         "hidden md:flex",
         isMorphed && "morph-nav-menu"
       )}>
-        <NavigationMenuList>
+        <NavigationMenuList className={cn(isMorphed && "flex-col items-center")}>
           {/* Services with custom toggle behavior */}
           <NavigationMenuItem>
             <button 
               onClick={handleServicesClick}
-              className={`text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 flex items-center text-base ${servicesOpen ? 'text-brand-primary' : ''}`}
+              className={cn(
+                "text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 flex items-center text-base",
+                servicesOpen && "text-brand-primary"
+              )}
               aria-expanded={servicesOpen}
             >
               Services
@@ -58,7 +61,10 @@ const RightNavigation = ({ onServicesToggle, isMorphed = false }: RightNavigatio
           </NavigationMenuItem>
           
           <NavigationMenuItem>
-            <NavigationMenuLink href="#blog" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 text-base">
+            <NavigationMenuLink href="#blog" className={cn(
+              "text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 text-base",
+              isMorphed && "text-center block"
+            )}>
               Blog
             </NavigationMenuLink>
           </NavigationMenuItem>
@@ -69,12 +75,17 @@ const RightNavigation = ({ onServicesToggle, isMorphed = false }: RightNavigatio
       <Button 
         size="sm" 
         className={cn(
-          "bg-brand-accent-blue hover:bg-brand-primary text-white transition-colors py-5 px-6",
+          "bg-brand-accent-blue hover:bg-brand-primary text-white transition-colors",
+          isMorphed ? "py-3 px-4" : "py-5 px-6",
           isMorphed && "morph-element"
         )}
       >
-        <Phone className="mr-2 h-5 w-5" />
-        <span className="hidden sm:inline text-base">Contact Us</span>
+        <Phone className={cn("h-5 w-5", isMorphed ? "mb-1" : "mr-2")} />
+        <span className={cn(
+          isMorphed ? "block text-xs mt-1" : "hidden sm:inline text-base"
+        )}>
+          {isMorphed ? "Contact" : "Contact Us"}
+        </span>
       </Button>
     </div>
   );

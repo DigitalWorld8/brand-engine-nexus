@@ -91,16 +91,21 @@
   padding-right: 2rem;
 }
 
+/* Updated vertical layout for morphed navigation */
 .navbar-left-morph {
   position: fixed;
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.95);
-  padding: 0.75rem 1.5rem;
+  padding: 1rem;
   border-radius: 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .navbar-right-morph {
@@ -109,10 +114,14 @@
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.95);
-  padding: 0.75rem 1.5rem;
+  padding: 1rem;
   border-radius: 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .navbar-logo-morph {
@@ -142,6 +151,13 @@
 }
 
 .morph-nav-menu {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Updated vertical nav item styles */
+.morph-nav-menu .NavigationMenuList {
   flex-direction: column;
   gap: 0.5rem;
 }

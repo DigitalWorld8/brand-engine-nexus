@@ -41,31 +41,27 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
       <div className={cn(
         "flex w-full items-center justify-between",
         "transition-all duration-500 ease-in-out",
-        // Apply split layout effect when morphed
-        isMorphed && "navbar-split-layout"
+        isMorphed && "navbar-split-layout invisible" // Hide the original layout when morphed
       )}>
         {/* Left Side Navigation */}
         <div className={cn(
           "flex-1 transition-all duration-500 ease-in-out",
-          isMorphed && "navbar-left-morph"
         )}>
-          <LeftNavigation isMorphed={isMorphed} />
+          <LeftNavigation isMorphed={false} />
         </div>
         
         {/* Center Logo */}
         <div className={cn(
-          "flex-none z-10 mx-4 transition-all duration-500 ease-in-out",
-          isMorphed && "navbar-logo-morph"
+          "flex-none z-10 mx-4 transition-all duration-500 ease-in-out"
         )}>
           <NavbarLogo />
         </div>
         
         {/* Right Side Navigation */}
         <div className={cn(
-          "flex-1 flex justify-end transition-all duration-500 ease-in-out",
-          isMorphed && "navbar-right-morph"
+          "flex-1 flex justify-end transition-all duration-500 ease-in-out"
         )}>
-          <RightNavigation onServicesToggle={handleServicesToggle} isMorphed={isMorphed} />
+          <RightNavigation onServicesToggle={handleServicesToggle} isMorphed={false} />
         </div>
       </div>
       
@@ -79,6 +75,26 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
 
       {/* Services Mega Menu Overlay */}
       <ServicesMegaOverlay isOpen={servicesOpen} />
+      
+      {/* Morphed layout - positioned absolutely when active */}
+      {isMorphed && (
+        <>
+          {/* Left morphed navigation */}
+          <div className="navbar-left-morph">
+            <LeftNavigation isMorphed={true} />
+          </div>
+          
+          {/* Center logo morphed */}
+          <div className="navbar-logo-morph">
+            <NavbarLogo />
+          </div>
+          
+          {/* Right morphed navigation */}
+          <div className="navbar-right-morph">
+            <RightNavigation onServicesToggle={handleServicesToggle} isMorphed={true} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
