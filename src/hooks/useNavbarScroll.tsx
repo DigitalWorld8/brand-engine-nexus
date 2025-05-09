@@ -27,8 +27,8 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
     
-    // Lowered morph threshold for faster engagement - engage morph effect after scrolling 25% of viewport height
-    const morphThreshold = window.innerHeight * 0.25;
+    // Determine when to morph - engage morph effect after scrolling 35% of viewport height
+    const morphThreshold = window.innerHeight * 0.35;
     const isMorphed = scrollY > morphThreshold;
     
     // More elegant threshold logic with additional subtle buffer zones

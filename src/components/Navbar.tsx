@@ -17,9 +17,7 @@ const Navbar = () => {
     <header className={cn(
       "fixed top-0 left-0 right-0 w-full z-[9999]",
       "transition-all duration-700 ease-in-out",
-      "will-change-transform",
-      isScrolled ? "bg-white shadow-md" : "bg-transparent",
-      isMorphed && "navbar-morph pointer-events-none" // Make the header container not interfere with clicks when morphed
+      "will-change-transform"
     )}>
       {/* When not scrolled, show logo absolutely positioned in the primary brand color area */}
       {!isScrolled ? (
@@ -37,9 +35,7 @@ const Navbar = () => {
         </div>
       ) : (
         /* When scrolled, show full navbar container */
-        <div className={cn("pointer-events-auto", isMorphed && "opacity-0")}>
-          <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
-        </div>
+        <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
       )}
     </header>
   );
