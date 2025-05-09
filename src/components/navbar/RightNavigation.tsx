@@ -30,11 +30,11 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
       <NavigationMenu className="hidden md:flex">
         <NavigationMenuList>
           {/* Services with custom toggle behavior */}
-          <NavigationMenuItem>
+          <NavigationMenuItem className="relative">
             <button 
               onClick={handleServicesClick}
               className={`
-                relative group overflow-hidden px-5 py-3 flex items-center
+                group overflow-hidden px-5 py-3 flex items-center
                 ${servicesOpen 
                   ? 'bg-gradient-to-r from-[#e9f8fd] via-[#f0fafd] to-[#e9f8fd] text-brand-primary rounded-t-lg shadow-sm' 
                   : 'text-brand-text hover:text-brand-primary'}
@@ -63,7 +63,7 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
                 />
               </svg>
               
-              {/* Gradient background effect that shows on hover */}
+              {/* Gradient background effect that shows on hover - isolated to Services button only */}
               {!servicesOpen && (
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-accent-blue via-brand-primary to-brand-accent-violet transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               )}
