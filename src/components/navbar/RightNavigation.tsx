@@ -28,8 +28,8 @@ const RightNavigation = ({ onServicesToggle, isMorphed = false }: RightNavigatio
 
   return (
     <div className={cn(
-      "flex-1 flex items-center justify-end",
-      isMorphed ? "flex-col space-y-4" : "space-x-4"
+      "flex items-center",
+      isMorphed ? "flex-col space-y-4" : "justify-end space-x-4"
     )}>
       {/* Right Side Nav Items */}
       <NavigationMenu className={cn(

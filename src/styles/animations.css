@@ -75,26 +75,14 @@
   animation: pulse-opacity 2s ease-in-out infinite;
 }
 
-/* Morph Container - holds all the morphed elements */
-.morph-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 100;
-}
-
 /* Enhanced vertical layout for morphed navigation with melting effect */
 .navbar-left-morph {
   position: fixed;
-  left: 2rem;
+  left: 5%;
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.92);
-  padding: 1.25rem;
+  padding: 1.5rem;
   border-radius: 2rem;
   box-shadow: 0 8px 32px rgba(27, 20, 100, 0.18);
   z-index: 50;
@@ -105,16 +93,16 @@
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   pointer-events: auto;
-  animation: appear-from-left 0.5s ease-out forwards;
+  animation: appear-from-left 0.5s ease-out forwards, melting-float 6s ease-in-out infinite 0.5s;
 }
 
 .navbar-right-morph {
   position: fixed;
-  right: 2rem;
+  right: 5%;
   top: 50%;
   transform: translateY(-50%);
   background-color: rgba(255, 255, 255, 0.92);
-  padding: 1.25rem;
+  padding: 1.5rem;
   border-radius: 2rem;
   box-shadow: 0 8px 32px rgba(27, 20, 100, 0.18);
   z-index: 50;
@@ -125,7 +113,7 @@
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   pointer-events: auto;
-  animation: appear-from-right 0.5s ease-out forwards;
+  animation: appear-from-right 0.5s ease-out forwards, melting-float 6s ease-in-out infinite 0.5s;
 }
 
 .navbar-logo-morph {
@@ -139,7 +127,7 @@
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
   z-index: 51;
   pointer-events: auto;
-  animation: appear-from-top 0.5s ease-out forwards;
+  animation: appear-from-top 0.5s ease-out forwards, logo-melting-float 5s ease-in-out infinite 0.5s;
 }
 
 @keyframes appear-from-left {
@@ -173,35 +161,6 @@
     opacity: 1;
     transform: translate(-50%, 0);
   }
-}
-
-.morph-transition {
-  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.morph-element {
-  opacity: 0.95;
-  transform: scale(0.95);
-  transition: all 0.3s ease;
-}
-
-.morph-element:hover {
-  opacity: 1;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(27, 20, 100, 0.2);
-}
-
-.morph-nav-menu {
-  flex-direction: column;
-  align-items: center;
-  padding: 0.5rem;
-  gap: 0.75rem;
-}
-
-/* Updated vertical nav item styles */
-.morph-nav-menu .NavigationMenuList {
-  flex-direction: column;
-  gap: 0.5rem;
 }
 
 /* Enhanced Floating Animation for Morphed Elements - Melting Effect */
@@ -243,19 +202,6 @@
   }
 }
 
-.navbar-left-morph,
-.navbar-right-morph {
-  animation: appear-from-left 0.5s ease-out forwards, melting-float 6s ease-in-out infinite 0.5s;
-}
-
-.navbar-right-morph {
-  animation: appear-from-right 0.5s ease-out forwards, melting-float 6s ease-in-out infinite 0.5s;
-}
-
-.navbar-logo-morph {
-  animation: appear-from-top 0.5s ease-out forwards, logo-melting-float 5s ease-in-out infinite 0.5s;
-}
-
 /* Gradient borders for melting effect */
 .navbar-left-morph::after,
 .navbar-right-morph::after {
@@ -278,6 +224,32 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Morph element styling */
+.morph-element {
+  opacity: 0.95;
+  transform: scale(0.95);
+  transition: all 0.3s ease;
+}
+
+.morph-element:hover {
+  opacity: 1;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(27, 20, 100, 0.2);
+}
+
+/* Navigation menu in morphed state */
+.morph-nav-menu {
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 0.75rem;
+}
+
+.morph-nav-menu .NavigationMenuList {
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 /* Fix for nested animations */

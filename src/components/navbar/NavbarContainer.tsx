@@ -71,8 +71,8 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
       
       {/* Morphed layout - positioned absolutely only when active */}
       {isMorphed && (
-        <div className="morph-container">
-          {/* Left morphed navigation */}
+        <div className="fixed inset-0 pointer-events-none">
+          {/* Left morphed navigation - centered vertically in left half */}
           <div className="navbar-left-morph">
             <LeftNavigation isMorphed={true} />
           </div>
@@ -82,7 +82,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
             <NavbarLogo />
           </div>
           
-          {/* Right morphed navigation */}
+          {/* Right morphed navigation - centered vertically in right half */}
           <div className="navbar-right-morph">
             <RightNavigation onServicesToggle={handleServicesToggle} isMorphed={true} />
           </div>

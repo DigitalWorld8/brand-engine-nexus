@@ -17,8 +17,8 @@ interface LeftNavigationProps {
 const LeftNavigation = ({ isMorphed = false }: LeftNavigationProps) => {
   return (
     <div className={cn(
-      "flex-1 flex items-center justify-start",
-      isMorphed ? "flex-col space-y-4" : "space-x-4"
+      "flex items-center",
+      isMorphed ? "flex-col space-y-4" : "justify-start space-x-4"
     )}>
       {/* Left Side CTA Button */}
       <Button 
