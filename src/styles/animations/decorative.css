@@ -1,4 +1,3 @@
-
 /* Decorative animation effects */
 
 /* Gradient borders for melting effect */
@@ -19,6 +18,11 @@
 /* Special border radius for left navigation */
 .navbar-left-morph::after {
   border-radius: 0 2rem 2rem 0;
+}
+
+/* Special border radius for right navigation */
+.navbar-right-morph::after {
+  border-radius: 2rem 0 0 2rem;
 }
 
 @keyframes rotate-gradient {
