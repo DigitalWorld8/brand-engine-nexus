@@ -32,7 +32,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
 
   return (
     <div className={cn(
-      "transition-all duration-500 ease-in-out",
+      "transition-all duration-1000 ease-in-out",
       "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
       !navbarReady && "opacity-0",
       // Apply morph state classes
@@ -40,26 +40,26 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
     )}>
       <div className={cn(
         "flex w-full items-center justify-between",
-        "transition-all duration-500 ease-in-out",
+        "transition-all duration-700 ease-in-out",
         isMorphed && "navbar-split-layout invisible" // Hide the original layout when morphed
       )}>
         {/* Left Side Navigation */}
         <div className={cn(
-          "flex-1 transition-all duration-500 ease-in-out",
+          "flex-1 transition-all duration-700 ease-in-out",
         )}>
           <LeftNavigation isMorphed={false} />
         </div>
         
         {/* Center Logo */}
         <div className={cn(
-          "flex-none z-10 mx-4 transition-all duration-500 ease-in-out"
+          "flex-none z-10 mx-4 transition-all duration-700 ease-in-out"
         )}>
           <NavbarLogo />
         </div>
         
         {/* Right Side Navigation */}
         <div className={cn(
-          "flex-1 flex justify-end transition-all duration-500 ease-in-out"
+          "flex-1 flex justify-end transition-all duration-700 ease-in-out"
         )}>
           <RightNavigation onServicesToggle={handleServicesToggle} isMorphed={false} />
         </div>
@@ -67,7 +67,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
       
       {/* NavbarFlags component */}
       <div className={cn(
-        "mt-2 transition-all duration-500 ease-in-out",
+        "mt-2 transition-all duration-700 ease-in-out",
         isMorphed && "opacity-0 pointer-events-none"
       )}>
         <NavbarFlags />

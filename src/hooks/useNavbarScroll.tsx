@@ -27,11 +27,11 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
     
-    // Morph threshold - engage morph effect after scrolling 30% of viewport height
-    const morphThreshold = window.innerHeight * 0.3;
+    // Lowered morph threshold for faster engagement - engage morph effect after scrolling 25% of viewport height
+    const morphThreshold = window.innerHeight * 0.25;
     const isMorphed = scrollY > morphThreshold;
     
-    // More elegant threshold logic - smoother transition between initial and scrolled states
+    // More elegant threshold logic with additional subtle buffer zones
     if (scrollY > 5) {
       setNavbarState({
         isScrolled: true,
@@ -46,7 +46,7 @@ export function useNavbarScroll() {
         isScrolled: false,
         isInitialView: true,
         hasScrolled: scrollY > 0, 
-        initialScrollBuffer: scrollY * 5, // Amplify small scroll movements for smoother transitions
+        initialScrollBuffer: scrollY * 5,
         scrollProgress: Math.min(progress, 100),
         isMorphed: false
       });
