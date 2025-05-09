@@ -33,7 +33,7 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
           <NavigationMenuItem>
             <button 
               onClick={handleServicesClick}
-              className={`text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2 flex items-center ${servicesOpen ? 'text-brand-primary' : ''}`}
+              className={`text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 flex items-center text-base ${servicesOpen ? 'text-brand-primary' : ''}`}
               aria-expanded={servicesOpen}
             >
               Services
@@ -50,7 +50,7 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
           </NavigationMenuItem>
           
           <NavigationMenuItem>
-            <NavigationMenuLink href="#blog" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-3 py-2">
+            <NavigationMenuLink href="#blog" className="text-brand-text hover:text-brand-primary font-medium transition-colors px-4 py-3 text-base">
               Blog
             </NavigationMenuLink>
           </NavigationMenuItem>
@@ -58,9 +58,9 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
       </NavigationMenu>
       
       {/* Right Side CTA Button */}
-      <Button size="sm" className="bg-brand-accent-blue hover:bg-brand-primary text-white transition-colors">
-        <Phone className="mr-1 h-4 w-4" />
-        <span className="hidden sm:inline">Contact Us</span>
+      <Button size="sm" className="bg-brand-accent-blue hover:bg-brand-primary text-white transition-colors py-5 px-6">
+        <Phone className="mr-2 h-5 w-5" />
+        <span className="hidden sm:inline text-base">Contact Us</span>
       </Button>
     </div>
   );
