@@ -71,10 +71,8 @@ const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
           </NavigationMenuItem>
           
           <NavigationMenuItem>
-            <NavigationMenuLink href="#blog" className="relative group px-4 py-3 text-base font-medium text-brand-text hover:text-brand-primary transition-colors">
-              <span>Blog</span>
-              {/* Individual hover line effect for Blog */}
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-accent-blue via-brand-primary to-brand-accent-violet transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            <NavigationMenuLink href="#blog" className="px-4 py-3 text-base font-medium text-brand-text hover:text-brand-primary transition-colors">
+              Blog
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>
