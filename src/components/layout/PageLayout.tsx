@@ -37,7 +37,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isScrolled ? '80px' : '120px' // Increased from 100px to 120px to accommodate taller header
+            marginTop: isScrolled ? '64px' : '100px' // Reduced margin to move content higher
           }} 
           className="min-h-screen transition-all duration-700 page-reveal"
         >
@@ -49,7 +49,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
               transform: `scale(${scaleFactor})`,
               transformOrigin: 'center top',
               marginBottom: isInitialView ? '0' : '0',
-              marginTop: isInitialView ? '20vh' : '8vh', // Increased from 16vh to 20vh for more spacing
+              marginTop: isInitialView ? '16vh' : '6vh', // Reduced margin top to position content higher
             }}
           >
             {/* Add overlay div that controls the blur opacity based on scroll */}

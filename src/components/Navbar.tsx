@@ -21,7 +21,7 @@ const Navbar = () => {
     )}>
       {/* When not scrolled, show logo absolutely positioned in the primary brand color area */}
       {!isScrolled ? (
-        <div className="absolute top-24 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="absolute top-12 left-1/2 transform -translate-x-1/2 z-20">
           <div className="bg-brand-primary py-6 px-8 rounded-full shadow-lg logo-glow logo-float">
             <div className="scale-110 transition-all duration-300 text-white">
               <NavbarLogo />
