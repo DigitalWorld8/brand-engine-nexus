@@ -1,14 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
-
 const Hero = () => {
   const [hovered, setHovered] = useState<string | null>(null);
   const {
     isScrolled
   } = useNavbarScroll();
-  
   return <section className={`relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden mx-0 my-[25px] px-0 py-[280px] ${!isScrolled ? 'hero-tear-shape' : ''}`}>
       {/* Background elements with enhanced animations */}
       <div className={`absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden ${!isScrolled ? 'hero-tear-shape' : ''}`}>
@@ -20,7 +17,7 @@ const Hero = () => {
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-center my-[7px] px-0 py-[2px] mx-[11px]">
           <div className="space-y-8 md:pr-12">
             <div className="animate-fade-in-up">
               {/* Headline - adjusted positioning to work better with tear shape */}
@@ -102,5 +99,4 @@ const Hero = () => {
       </div>
     </section>;
 };
-
 export default Hero;
