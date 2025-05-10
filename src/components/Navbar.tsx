@@ -52,17 +52,15 @@ const Navbar = () => {
               <NavbarLogo />
             </div>
           </div>
+          
+          {/* Add scroll down indicator below the logo */}
+          <div className="mt-8 flex justify-center" style={{ pointerEvents: 'auto' }}>
+            <ScrollDownIndicator />
+          </div>
         </div>
       ) : (
         /* When scrolled, show full navbar container */
         <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
-      )}
-
-      {/* Separate scroll indicator positioned independently from the logo */}
-      {!isScrolled && (
-        <div className="fixed left-1/2 bottom-8 transform -translate-x-1/2 z-20">
-          <ScrollDownIndicator />
-        </div>
       )}
     </header>
   );
