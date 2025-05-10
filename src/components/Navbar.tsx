@@ -27,7 +27,7 @@ const Navbar = () => {
       {/* When not scrolled, show logo absolutely positioned in the primary brand color area */}
       {!isScrolled ? (
         <div 
-          className="absolute inset-0 flex items-center justify-center z-20"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center justify-center"
           style={{
             pointerEvents: 'none', // Allow clicks to pass through the container
             willChange: 'transform',
@@ -54,7 +54,7 @@ const Navbar = () => {
           </div>
           
           {/* Add scroll down indicator below the logo */}
-          <div className="absolute mt-40 flex justify-center" style={{ pointerEvents: 'auto' }}>
+          <div className="mt-8 flex justify-center" style={{ pointerEvents: 'auto' }}>
             <ScrollDownIndicator />
           </div>
         </div>
