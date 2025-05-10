@@ -41,11 +41,11 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     
     setIsScrolling(true);
     
-    // Scroll down to explore content
+    // Scroll down to explore content - faster scroll
     const startPosition = window.scrollY;
     const targetPosition = window.innerHeight; // Scroll down one viewport height
     const distance = targetPosition - startPosition;
-    const duration = 800;
+    const duration = 600; // Reduced from 800ms to 600ms for faster scroll
     const startTime = performance.now();
     
     // Cubic easing function for smooth scrolling
@@ -78,7 +78,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   return (
     <div 
       className={cn(
-        "fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 transition-all duration-500",
+        "fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40 transition-all duration-300", // Reduced from 500ms to 300ms
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none",
         className
       )}
@@ -88,7 +88,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
       <div 
         className={cn(
           "flex flex-col items-center gap-4 cursor-pointer",
-          "transition-all duration-300",
+          "transition-all duration-200", // Reduced from 300ms to 200ms
           isHovered ? "translate-y-[-5px]" : "",
           isScrolling ? "pointer-events-none" : ""
         )}
@@ -107,7 +107,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
         <div 
           className={cn(
             "relative flex items-center justify-center",
-            "transition-all duration-300 ease-in-out",
+            "transition-all duration-200 ease-in-out", // Reduced from 300ms to 200ms
             isHovered ? "scale-110" : "scale-100"
           )}
         >
@@ -119,7 +119,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
             <MousePointerClick 
               className={cn(
                 "h-8 w-8 text-brand-primary",
-                "transition-all duration-300",
+                "transition-all duration-200", // Reduced from 300ms to 200ms
                 isHovered ? "translate-y-[2px]" : ""
               )} 
               strokeWidth={2.5} 

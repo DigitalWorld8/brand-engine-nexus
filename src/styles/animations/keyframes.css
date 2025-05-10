@@ -31,7 +31,7 @@
   }
 }
 
-/* Improved pulse-down animation with digital effect */
+/* Improved pulse-down animation with digital effect - faster */
 @keyframes pulse-down {
   0% {
     transform: translateY(-100%);
@@ -58,7 +58,7 @@
   }
 }
 
-/* Shine effect animation */
+/* Shine effect animation - faster */
 @keyframes shine {
   0% {
     background-position: -100% 0;
@@ -68,7 +68,7 @@
   }
 }
 
-/* Gradient animation for backgrounds */
+/* Gradient animation for backgrounds - faster */
 @keyframes gradient-shift {
   0% {
     background-position: 0% 50%;
@@ -87,7 +87,7 @@
   to { width: 100%; }
 }
 
-/* Side edge flow animation */
+/* Side edge flow animation - faster */
 @keyframes side-edge-flow {
   0%, 100% { transform: translateY(-100%); }
   50% { transform: translateY(100%); }

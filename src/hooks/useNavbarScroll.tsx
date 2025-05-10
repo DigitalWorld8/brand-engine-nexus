@@ -25,8 +25,8 @@ export function useNavbarScroll() {
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
     
-    // More elegant threshold logic - smoother transition between initial and scrolled states
-    if (scrollY > 5) {
+    // More responsive threshold logic - faster transition between initial and scrolled states
+    if (scrollY > 3) { // Reduced from 5 to 3 for quicker response
       setNavbarState({
         isScrolled: true,
         isInitialView: false,
@@ -39,7 +39,7 @@ export function useNavbarScroll() {
         isScrolled: false,
         isInitialView: true,
         hasScrolled: scrollY > 0, 
-        initialScrollBuffer: scrollY * 5, // Amplify small scroll movements for smoother transitions
+        initialScrollBuffer: scrollY * 8, // Increased from 5 to 8 for more amplified small scroll movements
         scrollProgress: Math.min(progress, 100)
       });
     }

@@ -7,10 +7,10 @@ export function useSideEdgeAnimation() {
   const lastScrollY = useRef(0);
   const animationTimeoutRef = useRef<number | null>(null);
   
-  // Enhanced throttled scroll handler with debounce for state changes
+  // Enhanced throttled scroll handler with lower delay for faster response
   const throttledScrollHandler = useCallback((callback: () => void) => {
     let waiting = false;
-    const throttleMs = 50; // Higher value = less frequent updates, smoother animation
+    const throttleMs = 30; // Reduced from 50 to 30 for faster response
     
     return () => {
       if (!waiting) {
@@ -26,28 +26,28 @@ export function useSideEdgeAnimation() {
   }, []);
 
   useEffect(() => {
-    // Handle progressive side edge narrowing with improved smoothing
+    // Handle progressive side edge narrowing with improved responsiveness
     const handleScrollForSideEdges = throttledScrollHandler(() => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const scrollDirection = scrollY > lastScrollY.current ? 'down' : 'up';
       lastScrollY.current = scrollY;
       
-      // Only update state if significant scroll has occurred (prevents micro-jitters)
-      const significantScrollThreshold = windowHeight * 0.05;
+      // Lower threshold for more responsive changes
+      const significantScrollThreshold = windowHeight * 0.03; // Reduced from 0.05 to 0.03
       const hasSignificantScroll = Math.abs(scrollY - lastScrollY.current) > significantScrollThreshold;
       
       // Don't trigger new animations if one is already in progress
       if (isAnimating) return;
 
-      // Using wider thresholds with hysteresis to reduce state changes
+      // Using more responsive thresholds
       let newState = sideEdgeState;
       
-      if (scrollY < windowHeight * 0.3) {
+      if (scrollY < windowHeight * 0.2) { // Reduced from 0.3 to 0.2
         newState = 'full';
-      } else if (scrollY < windowHeight * 0.7) {
+      } else if (scrollY < windowHeight * 0.5) { // Reduced from 0.7 to 0.5
         newState = 'medium';
-      } else if (scrollY < windowHeight * 1.4) {
+      } else if (scrollY < windowHeight * 1.0) { // Reduced from 1.4 to 1.0
         newState = 'small';
       } else {
         newState = 'minimal';
@@ -57,14 +57,14 @@ export function useSideEdgeAnimation() {
         setIsAnimating(true);
         setSideEdgeState(newState);
         
-        // Allow next animation after current one completes (matches transition time)
+        // Allow next animation after current one completes with faster transition time
         if (animationTimeoutRef.current) {
           window.clearTimeout(animationTimeoutRef.current);
         }
         
         animationTimeoutRef.current = window.setTimeout(() => {
           setIsAnimating(false);
-        }, 800);
+        }, 500); // Reduced from 800 to 500ms for faster transitions
       }
     });
     

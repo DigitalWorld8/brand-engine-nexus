@@ -9,7 +9,7 @@
 .initial-view-content {
   opacity: 0.95;
   filter: blur(0px);
-  animation: initial-view-fade-in 0.8s ease-out forwards;
+  animation: initial-view-fade-in 0.5s ease-out forwards; /* Reduced from 0.8s to 0.5s */
   position: relative;
   will-change: opacity, filter; /* Hint to browser for better performance */
   transform: translateZ(0); /* Force GPU acceleration */
@@ -30,7 +30,7 @@
 .cta-semi-active {
   opacity: 0.9;
   transform: scale(1);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease; /* Reduced from 0.3s to 0.2s */
   pointer-events: auto;
   will-change: opacity, transform;
 }
@@ -65,7 +65,7 @@
   box-shadow: 0 0 25px rgba(27, 20, 100, 0.7);
 }
 
-/* Scroll down indicator animation with smoother transitions */
+/* Scroll down indicator animation with faster transitions */
 @keyframes pulse-opacity {
   0%, 100% {
     opacity: 0.8;
@@ -76,7 +76,7 @@
 }
 
 .pulse-opacity {
-  animation: pulse-opacity 2s ease-in-out infinite;
+  animation: pulse-opacity 1.5s ease-in-out infinite; /* Reduced from 2s to 1.5s */
   will-change: opacity;
 }
 
