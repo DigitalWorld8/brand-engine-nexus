@@ -53,8 +53,8 @@ const Navbar = () => {
             </div>
           </div>
           
-          {/* Add scroll down indicator below the logo */}
-          <div className="absolute mt-40 flex justify-center" style={{ pointerEvents: 'auto' }}>
+          {/* Add scroll down indicator below the logo - positioned lower */}
+          <div className="absolute mt-60 flex justify-center" style={{ pointerEvents: 'auto' }}>
             <ScrollDownIndicator />
           </div>
         </div>
