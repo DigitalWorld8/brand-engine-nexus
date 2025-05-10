@@ -21,37 +21,17 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 }) => {
   const { sideEdgeState, getSideEdgeClasses } = useSideEdgeAnimation();
   const [isReady, setIsReady] = useState(false);
-  const [contentRendered, setContentRendered] = useState(false);
 
   // Add a small delay before applying animations to ensure DOM is ready
   useEffect(() => {
-    // Small initial delay to prevent flashing
-    const preRenderTimer = setTimeout(() => {
-      setContentRendered(true);
-      
-      // Then add a small additional delay for smooth transition effects
-      const readyTimer = setTimeout(() => {
-        setIsReady(true);
-      }, 150);
-      
-      return () => clearTimeout(readyTimer);
-    }, 50);
-    
-    return () => clearTimeout(preRenderTimer);
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div 
-      className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} 
-        transition-colors duration-500 
-        ${contentRendered ? 'content-rendered' : 'pre-animation'} 
-        ${isReady ? 'ready' : ''}`}
-      style={{
-        visibility: contentRendered ? 'visible' : 'hidden',
-        opacity: contentRendered ? 1 : 0,
-        transition: 'opacity 0.3s ease-out'
-      }}
-    >
+    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500 ${isReady ? 'ready' : 'pre-animation'}`}>
       {/* Left and right purple side edges with dynamic width */}
       <div className={`${getSideEdgeClasses()} side-edge-left`}></div>
       <div className={`${getSideEdgeClasses()} side-edge-right`}></div>
@@ -67,7 +47,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
           style={{
             opacity: opacityFactor,
             marginTop: isScrolled ? '64px' : '100px', // Reduced margin to move content higher
-            transition: 'opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.5s cubic-bezier(0.22, 1, 0.36, 1)'
+            transition: 'opacity 0.7s ease-out, margin-top 0.5s ease-out'
           }} 
           className={`min-h-screen page-reveal ${isReady ? '' : 'no-animation'}`}
         >
@@ -86,11 +66,11 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             {/* Add overlay div that controls the blur opacity based on scroll with smoother transitions */}
             {isInitialView && (
               <div 
-                className="absolute inset-0 z-10 pointer-events-none transform-gpu"
+                className="absolute inset-0 z-10 pointer-events-none"
                 style={{
                   backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
                   backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
-                  transition: 'backdrop-filter 0.7s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.7s cubic-bezier(0.22, 1, 0.36, 1)'
+                  transition: 'backdrop-filter 0.7s ease-out, background-color 0.7s ease-out'
                 }}
               />
             )}

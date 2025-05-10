@@ -5,33 +5,21 @@ export function usePageMount() {
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
-  const [initialRender, setInitialRender] = useState(true);
   
   useEffect(() => {
-    // Prevent animation during initial render
-    document.body.classList.add('preload');
+    // First set mounted to true
+    setMounted(true);
     
-    // Small delay to ensure DOM is ready before animations start
-    const mountTimer = setTimeout(() => {
-      setMounted(true);
-      document.body.classList.add('page-loaded');
-      document.body.classList.remove('preload');
-      
-      // After a short delay, mark initial render complete
-      setTimeout(() => {
-        setInitialRender(false);
-      }, 100);
-    }, 50);
+    // Add class to body when mounted to control blur effects
+    document.body.classList.add('page-loaded');
     
     // Add a slight delay to ensure smooth animation completion
     const animationTimer = setTimeout(() => {
       setAnimationComplete(true);
-    }, 1000); // Increased animation completion time for smoother transitions
+    }, 800); // Match this with the duration of your initial animations
     
     return () => {
       document.body.classList.remove('page-loaded');
-      document.body.classList.remove('preload');
-      clearTimeout(mountTimer);
       clearTimeout(animationTimer);
     };
   }, []);
@@ -51,7 +39,6 @@ export function usePageMount() {
     setShowBanner,
     handleBannerClick,
     opacityFactor: mounted ? 1 : 0,
-    animationComplete,
-    initialRender
+    animationComplete
   };
 }
