@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Phone, Sparkles } from 'lucide-react';
+import { Phone, Sparkles, Underline } from 'lucide-react';
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -72,7 +72,8 @@ const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState
                 />
               </svg>
               
-              {/* Removed the gradient background underline effect */}
+              {/* Add gradient underline effect only for Services */}
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-accent-blue via-brand-primary to-brand-accent-violet"></span>
             </button>
           </NavigationMenuItem>
           
