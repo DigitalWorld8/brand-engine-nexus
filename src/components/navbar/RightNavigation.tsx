@@ -72,7 +72,7 @@ const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState
                 />
               </svg>
               
-              {/* Gradient background effect that shows ONLY on hover and not when open */}
+              {/* Gradient background effect that shows ONLY on hover when NOT open */}
               {!servicesOpen && (
                 <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-accent-blue via-brand-primary to-brand-accent-violet transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
               )}
@@ -82,7 +82,7 @@ const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState
           <NavigationMenuItem>
             <NavigationMenuLink href="#blog" className="group px-4 py-3 text-base font-medium text-brand-text hover:text-brand-primary transition-colors relative">
               Blog
-              {/* Add the same gradient underline effect for Blog link */}
+              {/* Only one gradient underline effect for Blog link */}
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-brand-accent-blue via-brand-primary to-brand-accent-violet transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
             </NavigationMenuLink>
           </NavigationMenuItem>
