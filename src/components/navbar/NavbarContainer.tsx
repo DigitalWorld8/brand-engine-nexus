@@ -27,6 +27,10 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
     setServicesOpen(isOpen);
   };
 
+  const handleServicesClose = () => {
+    setServicesOpen(false);
+  };
+
   return (
     <div className={cn(
       "transition-all duration-300 ease-in-out py-2", // Added padding-y to make navbar more compact
@@ -54,7 +58,7 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
       </div>
 
       {/* Services Mega Menu Overlay */}
-      <ServicesMegaOverlay isOpen={servicesOpen} />
+      <ServicesMegaOverlay isOpen={servicesOpen} onClose={handleServicesClose} />
     </div>
   );
 };
