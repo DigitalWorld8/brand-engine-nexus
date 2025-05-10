@@ -6,7 +6,7 @@ import About from '@/components/About';
 import Industries from '@/components/Industries';
 import Portfolio from '@/components/Portfolio';
 import Testimonials from '@/components/Testimonials';
-import FAQ from '@/components/FAQ';
+import FAQCollapsible from '@/components/FAQCollapsible';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import CTABanner from '@/components/cta/CTABanner';
@@ -35,7 +35,7 @@ const PageContent: React.FC<PageContentProps> = ({ isInitialView }) => {
         <Industries />
         <About />
         <Testimonials />
-        <FAQ />
+        <FAQCollapsible />
         <CTABanner 
           variant="purple-dots" 
           title="Let's Build Something Amazing" 
