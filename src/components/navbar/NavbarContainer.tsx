@@ -53,7 +53,10 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
         
         {/* Right Side Navigation */}
         <div className="flex-1 flex justify-end">
-          <RightNavigation onServicesToggle={handleServicesToggle} />
+          <RightNavigation 
+            onServicesToggle={handleServicesToggle} 
+            servicesOpen={servicesOpen} 
+          />
         </div>
       </div>
 

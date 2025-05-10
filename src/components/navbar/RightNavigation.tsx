@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Phone, Sparkles } from 'lucide-react';
 import {
@@ -11,10 +11,19 @@ import {
 
 interface RightNavigationProps {
   onServicesToggle?: (isOpen: boolean) => void;
+  servicesOpen?: boolean; // Add prop to receive the state from parent
 }
 
-const RightNavigation = ({ onServicesToggle }: RightNavigationProps) => {
+const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState }: RightNavigationProps) => {
+  // Use internal state but sync with external state when provided
   const [servicesOpen, setServicesOpen] = useState(false);
+  
+  // Sync internal state with parent state
+  useEffect(() => {
+    if (externalServicesState !== undefined) {
+      setServicesOpen(externalServicesState);
+    }
+  }, [externalServicesState]);
 
   const handleServicesClick = () => {
     const newState = !servicesOpen;
