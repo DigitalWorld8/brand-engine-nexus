@@ -15,7 +15,7 @@ interface RightNavigationProps {
 }
 
 const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState }: RightNavigationProps) => {
-  // Use internal state but sync with external state when provided
+  // Use internal state but sync with external state
   const [servicesOpen, setServicesOpen] = useState(false);
   
   // Sync internal state with parent state
