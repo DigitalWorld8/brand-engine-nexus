@@ -19,9 +19,11 @@ const ServicesMegaOverlay = ({ isOpen }: ServicesMegaOverlayProps) => {
         isOpen ? "opacity-100" : "opacity-0"
       )} />
       
-      {/* Menu content with animation */}
+      {/* Menu content with animation - positioned below navbar */}
       <div className={cn(
-        "absolute top-[72px] left-0 right-0 w-full transform transition-all duration-300",
+        "absolute left-0 right-0 w-full transform transition-all duration-300",
+        /* Adjusted position to ensure the menu appears below the navbar */
+        "top-[72px]", 
         isOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
       )}>
         <ServicesMegaMenuContent />

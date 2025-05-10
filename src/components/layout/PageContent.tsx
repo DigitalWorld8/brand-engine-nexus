@@ -18,8 +18,10 @@ type PageContentProps = {
 const PageContent: React.FC<PageContentProps> = ({ isInitialView }) => {
   return (
     <>
-      {/* Show hero section */}
-      <Hero />
+      {/* Show hero section with proper spacing for navbar */}
+      <div className="pt-20">
+        <Hero />
+      </div>
       
       {/* The rest of the content with reduced blur effect */}
       <div className={isInitialView ? 'opacity-95' : ''}>
