@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import { useSideEdgeAnimation } from '@/hooks/useSideEdgeAnimation';
@@ -20,9 +20,18 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   opacityFactor,
 }) => {
   const { sideEdgeState, getSideEdgeClasses } = useSideEdgeAnimation();
+  const [isReady, setIsReady] = useState(false);
+
+  // Add a small delay before applying animations to ensure DOM is ready
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500`}>
+    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} transition-colors duration-500 ${isReady ? 'ready' : 'pre-animation'}`}>
       {/* Left and right purple side edges with dynamic width */}
       <div className={`${getSideEdgeClasses()} side-edge-left`}></div>
       <div className={`${getSideEdgeClasses()} side-edge-right`}></div>
@@ -37,28 +46,31 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isScrolled ? '64px' : '100px' // Reduced margin to move content higher
+            marginTop: isScrolled ? '64px' : '100px', // Reduced margin to move content higher
+            transition: 'opacity 0.7s ease-out, margin-top 0.5s ease-out'
           }} 
-          className="min-h-screen transition-all duration-700 page-reveal"
+          className={`min-h-screen page-reveal ${isReady ? '' : 'no-animation'}`}
         >
           <div 
-            className={`transform-gpu transition-all duration-700 relative ${
+            className={`transform-gpu transition-all duration-700 relative no-layout-shift ${
               isInitialView ? 'blur-effect' : ''
             }`}
             style={{
-              transform: `scale(${scaleFactor})`,
+              transform: isReady ? `scale(${scaleFactor})` : 'scale(1)',
               transformOrigin: 'center top',
               marginBottom: isInitialView ? '0' : '0',
               marginTop: isInitialView ? '16vh' : '6vh', // Reduced margin top to position content higher
+              transition: 'transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.7s cubic-bezier(0.22, 1, 0.36, 1)'
             }}
           >
-            {/* Add overlay div that controls the blur opacity based on scroll */}
+            {/* Add overlay div that controls the blur opacity based on scroll with smoother transitions */}
             {isInitialView && (
               <div 
                 className="absolute inset-0 z-10 pointer-events-none"
                 style={{
                   backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
                   backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
+                  transition: 'backdrop-filter 0.7s ease-out, background-color 0.7s ease-out'
                 }}
               />
             )}

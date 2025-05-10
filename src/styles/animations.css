@@ -5,12 +5,14 @@
 @import './animations/effects.css';
 @import './animations/interactions.css';
 
-/* Add new initial view styling */
+/* Add new initial view styling with smoother transitions */
 .initial-view-content {
   opacity: 0.95;
   filter: blur(0px);
   animation: initial-view-fade-in 0.8s ease-out forwards;
   position: relative;
+  will-change: opacity, filter; /* Hint to browser for better performance */
+  transform: translateZ(0); /* Force GPU acceleration */
 }
 
 @keyframes initial-view-fade-in {
@@ -30,6 +32,7 @@
   transform: scale(1);
   transition: all 0.3s ease;
   pointer-events: auto;
+  will-change: opacity, transform;
 }
 
 .cta-semi-active:hover {
@@ -37,7 +40,7 @@
   transform: scale(1.02);
 }
 
-/* New floating logo animation */
+/* New floating logo animation with reduced jitter */
 @keyframes logo-float {
   0%, 100% {
     transform: translateY(0);
@@ -49,6 +52,7 @@
 
 .logo-float {
   animation: logo-float 3s ease-in-out infinite;
+  will-change: transform;
 }
 
 /* Glowing effect for the brand logo container */
@@ -61,7 +65,7 @@
   box-shadow: 0 0 25px rgba(27, 20, 100, 0.7);
 }
 
-/* Scroll down indicator animation */
+/* Scroll down indicator animation with smoother transitions */
 @keyframes pulse-opacity {
   0%, 100% {
     opacity: 0.8;
@@ -73,4 +77,12 @@
 
 .pulse-opacity {
   animation: pulse-opacity 2s ease-in-out infinite;
+  will-change: opacity;
+}
+
+/* Prevent layout shifts during animations */
+.no-layout-shift {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
 }
