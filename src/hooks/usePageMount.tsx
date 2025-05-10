@@ -13,23 +13,32 @@ export function usePageMount() {
     // Add class to body when mounted to control blur effects
     document.body.classList.add('page-loaded');
     
-    // Add a slight delay to ensure smooth animation completion
-    const animationTimer = setTimeout(() => {
-      setAnimationComplete(true);
-    }, 800); // Match this with the duration of your initial animations
+    // Use requestAnimationFrame for smoother initial load
+    requestAnimationFrame(() => {
+      // Add a slight delay to ensure smooth animation completion
+      const animationTimer = setTimeout(() => {
+        setAnimationComplete(true);
+      }, 600); // Reduced from 800ms to 600ms
+      
+      return () => clearTimeout(animationTimer);
+    });
     
     return () => {
       document.body.classList.remove('page-loaded');
-      clearTimeout(animationTimer);
     };
   }, []);
 
   const handleBannerClick = () => {
     setShowBanner(false);
-    // Scroll to the hero section
-    window.scrollTo({
+    // Scroll to the hero section with optimized animation
+    const scrollOptions = { 
       top: window.innerHeight * 0.05,
-      behavior: 'smooth'
+      behavior: 'smooth' as ScrollBehavior
+    };
+    
+    // Use requestAnimationFrame for smoother scroll initiation
+    requestAnimationFrame(() => {
+      window.scrollTo(scrollOptions);
     });
   };
 

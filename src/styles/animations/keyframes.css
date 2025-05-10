@@ -1,9 +1,9 @@
 
-/* Animation keyframes */
+/* Animation keyframes with modernized timing */
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -11,54 +11,57 @@
   }
 }
 
-/* Float animation for decorative elements */
+/* Float animation with more natural easing */
 @keyframes float {
   0%, 100% {
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
   50% {
-    transform: translateY(-15px);
+    transform: translateY(-15px) translateZ(0);
   }
 }
 
-/* Enhanced subtle bounce animation for the down arrow */
+/* Enhanced subtle bounce animation with better easing */
 @keyframes subtle-bounce {
-  0%, 100% {
-    transform: translateY(0);
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateZ(0);
   }
-  50% {
-    transform: translateY(10px);
+  40% {
+    transform: translateY(8px) translateZ(0);
+  }
+  60% {
+    transform: translateY(4px) translateZ(0);
   }
 }
 
-/* Improved pulse-down animation with digital effect - faster */
+/* Modern pulse-down animation with digital effect - much faster */
 @keyframes pulse-down {
   0% {
-    transform: translateY(-100%);
-    opacity: 0.7;
+    transform: translateY(-100%) translateZ(0);
+    opacity: 0.8;
   }
   50% {
     opacity: 1;
   }
   100% {
-    transform: translateY(100%);
-    opacity: 0.7;
+    transform: translateY(100%) translateZ(0);
+    opacity: 0.8;
   }
 }
 
-/* Slide up animation */
+/* Slide up animation with better acceleration curve */
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
-/* Shine effect animation - faster */
+/* Optimized shine effect animation */
 @keyframes shine {
   0% {
     background-position: -100% 0;
@@ -68,7 +71,7 @@
   }
 }
 
-/* Gradient animation for backgrounds - faster */
+/* Gradient animation with improved timing */
 @keyframes gradient-shift {
   0% {
     background-position: 0% 50%;
@@ -81,14 +84,14 @@
   }
 }
 
-/* Typewriter text effect */
+/* Typewriter text effect with better pacing */
 @keyframes typewriter {
   from { width: 0; }
   to { width: 100%; }
 }
 
-/* Side edge flow animation - faster */
+/* Side edge flow animation - much faster and smoother */
 @keyframes side-edge-flow {
-  0%, 100% { transform: translateY(-100%); }
-  50% { transform: translateY(100%); }
+  0% { transform: translateY(-100%) translateZ(0); }
+  100% { transform: translateY(100%) translateZ(0); }
 }

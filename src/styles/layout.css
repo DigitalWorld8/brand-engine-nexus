@@ -4,22 +4,30 @@
   .page-wrapper {
     @apply min-h-screen flex flex-col items-center w-full overflow-hidden;
     background-color: #1b1464; /* This is the brand-primary color */
+    will-change: background-color;
   }
   
   .content-container {
-    @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden transition-all duration-500 ease-smooth;
+    @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.5s, improved easing */
+    will-change: width, border-radius;
+    transform: translateZ(0); /* Force GPU acceleration */
   }
   
   .top-curved-border {
-    @apply w-full h-16 absolute top-0 left-0 transition-opacity duration-500 ease-smooth;
+    @apply w-full h-16 absolute top-0 left-0;
     background-color: #1b1464; /* This is the brand-primary color */
+    transition: opacity 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.5s, improved easing */
+    will-change: opacity;
   }
   
   /* Side edges - purple sidebars with scroll-dependent width */
   .side-edge {
-    @apply fixed top-0 h-full bg-brand-primary z-0 will-change-transform transform-gpu;
-    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.8s to 0.5s */
+    @apply fixed top-0 h-full bg-brand-primary z-0;
+    transition: width 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.5s, improved easing */
+    will-change: width, transform;
+    transform: translateZ(0);
   }
   
   .side-edge-left {
@@ -47,10 +55,11 @@
     @apply w-[1%] md:w-[1.5%] lg:w-[2%];
   }
 
-  /* New animated background for side edges */
+  /* New animated background for side edges with optimized performance */
   .side-edge-animated {
     position: relative;
     overflow: hidden;
+    isolation: isolate; /* Optimize composite layers */
   }
 
   .side-edge-animated::before {
@@ -61,13 +70,10 @@
     right: 0;
     bottom: 0;
     background: linear-gradient(180deg, rgba(27,20,100,0) 0%, rgba(9,164,213,0.15) 50%, rgba(27,20,100,0) 100%);
-    transform: translateY(-100%);
-    animation: side-edge-flow 6s infinite ease-in-out; /* Reduced from 8s to 6s for faster animation */
-  }
-
-  @keyframes side-edge-flow {
-    0%, 100% { transform: translateY(-100%); }
-    50% { transform: translateY(100%); }
+    transform: translateY(-100%) translateZ(0);
+    animation: side-edge-flow 4s linear infinite; /* Reduced from 6s to 4s for faster animation */
+    will-change: transform;
+    backface-visibility: hidden;
   }
 }
 
@@ -76,24 +82,28 @@
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000px;
+  will-change: transform;
 }
 
-/* Extended duration classes */
+/* Extended duration classes with better performance hints */
 .duration-800 {
   transition-duration: 800ms;
+  will-change: auto;
 }
 
 .duration-900 {
   transition-duration: 900ms;
+  will-change: auto;
 }
 
 .duration-1000 {
   transition-duration: 1000ms;
+  will-change: auto;
 }
 
 /* Transition easing functions */
 .ease-smooth {
-  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1); /* Updated to modern easing */
 }
 
 /* Additional easing functions for smoother animations */
@@ -105,12 +115,14 @@
   transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-/* Page transition effect */
+/* Page transition effect with modern curve */
 @keyframes page-reveal {
-  0% { transform: translateY(15px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% { transform: translateY(12px) translateZ(0); opacity: 0; }
+  100% { transform: translateY(0) translateZ(0); opacity: 1; }
 }
 
 .page-reveal {
-  animation: page-reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; /* Reduced from 0.8s to 0.5s */
+  animation: page-reveal 0.35s cubic-bezier(0.33, 1, 0.68, 1) forwards; /* Reduced from 0.5s, improved easing */
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
