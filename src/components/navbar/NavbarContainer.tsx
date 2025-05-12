@@ -31,6 +31,28 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
     setServicesOpen(false);
   };
 
+  // Add document click listener to close services menu when clicking anywhere outside
+  useEffect(() => {
+    const handleDocumentClick = (event: MouseEvent) => {
+      // This is a fallback handler in case the ServicesMegaOverlay click handler fails
+      if (servicesOpen) {
+        // Don't close if clicking on the Services button itself (RightNavigation will handle that toggle)
+        const servicesButton = document.querySelector('[data-services-button="true"]');
+        if (servicesButton && servicesButton.contains(event.target as Node)) {
+          return;
+        }
+        
+        // Close the menu on document clicks outside the nav area
+        setServicesOpen(false);
+      }
+    };
+    
+    document.addEventListener('mousedown', handleDocumentClick);
+    return () => {
+      document.removeEventListener('mousedown', handleDocumentClick);
+    };
+  }, [servicesOpen]);
+
   return (
     <div className={cn(
       "transition-all duration-300 ease-in-out py-2", // Added padding-y to make navbar more compact

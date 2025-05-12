@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Phone, Sparkles, Underline } from 'lucide-react';
+import { Phone, Sparkles } from 'lucide-react';
 import {
   NavigationMenu,
   NavigationMenuList,
@@ -42,6 +42,7 @@ const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState
           <NavigationMenuItem className="relative">
             <button 
               onClick={handleServicesClick}
+              data-services-button="true" // Added data attribute to help with click handling
               className={`
                 group overflow-hidden px-5 py-3 flex items-center
                 ${servicesOpen 

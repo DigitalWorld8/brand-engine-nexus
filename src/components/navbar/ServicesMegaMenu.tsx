@@ -15,6 +15,9 @@ const ServicesMegaMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  // This ensures the popup is properly managed via the main nav
+  // The main dropdown is now managed by ServicesMegaOverlay
+
   return (
     <NavigationMenuItem>
       <NavigationMenuTrigger 
