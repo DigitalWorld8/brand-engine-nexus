@@ -5,12 +5,25 @@ import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import { Section } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-const NavbarLogo = () => {
+interface NavbarLogoProps {
+  miniVersion?: boolean;
+}
+
+const NavbarLogo = ({ miniVersion = false }: NavbarLogoProps) => {
   const { isScrolled } = useNavbarScroll();
   const isMobile = useIsMobile();
   
   // On mobile, we'll treat it as scrolled
   const effectivelyScrolled = isScrolled || isMobile;
+
+  // For mini version used in bottom nav
+  if (miniVersion) {
+    return (
+      <div className="flex items-center justify-center">
+        <Section className="h-5 w-5 text-white" />
+      </div>
+    );
+  }
 
   return (
     <div className={cn(

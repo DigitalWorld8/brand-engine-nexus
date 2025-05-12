@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import NavbarContainer from './navbar/NavbarContainer';
 import NavbarLogo from './navbar/NavbarLogo';
+import BottomNavbar from './navbar/BottomNavbar';
 import ScrollDownIndicator from './navbar/ScrollDownIndicator';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -15,8 +16,13 @@ const Navbar = () => {
   
   const isMobile = useIsMobile();
   
+  // For mobile, render the bottom navbar instead
+  if (isMobile) {
+    return <BottomNavbar />;
+  }
+  
   return (
-    <header className={cn("fixed top-0 left-0 right-0 w-full z-[9999]", isScrolled || isMobile ? "bg-white shadow-md" : "bg-transparent")} 
+    <header className={cn("fixed top-0 left-0 right-0 w-full z-[9999]", isScrolled ? "bg-white shadow-md" : "bg-transparent")} 
       style={{
         transition: 'background-color 0.25s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.25s cubic-bezier(0.33, 1, 0.68, 1)',
         willChange: 'background-color, box-shadow',
@@ -24,7 +30,7 @@ const Navbar = () => {
       }}
     >
       {/* Always show NavbarContainer on mobile, otherwise conditional */}
-      {isMobile || isScrolled ? (
+      {isScrolled ? (
         /* Show full navbar container */
         <NavbarContainer isScrolled={true} isInitialView={false} />
       ) : (

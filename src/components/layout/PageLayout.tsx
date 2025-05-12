@@ -55,8 +55,9 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isScrolled || isMobile ? '64px' : '100px', 
-            transition: 'opacity 0.35s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.25s cubic-bezier(0.33, 1, 0.68, 1)'
+            marginTop: isMobile ? '0' : (isScrolled ? '64px' : '100px'), 
+            marginBottom: isMobile ? '70px' : '0', // Add bottom margin on mobile for the bottom navbar
+            transition: 'opacity 0.35s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.25s cubic-bezier(0.33, 1, 0.68, 1), margin-bottom 0.25s cubic-bezier(0.33, 1, 0.68, 1)'
           }} 
           className={`min-h-screen page-reveal ${isReady || isMobile ? '' : 'no-animation'}`}
         >
@@ -68,7 +69,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
               transform: isReady || isMobile ? `scale(${isMobile ? 1 : scaleFactor})` : 'scale(1)',
               transformOrigin: 'center top',
               marginBottom: isInitialView && !isMobile ? '0' : '0',
-              marginTop: isInitialView && !isMobile ? '16vh' : '6vh',
+              marginTop: isMobile ? '0' : (isInitialView ? '16vh' : '6vh'),
               transition: 'transform 0.35s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.35s cubic-bezier(0.33, 1, 0.68, 1)'
             }}
           >
