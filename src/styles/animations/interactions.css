@@ -1,26 +1,35 @@
 
-/* CTA buttons that should be disabled until scroll */
+/* CTA buttons that should be disabled until scroll - performance optimized */
 .cta-disabled {
   @apply relative opacity-70 pointer-events-none;
   filter: blur(2px);
-  transition: all 0.5s ease-out;
+  transition: all 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: opacity, filter;
+  transform: translateZ(0);
 }
 
 .cta-enabled {
   @apply relative opacity-100;
   filter: blur(0);
-  transition: all 0.5s ease-out;
+  transition: all 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: opacity, filter;
+  transform: translateZ(0);
 }
 
-/* Mega menu overlay */
+/* Mega menu overlay with improved transitions */
 .menu-overlay {
   @apply fixed inset-0 bg-black/50 z-40;
+  backdrop-filter: blur(4px);
+  transition: opacity 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: opacity;
 }
 
-/* Staggered children animation with different delays */
+/* Staggered children animation with different delays and hardware acceleration */
 .staggered-children > * {
   opacity: 0;
-  transform: translateY(15px);
+  transform: translateY(15px) translateZ(0);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }
 
 .staggered-children > *:nth-child(1) { 
@@ -44,10 +53,11 @@
   animation-delay: 0.5s;
 }
 
-/* Shine effect */
+/* Shine effect with optimized performance */
 .shine-effect {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .shine-effect::after {
@@ -67,4 +77,69 @@
   background-size: 200% 100%;
   animation: shine 3s infinite linear;
   pointer-events: none;
+  will-change: background-position;
+  transform: translateZ(0);
+}
+
+/* New: Instant hover response class */
+.instant-hover {
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.instant-hover:hover {
+  transform: scale(1.02) translateZ(0);
+}
+
+/* New: Border highlight animation */
+.border-highlight {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.border-highlight::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #09a4d5, #778DFC);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: width;
+}
+
+.border-highlight:hover::before {
+  width: 100%;
+}
+
+/* New: Pop-in effect for interactive elements */
+.pop-in {
+  transform: scale(0.95) translateZ(0);
+  opacity: 0;
+  animation: scale-pulse 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+/* New: Magnetic hover effect */
+.magnetic-hover {
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* New: Snap-back transition - fast enter, slow exit */
+.snap-back-transition {
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              opacity 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.snap-back-transition.active {
+  transition: transform 0.4s cubic-bezier(0.33, 0, 0.67, 1),
+              opacity 0.4s cubic-bezier(0.33, 0, 0.67, 1);
 }
