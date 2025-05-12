@@ -19,20 +19,20 @@ const MobileServiceCategoryItem = ({
   return (
     <div 
       className={cn(
-        "bg-white rounded-lg shadow-sm border border-gray-100",
-        "p-3 active:scale-98 transition-all duration-150",
-        "flex items-center justify-between group cursor-pointer"
+        "bg-white rounded-lg shadow-md border border-gray-100",
+        "p-4 active:scale-98 transition-all duration-150",
+        "flex items-center justify-between group cursor-pointer hover:shadow-lg"
       )}
       onClick={onClick}
     >
       <div className="flex-1">
-        <h4 className={`font-medium ${color}`}>{title}</h4>
-        <p className="text-xs text-gray-500 mt-1">{description}</p>
+        <h4 className={`text-lg font-medium ${color}`}>{title}</h4>
+        <p className="text-sm text-gray-500 mt-1">{description}</p>
       </div>
       
       <ChevronRight 
         className={cn(
-          "h-4 w-4 opacity-50 group-hover:opacity-100 transition-all",
+          "h-5 w-5 opacity-70 group-hover:opacity-100 transition-all",
           `${color} group-hover:translate-x-1`
         )} 
       />
