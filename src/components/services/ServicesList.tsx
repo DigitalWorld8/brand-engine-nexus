@@ -8,6 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { motion } from 'framer-motion';
 
 interface ServiceItem {
   title: string;
@@ -25,21 +26,45 @@ interface ServiceCategory {
 interface ServicesListProps {
   serviceCategories: ServiceCategory[];
   onServiceClick: (service: ServiceCategory) => void;
+  activeServiceId?: string;
 }
 
-const ServicesList = ({ serviceCategories, onServiceClick }: ServicesListProps) => {
+const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: ServicesListProps) => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+  
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7 } }
+  };
+
   return (
     <>
-      {/* Desktop view - Interactive cards with hover effects */}
-      <div className="hidden lg:grid grid-cols-3 gap-8 mb-16">
+      {/* Desktop view - Interactive cards with hover effects and animations */}
+      <motion.div 
+        className="hidden lg:grid grid-cols-3 gap-8 mb-16"
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
         {serviceCategories.map((category, index) => (
-          <ServiceCard 
-            key={index}
-            category={category}
-            onClick={() => onServiceClick(category)}
-          />
+          <motion.div key={index} variants={cardVariants}>
+            <ServiceCard 
+              category={category}
+              onClick={() => onServiceClick(category)}
+              isActive={category.title === activeServiceId}
+            />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Mobile/Tablet view - Enhanced Carousel */}
       <div className="lg:hidden mb-16">
@@ -47,18 +72,31 @@ const ServicesList = ({ serviceCategories, onServiceClick }: ServicesListProps) 
           <CarouselContent>
             {serviceCategories.map((category, index) => (
               <CarouselItem key={index} className="md:basis-1/2 p-1">
-                <ServiceCard 
-                  category={category}
-                  onClick={() => onServiceClick(category)}
-                  isMobile={true}
-                />
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                >
+                  <ServiceCard 
+                    category={category}
+                    onClick={() => onServiceClick(category)}
+                    isMobile={true}
+                    isActive={category.title === activeServiceId}
+                  />
+                </motion.div>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className="flex justify-center mt-8 gap-3">
+          <motion.div 
+            className="flex justify-center mt-8 gap-3"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
             <CarouselPrevious className="relative static transform-none h-10 w-10 rounded-full border-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white" />
             <CarouselNext className="relative static transform-none h-10 w-10 rounded-full border-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white" />
-          </div>
+          </motion.div>
         </Carousel>
       </div>
     </>

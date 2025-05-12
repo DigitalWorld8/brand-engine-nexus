@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Palette, Globe, Code, Brain, Settings, BarChart3, ShieldCheck 
 } from 'lucide-react';
@@ -9,6 +9,7 @@ import ServicesList from './services/ServicesList';
 import ServicesFeaturesGrid from './services/ServicesFeaturesGrid';
 import ServicesCallToAction from './services/ServicesCallToAction';
 import ServicesBackgroundElements from './services/ServicesBackgroundElements';
+import { motion } from 'framer-motion';
 
 interface ServiceItem {
   title: string;
@@ -26,6 +27,7 @@ interface ServiceCategory {
 const Services = () => {
   const [activeService, setActiveService] = useState<ServiceCategory | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const serviceCategories: ServiceCategory[] = [
     {
@@ -128,38 +130,82 @@ const Services = () => {
 
   const handleServiceClick = (service: ServiceCategory) => {
     setActiveService(service);
-    setIsPopupOpen(true);
+    setIsAnimating(true);
     
-    // Scroll to services section when a service is clicked
+    // First, scroll to services section 
     const servicesSection = document.getElementById('services');
     if (servicesSection) {
       servicesSection.scrollIntoView({ behavior: 'smooth' });
     }
+    
+    // Then, after a short delay for the scroll to complete, open the popup
+    setTimeout(() => {
+      setIsPopupOpen(true);
+      setIsAnimating(false);
+    }, 500);
   };
+
+  useEffect(() => {
+    // Add a class to the body when popup is open to prevent scrolling
+    if (isPopupOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [isPopupOpen]);
 
   return (
     <section id="services" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-light-gray/20 to-white">
-      {/* Background Elements */}
-      <ServicesBackgroundElements activeService={isPopupOpen} />
+      {/* Background Elements - enhanced with the activeService and animation state */}
+      <ServicesBackgroundElements 
+        activeService={isPopupOpen} 
+        isAnimating={isAnimating} 
+      />
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
-        {/* Section Header */}
-        <ServicesHeader />
+        {/* Section Header with animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <ServicesHeader />
+        </motion.div>
 
-        {/* Service Categories */}
+        {/* Service Categories with enhanced animations */}
         <ServicesList 
           serviceCategories={serviceCategories} 
-          onServiceClick={handleServiceClick} 
+          onServiceClick={handleServiceClick}
+          activeServiceId={activeService?.title} 
         />
 
-        {/* Key Features Grid */}
-        <ServicesFeaturesGrid />
+        {/* Key Features Grid with animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <ServicesFeaturesGrid />
+        </motion.div>
 
-        {/* Call to Action */}
-        <ServicesCallToAction />
+        {/* Call to Action with animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+        >
+          <ServicesCallToAction />
+        </motion.div>
       </div>
       
-      {/* Service Details Popup */}
+      {/* Enhanced Service Details Popup */}
       <ServicePopup 
         service={activeService} 
         isOpen={isPopupOpen} 
