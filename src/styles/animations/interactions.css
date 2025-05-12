@@ -3,17 +3,13 @@
 .cta-disabled {
   @apply relative opacity-70 pointer-events-none;
   filter: blur(2px);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: filter, opacity;
-  transform: translateZ(0);
+  transition: all 0.5s ease-out;
 }
 
 .cta-enabled {
   @apply relative opacity-100;
   filter: blur(0);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: filter, opacity;
-  transform: translateZ(0);
+  transition: all 0.5s ease-out;
 }
 
 /* Mega menu overlay */
@@ -71,38 +67,4 @@
   background-size: 200% 100%;
   animation: shine 3s infinite linear;
   pointer-events: none;
-}
-
-/* Improved scroll-up interactions */
-.scroll-up-interactive {
-  transform: translateY(0);
-  opacity: 1;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-              opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
-}
-
-.scroll-up-interactive.hidden {
-  transform: translateY(-20px);
-  opacity: 0;
-}
-
-/* Instant-appear class for elements that shouldn't have transition delay */
-.instant-appear {
-  transition-delay: 0s !important;
-  animation-delay: 0s !important;
-}
-
-/* Improved button hover interactions */
-.button-hover-effect {
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
-              box-shadow 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-  will-change: transform, box-shadow;
-  transform: translateZ(0);
-}
-
-.button-hover-effect:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 
-              0 8px 10px -6px rgba(0, 0, 0, 0.1);
 }

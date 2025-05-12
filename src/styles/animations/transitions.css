@@ -13,35 +13,26 @@
   .staggered-fade-in > *:nth-child(5) { animation-delay: 0.5s; }
   .staggered-fade-in > *:nth-child(6) { animation-delay: 0.6s; }
   
-  /* Basic animation classes with improved scroll-up performance */
+  /* Basic animation classes */
   .animate-float {
     animation: float 8s ease-in-out infinite;
-    will-change: transform;
-    transform: translateZ(0);
   }
   
   .animate-subtle-bounce {
     animation: subtle-bounce 2s ease-in-out infinite;
-    will-change: transform;
-    transform: translateZ(0);
   }
   
   .animate-pulse-down {
     animation: pulse-down 1.8s ease-in-out infinite;
-    will-change: transform, opacity;
-    transform: translateZ(0);
   }
   
   .animate-slide-up {
     animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: transform, opacity;
-    transform: translateZ(0);
   }
   
   .animate-gradient-bg {
     background-size: 200% 200%;
     animation: gradient-shift 6s ease infinite;
-    will-change: background-position;
   }
   
   .typewriter-text {
@@ -49,18 +40,5 @@
     white-space: nowrap;
     display: inline-block;
     animation: typewriter 2s steps(40) forwards;
-    transform: translateZ(0);
-  }
-  
-  /* New scroll-up specific animations */
-  .scroll-up-appear {
-    animation: appear-from-top 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: transform, opacity;
-    transform: translateZ(0);
-  }
-  
-  .scroll-up-fade {
-    animation: fade-in-fast 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    will-change: opacity;
   }
 }
