@@ -88,6 +88,27 @@
   backface-visibility: hidden;
 }
 
+/* Scrolling dot animation */
+@keyframes scroll-down-dot {
+  0% {
+    top: 25%;
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 75%;
+    opacity: 0.8;
+  }
+}
+
+.scrolling-dot {
+  animation: scroll-down-dot 1.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
 /* Prevent layout shifts during animations */
 .no-layout-shift {
   transform: translateZ(0);

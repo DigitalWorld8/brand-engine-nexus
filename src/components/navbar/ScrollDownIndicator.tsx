@@ -45,8 +45,8 @@ const ScrollDownIndicator = ({
       <div className="flex flex-col items-center justify-between gap-2">
         {/* Pill shape container */}
         <div className="h-12 w-6 rounded-full border border-gray-300 flex items-center justify-center relative">
-          {/* Centered dot */}
-          <div className="absolute top-2 w-1.5 h-1.5 bg-black rounded-full"></div>
+          {/* Animated dot - now using the scrolling-dot class for animation */}
+          <div className="scrolling-dot w-1.5 h-1.5 bg-black rounded-full absolute"></div>
         </div>
         {/* Arrow below the pill */}
         <ArrowDown className="h-4 w-4 text-gray-600" strokeWidth={2} />
