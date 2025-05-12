@@ -129,12 +129,18 @@ const Services = () => {
   const handleServiceClick = (service: ServiceCategory) => {
     setActiveService(service);
     setIsPopupOpen(true);
+    
+    // Scroll to services section when a service is clicked
+    const servicesSection = document.getElementById('services');
+    if (servicesSection) {
+      servicesSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
     <section id="services" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-light-gray/20 to-white">
       {/* Background Elements */}
-      <ServicesBackgroundElements />
+      <ServicesBackgroundElements activeService={isPopupOpen} />
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         {/* Section Header */}
