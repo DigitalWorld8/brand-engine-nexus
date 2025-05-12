@@ -34,7 +34,7 @@ const ScrollDownIndicator = ({
   return (
     <div 
       className={cn(
-        "flex flex-col items-center cursor-pointer -mt-4", // Added negative margin top to move it higher
+        "flex flex-col items-center cursor-pointer -mt-4", 
         "transition-all duration-300 hover:scale-110", 
         className
       )} 
@@ -42,14 +42,9 @@ const ScrollDownIndicator = ({
       aria-label="Scroll down" 
       role="button"
     >
-      <div className="text-brand-text text-sm font-medium mb-2">
-        Scroll to know more about us
-      </div>
-      <div className="relative">
-        <div className="absolute -inset-1 bg-gradient-to-r from-brand-accent-blue to-brand-primary rounded-full opacity-70 blur-sm"></div>
-        <div className="relative bg-brand-accent-blue hover:bg-brand-primary transition-colors duration-300 rounded-full p-2 shadow-lg">
-          <ArrowDown className="h-5 w-5 text-white" strokeWidth={2.5} />
-        </div>
+      <div className="relative h-10 w-10 flex items-center justify-center">
+        <div className="absolute inset-0 rounded-full border border-gray-300"></div>
+        <ArrowDown className="h-5 w-5 text-brand-text" strokeWidth={1.5} />
       </div>
     </div>
   );
