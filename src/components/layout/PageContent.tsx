@@ -19,7 +19,7 @@ const PageContent: React.FC<PageContentProps> = ({
   const isMobile = useIsMobile();
   return <>
       {/* Show hero section with proper spacing for navbar */}
-      <div className="pt-20 py-0">
+      <div className="pt-20 my-0 py-0">
         <Hero />
       </div>
       
