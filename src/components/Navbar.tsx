@@ -27,7 +27,7 @@ const Navbar = () => {
       {/* When not scrolled, show logo center in the content container */}
       {!isScrolled ? (
         <div 
-          className="absolute top-1/2 left-[40%] transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center justify-center"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center justify-center"
           style={{
             pointerEvents: 'none', // Allow clicks to pass through the container
             willChange: 'transform',
