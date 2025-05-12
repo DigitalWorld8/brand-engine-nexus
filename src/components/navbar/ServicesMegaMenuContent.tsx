@@ -1,14 +1,26 @@
 
 import React from 'react';
 import { ChevronRight } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 
 const ServicesMegaMenuContent = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="rounded-b-xl shadow-xl p-6 transform transition-transform duration-300 bg-gradient-to-r from-[#e9f8fd] via-[#f0fafd] to-[#e9f8fd] max-w-7xl mx-auto border-t border-brand-accent-blue/10">
+    <div className={cn(
+      "shadow-xl p-6 transform transition-transform duration-300",
+      "bg-gradient-to-r from-[#e9f8fd] via-[#f0fafd] to-[#e9f8fd]",
+      "max-w-7xl mx-auto border-t border-brand-accent-blue/10",
+      isMobile ? "rounded-none" : "rounded-b-xl"
+    )}>
       {/* Animated gradient border */}
       <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-brand-accent-blue via-brand-primary to-brand-accent-violet animate-gradient-x"></div>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className={cn(
+        "grid gap-8",
+        isMobile ? "grid-cols-1" : "grid-cols-1 md:grid-cols-3"
+      )}>
         {/* Digital Services - Now First */}
         <div className="service-category transform transition-all duration-300 hover:translate-y-[-5px]">
           <h3 className="text-lg font-semibold mb-5 text-[#1b1464] flex items-center">

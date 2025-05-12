@@ -2,6 +2,8 @@
 import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import ServicesMegaMenuContent from './ServicesMegaMenuContent';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ServicesMegaOverlayProps {
   isOpen: boolean;
@@ -10,6 +12,7 @@ interface ServicesMegaOverlayProps {
 
 const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
   const overlayRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
   
   // Effect for handling clicks outside the dropdown
   useEffect(() => {
@@ -54,11 +57,19 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
         className={cn(
           "absolute left-0 right-0 w-full transform transition-all duration-300",
           /* Adjusted position to ensure the menu appears below the navbar */
-          "top-[72px]", 
+          isMobile ? "top-[60px] bottom-[64px]" : "top-[72px]", 
           isOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
         )}
       >
-        <ServicesMegaMenuContent />
+        {isMobile ? (
+          <div className="h-full max-h-[calc(100vh-124px)]">
+            <ScrollArea className="h-full pb-6">
+              <ServicesMegaMenuContent />
+            </ScrollArea>
+          </div>
+        ) : (
+          <ServicesMegaMenuContent />
+        )}
       </div>
     </div>
   );
