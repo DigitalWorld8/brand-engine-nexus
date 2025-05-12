@@ -1,45 +1,40 @@
 
-/* Animation keyframes with modernized timing and improved performance */
+/* Animation keyframes with modernized timing */
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(8px) translateZ(0);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) translateZ(0);
+    transform: translateY(0);
   }
 }
 
-/* Float animation with more natural easing and hardware acceleration */
+/* Float animation with more natural easing */
 @keyframes float {
   0%, 100% {
     transform: translateY(0) translateZ(0);
-    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
   }
   50% {
     transform: translateY(-15px) translateZ(0);
-    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
   }
 }
 
-/* Enhanced subtle bounce animation with better easing and reduced jitter */
+/* Enhanced subtle bounce animation with better easing */
 @keyframes subtle-bounce {
   0%, 20%, 50%, 80%, 100% {
     transform: translateY(0) translateZ(0);
-    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
   }
   40% {
     transform: translateY(8px) translateZ(0);
-    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   60% {
     transform: translateY(4px) translateZ(0);
-    animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 }
 
-/* Modern pulse-down animation with digital effect - optimized for 60fps */
+/* Modern pulse-down animation with digital effect - much faster */
 @keyframes pulse-down {
   0% {
     transform: translateY(-100%) translateZ(0);
@@ -47,7 +42,6 @@
   }
   50% {
     opacity: 1;
-    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
   }
   100% {
     transform: translateY(100%) translateZ(0);
@@ -55,12 +49,11 @@
   }
 }
 
-/* Slide up animation with improved acceleration curve */
+/* Slide up animation with better acceleration curve */
 @keyframes slide-up {
   from {
     opacity: 0;
     transform: translateY(16px) translateZ(0);
-    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
   }
   to {
     opacity: 1;
@@ -68,11 +61,10 @@
   }
 }
 
-/* Optimized shine effect animation with better performance */
+/* Optimized shine effect animation */
 @keyframes shine {
   0% {
     background-position: -100% 0;
-    animation-timing-function: cubic-bezier(0.33, 0, 0.67, 1);
   }
   100% {
     background-position: 200% 0;
@@ -83,11 +75,9 @@
 @keyframes gradient-shift {
   0% {
     background-position: 0% 50%;
-    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
   }
   50% {
     background-position: 100% 50%;
-    animation-timing-function: cubic-bezier(0.45, 0, 0.55, 1);
   }
   100% {
     background-position: 0% 50%;
@@ -100,49 +90,8 @@
   to { width: 100%; }
 }
 
-/* Side edge flow animation - optimized for 60fps */
+/* Side edge flow animation - much faster and smoother */
 @keyframes side-edge-flow {
-  0% { 
-    transform: translateY(-100%) translateZ(0);
-    animation-timing-function: linear;
-  }
-  100% { 
-    transform: translateY(100%) translateZ(0);
-  }
-}
-
-/* New: Subtle scale pulse animation */
-@keyframes scale-pulse {
-  0%, 100% {
-    transform: scale(1) translateZ(0);
-    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
-  }
-  50% {
-    transform: scale(1.05) translateZ(0);
-    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
-  }
-}
-
-/* New: Breathing glow effect animation */
-@keyframes breathing-glow {
-  0%, 100% {
-    box-shadow: 0 0 5px rgba(9, 164, 213, 0.4);
-    animation-timing-function: ease-in-out;
-  }
-  50% {
-    box-shadow: 0 0 20px rgba(9, 164, 213, 0.7);
-    animation-timing-function: ease-in-out;
-  }
-}
-
-/* New: Text focus-in animation */
-@keyframes text-focus-in {
-  0% {
-    filter: blur(8px);
-    opacity: 0;
-  }
-  100% {
-    filter: blur(0);
-    opacity: 1;
-  }
+  0% { transform: translateY(-100%) translateZ(0); }
+  100% { transform: translateY(100%) translateZ(0); }
 }
