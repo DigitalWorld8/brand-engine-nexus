@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { ArrowDown } from 'lucide-react';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
@@ -12,21 +12,11 @@ const ScrollDownIndicator = ({
   className
 }: ScrollDownIndicatorProps) => {
   const {
-    isScrolled,
-    hasScrolled
+    isScrolled
   } = useNavbarScroll();
-  
-  const [hasScrolledBefore, setHasScrolledBefore] = useState(false);
-  
-  // Track if user has ever scrolled down
-  useEffect(() => {
-    if (isScrolled) {
-      setHasScrolledBefore(true);
-    }
-  }, [isScrolled]);
 
-  // Hide indicator when scrolled or if the user has scrolled before
-  if (isScrolled || hasScrolledBefore) return null;
+  // Hide indicator when scrolled
+  if (isScrolled) return null;
 
   const handleScrollDown = () => {
     // Scroll to first content section
@@ -38,8 +28,6 @@ const ScrollDownIndicator = ({
         top: y,
         behavior: 'smooth'
       });
-      // Set scrolled before to true immediately on click
-      setHasScrolledBefore(true);
     }
   };
 
