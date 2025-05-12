@@ -58,12 +58,12 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
         className={cn(
           "absolute left-0 right-0 w-full transform transition-all duration-300",
           /* Adjusted position to ensure the menu appears below the navbar */
-          isMobile ? "top-[60px] bottom-[64px]" : "top-[72px]", 
+          isMobile ? "top-[60px]" : "top-[72px]", 
           isOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
         )}
       >
         {isMobile ? (
-          <div className="h-auto max-w-md mx-auto rounded-lg shadow-lg overflow-hidden">
+          <div className="max-w-md mx-auto rounded-lg shadow-lg overflow-hidden">
             <MobileServiceMenu onServiceSelect={onClose} />
           </div>
         ) : (

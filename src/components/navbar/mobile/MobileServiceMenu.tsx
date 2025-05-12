@@ -3,6 +3,7 @@ import React from 'react';
 import { Code, Palette, Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import MobileServiceCategoryItem from './MobileServiceCategoryItem';
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 
 interface MobileServiceMenuProps {
   onServiceSelect?: () => void;
@@ -48,21 +49,22 @@ const MobileServiceMenu = ({ onServiceSelect }: MobileServiceMenuProps) => {
   ];
 
   return (
-    <div className="bg-gray-50 flex flex-col h-full">
-      <div className="p-4">
-        <div className="grid grid-cols-1 gap-3">
+    <div className="bg-gray-50 py-4">
+      <Carousel opts={{ align: "start", loop: true }}>
+        <CarouselContent className="px-2">
           {serviceCategories.map((category) => (
-            <MobileServiceCategoryItem 
-              key={category.id}
-              title={category.title}
-              description={category.description}
-              color={category.color}
-              bgColor={category.bgColor}
-              onClick={onServiceSelect}
-            />
+            <CarouselItem key={category.id} className="basis-1/3 sm:basis-1/3 pl-2 pr-2">
+              <MobileServiceCategoryItem 
+                title={category.title}
+                description={category.description}
+                color={category.color}
+                bgColor={category.bgColor}
+                onClick={onServiceSelect}
+              />
+            </CarouselItem>
           ))}
-        </div>
-      </div>
+        </CarouselContent>
+      </Carousel>
     </div>
   );
 };
