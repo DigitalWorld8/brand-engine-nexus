@@ -1,27 +1,18 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import { Section } from 'lucide-react';
 
 const NavbarLogo = () => {
   const { isScrolled } = useNavbarScroll();
-  const [logoReady, setLogoReady] = useState(false);
-
-  // Add a slight delay before animations to ensure smooth loading
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLogoReady(true);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <div className={cn(
       "flex items-center",
       "transition-all duration-300 ease-in-out", 
       isScrolled ? "scale-95" : "scale-100", // Reduce scale when scrolled for better header fit
-      logoReady ? "opacity-100" : "opacity-0",
+      "opacity-100", // Always show with full opacity
       !isScrolled ? "text-white" : "text-brand-primary" // Use white text when not scrolled (in the primary brand color area)
     )}>
       <a href="/" className="flex items-center space-x-1">
