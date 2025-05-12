@@ -3,11 +3,33 @@
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(8px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
+  }
+}
+
+/* New faster fade in animation for scroll up elements */
+@keyframes fade-in-fast {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Appear from top animation for scroll up elements */
+@keyframes appear-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-15px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
   }
 }
 
@@ -94,4 +116,28 @@
 @keyframes side-edge-flow {
   0% { transform: translateY(-100%) translateZ(0); }
   100% { transform: translateY(100%) translateZ(0); }
+}
+
+/* New animation for scroll-up logo effect */
+@keyframes scale-in-fast {
+  from {
+    transform: scale(0.85) translateZ(0);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1) translateZ(0);
+    opacity: 1;
+  }
+}
+
+/* New smooth appear animation for nav elements */
+@keyframes nav-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
 }

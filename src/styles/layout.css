@@ -5,27 +5,28 @@
     @apply min-h-screen flex flex-col items-center w-full overflow-hidden;
     background-color: #1b1464; /* This is the brand-primary color */
     will-change: background-color;
+    transform: translateZ(0);
   }
   
   .content-container {
     @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-    transition: all 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.5s, improved easing */
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: width, border-radius;
-    transform: translateZ(0); /* Force GPU acceleration */
+    transform: translateZ(0);
   }
   
   .top-curved-border {
     @apply w-full h-16 absolute top-0 left-0;
     background-color: #1b1464; /* This is the brand-primary color */
-    transition: opacity 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.5s, improved easing */
+    transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: opacity;
   }
   
   /* Side edges - purple sidebars with scroll-dependent width */
   .side-edge {
     @apply fixed top-0 h-full bg-brand-primary z-0;
-    transition: width 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.5s, improved easing */
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: width, transform;
     transform: translateZ(0);
   }
@@ -59,7 +60,7 @@
   .side-edge-animated {
     position: relative;
     overflow: hidden;
-    isolation: isolate; /* Optimize composite layers */
+    isolation: isolate;
   }
 
   .side-edge-animated::before {
@@ -71,9 +72,23 @@
     bottom: 0;
     background: linear-gradient(180deg, rgba(27,20,100,0) 0%, rgba(9,164,213,0.15) 50%, rgba(27,20,100,0) 100%);
     transform: translateY(-100%) translateZ(0);
-    animation: side-edge-flow 4s linear infinite; /* Reduced from 6s to 4s for faster animation */
+    animation: side-edge-flow 4s linear infinite;
     will-change: transform;
     backface-visibility: hidden;
+  }
+  
+  /* Scrolling up specific layout classes */
+  .scroll-up-layout {
+    transform: translateZ(0);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    will-change: transform, opacity;
+  }
+  
+  /* Prevent jumping on scroll direction changes */
+  .smooth-scroll-change {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transition-duration: 0.2s !important;
+    will-change: auto;
   }
 }
 
@@ -103,7 +118,7 @@
 
 /* Transition easing functions */
 .ease-smooth {
-  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1); /* Updated to modern easing */
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Additional easing functions for smoother animations */
@@ -122,7 +137,14 @@
 }
 
 .page-reveal {
-  animation: page-reveal 0.35s cubic-bezier(0.33, 1, 0.68, 1) forwards; /* Reduced from 0.5s, improved easing */
+  animation: page-reveal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity;
   backface-visibility: hidden;
+}
+
+/* Immediate appearance for scroll up elements */
+.immediate-appear {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
 }
