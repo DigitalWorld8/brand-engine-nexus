@@ -8,7 +8,7 @@ const Hero = () => {
     isScrolled
   } = useNavbarScroll();
   const isMobile = useIsMobile();
-  return <section className={`relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden mx-0 my-[25px] px-0 py-[280px] ${!isScrolled && !isMobile ? 'hero-tear-shape' : ''}`}>
+  return <section className="py-[150px]">
       {/* Background elements with enhanced animations */}
       <div className={`absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden ${!isScrolled && !isMobile ? 'hero-tear-shape' : ''}`}>
         <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl animate-pulse opacity-70"></div>
