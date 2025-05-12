@@ -7,33 +7,36 @@ interface MobileServiceCategoryItemProps {
   title: string;
   description: string;
   color: string;
+  bgColor: string;
   onClick?: () => void;
 }
 
 const MobileServiceCategoryItem = ({ 
   title, 
   description, 
-  color = "text-brand-primary",
+  color,
+  bgColor,
   onClick
 }: MobileServiceCategoryItemProps) => {
   return (
     <div 
       className={cn(
-        "bg-white rounded-lg shadow-sm border border-gray-100 mb-4",
+        "rounded-lg mb-0 shadow-sm",
         "p-4 active:scale-98 transition-all duration-150",
-        "flex items-center justify-between group cursor-pointer"
+        "flex items-center justify-between group cursor-pointer",
+        bgColor
       )}
       onClick={onClick}
     >
       <div className="flex-1">
-        <h4 className={`text-base font-medium ${color}`}>{title}</h4>
-        <p className="text-xs text-gray-500 mt-1">{description}</p>
+        <h4 className={`text-base font-medium text-white`}>{title}</h4>
+        <p className="text-xs text-white text-opacity-90 mt-1">{description}</p>
       </div>
       
       <ChevronRight 
         className={cn(
-          "h-5 w-5 opacity-70 group-hover:opacity-100 transition-all",
-          `${color} group-hover:translate-x-0.5`
+          "h-5 w-5 text-white opacity-80 group-hover:opacity-100 transition-all",
+          "group-hover:translate-x-0.5"
         )} 
       />
     </div>

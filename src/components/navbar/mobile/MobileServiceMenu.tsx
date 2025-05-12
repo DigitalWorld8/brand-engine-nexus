@@ -14,47 +14,50 @@ interface ServiceCategory {
   title: string;
   description: string;
   color: string;
+  bgColor: string;
   icon: React.ReactNode;
 }
 
 const MobileServiceMenu = ({ onServiceSelect }: MobileServiceMenuProps) => {
-  // Define our simplified service categories
+  // Define our simplified service categories with brand colors
   const serviceCategories: ServiceCategory[] = [
     {
       id: "digital",
       title: "Digital Services",
-      description: "AI Solutions, Digital Transformation & Automation",
+      description: "AI Solutions & Digital Transformation",
       color: "text-[#1b1464]",
+      bgColor: "bg-[#1b1464]",
       icon: <Code className="h-5 w-5 text-white" />
     },
     {
       id: "marketing",
       title: "Digital Marketing",
-      description: "SEO, Content Writing & Social Media",
+      description: "SEO & Social Media",
       color: "text-[#596ae9]",
+      bgColor: "bg-[#596ae9]", 
       icon: <Globe className="h-5 w-5 text-white" />
     },
     {
       id: "design",
       title: "Design & Branding",
-      description: "Brand Identity, Logos & Visual Design",
+      description: "Brand Identity & Visual Design",
       color: "text-[#09a4d5]",
+      bgColor: "bg-[#09a4d5]",
       icon: <Palette className="h-5 w-5 text-white" />
     }
   ];
 
   return (
-    <div className="bg-gray-50 h-full flex flex-col">
-      <div className="p-6">
-        <h3 className="text-xl font-bold mb-6">Our Services</h3>
-        
-        <div>
+    <div className="bg-gray-50 flex flex-col h-full">
+      <div className="p-4">
+        <div className="grid grid-cols-1 gap-3">
           {serviceCategories.map((category) => (
             <MobileServiceCategoryItem 
               key={category.id}
               title={category.title}
               description={category.description}
               color={category.color}
+              bgColor={category.bgColor}
               onClick={onServiceSelect}
             />
           ))}

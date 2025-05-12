@@ -63,7 +63,7 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
         )}
       >
         {isMobile ? (
-          <div className="h-full max-h-[calc(100vh-124px)]">
+          <div className="h-auto max-w-md mx-auto rounded-lg shadow-lg overflow-hidden">
             <MobileServiceMenu onServiceSelect={onClose} />
           </div>
         ) : (
