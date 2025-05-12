@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import { useSideEdgeAnimation } from '@/hooks/useSideEdgeAnimation';
 import { useIsMobile } from '@/hooks/use-mobile';
+
 type PageLayoutProps = {
   children: React.ReactNode;
   isScrolled: boolean;
@@ -10,6 +11,7 @@ type PageLayoutProps = {
   scaleFactor: number;
   opacityFactor: number;
 };
+
 const PageLayout: React.FC<PageLayoutProps> = ({
   children,
   isScrolled,
@@ -32,12 +34,16 @@ const PageLayout: React.FC<PageLayoutProps> = ({
     }, isMobile ? 0 : 30); // No delay on mobile
     return () => clearTimeout(timer);
   }, [isMobile]);
-  return <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'}`}>
+
+  return (
+    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'}`}>
       {/* Left and right purple side edges with dynamic width - hidden on mobile */}
-      {!isMobile && <>
+      {!isMobile && (
+        <>
           <div className={`${getSideEdgeClasses()} side-edge-left`}></div>
           <div className={`${getSideEdgeClasses()} side-edge-right`}></div>
-        </>}
+        </>
+      )}
       
       {/* Top curved border - visible only when at the top and not on mobile */}
       {!isMobile && <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'}`}></div>}
@@ -46,13 +52,15 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       <Navbar />
       
       <div className={`content-container ${isScrolled || isMobile ? 'w-full rounded-none' : ''} z-10 relative`}>
-        <div style={{
-        opacity: opacityFactor,
-        marginTop: isMobile ? '0' : isScrolled ? '64px' : '100px',
-        marginBottom: isMobile ? '70px' : '0',
-        // Add bottom margin on mobile for the bottom navbar
-        transition: 'opacity 0.35s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.25s cubic-bezier(0.33, 1, 0.68, 1), margin-bottom 0.25s cubic-bezier(0.33, 1, 0.68, 1)'
-      }} className="move it to top a bit">
+        <div 
+          style={{
+            opacity: opacityFactor,
+            marginTop: isMobile ? '60px' : isScrolled ? '64px' : '100px', // Increased top margin on mobile for the header
+            marginBottom: isMobile ? '70px' : '0', // Add bottom margin on mobile for the bottom navbar
+            transition: 'opacity 0.35s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.25s cubic-bezier(0.33, 1, 0.68, 1), margin-bottom 0.25s cubic-bezier(0.33, 1, 0.68, 1)'
+          }} 
+          className="move it to top a bit"
+        >
           <div className={`transform-gpu relative no-layout-shift ${isInitialView && !isMobile ? 'blur-effect' : ''}`} style={{
           transform: isReady || isMobile ? `scale(${isMobile ? 1 : scaleFactor})` : 'scale(1)',
           transformOrigin: 'center top',
@@ -75,6 +83,8 @@ const PageLayout: React.FC<PageLayoutProps> = ({
           {!isMobile && <ScrollIndicator />}
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default PageLayout;

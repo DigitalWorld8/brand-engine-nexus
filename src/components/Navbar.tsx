@@ -16,9 +16,21 @@ const Navbar = () => {
   
   const isMobile = useIsMobile();
   
-  // For mobile, render the bottom navbar instead
+  // For mobile, render both the top logo and bottom navbar
   if (isMobile) {
-    return <BottomNavbar />;
+    return (
+      <>
+        {/* Mobile top logo bar */}
+        <header className="fixed top-0 left-0 right-0 z-[9999] bg-white shadow-sm py-2">
+          <div className="container mx-auto flex justify-center items-center">
+            <NavbarLogo />
+          </div>
+        </header>
+        
+        {/* Mobile bottom navigation */}
+        <BottomNavbar />
+      </>
+    );
   }
   
   return (
