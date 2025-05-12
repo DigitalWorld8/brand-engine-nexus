@@ -1,0 +1,64 @@
+
+/* Panel-specific animations */
+.panel-enter {
+  transform: translateY(20px);
+  opacity: 0;
+}
+
+.panel-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: opacity 500ms, transform 500ms;
+}
+
+.panel-exit {
+  opacity: 1;
+}
+
+.panel-exit-active {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 500ms, transform 500ms;
+}
+
+/* Hover animation effects */
+.panel-image-zoom {
+  transition: transform 0.7s ease-in-out;
+}
+
+.panel-image-zoom:hover {
+  transform: scale(1.1);
+}
+
+/* Bar indicator animations */
+.bar-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background-color: currentColor;
+  transition: width 0.5s ease-in-out;
+}
+
+.panel:hover .bar-indicator {
+  width: 100%;
+}
+
+/* Tilt effect */
+.tilt-effect {
+  transition: transform 0.2s ease-out;
+}
+
+.tilt-effect:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(2deg) scale(1.02);
+}
+
+/* Service item animation */
+.service-item {
+  transition: transform 0.3s ease;
+}
+
+.service-item:hover {
+  transform: translateX(5px);
+}
