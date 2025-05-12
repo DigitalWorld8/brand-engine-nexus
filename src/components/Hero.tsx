@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import { useIsMobile } from '@/hooks/use-mobile';
-
 const Hero = () => {
   const [hovered, setHovered] = useState<string | null>(null);
-  const { isScrolled } = useNavbarScroll();
+  const {
+    isScrolled
+  } = useNavbarScroll();
   const isMobile = useIsMobile();
-
-  return (
-    <section className={`relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden mx-0 my-[25px] px-0 py-[280px] ${!isScrolled && !isMobile ? 'hero-tear-shape' : ''}`}>
+  return <section className={`relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden mx-0 my-[25px] px-0 py-[280px] ${!isScrolled && !isMobile ? 'hero-tear-shape' : ''}`}>
       {/* Background elements with enhanced animations */}
       <div className={`absolute inset-0 -z-10 bg-brand-light-gray overflow-hidden ${!isScrolled && !isMobile ? 'hero-tear-shape' : ''}`}>
         <div className="absolute -right-20 -top-20 w-96 h-96 bg-brand-accent-blue/20 rounded-full blur-3xl animate-pulse opacity-70"></div>
@@ -20,7 +19,7 @@ const Hero = () => {
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid md:grid-cols-2 gap-12 items-center my-[7px] px-0 py-[2px] mx-[11px]">
+        <div className="grid md:grid-cols-2 gap-12 items-center my-0 px-[2px] py-0 mx-0">
           <div className="space-y-8 md:pr-12">
             <div className={isMobile ? '' : 'animate-fade-in-up'}>
               {/* Headline - adjusted positioning to work better with tear shape */}
@@ -34,13 +33,13 @@ const Hero = () => {
               {/* Make content visible on initial load with reduced blur - skip on mobile */}
               <div className={isScrolled || isMobile ? '' : 'initial-view-content'}>
                 <p className={`text-lg md:text-xl text-gray-600 mb-8 font-medium ${isMobile ? '' : 'animate-fade-in-up'}`} style={!isMobile ? {
-                  animationDelay: '0.2s'
-                } : {}}>
+                animationDelay: '0.2s'
+              } : {}}>
                   Brand Engine is a full-service digital agency that transforms ideas into scalable experiences through smart branding, marketing, and automation solutions.
                 </p>
                 <div className={`flex flex-col sm:flex-row gap-4 ${isMobile ? '' : 'animate-fade-in-up'} relative`} style={!isMobile ? {
-                  animationDelay: '0.4s'
-                } : {}}>
+                animationDelay: '0.4s'
+              } : {}}>
                   {/* Reduced glass overlay opacity for better visibility - not on mobile */}
                   {!isScrolled && !isMobile && <div className="absolute inset-0 bg-white/20 backdrop-blur-sm z-10 pointer-events-none transition-all duration-500"></div>}
                   
@@ -92,16 +91,14 @@ const Hero = () => {
           <p className="text-xl font-medium text-brand-text w-full md:w-auto">Trusted by innovative brands worldwide</p>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
             {['Company 1', 'Company 2', 'Company 3', 'Company 4'].map((company, index) => <div key={company} className={`text-gray-400 font-heading font-bold text-xl md:text-2xl ${isMobile ? '' : 'opacity-0 animate-fade-in-up'} cursor-pointer hover:text-brand-primary transition-colors duration-300`} style={!isMobile ? {
-              animationDelay: `${index * 150 + 600}ms`,
-              animationFillMode: 'forwards'
-            } : {}}>
+            animationDelay: `${index * 150 + 600}ms`,
+            animationFillMode: 'forwards'
+          } : {}}>
                 {company}
               </div>)}
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Hero;
