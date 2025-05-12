@@ -4,7 +4,6 @@ import {
 } from 'lucide-react';
 import ServicesHeader from './services/ServicesHeader';
 import ServicesList from './services/ServicesList';
-import ServicesFeaturesGrid from './services/ServicesFeaturesGrid';
 import ServicesCallToAction from './services/ServicesCallToAction';
 import ServicesBackgroundElements from './services/ServicesBackgroundElements';
 import { motion } from 'framer-motion';
@@ -166,16 +165,6 @@ const Services = () => {
           onServiceClick={handleServiceClick}
           activeServiceId={activeService?.title} 
         />
-
-        {/* Key Features Grid with animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <ServicesFeaturesGrid />
-        </motion.div>
 
         {/* Call to Action with animation */}
         <motion.div
