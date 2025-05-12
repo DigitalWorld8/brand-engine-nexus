@@ -22,7 +22,7 @@ const ScrollDownIndicator = ({
     // Scroll to first content section
     const firstSection = document.querySelector('section');
     if (firstSection) {
-      const yOffset = -80; // Increased offset to account for taller header
+      const yOffset = -80; // Offset to account for header
       const y = firstSection.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({
         top: y,
@@ -42,9 +42,14 @@ const ScrollDownIndicator = ({
       aria-label="Scroll down" 
       role="button"
     >
-      <div className="relative h-10 w-10 flex items-center justify-center">
-        <div className="absolute inset-0 rounded-full border border-gray-300"></div>
-        <ArrowDown className="h-5 w-5 text-brand-text" strokeWidth={1.5} />
+      <div className="flex flex-col items-center justify-between gap-2">
+        {/* Pill shape container */}
+        <div className="h-12 w-6 rounded-full border border-gray-300 flex items-center justify-center relative">
+          {/* Centered dot */}
+          <div className="absolute top-2 w-1.5 h-1.5 bg-black rounded-full"></div>
+        </div>
+        {/* Arrow below the pill */}
+        <ArrowDown className="h-4 w-4 text-gray-600" strokeWidth={2} />
       </div>
     </div>
   );

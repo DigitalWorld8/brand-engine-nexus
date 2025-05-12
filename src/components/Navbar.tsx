@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
@@ -48,7 +47,7 @@ const Navbar = () => {
           </div>
           
           {/* Add scroll down indicator below the logo with proper spacing */}
-          <div className="mt-8 flex justify-center" 
+          <div className="mt-12 flex justify-center" 
             style={{
               pointerEvents: 'auto'
             }}
