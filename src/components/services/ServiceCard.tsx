@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
 
 interface ServiceItem {
   title: string;
@@ -30,29 +31,38 @@ const ServiceCard = ({ category, onClick, isMobile = false }: ServiceCardProps) 
     <Card 
       onClick={onClick}
       className={cn(
-        "h-full transition-all duration-300 hover:shadow-xl cursor-pointer group overflow-hidden",
+        "h-full transition-all duration-500 cursor-pointer group overflow-hidden",
         isMobile 
-          ? "border-t-4 border-t-transparent hover:border-t-brand-primary"
-          : "border-t-4 border-t-transparent hover:border-t-brand-primary hover:scale-[1.03]"
+          ? "border-l-4 border-l-transparent hover:border-l-brand-primary rounded-xl"
+          : "border-t-4 border-t-transparent hover:border-t-brand-primary hover:-translate-y-2 rounded-2xl"
       )}
     >
-      <CardHeader className="relative">
-        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ${category.color} group-hover:rotate-3`}>
-          <Icon className="h-7 w-7 text-white transition-transform group-hover:scale-110" />
+      <CardHeader className="relative pb-6">
+        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-5 transition-all duration-500 group-hover:scale-110 ${category.color} group-hover:rotate-3`}>
+          <Icon className="h-8 w-8 text-white transition-transform group-hover:scale-110" />
         </div>
-        <CardTitle className="text-xl md:text-2xl relative z-10">{category.title}</CardTitle>
-        <CardDescription className="mt-2 text-gray-600 relative z-10">{category.description}</CardDescription>
+        <CardTitle className="text-2xl md:text-2xl relative z-10 group-hover:text-brand-primary transition-colors">
+          {category.title}
+        </CardTitle>
+        <CardDescription className="mt-3 text-gray-600 relative z-10 text-base">
+          {category.description}
+        </CardDescription>
         
-        {/* Interactive background element */}
-        <div className="absolute -bottom-16 -right-16 w-32 h-32 rounded-full bg-gradient-to-tr from-transparent to-brand-light-gray opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        {/* Animated background shape */}
+        <div className="absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-tr from-transparent to-brand-light-gray/80 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       </CardHeader>
+      
       <CardContent className="pb-6">
         <div className="flex justify-between items-center pt-2">
           <div className="flex items-center text-brand-primary font-medium">
-            <span>Explore services</span>
-            <ChevronRight className="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform" />
+            <span className="mr-2">Explore services</span>
+            <div className="w-6 h-6 rounded-full bg-brand-primary/10 flex items-center justify-center transform group-hover:bg-brand-primary group-hover:text-white transition-all duration-300">
+              <ArrowRight className="h-3 w-3" />
+            </div>
           </div>
-          <div className="text-xs text-gray-400">{category.services.length} solutions</div>
+          <Badge variant="outline" className="text-xs bg-white">
+            {category.services.length} solutions
+          </Badge>
         </div>
       </CardContent>
     </Card>
