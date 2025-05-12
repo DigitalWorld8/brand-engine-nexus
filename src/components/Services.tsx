@@ -1,9 +1,7 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Palette, Globe, Code, Brain, Settings, BarChart3, ShieldCheck 
 } from 'lucide-react';
-import ServicePopup from './services/ServicePopup';
 import ServicesHeader from './services/ServicesHeader';
 import ServicesList from './services/ServicesList';
 import ServicesFeaturesGrid from './services/ServicesFeaturesGrid';
@@ -26,7 +24,6 @@ interface ServiceCategory {
 
 const Services = () => {
   const [activeService, setActiveService] = useState<ServiceCategory | null>(null);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const serviceCategories: ServiceCategory[] = [
@@ -129,40 +126,26 @@ const Services = () => {
   ];
 
   const handleServiceClick = (service: ServiceCategory) => {
-    setActiveService(service);
     setIsAnimating(true);
+    setActiveService(service);
     
-    // First, scroll to services section 
+    // Scroll to services section when a service is selected
     const servicesSection = document.getElementById('services');
     if (servicesSection) {
       servicesSection.scrollIntoView({ behavior: 'smooth' });
     }
     
-    // Then, after a short delay for the scroll to complete, open the popup
+    // Animation state reset
     setTimeout(() => {
-      setIsPopupOpen(true);
       setIsAnimating(false);
     }, 500);
   };
 
-  useEffect(() => {
-    // Add a class to the body when popup is open to prevent scrolling
-    if (isPopupOpen) {
-      document.body.classList.add('overflow-hidden');
-    } else {
-      document.body.classList.remove('overflow-hidden');
-    }
-    
-    return () => {
-      document.body.classList.remove('overflow-hidden');
-    };
-  }, [isPopupOpen]);
-
   return (
     <section id="services" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-light-gray/20 to-white">
-      {/* Background Elements - enhanced with the activeService and animation state */}
+      {/* Background Elements */}
       <ServicesBackgroundElements 
-        activeService={isPopupOpen} 
+        activeService={Boolean(activeService)} 
         isAnimating={isAnimating} 
       />
       
@@ -177,7 +160,7 @@ const Services = () => {
           <ServicesHeader />
         </motion.div>
 
-        {/* Service Categories with enhanced animations */}
+        {/* Service Categories with enhanced inline display */}
         <ServicesList 
           serviceCategories={serviceCategories} 
           onServiceClick={handleServiceClick}
@@ -204,13 +187,6 @@ const Services = () => {
           <ServicesCallToAction />
         </motion.div>
       </div>
-      
-      {/* Enhanced Service Details Popup */}
-      <ServicePopup 
-        service={activeService} 
-        isOpen={isPopupOpen} 
-        onClose={() => setIsPopupOpen(false)} 
-      />
     </section>
   );
 };
