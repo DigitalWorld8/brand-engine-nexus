@@ -46,7 +46,7 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
       {/* Animated overlay backdrop - clicking this should close the dropdown */}
       <div 
         className={cn(
-          "absolute inset-0 bg-black/5 backdrop-blur-sm transition-opacity duration-300",
+          "absolute inset-0 bg-white backdrop-blur-sm transition-opacity duration-300",
           isOpen ? "opacity-100" : "opacity-0"
         )}
         onClick={onClose} // Close when clicking the backdrop

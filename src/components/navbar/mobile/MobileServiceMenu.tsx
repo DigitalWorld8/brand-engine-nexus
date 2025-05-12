@@ -44,11 +44,11 @@ const MobileServiceMenu = ({ onServiceSelect }: MobileServiceMenuProps) => {
   ];
 
   return (
-    <div className="bg-white h-full flex flex-col">
+    <div className="bg-gray-50 h-full flex flex-col">
       <div className="p-6">
-        <h3 className="text-lg font-bold mb-6">Our Services</h3>
+        <h3 className="text-xl font-bold mb-6">Our Services</h3>
         
-        <div className="space-y-4">
+        <div>
           {serviceCategories.map((category) => (
             <MobileServiceCategoryItem 
               key={category.id}
