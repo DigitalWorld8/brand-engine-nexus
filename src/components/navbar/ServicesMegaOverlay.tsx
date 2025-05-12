@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import ServicesMegaMenuContent from './ServicesMegaMenuContent';
@@ -53,14 +54,14 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
         onClick={onClose} // Close when clicking the backdrop
       />
       
-      {/* Menu content with animation - positioned below navbar */}
+      {/* Menu content with animation - positioned above the bottom navbar */}
       <div 
         ref={overlayRef}
         className={cn(
           "absolute left-0 right-0 w-full transform transition-all duration-300",
-          /* Adjusted position to ensure the menu appears below the navbar */
-          isMobile ? "top-[60px]" : "top-[72px]", 
-          isOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
+          /* Position the menu above the bottom navbar */
+          isMobile ? "bottom-[60px]" : "bottom-[72px]", 
+          isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
         )}
       >
         {isMobile ? (
