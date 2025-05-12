@@ -1,10 +1,14 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Palette, Globe, Brain, Code, LineChart, Settings, ChevronRight } from 'lucide-react';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { Palette, Globe, Brain, Code, LineChart, Settings, ChevronRight, Plus } from 'lucide-react';
 import {
   Carousel,
   CarouselContent,
@@ -12,7 +16,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import ServiceCarouselCard from './ServiceCarouselCard';
+import { cn } from '@/lib/utils';
+import ServicePopup from './services/ServicePopup';
+import ServiceCard from './services/ServiceCard';
+import ServiceFeature from './services/ServiceFeature';
 
 interface ServiceItem {
   title: string;
@@ -29,12 +36,11 @@ interface ServiceCategory {
 
 const Services = () => {
   const [activeService, setActiveService] = useState<ServiceCategory | null>(null);
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
-  const [selectedCardIndex, setSelectedCardIndex] = useState<number | null>(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const serviceCategories: ServiceCategory[] = [{
     icon: Code,
-    color: 'bg-[#1b1464]',
+    color: 'bg-gradient-to-r from-[#1b1464] to-[#3a2b9e]',
     title: 'Digital Services',
     description: 'Transform your business with intelligent solutions for automation, AI integration, and digital transformation.',
     services: [{
@@ -58,7 +64,7 @@ const Services = () => {
     }]
   }, {
     icon: Globe,
-    color: 'bg-[#596ae9]',
+    color: 'bg-gradient-to-r from-[#596ae9] to-[#7986f1]',
     title: 'Digital Marketing',
     description: 'Drive visibility and engagement through strategic content, SEO optimization and targeted campaigns.',
     services: [{
@@ -82,7 +88,7 @@ const Services = () => {
     }]
   }, {
     icon: Palette,
-    color: 'bg-[#09a4d5]',
+    color: 'bg-gradient-to-r from-[#09a4d5] to-[#35bde8]',
     title: 'Design & Branding',
     description: 'Crafting visual identities that communicate trust, style, and purpose. From logos to complete brand guidelines.',
     services: [{
@@ -108,19 +114,16 @@ const Services = () => {
 
   const handleServiceClick = (service: ServiceCategory) => {
     setActiveService(service);
-    setIsSheetOpen(true);
-  };
-
-  const toggleCardSelection = (index: number) => {
-    setSelectedCardIndex(selectedCardIndex === index ? null : index);
+    setIsPopupOpen(true);
   };
 
   return (
-    <section id="services" className="section bg-gradient-to-b from-white via-brand-light-gray/50 to-white py-24 relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-20 bg-gradient-to-b from-white to-transparent opacity-80"></div>
-      <div className="absolute top-20 -right-20 w-40 h-40 rounded-full bg-brand-accent-blue/5 blur-3xl"></div>
-      <div className="absolute bottom-20 -left-20 w-40 h-40 rounded-full bg-brand-accent-violet/5 blur-3xl"></div>
+    <section id="services" className="section py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-light-gray/30 to-white">
+      {/* Background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-40 -right-40 w-80 h-80 rounded-full bg-gradient-to-br from-brand-accent-blue/10 to-brand-primary/5 blur-3xl"></div>
+        <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-gradient-to-tr from-brand-accent-violet/10 to-brand-primary/5 blur-3xl"></div>
+      </div>
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16 animate-fade-in-up">
@@ -135,97 +138,63 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Desktop view - 3 column grid */}
-        <div className="hidden lg:grid grid-cols-3 gap-6 mb-12">
+        {/* Desktop view - Interactive cards with hover effects */}
+        <div className="hidden lg:grid grid-cols-3 gap-8 mb-12">
           {serviceCategories.map((category, index) => (
-            <Card 
+            <ServiceCard 
               key={index}
-              className="h-full transition-all duration-300 hover:shadow-xl hover:scale-[1.03] border-t-4 border-t-transparent hover:border-t-brand-primary group overflow-hidden cursor-pointer"
+              category={category}
               onClick={() => handleServiceClick(category)}
-            >
-              <CardHeader className="relative">
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 group-hover:scale-110 ${category.color} group-hover:rotate-3`}>
-                  <category.icon className="h-7 w-7 text-white transition-transform group-hover:scale-110" />
-                </div>
-                <CardTitle className="text-xl md:text-2xl relative z-10">{category.title}</CardTitle>
-                <CardDescription className="mt-2 text-gray-600 relative z-10">{category.description}</CardDescription>
-                
-                {/* Interactive background element */}
-                <div className="absolute -bottom-16 -right-16 w-32 h-32 rounded-full bg-gradient-to-tr from-transparent to-brand-light-gray opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </CardHeader>
-              <CardContent className="pb-6">
-                <div className="flex justify-between items-center pt-2">
-                  <div className="flex items-center text-brand-primary font-medium">
-                    <span>Explore services</span>
-                    <ChevronRight className="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform" />
-                  </div>
-                  <div className="text-xs text-gray-400">{category.services.length} solutions</div>
-                </div>
-              </CardContent>
-            </Card>
+            />
           ))}
         </div>
 
-        {/* Mobile/Tablet view - Carousel */}
-        <div className="lg:hidden mb-12">
+        {/* Mobile/Tablet view - Enhanced Carousel */}
+        <div className="lg:hidden mb-12 px-4">
           <Carousel className="w-full">
             <CarouselContent>
               {serviceCategories.map((category, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <CarouselItem key={index} className="md:basis-1/2">
                   <div className="p-1">
-                    <ServiceCarouselCard
-                      icon={category.icon}
-                      color={category.color}
-                      title={category.title}
-                      description={category.description}
-                      services={category.services}
-                      isSelected={selectedCardIndex === index}
+                    <ServiceCard 
+                      category={category}
+                      onClick={() => handleServiceClick(category)}
+                      isMobile={true}
                     />
-                    <div className="flex justify-center mt-4">
-                      <Button 
-                        variant={selectedCardIndex === index ? "default" : "outline"}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          toggleCardSelection(index);
-                        }}
-                        className="text-sm"
-                      >
-                        {selectedCardIndex === index ? "Hide Details" : "Show Details"}
-                      </Button>
-                    </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="flex items-center justify-center mt-4">
-              <CarouselPrevious className="relative static transform-none mr-2 h-8 w-8" />
-              <CarouselNext className="relative static transform-none h-8 w-8" />
+            <div className="flex justify-center mt-6 gap-2">
+              <CarouselPrevious className="relative static transform-none h-9 w-9 rounded-full" />
+              <CarouselNext className="relative static transform-none h-9 w-9 rounded-full" />
             </div>
           </Carousel>
         </div>
 
-        {/* Services highlights in a more visual way */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
-          {[
-            { icon: Brain, title: "AI-Powered", desc: "Leverage the latest in artificial intelligence to optimize your business processes", color: "from-purple-500 to-indigo-600" },
-            { icon: Settings, title: "Customizable", desc: "Solutions tailored to your specific industry needs and business goals", color: "from-blue-500 to-cyan-600" },
-            { icon: LineChart, title: "Data-Driven", desc: "Make informed decisions with comprehensive analytics and reporting", color: "from-cyan-500 to-teal-600" }
-          ].map((feature, idx) => (
-            <div key={idx} 
-              className="p-6 rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-brand-accent-blue/20 group"
-            >
-              <div className="mb-5">
-                <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-gradient-to-r ${feature.color} group-hover:scale-110 transition-transform duration-300`}>
-                  <feature.icon className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.desc}</p>
-            </div>
-          ))}
+        {/* Key Features section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-16">
+          <ServiceFeature 
+            icon={Brain} 
+            title="AI-Powered" 
+            description="Leverage the latest in artificial intelligence to optimize your business processes" 
+            gradient="from-purple-500 to-indigo-600"
+          />
+          <ServiceFeature 
+            icon={Settings} 
+            title="Customizable" 
+            description="Solutions tailored to your specific industry needs and business goals" 
+            gradient="from-blue-500 to-cyan-600"
+          />
+          <ServiceFeature 
+            icon={LineChart} 
+            title="Data-Driven" 
+            description="Make informed decisions with comprehensive analytics and reporting" 
+            gradient="from-cyan-500 to-teal-600"
+          />
         </div>
 
-        <div className="mt-16 text-center animate-fade-in-up">
+        <div className="mt-16 text-center">
           <a href="#contact" className="inline-flex items-center px-8 py-3 rounded-lg bg-brand-primary hover:bg-brand-primary/90 text-white font-medium transition-all hover:scale-105 relative overflow-hidden group">
             <span className="relative z-10">Let's Discuss Your Project</span>
             <span className="absolute bottom-0 left-0 h-1 w-0 bg-brand-accent-blue group-hover:w-full transition-all duration-300"></span>
@@ -233,51 +202,12 @@ const Services = () => {
         </div>
       </div>
       
-      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <SheetContent className="w-full sm:max-w-lg overflow-y-auto">
-          {activeService && (
-            <>
-              <SheetHeader className="mb-6">
-                <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 ${activeService.color}`}>
-                  <activeService.icon className="h-8 w-8 text-white" />
-                </div>
-                <SheetTitle className="text-2xl font-bold">{activeService.title}</SheetTitle>
-                <SheetDescription className="text-lg">{activeService.description}</SheetDescription>
-              </SheetHeader>
-              
-              <div className="space-y-6">
-                {activeService.services.map((service, idx) => (
-                  <div key={idx} className="py-4 border-b border-gray-100 last:border-0 hover:bg-brand-light-gray/50 p-4 rounded-lg transition-all">
-                    <HoverCard>
-                      <HoverCardTrigger asChild>
-                        <h4 className="text-lg font-semibold mb-2 cursor-pointer flex justify-between items-center">
-                          <span>{service.title}</span>
-                          <ChevronRight className="h-5 w-5 text-brand-primary opacity-70" />
-                        </h4>
-                      </HoverCardTrigger>
-                      <HoverCardContent className="w-80">
-                        <div className="space-y-2">
-                          <h4 className="text-sm font-semibold">{service.title}</h4>
-                          <p className="text-sm">
-                            {service.description}
-                          </p>
-                        </div>
-                      </HoverCardContent>
-                    </HoverCard>
-                    <p className="text-gray-600">{service.description}</p>
-                  </div>
-                ))}
-              </div>
-              
-              <div className="mt-8 flex justify-end">
-                <Button onClick={() => setIsSheetOpen(false)}>
-                  Close
-                </Button>
-              </div>
-            </>
-          )}
-        </SheetContent>
-      </Sheet>
+      {/* Popup for service details with improved UI */}
+      <ServicePopup 
+        service={activeService} 
+        isOpen={isPopupOpen} 
+        onClose={() => setIsPopupOpen(false)} 
+      />
     </section>
   );
 };
