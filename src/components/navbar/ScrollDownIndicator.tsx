@@ -42,7 +42,7 @@ const ScrollDownIndicator = ({
       aria-label="Scroll down" 
       role="button"
     >
-      <div className="flex flex-col items-center justify-between gap-2 -mt-4">
+      <div className="flex flex-col items-center justify-between gap-2 -mt-12">
         {/* Pill shape container */}
         <div className="h-12 w-6 rounded-full border border-gray-300 flex items-center justify-center relative">
           {/* Animated dot - now using the scrolling-dot class for animation */}
