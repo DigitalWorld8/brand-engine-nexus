@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import ServicesMegaMenuContent from './ServicesMegaMenuContent';
+import MobileServiceMenu from './mobile/MobileServiceMenu';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -63,9 +64,7 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
       >
         {isMobile ? (
           <div className="h-full max-h-[calc(100vh-124px)]">
-            <ScrollArea className="h-full pb-6">
-              <ServicesMegaMenuContent />
-            </ScrollArea>
+            <MobileServiceMenu onServiceSelect={onClose} />
           </div>
         ) : (
           <ServicesMegaMenuContent />

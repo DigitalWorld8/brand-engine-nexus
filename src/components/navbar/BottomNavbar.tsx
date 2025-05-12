@@ -68,7 +68,7 @@ const BottomNavbar = () => {
             <BottomNavItem
               icon={<Sparkles className="h-5 w-5" />}
               label="Services"
-              isActive={activeItem === 'services'}
+              isActive={activeItem === 'services' || servicesOpen}
               onClick={handleServicesToggle}
             />
             
