@@ -2,9 +2,6 @@
 import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import ServicesMegaMenuContent from './ServicesMegaMenuContent';
-import MobileServiceMenu from './mobile/MobileServiceMenu';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ServicesMegaOverlayProps {
   isOpen: boolean;
@@ -13,7 +10,6 @@ interface ServicesMegaOverlayProps {
 
 const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
   const overlayRef = useRef<HTMLDivElement>(null);
-  const isMobile = useIsMobile();
   
   // Effect for handling clicks outside the dropdown
   useEffect(() => {
@@ -40,35 +36,29 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
 
   return (
     <div className={cn(
-      "fixed left-0 right-0 z-40", 
-      isOpen ? "pointer-events-auto" : "pointer-events-none"
+      "fixed left-0 right-0 top-0 h-screen transition-all duration-300 overflow-visible z-40", 
+      isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
     )}>
-      {/* Semi-transparent overlay backdrop that only covers the menu area */}
+      {/* Animated overlay backdrop - clicking this should close the dropdown */}
       <div 
         className={cn(
-          "absolute inset-0 bg-white/80 backdrop-blur-sm transition-opacity duration-300",
+          "absolute inset-0 bg-black/5 backdrop-blur-sm transition-opacity duration-300",
           isOpen ? "opacity-100" : "opacity-0"
         )}
         onClick={onClose} // Close when clicking the backdrop
       />
       
-      {/* Menu content with animation - positioned above the bottom navbar */}
+      {/* Menu content with animation - positioned below navbar */}
       <div 
         ref={overlayRef}
         className={cn(
           "absolute left-0 right-0 w-full transform transition-all duration-300",
-          /* Position the menu above the bottom navbar */
-          isMobile ? "bottom-[60px]" : "bottom-[72px]", 
-          isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+          /* Adjusted position to ensure the menu appears below the navbar */
+          "top-[72px]", 
+          isOpen ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
         )}
       >
-        {isMobile ? (
-          <div className="max-w-md mx-auto rounded-lg shadow-lg overflow-hidden bg-white">
-            <MobileServiceMenu onServiceSelect={onClose} />
-          </div>
-        ) : (
-          <ServicesMegaMenuContent />
-        )}
+        <ServicesMegaMenuContent />
       </div>
     </div>
   );

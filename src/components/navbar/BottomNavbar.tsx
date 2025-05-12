@@ -1,8 +1,8 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { cn } from '@/lib/utils';
-import { Home, Search, Sparkles, Phone, Menu } from 'lucide-react';
-import ServicesMegaOverlay from './ServicesMegaOverlay';
+import { Home, Search, Menu, Settings } from 'lucide-react';
+import NavbarLogo from './NavbarLogo';
 
 interface BottomNavItemProps {
   icon: React.ReactNode;
@@ -28,76 +28,49 @@ const BottomNavItem = ({ icon, label, isActive = false, onClick }: BottomNavItem
 );
 
 const BottomNavbar = () => {
-  const [activeItem, setActiveItem] = useState('home');
-  const [servicesOpen, setServicesOpen] = useState(false);
-  
-  const handleServicesToggle = () => {
-    setServicesOpen(!servicesOpen);
-    setActiveItem('services');
-  };
-
-  const handleServicesClose = () => {
-    setServicesOpen(false);
-  };
+  const [activeItem, setActiveItem] = React.useState('home');
   
   return (
-    <>
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-[9999]">
-        <div className="max-w-lg mx-auto px-4 py-1">
-          <div className="flex items-center justify-around">
-            <BottomNavItem
-              icon={<Home className="h-5 w-5" />}
-              label="Home"
-              isActive={activeItem === 'home'}
-              onClick={() => {
-                setActiveItem('home');
-                setServicesOpen(false);
-              }}
-            />
-            
-            <BottomNavItem
-              icon={<Menu className="h-5 w-5" />}
-              label="About"
-              isActive={activeItem === 'about'}
-              onClick={() => {
-                setActiveItem('about');
-                setServicesOpen(false);
-              }}
-            />
-            
-            <BottomNavItem
-              icon={<Sparkles className="h-5 w-5" />}
-              label="Services"
-              isActive={activeItem === 'services' || servicesOpen}
-              onClick={handleServicesToggle}
-            />
-            
-            <BottomNavItem
-              icon={<Search className="h-5 w-5" />}
-              label="Blog"
-              isActive={activeItem === 'blog'}
-              onClick={() => {
-                setActiveItem('blog');
-                setServicesOpen(false);
-              }}
-            />
-            
-            <BottomNavItem
-              icon={<Phone className="h-5 w-5" />}
-              label="Contact"
-              isActive={activeItem === 'contact'}
-              onClick={() => {
-                setActiveItem('contact');
-                setServicesOpen(false);
-              }}
-            />
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-[9999]">
+      <div className="max-w-lg mx-auto px-4 py-1">
+        <div className="flex items-center justify-around">
+          <BottomNavItem
+            icon={<Home className="h-5 w-5" />}
+            label="Home"
+            isActive={activeItem === 'home'}
+            onClick={() => setActiveItem('home')}
+          />
+          
+          <BottomNavItem
+            icon={<Search className="h-5 w-5" />}
+            label="Explore"
+            isActive={activeItem === 'explore'}
+            onClick={() => setActiveItem('explore')}
+          />
+          
+          <div className="flex flex-col items-center justify-center -mt-6">
+            <div className="rounded-full bg-brand-primary p-3 shadow-lg mb-1">
+              <NavbarLogo miniVersion={true} />
+            </div>
+            <span className="text-xs font-medium text-brand-primary">Brand</span>
           </div>
+          
+          <BottomNavItem
+            icon={<Menu className="h-5 w-5" />}
+            label="Services"
+            isActive={activeItem === 'services'}
+            onClick={() => setActiveItem('services')}
+          />
+          
+          <BottomNavItem
+            icon={<Settings className="h-5 w-5" />}
+            label="Settings"
+            isActive={activeItem === 'settings'}
+            onClick={() => setActiveItem('settings')}
+          />
         </div>
       </div>
-      
-      {/* Services Mega Menu Overlay for mobile */}
-      <ServicesMegaOverlay isOpen={servicesOpen} onClose={handleServicesClose} />
-    </>
+    </div>
   );
 };
 
