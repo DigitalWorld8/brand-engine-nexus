@@ -41,14 +41,12 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
   return (
     <div className={cn(
       "fixed left-0 right-0 z-40", 
-      // Remove h-screen and overflow-visible to prevent fullscreen takeover
       isOpen ? "pointer-events-auto" : "pointer-events-none"
     )}>
       {/* Semi-transparent overlay backdrop that only covers the menu area */}
       <div 
         className={cn(
           "absolute inset-0 bg-white/80 backdrop-blur-sm transition-opacity duration-300",
-          // When closed, make backdrop invisible but keep page visible
           isOpen ? "opacity-100" : "opacity-0"
         )}
         onClick={onClose} // Close when clicking the backdrop
@@ -65,7 +63,7 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
         )}
       >
         {isMobile ? (
-          <div className="max-w-md mx-auto rounded-lg shadow-lg overflow-hidden">
+          <div className="max-w-md mx-auto rounded-lg shadow-lg overflow-hidden bg-white">
             <MobileServiceMenu onServiceSelect={onClose} />
           </div>
         ) : (
