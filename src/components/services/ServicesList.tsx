@@ -42,12 +42,12 @@ const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: Se
   
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7 } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
   return (
     <>
-      {/* Desktop view - Interactive cards with hover effects and animations */}
+      {/* Desktop view - Grid layout with animated cards */}
       <motion.div 
         className="hidden lg:grid grid-cols-3 gap-8 mb-16"
         variants={containerVariants}
@@ -88,15 +88,10 @@ const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: Se
               </CarouselItem>
             ))}
           </CarouselContent>
-          <motion.div 
-            className="flex justify-center mt-8 gap-3"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-          >
-            <CarouselPrevious className="relative static transform-none h-10 w-10 rounded-full border-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white" />
-            <CarouselNext className="relative static transform-none h-10 w-10 rounded-full border-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white" />
-          </motion.div>
+          <div className="flex justify-center mt-6 gap-3">
+            <CarouselPrevious className="relative static transform-none rounded-full border-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white" />
+            <CarouselNext className="relative static transform-none rounded-full border-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white" />
+          </div>
         </Carousel>
       </div>
     </>
