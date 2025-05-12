@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import NavbarLogo from './NavbarLogo';
 import LeftNavigation from './LeftNavigation';
 import RightNavigation from './RightNavigation';
-import ServicesMegaOverlay from './ServicesMegaOverlay';
 
 interface NavbarContainerProps {
   isScrolled: boolean;
@@ -27,35 +26,9 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
     setServicesOpen(isOpen);
   };
 
-  const handleServicesClose = () => {
-    setServicesOpen(false);
-  };
-
-  // Add document click listener to close services menu when clicking anywhere outside
-  useEffect(() => {
-    const handleDocumentClick = (event: MouseEvent) => {
-      // This is a fallback handler in case the ServicesMegaOverlay click handler fails
-      if (servicesOpen) {
-        // Don't close if clicking on the Services button itself (RightNavigation will handle that toggle)
-        const servicesButton = document.querySelector('[data-services-button="true"]');
-        if (servicesButton && servicesButton.contains(event.target as Node)) {
-          return;
-        }
-        
-        // Close the menu on document clicks outside the nav area
-        setServicesOpen(false);
-      }
-    };
-    
-    document.addEventListener('mousedown', handleDocumentClick);
-    return () => {
-      document.removeEventListener('mousedown', handleDocumentClick);
-    };
-  }, [servicesOpen]);
-
   return (
     <div className={cn(
-      "transition-all duration-300 ease-in-out py-2", // Added padding-y to make navbar more compact
+      "transition-all duration-300 ease-in-out py-2",
       "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
       !navbarReady && "opacity-0"
     )}>
@@ -81,9 +54,6 @@ const NavbarContainer = ({ isScrolled, isInitialView = true }: NavbarContainerPr
           />
         </div>
       </div>
-
-      {/* Services Mega Menu Overlay */}
-      <ServicesMegaOverlay isOpen={servicesOpen} onClose={handleServicesClose} />
     </div>
   );
 };
