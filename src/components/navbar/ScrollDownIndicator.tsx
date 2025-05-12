@@ -34,7 +34,7 @@ const ScrollDownIndicator = ({
   return (
     <div 
       className={cn(
-        "flex flex-col items-center cursor-pointer -mt-4", 
+        "flex flex-col items-center cursor-pointer", 
         "transition-all duration-300 hover:scale-110", 
         className
       )} 

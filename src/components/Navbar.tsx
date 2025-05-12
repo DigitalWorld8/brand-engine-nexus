@@ -47,7 +47,7 @@ const Navbar = () => {
             </div>
           </div>
           
-          {/* Add scroll down indicator below the logo with more spacing */}
+          {/* Add scroll down indicator below the logo with proper spacing */}
           <div className="mt-8 flex justify-center" 
             style={{
               pointerEvents: 'auto'
