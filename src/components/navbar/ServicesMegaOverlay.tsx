@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import ServicesMegaMenuContent from './ServicesMegaMenuContent';
@@ -40,13 +39,15 @@ const ServicesMegaOverlay = ({ isOpen, onClose }: ServicesMegaOverlayProps) => {
 
   return (
     <div className={cn(
-      "fixed left-0 right-0 top-0 h-screen transition-all duration-300 overflow-visible z-40", 
-      isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      "fixed left-0 right-0 z-40", 
+      // Remove h-screen and overflow-visible to prevent fullscreen takeover
+      isOpen ? "pointer-events-auto" : "pointer-events-none"
     )}>
-      {/* Animated overlay backdrop - clicking this should close the dropdown */}
+      {/* Semi-transparent overlay backdrop that only covers the menu area */}
       <div 
         className={cn(
-          "absolute inset-0 bg-white backdrop-blur-sm transition-opacity duration-300",
+          "absolute inset-0 bg-white/80 backdrop-blur-sm transition-opacity duration-300",
+          // When closed, make backdrop invisible but keep page visible
           isOpen ? "opacity-100" : "opacity-0"
         )}
         onClick={onClose} // Close when clicking the backdrop
