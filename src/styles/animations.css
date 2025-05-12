@@ -88,17 +88,18 @@
   backface-visibility: hidden;
 }
 
-/* Scrolling dot animation */
+/* Scrolling dot animation - updated to move more at the top */
 @keyframes scroll-down-dot {
   0% {
-    top: 25%;
+    top: 15%;
     opacity: 0.8;
   }
   50% {
+    top: 40%;
     opacity: 1;
   }
   100% {
-    top: 75%;
+    top: 15%;
     opacity: 0.8;
   }
 }
