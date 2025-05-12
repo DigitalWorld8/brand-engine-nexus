@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import NavbarContainer from './navbar/NavbarContainer';
 import NavbarLogo from './navbar/NavbarLogo';
 import ScrollDownIndicator from './navbar/ScrollDownIndicator';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Navbar = () => {
   const {
@@ -11,26 +13,32 @@ const Navbar = () => {
     isInitialView
   } = useNavbarScroll();
   
+  const isMobile = useIsMobile();
+  
   return (
-    <header className={cn("fixed top-0 left-0 right-0 w-full z-[9999]", isScrolled ? "bg-white shadow-md" : "bg-transparent")} 
+    <header className={cn("fixed top-0 left-0 right-0 w-full z-[9999]", isScrolled || isMobile ? "bg-white shadow-md" : "bg-transparent")} 
       style={{
         transition: 'background-color 0.25s cubic-bezier(0.33, 1, 0.68, 1), box-shadow 0.25s cubic-bezier(0.33, 1, 0.68, 1)',
         willChange: 'background-color, box-shadow',
         transform: 'translateZ(0)'
       }}
     >
-      {/* When not scrolled, show logo center in the content container */}
-      {!isScrolled ? (
+      {/* Always show NavbarContainer on mobile, otherwise conditional */}
+      {isMobile || isScrolled ? (
+        /* Show full navbar container */
+        <NavbarContainer isScrolled={true} isInitialView={false} />
+      ) : (
+        /* When not scrolled on desktop, show logo center in the content container */
         <div className="absolute top-1/2 left-0 right-0 mx-auto transform -translate-y-1/2 z-20 flex flex-col items-center justify-center" 
           style={{
-            pointerEvents: 'none', // Allow clicks to pass through the container
+            pointerEvents: 'none',
             willChange: 'transform',
             transform: 'translateZ(0)'
           }}
         >
           <div 
             style={{
-              pointerEvents: 'auto', // Re-enable pointer events for the logo itself
+              pointerEvents: 'auto',
               willChange: 'transform, box-shadow',
               transform: 'translateZ(0)'
             }} 
@@ -55,9 +63,6 @@ const Navbar = () => {
             <ScrollDownIndicator />
           </div>
         </div>
-      ) : (
-        /* When scrolled, show full navbar container */
-        <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
       )}
     </header>
   );

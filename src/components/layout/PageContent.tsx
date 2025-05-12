@@ -10,12 +10,15 @@ import FAQCollapsible from '@/components/FAQCollapsible';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import CTABanner from '@/components/cta/CTABanner';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 type PageContentProps = {
   isInitialView: boolean;
 };
 
 const PageContent: React.FC<PageContentProps> = ({ isInitialView }) => {
+  const isMobile = useIsMobile();
+  
   return (
     <>
       {/* Show hero section with proper spacing for navbar */}
@@ -23,8 +26,8 @@ const PageContent: React.FC<PageContentProps> = ({ isInitialView }) => {
         <Hero />
       </div>
       
-      {/* The rest of the content with reduced blur effect */}
-      <div className={isInitialView ? 'opacity-95' : ''}>
+      {/* The rest of the content with reduced blur effect - no blur on mobile */}
+      <div className={isInitialView && !isMobile ? 'opacity-95' : ''}>
         <Services />
         <CTABanner 
           variant="gradient" 

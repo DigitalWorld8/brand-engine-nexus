@@ -1,10 +1,12 @@
 
 import { useState, useEffect } from 'react';
+import { useIsMobile } from './use-mobile';
 
 export function usePageMount() {
   const [mounted, setMounted] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
   const [animationComplete, setAnimationComplete] = useState(false);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     // First set mounted to true
@@ -12,6 +14,12 @@ export function usePageMount() {
     
     // Add class to body when mounted to control blur effects
     document.body.classList.add('page-loaded');
+    
+    // Skip animations on mobile
+    if (isMobile) {
+      setAnimationComplete(true);
+      return;
+    }
     
     // Use requestAnimationFrame for smoother initial load
     requestAnimationFrame(() => {
@@ -26,7 +34,7 @@ export function usePageMount() {
     return () => {
       document.body.classList.remove('page-loaded');
     };
-  }, []);
+  }, [isMobile]);
 
   const handleBannerClick = () => {
     setShowBanner(false);
@@ -44,7 +52,7 @@ export function usePageMount() {
 
   return {
     mounted,
-    showBanner,
+    showBanner: showBanner && !isMobile, // Don't show banner on mobile
     setShowBanner,
     handleBannerClick,
     opacityFactor: mounted ? 1 : 0,

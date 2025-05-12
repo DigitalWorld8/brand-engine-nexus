@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useScroll } from './useScroll';
+import { useIsMobile } from './use-mobile';
 
 interface NavbarScrollState {
   isScrolled: boolean;
@@ -12,15 +13,28 @@ interface NavbarScrollState {
 
 export function useNavbarScroll() {
   const { scrollY } = useScroll();
+  const isMobile = useIsMobile();
   const [navbarState, setNavbarState] = useState<NavbarScrollState>({
-    isScrolled: false,
+    isScrolled: isMobile, // Start as scrolled on mobile
     scrollProgress: 0,
-    isInitialView: true,
+    isInitialView: !isMobile, // Not initial view on mobile
     hasScrolled: false,
     initialScrollBuffer: 0
   });
 
   useEffect(() => {
+    // On mobile, we'll always treat it as scrolled
+    if (isMobile) {
+      setNavbarState({
+        isScrolled: true,
+        isInitialView: false,
+        hasScrolled: true,
+        initialScrollBuffer: 0,
+        scrollProgress: 0
+      });
+      return;
+    }
+    
     // Calculate scroll progress
     const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollHeight > 0 ? (scrollY / scrollHeight) * 100 : 0;
@@ -43,7 +57,7 @@ export function useNavbarScroll() {
         scrollProgress: Math.min(progress, 100)
       });
     }
-  }, [scrollY]);
+  }, [scrollY, isMobile]);
 
   return navbarState;
 }
