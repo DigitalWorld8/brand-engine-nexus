@@ -24,10 +24,10 @@ const Navbar = () => {
         transform: 'translateZ(0)'
       }}
     >
-      {/* When not scrolled, show logo absolutely positioned in the primary brand color area */}
+      {/* When not scrolled, show logo center in the content container */}
       {!isScrolled ? (
         <div 
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center justify-center"
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 translate-y-[50%] z-20 flex flex-col items-center justify-center"
           style={{
             pointerEvents: 'none', // Allow clicks to pass through the container
             willChange: 'transform',
@@ -52,15 +52,17 @@ const Navbar = () => {
               <NavbarLogo />
             </div>
           </div>
-          
-          {/* Add scroll down indicator below the logo */}
-          <div className="mt-8 flex justify-center" style={{ pointerEvents: 'auto' }}>
-            <ScrollDownIndicator />
-          </div>
         </div>
       ) : (
         /* When scrolled, show full navbar container */
         <NavbarContainer isScrolled={isScrolled} isInitialView={isInitialView} />
+      )}
+
+      {/* Add scroll down indicator centered at the bottom of the white container */}
+      {!isScrolled && (
+        <div className="fixed left-1/2 bottom-[15%] transform -translate-x-1/2 z-30" style={{ pointerEvents: 'auto' }}>
+          <ScrollDownIndicator />
+        </div>
       )}
     </header>
   );

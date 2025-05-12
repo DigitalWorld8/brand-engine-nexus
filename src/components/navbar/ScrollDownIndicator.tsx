@@ -42,7 +42,7 @@ const ScrollDownIndicator = ({
       aria-label="Scroll down" 
       role="button"
     >
-      <div className="text-brand-text text-sm font-medium mb-2 pulse-opacity">
+      <div className="text-brand-text text-sm font-medium mb-2">
         Scroll to know more about us
       </div>
       <div className="relative">
