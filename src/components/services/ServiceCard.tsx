@@ -1,9 +1,9 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 interface ServiceItem {
@@ -28,6 +28,16 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: ServiceCardProps) => {
   const Icon = category.icon;
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  
+  // Reset animation state when isActive changes
+  useEffect(() => {
+    if (isActive) {
+      setShouldAnimate(true);
+    } else {
+      setShouldAnimate(false);
+    }
+  }, [isActive]);
   
   return (
     <Card 
@@ -49,14 +59,22 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
             transition: { duration: 0.2 }
           }}
         >
-          <motion.div
-            animate={isActive ? { 
-              rotate: [0, 360],
-              transition: { duration: 1.5, repeat: 0 }
-            } : {}}
-          >
-            <Icon className="h-8 w-8 text-white transition-transform" />
-          </motion.div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`icon-${isActive}-${shouldAnimate}`}
+              animate={shouldAnimate ? { 
+                rotate: [0, 360],
+                transition: { duration: 1.5, repeat: 0 }
+              } : {}}
+              onAnimationComplete={() => {
+                if (shouldAnimate) {
+                  setShouldAnimate(false);
+                }
+              }}
+            >
+              <Icon className="h-8 w-8 text-white transition-transform" />
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
         <CardTitle className="text-xl md:text-2xl relative z-10 group-hover:text-brand-primary transition-colors">
           {category.title}

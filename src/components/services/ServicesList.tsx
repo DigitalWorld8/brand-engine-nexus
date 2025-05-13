@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ServiceCard from './ServiceCard';
 import {
   Carousel,
@@ -31,6 +31,14 @@ interface ServicesListProps {
 
 const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: ServicesListProps) => {
   const [expandedService, setExpandedService] = useState<ServiceCategory | null>(null);
+  const [previousActiveId, setPreviousActiveId] = useState<string | undefined>(undefined);
+
+  // Track active service changes to properly handle animations
+  useEffect(() => {
+    if (activeServiceId !== previousActiveId) {
+      setPreviousActiveId(activeServiceId);
+    }
+  }, [activeServiceId, previousActiveId]);
 
   const handleServiceClick = (category: ServiceCategory) => {
     if (expandedService?.title === category.title) {
