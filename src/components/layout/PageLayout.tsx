@@ -41,8 +41,9 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       {/* Left and right wave patterned side edges - hidden on mobile */}
       {!isMobile && (
         <>
-          <div className={`${getSideEdgeClasses()} side-edge-left`}></div>
-          <div className={`${getSideEdgeClasses()} side-edge-right`}></div>
+          {/* Ensure the side edges have proper z-index and display properties */}
+          <div className={`${getSideEdgeClasses()} side-edge-left`} style={{ opacity: 1, zIndex: 10 }}></div>
+          <div className={`${getSideEdgeClasses()} side-edge-right`} style={{ opacity: 1, zIndex: 10 }}></div>
         </>
       )}
       
@@ -89,3 +90,4 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 };
 
 export default PageLayout;
+

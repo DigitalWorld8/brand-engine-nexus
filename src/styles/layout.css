@@ -1,4 +1,3 @@
-
 @layer components {
   /* Page wrapper and content container */
   .page-wrapper {
@@ -55,14 +54,14 @@
     @apply w-[1%] md:w-[1.5%] lg:w-[2%];
   }
 
-  /* Wave pattern styling for side edges */
+  /* Updated wave pattern styling with increased z-index and visibility */
   .side-edge-wave-pattern {
     position: relative;
     overflow: hidden;
     isolation: isolate; /* Optimize composite layers */
   }
   
-  /* Left side wave pattern */
+  /* Left side wave pattern with higher opacity and adjusted size */
   .side-edge-wave-pattern.side-edge-left::before {
     content: "";
     position: absolute;
@@ -74,11 +73,12 @@
     background-repeat: repeat-y;
     background-size: 100% 800px;
     animation: wave-animation-left 25s linear infinite;
-    opacity: 0.6;
+    opacity: 0.8; /* Increased from 0.6 */
     mix-blend-mode: lighten;
+    z-index: 1;
   }
 
-  /* Right side wave pattern with inverted pattern */
+  /* Right side wave pattern with inverted pattern and higher opacity */
   .side-edge-wave-pattern.side-edge-right::before {
     content: "";
     position: absolute;
@@ -90,11 +90,12 @@
     background-repeat: repeat-y;
     background-size: 100% 800px;
     animation: wave-animation-right 25s linear infinite;
-    opacity: 0.6;
+    opacity: 0.8; /* Increased from 0.6 */
     mix-blend-mode: lighten;
+    z-index: 1;
   }
 
-  /* Second wave layer for more dynamic effect - left side */
+  /* Second wave layer for more dynamic effect - left side with higher opacity */
   .side-edge-wave-pattern.side-edge-left::after {
     content: "";
     position: absolute;
@@ -106,11 +107,12 @@
     background-repeat: repeat-y;
     background-size: 100% 800px;
     animation: wave-animation-left 18s linear infinite;
-    opacity: 0.4;
+    opacity: 0.6; /* Increased from 0.4 */
     mix-blend-mode: lighten;
+    z-index: 1;
   }
 
-  /* Second wave layer for more dynamic effect - right side */
+  /* Second wave layer for more dynamic effect - right side with higher opacity */
   .side-edge-wave-pattern.side-edge-right::after {
     content: "";
     position: absolute;
@@ -122,11 +124,12 @@
     background-repeat: repeat-y;
     background-size: 100% 800px;
     animation: wave-animation-right 18s linear infinite;
-    opacity: 0.4;
+    opacity: 0.6; /* Increased from 0.4 */
     mix-blend-mode: lighten;
+    z-index: 1;
   }
 
-  /* New animated background for side edges with wave animations */
+  /* Wave animations with improved visibility */
   @keyframes wave-animation-left {
     0% { transform: translateY(0%); }
     100% { transform: translateY(-50%); }
@@ -137,7 +140,7 @@
     100% { transform: translateY(0%); }
   }
 
-  /* Keep the original side-edge-animated for backward compatibility */
+  /* Keep the original side-edge-animated for backward compatibility but make it less prominent */
   .side-edge-animated::before {
     content: "";
     position: absolute;
@@ -150,6 +153,7 @@
     animation: side-edge-flow 4s linear infinite; /* Reduced from 6s to 4s for faster animation */
     will-change: transform;
     backface-visibility: hidden;
+    z-index: 0; /* Lower z-index than the wave patterns */
   }
   
   /* Mobile Bottom Navigation Styles */
