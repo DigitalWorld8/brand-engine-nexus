@@ -2,6 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { motion } from 'framer-motion';
 
 interface ServiceItemProps {
   title: string;
@@ -9,10 +10,16 @@ interface ServiceItemProps {
 }
 
 const ServiceItem = ({ title, description }: ServiceItemProps) => (
-  <div className="py-3">
+  <motion.div 
+    className="py-3"
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.3 }}
+    whileHover={{ x: 5, transition: { duration: 0.2 } }}
+  >
     <h4 className="text-base md:text-lg font-semibold mb-1">{title}</h4>
     <p className="text-sm md:text-base text-gray-600">{description}</p>
-  </div>
+  </motion.div>
 );
 
 interface ServiceCarouselCardProps {
@@ -43,14 +50,18 @@ const ServiceCarouselCard = ({
     >
       <CardHeader>
         <div className="flex items-start">
-          <div 
+          <motion.div 
             className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110 ${color}`}
+            whileHover={{ rotate: 5 }}
+            animate={isSelected ? { rotate: [0, 360], transition: { duration: 1.5, repeat: 0 } } : {}}
           >
             <Icon className="h-7 w-7 text-white" />
-          </div>
+          </motion.div>
         </div>
-        <CardTitle className="text-xl md:text-2xl">{title}</CardTitle>
-        <CardDescription className="mt-2 text-gray-600">{description}</CardDescription>
+        <motion.div whileHover={{ x: 3, transition: { duration: 0.2 } }}>
+          <CardTitle className="text-xl md:text-2xl">{title}</CardTitle>
+          <CardDescription className="mt-2 text-gray-600">{description}</CardDescription>
+        </motion.div>
       </CardHeader>
       
       <CardContent className={cn(

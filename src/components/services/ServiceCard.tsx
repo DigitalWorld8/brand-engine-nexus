@@ -29,6 +29,7 @@ interface ServiceCardProps {
 const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: ServiceCardProps) => {
   const Icon = category.icon;
   const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   
   // Reset animation state when isActive changes
   useEffect(() => {
@@ -42,6 +43,8 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
   return (
     <Card 
       onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={cn(
         "h-full transition-all duration-500 cursor-pointer group overflow-hidden border border-gray-100",
         isMobile 
@@ -53,18 +56,18 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
       <CardHeader className="relative pb-3">
         <motion.div 
           className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 ${category.color}`}
-          whileHover={{ 
-            scale: 1.05,
-            rotate: 5,
-            transition: { duration: 0.2 }
-          }}
+          animate={isHovered ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+          transition={{ duration: 0.3 }}
         >
           <AnimatePresence mode="wait">
             <motion.div
-              key={`icon-${isActive}-${shouldAnimate}`}
+              key={`icon-${isActive}-${shouldAnimate}-${isHovered}`}
               animate={shouldAnimate ? { 
                 rotate: [0, 360],
                 transition: { duration: 1.5, repeat: 0 }
+              } : isHovered ? {
+                y: [0, -5, 0],
+                transition: { duration: 0.5, repeat: 0 }
               } : {}}
               onAnimationComplete={() => {
                 if (shouldAnimate) {
@@ -90,30 +93,46 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
             isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
           )}
           initial={{ scale: 0.8, opacity: 0 }}
-          animate={isActive ? { scale: 1, opacity: 1 } : {}}
-          whileHover={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.7 }}
+          animate={isActive || isHovered ? { 
+            scale: isHovered ? 1.2 : 1, 
+            opacity: 1,
+            x: isHovered ? -10 : 0,
+            y: isHovered ? -10 : 0,
+          } : {}}
+          transition={{ duration: 0.5 }}
         />
       </CardHeader>
       
       <CardContent className="pb-4">
         <div className="flex justify-between items-center">
-          <div className="flex items-center text-brand-primary font-medium">
+          <motion.div 
+            className="flex items-center text-brand-primary font-medium"
+            animate={isHovered ? { x: 3 } : { x: 0 }}
+            transition={{ duration: 0.2 }}
+          >
             <span className="mr-2">Explore services</span>
             <motion.div 
               className={cn(
                 "w-6 h-6 rounded-full flex items-center justify-center transform", 
                 isActive ? "bg-brand-primary text-white" : "bg-brand-primary/10 group-hover:bg-brand-primary group-hover:text-white"
               )}
-              whileHover={{ scale: 1.2 }}
+              animate={isHovered ? { 
+                scale: 1.2, 
+                x: 5,
+              } : { scale: 1, x: 0 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <ArrowRight className="h-3 w-3" />
             </motion.div>
-          </div>
-          <Badge variant="outline" className="text-xs bg-white">
-            {category.services.length} solutions
-          </Badge>
+          </motion.div>
+          <motion.div
+            animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Badge variant="outline" className="text-xs bg-white">
+              {category.services.length} solutions
+            </Badge>
+          </motion.div>
         </div>
       </CardContent>
     </Card>

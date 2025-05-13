@@ -68,3 +68,31 @@
   animation: shine 3s infinite linear;
   pointer-events: none;
 }
+
+/* Service card hover effects */
+.service-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.3s ease, 
+              border-color 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px) scale(1.01);
+}
+
+/* Pulsating effect for active elements */
+.pulse-active {
+  animation: pulse-active 2s infinite;
+}
+
+@keyframes pulse-active {
+  0% {
+    box-shadow: 0 0 0 0 rgba(89, 106, 233, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(89, 106, 233, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(89, 106, 233, 0);
+  }
+}
