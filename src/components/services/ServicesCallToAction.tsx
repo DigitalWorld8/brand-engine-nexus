@@ -5,8 +5,8 @@ import { ArrowRight, MessageSquare } from 'lucide-react';
 const ServicesCallToAction = () => {
   return (
     <div className="mt-24 text-center relative">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/5 via-brand-accent-blue/10 to-brand-primary/5 rounded-3xl -z-10 transform -skew-y-1"></div>
+      {/* Background decoration - removed skew transform */}
+      <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/5 via-brand-accent-blue/10 to-brand-primary/5 rounded-3xl -z-10"></div>
       
       <div className="py-12 px-6">
         <h3 className="text-2xl md:text-3xl font-bold mb-6 bg-gradient-to-r from-brand-primary to-brand-accent-blue bg-clip-text text-transparent">
