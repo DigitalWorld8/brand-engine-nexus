@@ -1,3 +1,4 @@
+
 @layer components {
   /* Page wrapper and content container */
   .page-wrapper {
@@ -54,93 +55,13 @@
     @apply w-[1%] md:w-[1.5%] lg:w-[2%];
   }
 
-  /* Updated wave pattern styling with increased z-index and visibility */
-  .side-edge-wave-pattern {
+  /* New animated background for side edges with optimized performance */
+  .side-edge-animated {
     position: relative;
     overflow: hidden;
     isolation: isolate; /* Optimize composite layers */
   }
-  
-  /* Left side wave pattern with higher opacity and adjusted size */
-  .side-edge-wave-pattern.side-edge-left::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 100%;
-    width: 300%; /* Extra wide to ensure coverage */
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='800' viewBox='0 0 100 800' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 0V800C66.667 750.667 33.3333 700 0 650V150C33.3333 100.667 66.6667 50 100 0Z' fill='%2309a4d5'/%3E%3C/svg%3E");
-    background-repeat: repeat-y;
-    background-size: 100% 800px;
-    animation: wave-animation-left 25s linear infinite;
-    opacity: 0.8; /* Increased from 0.6 */
-    mix-blend-mode: lighten;
-    z-index: 1;
-  }
 
-  /* Right side wave pattern with inverted pattern and higher opacity */
-  .side-edge-wave-pattern.side-edge-right::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 300%; /* Extra wide to ensure coverage */
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='800' viewBox='0 0 100 800' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0V800C33.333 750.667 66.667 700 100 650V150C66.667 100.667 33.333 50 0 0Z' fill='%2309a4d5'/%3E%3C/svg%3E");
-    background-repeat: repeat-y;
-    background-size: 100% 800px;
-    animation: wave-animation-right 25s linear infinite;
-    opacity: 0.8; /* Increased from 0.6 */
-    mix-blend-mode: lighten;
-    z-index: 1;
-  }
-
-  /* Second wave layer for more dynamic effect - left side with higher opacity */
-  .side-edge-wave-pattern.side-edge-left::after {
-    content: "";
-    position: absolute;
-    top: -400px; /* Offset for visual variation */
-    right: 0;
-    height: 100%;
-    width: 300%;
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='800' viewBox='0 0 100 800' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 0V800C66.667 725 33.333 650 0 575V225C33.333 150 66.667 75 100 0Z' fill='%23778DFC'/%3E%3C/svg%3E");
-    background-repeat: repeat-y;
-    background-size: 100% 800px;
-    animation: wave-animation-left 18s linear infinite;
-    opacity: 0.6; /* Increased from 0.4 */
-    mix-blend-mode: lighten;
-    z-index: 1;
-  }
-
-  /* Second wave layer for more dynamic effect - right side with higher opacity */
-  .side-edge-wave-pattern.side-edge-right::after {
-    content: "";
-    position: absolute;
-    top: -400px; /* Offset for visual variation */
-    left: 0;
-    height: 100%;
-    width: 300%;
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='800' viewBox='0 0 100 800' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0V800C33.333 725 66.667 650 100 575V225C66.667 150 33.333 75 0 0Z' fill='%23778DFC'/%3E%3C/svg%3E");
-    background-repeat: repeat-y;
-    background-size: 100% 800px;
-    animation: wave-animation-right 18s linear infinite;
-    opacity: 0.6; /* Increased from 0.4 */
-    mix-blend-mode: lighten;
-    z-index: 1;
-  }
-
-  /* Wave animations with improved visibility */
-  @keyframes wave-animation-left {
-    0% { transform: translateY(0%); }
-    100% { transform: translateY(-50%); }
-  }
-
-  @keyframes wave-animation-right {
-    0% { transform: translateY(-50%); }
-    100% { transform: translateY(0%); }
-  }
-
-  /* Keep the original side-edge-animated for backward compatibility but make it less prominent */
   .side-edge-animated::before {
     content: "";
     position: absolute;
@@ -153,7 +74,6 @@
     animation: side-edge-flow 4s linear infinite; /* Reduced from 6s to 4s for faster animation */
     will-change: transform;
     backface-visibility: hidden;
-    z-index: 0; /* Lower z-index than the wave patterns */
   }
   
   /* Mobile Bottom Navigation Styles */
@@ -226,8 +146,3 @@
   backface-visibility: hidden;
 }
 
-/* Hero tear shape for better content flow */
-.hero-tear-shape {
-  border-radius: 0 0 65% 0;
-  overflow: hidden;
-}

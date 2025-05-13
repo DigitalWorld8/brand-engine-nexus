@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import ScrollIndicator from '@/components/ScrollIndicator';
@@ -38,12 +37,11 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 
   return (
     <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'}`}>
-      {/* Left and right wave patterned side edges - hidden on mobile */}
+      {/* Left and right purple side edges with dynamic width - hidden on mobile */}
       {!isMobile && (
         <>
-          {/* Ensure the side edges have proper z-index and display properties */}
-          <div className={`${getSideEdgeClasses()} side-edge-left`} style={{ opacity: 1, zIndex: 10 }}></div>
-          <div className={`${getSideEdgeClasses()} side-edge-right`} style={{ opacity: 1, zIndex: 10 }}></div>
+          <div className={`${getSideEdgeClasses()} side-edge-left`}></div>
+          <div className={`${getSideEdgeClasses()} side-edge-right`}></div>
         </>
       )}
       
@@ -90,4 +88,3 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 };
 
 export default PageLayout;
-

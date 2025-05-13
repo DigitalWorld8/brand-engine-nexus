@@ -80,8 +80,7 @@ export function useSideEdgeAnimation() {
 
   // Get side edge classes based on current state with animation class
   const getSideEdgeClasses = () => {
-    // Make sure to always include the wave pattern classes
-    const baseClasses = 'side-edge side-edge-animated side-edge-wave-pattern';
+    const baseClasses = 'side-edge side-edge-animated';
     switch (sideEdgeState) {
       case 'full': return `${baseClasses} side-edge-width-full`;
       case 'medium': return `${baseClasses} side-edge-width-medium`;
