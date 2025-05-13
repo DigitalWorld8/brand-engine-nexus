@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { 
   Palette, Globe, Code, Brain, Settings, BarChart3, ShieldCheck 
 } from 'lucide-react';
@@ -24,6 +25,39 @@ interface ServiceCategory {
 const Services = () => {
   const [activeService, setActiveService] = useState<ServiceCategory | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+        when: "beforeChildren"
+      }
+    }
+  };
+
+  // Track when section comes into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        }
+      },
+      { threshold: 0.25 }
+    );
+    
+    const section = document.getElementById('services');
+    if (section) observer.observe(section);
+    
+    return () => {
+      if (section) observer.unobserve(section);
+    };
+  }, []);
 
   const serviceCategories: ServiceCategory[] = [
     {
@@ -141,14 +175,77 @@ const Services = () => {
   };
 
   return (
-    <section id="services" className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-light-gray/20 to-white">
+    <motion.section 
+      id="services" 
+      className="py-24 relative overflow-hidden bg-gradient-to-b from-white via-brand-light-gray/20 to-white"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      {/* Animated Path SVG */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
+        <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1200 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <motion.path 
+            d="M0,100 Q300,150 600,100 T1200,150" 
+            stroke="rgba(27, 20, 100, 0.05)" 
+            strokeWidth="2"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 2, ease: "easeInOut" }}
+          />
+          <motion.path 
+            d="M0,200 Q300,250 600,200 T1200,250" 
+            stroke="rgba(9, 164, 213, 0.05)" 
+            strokeWidth="2"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: 1, opacity: 1 }}
+            transition={{ duration: 2.5, ease: "easeInOut", delay: 0.3 }}
+          />
+        </svg>
+      </div>
+      
       {/* Background Elements */}
       <ServicesBackgroundElements 
         activeService={Boolean(activeService)} 
         isAnimating={isAnimating} 
       />
       
-      <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+      <motion.div 
+        className="max-w-7xl mx-auto px-4 md:px-8 relative z-10"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        {/* Floating animated circles */}
+        <motion.div 
+          className="absolute -top-10 -right-20 w-40 h-40 rounded-full bg-brand-accent-blue/5"
+          animate={{ 
+            y: [0, -15, 0],
+            scale: [1, 1.05, 1],
+            opacity: [0.5, 0.7, 0.5]
+          }}
+          transition={{ 
+            duration: 6, 
+            repeat: Infinity, 
+            repeatType: "reverse" 
+          }}
+        />
+        
+        <motion.div 
+          className="absolute bottom-40 -left-20 w-60 h-60 rounded-full bg-brand-primary/5"
+          animate={{ 
+            y: [0, 20, 0],
+            scale: [1, 1.1, 1],
+            opacity: [0.4, 0.6, 0.4]
+          }}
+          transition={{ 
+            duration: 8, 
+            repeat: Infinity, 
+            repeatType: "reverse",
+            delay: 1
+          }}
+        />
+        
         {/* Section Header with animation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -172,11 +269,51 @@ const Services = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.7, delay: 0.4 }}
+          className="relative"
         >
+          {/* Decorative elements */}
+          <motion.div 
+            className="absolute -top-10 -left-10 w-20 h-20 rounded-full bg-gradient-to-br from-brand-accent-violet/10 to-transparent blur-xl"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.3, 0.6, 0.3]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: "reverse"
+            }}
+          />
+          
+          <motion.div 
+            className="absolute -bottom-5 right-10 w-16 h-16 rounded-full bg-gradient-to-tl from-brand-accent-blue/10 to-transparent blur-xl"
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.2, 0.5, 0.2]
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: 1
+            }}
+          />
+          
           <ServicesCallToAction />
         </motion.div>
+      </motion.div>
+      
+      {/* Animated corner accent */}
+      <div className="absolute bottom-0 right-0 w-40 h-40 overflow-hidden pointer-events-none">
+        <motion.div 
+          className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-brand-primary/10 to-transparent rounded-tl-[100%]"
+          initial={{ opacity: 0, scale: 0.6 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+        />
       </div>
-    </section>
+    </motion.section>
   );
 };
 
