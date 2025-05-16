@@ -10,17 +10,14 @@ export function usePageMount() {
   const animationTimeoutRef = useRef<number | null>(null);
   
   useEffect(() => {
-    // Check if user has seen animations before
-    const hasSeenAnimations = localStorage.getItem('hasSeenAnimations') === 'true';
-    
     // First set mounted to true
     setMounted(true);
     
     // Add class to body when mounted to control blur effects
     document.body.classList.add('page-loaded');
     
-    // Skip animations on mobile or if already seen
-    if (isMobile || hasSeenAnimations) {
+    // Skip animations on mobile
+    if (isMobile) {
       setAnimationComplete(true);
       return;
     }
@@ -34,10 +31,7 @@ export function usePageMount() {
       animationTimeoutRef.current = window.setTimeout(() => {
         setAnimationComplete(true);
         document.body.classList.add('animations-complete');
-        
-        // Mark animations as seen for future visits
-        localStorage.setItem('hasSeenAnimations', 'true');
-      }, 100);
+      }, 100); // Decreased from 200ms to 100ms for faster animations
     });
     
     return () => {
@@ -57,7 +51,7 @@ export function usePageMount() {
       // Scroll to the hero section with optimized animation
       const scrollOptions = { 
         top: window.innerHeight * 0.05,
-        behavior: 'smooth' as ScrollBehavior
+        behavior: 'smooth' as ScrollBehavior // Using smooth scroll for Apple-like feeling
       };
       
       // Use requestAnimationFrame for smoother scroll initiation
@@ -69,11 +63,11 @@ export function usePageMount() {
 
   return {
     mounted,
-    showBanner: showBanner && !isMobile,
+    showBanner: showBanner && !isMobile, // Don't show banner on mobile
     setShowBanner,
     handleBannerClick,
     opacityFactor: mounted ? 1 : 0,
     animationComplete,
-    scrollLocked: false
+    scrollLocked: false // Always return false since we're removing scroll locking
   };
 }
