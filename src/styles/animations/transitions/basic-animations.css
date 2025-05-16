@@ -1,0 +1,22 @@
+
+/* Basic animation classes */
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+  
+.animate-subtle-bounce {
+  animation: subtle-bounce 2s ease-in-out infinite;
+}
+  
+.animate-pulse-down {
+  animation: pulse-down 1.8s ease-in-out infinite;
+}
+  
+.animate-slide-up {
+  animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+  
+.animate-gradient-bg {
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
+}

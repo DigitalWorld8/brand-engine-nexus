@@ -1,0 +1,7 @@
+
+.typewriter-text {
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  animation: typewriter 2s steps(40) forwards;
+}

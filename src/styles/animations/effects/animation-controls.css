@@ -1,0 +1,15 @@
+
+/* Prevent animation during page load */
+.pre-animation * {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+.ready * {
+  animation-play-state: running;
+}
+
+/* Disable animations conditionally */
+.no-animation {
+  animation: none !important;
+}
