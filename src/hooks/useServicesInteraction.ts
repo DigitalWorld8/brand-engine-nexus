@@ -40,12 +40,6 @@ export const useServicesInteraction = () => {
     setIsAnimating(true);
     setActiveService(isRepeatedClick ? null : service);
     
-    // Scroll to services section when a service is selected
-    const servicesSection = document.getElementById('services');
-    if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    
     // Animation state reset
     setTimeout(() => {
       setIsAnimating(false);
