@@ -39,28 +39,28 @@ const PageLayout: React.FC<PageLayoutProps> = ({
     return () => clearTimeout(timer);
   }, [isMobile]);
   
-  // Enforce scroll lock
+  // Apply scroll lock class directly to both body and wrapper for immediate effect
   useEffect(() => {
-    // Force scroll to top when locked
     if (scrollLocked && !isMobile) {
-      // Force scroll position to top - use multiple techniques to ensure it works
+      document.body.classList.add('scroll-locked');
+      // Force scroll position to top
       window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      
-      console.log('Scroll locked state:', scrollLocked);
+    } else {
+      document.body.classList.remove('scroll-locked');
     }
+    
+    // Log scroll lock state for debugging
+    console.log('Scroll locked state:', scrollLocked);
+    
+    return () => {
+      // Cleanup
+      document.body.classList.remove('scroll-locked');
+    };
   }, [scrollLocked, isMobile]);
 
   return (
     <div 
       className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'} ${scrollLocked ? 'scroll-locked' : 'animations-complete'}`}
-      style={{
-        height: scrollLocked ? '100vh' : 'auto',
-        position: scrollLocked ? 'fixed' : 'relative',
-        width: scrollLocked ? '100%' : 'auto',
-        overflow: scrollLocked ? 'hidden' : 'visible',
-      }}
     >
       {/* Left and right purple side edges with dynamic width - hidden on mobile */}
       {!isMobile && (
