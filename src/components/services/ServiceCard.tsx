@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from '@/lib/utils';
-import CardHeader from './card/CardHeader';
+import CardHeaderCustom from './card/CardHeader';
 import CardFooter from './card/CardFooter';
 
 interface ServiceItem {
@@ -75,8 +75,8 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
         isPulsing && "pulse-active"
       )}
     >
-      <CardHeader className="p-0">
-        <CardHeader
+      <div className="p-6">
+        <CardHeaderCustom
           title={category.title}
           description={category.description}
           icon={category.icon}
@@ -85,7 +85,7 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
           isHovered={isHovered}
           shouldAnimate={shouldAnimate}
         />
-      </CardHeader>
+      </div>
       
       <CardContent className="pb-4">
         <CardFooter 
