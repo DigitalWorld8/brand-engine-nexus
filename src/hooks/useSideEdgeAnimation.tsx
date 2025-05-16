@@ -10,7 +10,7 @@ export function useSideEdgeAnimation() {
   // Enhanced throttled scroll handler with minimal delay for instant response
   const throttledScrollHandler = useCallback((callback: () => void) => {
     let waiting = false;
-    const throttleMs = 16; // Reduced to 16ms (close to 60fps frame time) for smoother animation
+    const throttleMs = 10; // Reduced to 10ms for even smoother animation (was 16ms)
     
     return () => {
       if (!waiting) {
@@ -34,7 +34,7 @@ export function useSideEdgeAnimation() {
       lastScrollY.current = scrollY;
       
       // Ultra-low threshold for immediate visual feedback
-      const significantScrollThreshold = windowHeight * 0.01; // Reduced from 0.03 to 0.01
+      const significantScrollThreshold = windowHeight * 0.005; // Reduced from 0.01 to 0.005
       const hasSignificantScroll = Math.abs(scrollY - lastScrollY.current) > significantScrollThreshold;
       
       // Using more responsive thresholds with smoother graduation
@@ -61,7 +61,7 @@ export function useSideEdgeAnimation() {
         
         animationTimeoutRef.current = window.setTimeout(() => {
           setIsAnimating(false);
-        }, 350); // Reduced from 500 to 350ms for faster transitions
+        }, 200); // Reduced from 350 to 200ms for faster transitions
       }
     });
     

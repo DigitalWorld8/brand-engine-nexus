@@ -4,13 +4,13 @@
   @apply relative z-30;
   filter: blur(0px) !important;
   opacity: 1 !important;
-  transition: all 0.5s ease-out;
+  transition: all 0.3s ease-out; /* Reduced from 0.5s to 0.3s */
   transform: translateZ(0);
 }
 
 /* New class for content that should be blurred on initial load */
 .blur-on-load {
-  @apply relative z-20 transition-all duration-500;
+  @apply relative z-20 transition-all duration-300; /* Reduced from duration-500 to duration-300 */
   filter: blur(5px);
   opacity: 0.6;
   will-change: filter, opacity;

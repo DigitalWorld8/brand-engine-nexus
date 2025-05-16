@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import ScrollIndicator from '@/components/ScrollIndicator';
@@ -31,7 +32,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsReady(true);
-    }, isMobile ? 0 : 30); // No delay on mobile
+    }, isMobile ? 0 : 10); // Reduced from 30ms to 10ms for faster initialization
     return () => clearTimeout(timer);
   }, [isMobile]);
 
@@ -57,7 +58,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             opacity: opacityFactor,
             marginTop: isMobile ? '60px' : isScrolled ? '64px' : '100px', // Increased top margin on mobile for the header
             marginBottom: isMobile ? '70px' : '0', // Add bottom margin on mobile for the bottom navbar
-            transition: 'opacity 0.35s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.25s cubic-bezier(0.33, 1, 0.68, 1), margin-bottom 0.25s cubic-bezier(0.33, 1, 0.68, 1)'
+            transition: 'opacity 0.2s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.15s cubic-bezier(0.33, 1, 0.68, 1), margin-bottom 0.15s cubic-bezier(0.33, 1, 0.68, 1)' // Reduced from 0.35s/0.25s to 0.2s/0.15s
           }} 
           className="move it to top a bit"
         >
@@ -66,13 +67,13 @@ const PageLayout: React.FC<PageLayoutProps> = ({
           transformOrigin: 'center top',
           marginBottom: isInitialView && !isMobile ? '0' : '0',
           marginTop: isMobile ? '0' : isInitialView ? '16vh' : '6vh',
-          transition: 'transform 0.35s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.35s cubic-bezier(0.33, 1, 0.68, 1)'
+          transition: 'transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.2s cubic-bezier(0.33, 1, 0.68, 1)' // Reduced from 0.35s to 0.2s
         }}>
             {/* Add overlay div that controls the blur opacity based on scroll with smoother transitions */}
             {isInitialView && !isMobile && <div className="absolute inset-0 z-10 pointer-events-none" style={{
             backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
             backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
-            transition: 'backdrop-filter 0.35s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.35s cubic-bezier(0.33, 1, 0.68, 1)',
+            transition: 'backdrop-filter 0.2s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.2s cubic-bezier(0.33, 1, 0.68, 1)', // Reduced from 0.35s to 0.2s
             willChange: 'backdrop-filter, background-color'
           }} />}
             

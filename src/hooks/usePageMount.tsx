@@ -26,7 +26,7 @@ export function usePageMount() {
       // Add a slight delay to ensure smooth animation completion
       const animationTimer = setTimeout(() => {
         setAnimationComplete(true);
-      }, 600); // Reduced from 800ms to 600ms
+      }, 300); // Reduced from 600ms to 300ms
       
       return () => clearTimeout(animationTimer);
     });
@@ -41,7 +41,7 @@ export function usePageMount() {
     // Scroll to the hero section with optimized animation
     const scrollOptions = { 
       top: window.innerHeight * 0.05,
-      behavior: 'smooth' as ScrollBehavior
+      behavior: 'auto' as ScrollBehavior // Changed from 'smooth' to 'auto' for faster response
     };
     
     // Use requestAnimationFrame for smoother scroll initiation

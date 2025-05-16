@@ -22,15 +22,15 @@
     rgba(255,255,255,0) 100%
   );
   background-size: 200% 100%;
-  animation: shine 3s infinite linear;
+  animation: shine 2s infinite linear; /* Reduced from 3s to 2s */
   pointer-events: none;
 }
 
 /* Service card hover effects */
 .service-card {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
-              box-shadow 0.3s ease, 
-              border-color 0.3s ease;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.2s ease, 
+              border-color 0.2s ease; /* Reduced from 0.3s to 0.2s */
 }
 
 .service-card:hover {
@@ -41,7 +41,7 @@
 .border-dance {
   background-image: linear-gradient(90deg, transparent 50%, rgba(89, 106, 233, 0.2) 50%);
   background-size: 200% 100%;
-  transition: background-position 0.5s ease;
+  transition: background-position 0.3s ease; /* Reduced from 0.5s to 0.3s */
 }
 
 .border-dance:hover {
@@ -65,5 +65,5 @@
   opacity: 0;
   border-radius: 100%;
   transform: scale(1);
-  animation: ripple 0.6s ease-out;
+  animation: ripple 0.4s ease-out; /* Reduced from 0.6s to 0.4s */
 }
