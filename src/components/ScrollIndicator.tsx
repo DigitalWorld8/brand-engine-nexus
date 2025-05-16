@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { MousePointerClick } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface ScrollIndicatorProps {
   className?: string;
@@ -41,20 +42,23 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     
     setIsScrolling(true);
     
-    // Scroll down to explore content with Apple-like smoothness
+    // Advanced scroll animation with spring physics
     const startPosition = window.scrollY;
-    const targetPosition = window.innerHeight; // Scroll down one viewport height
+    const targetPosition = window.innerHeight * 0.8; // Scroll down 80% of viewport
     const distance = targetPosition - startPosition;
-    const duration = 300; // Reduced from 400ms to 300ms for faster animation
+    const duration = 800; // Smoother, longer animation
     const startTime = performance.now();
     
-    // Apple-like easing function
-    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+    // Spring-like easing function
+    const easeOutSpring = (t: number) => {
+      // Approximates a spring curve
+      return 1 - Math.pow(1 - t, 3) * Math.cos(t * Math.PI * 2);
+    };
     
     const scrollStep = (timestamp: number) => {
       const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = easeOutCubic(progress);
+      const easedProgress = easeOutSpring(progress);
       
       window.scrollTo({
         top: startPosition + distance * easedProgress,
@@ -65,8 +69,6 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
         window.requestAnimationFrame(scrollStep);
       } else {
         setIsScrolling(false);
-        
-        // Hide indicator after scrolling is complete
         setIsVisible(false);
       }
     };
@@ -78,85 +80,89 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   if (!isVisible) return null;
   
   return (
-    <div 
+    <motion.div 
       className={cn(
-        "fixed bottom-8 left-1/2 transform -translate-x-1/2 z-40",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10 pointer-events-none",
+        "fixed bottom-8 left-1/2 z-40",
         className
       )}
-      style={{
-        transition: 'opacity 0.15s cubic-bezier(0.22, 1, 0.36, 1), transform 0.15s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.25s to 0.15s
-        willChange: 'opacity, transform'
-      }}
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: 10, opacity: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      style={{ x: "-50%" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div 
-        className={cn(
-          "flex flex-col items-center gap-4 cursor-pointer",
-          isHovered ? "translate-y-[-5px]" : "",
-          isScrolling ? "pointer-events-none" : ""
-        )}
-        style={{
-          transition: 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.2s to 0.12s
-          willChange: 'transform'
-        }}
+      <motion.div 
+        className="flex flex-col items-center gap-4 cursor-pointer"
+        whileHover={{ y: -5 }}
+        whileTap={{ scale: 0.97 }}
         onClick={handleClick}
       >
-        <p className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-primary drop-shadow-sm">
+        <motion.p 
+          className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-primary drop-shadow-sm"
+          animate={{ opacity: [0.8, 1, 0.8] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
           SCROLL TO EXPLORE
-        </p>
+        </motion.p>
         
         {/* Animated line with improved performance */}
         <div className="w-[3px] h-16 relative overflow-hidden bg-gradient-to-b from-brand-accent-blue/20 to-brand-primary/20 rounded-full">
-          <div 
+          <motion.div 
             className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-accent-blue to-brand-primary" 
-            style={{
-              animation: 'pulse-down 0.6s cubic-bezier(0.22, 1, 0.36, 1) infinite', // Reduced from 0.8s to 0.6s
-              willChange: 'transform',
-              transform: 'translateZ(0)'
+            animate={{ 
+              y: ["0%", "100%", "0%"] 
             }}
-          ></div>
+            transition={{ 
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          ></motion.div>
         </div>
         
-        {/* Animated mouse pointer in glowing circle with optimized transitions */}
-        <div 
-          className={cn(
-            "relative flex items-center justify-center",
-            isHovered ? "scale-110" : "scale-100"
-          )}
-          style={{
-            transition: 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.2s to 0.12s
-            willChange: 'transform'
-          }}
-        >
+        {/* Animated mouse pointer in glowing circle with advanced animations */}
+        <div className="relative flex items-center justify-center">
           {/* Glowing background effect */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-30 blur-md scale-125"></div>
+          <motion.div 
+            className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-30 blur-md"
+            animate={{ 
+              scale: [1, 1.2, 1],
+              opacity: [0.2, 0.4, 0.2]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          ></motion.div>
           
           {/* Button with animation */}
-          <div 
+          <motion.div 
             className="relative bg-white p-3 w-16 h-16 rounded-full flex items-center justify-center shadow-lg border border-brand-light-gray"
-            style={{
-              animation: 'subtle-bounce 0.8s cubic-bezier(0.22, 1, 0.36, 1) infinite', // Reduced from 1s to 0.8s
-              willChange: 'transform',
-              transform: 'translateZ(0)'
+            animate={{ 
+              y: [0, -5, 0]
+            }}
+            transition={{ 
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut"
             }}
           >
-            <MousePointerClick 
-              className={cn(
-                "h-8 w-8 text-brand-primary",
-                isHovered ? "translate-y-[2px]" : ""
-              )}
-              style={{
-                transition: 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.2s to 0.12s
-                willChange: 'transform'
-              }}
-              strokeWidth={2.5} 
-            />
-          </div>
+            <motion.div
+              whileHover={{ rotate: 10, scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <MousePointerClick 
+                className="h-8 w-8 text-brand-primary"
+                strokeWidth={2.5} 
+              />
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

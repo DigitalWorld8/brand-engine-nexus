@@ -5,6 +5,7 @@ import { usePageMount } from '@/hooks/usePageMount';
 import PageLayout from '@/components/layout/PageLayout';
 import PageContent from '@/components/layout/PageContent';
 import Banner from '@/components/Banner';
+import { motion } from 'framer-motion';
 
 const Index = () => {
   const {
@@ -34,14 +35,18 @@ const Index = () => {
     }
   }, [isScrollingUp]);
 
-  // Scale factor that increases as user scrolls (85% to 100%)
+  // Scale factor that increases as user scrolls (90% to 100%)
   // Create a more noticeable visual response to initial scroll attempts
   const scaleFactor = isInitialView 
-    ? Math.max(0.85, 0.85 + (initialScrollBuffer / 1000)) 
+    ? Math.max(0.90, 0.90 + (initialScrollBuffer / 1000)) 
     : 1;
   
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+    >
       {/* Show Banner if enabled */}
       <Banner onBannerClick={handleBannerClick} visible={showBanner} />
       
@@ -53,7 +58,7 @@ const Index = () => {
       >
         <PageContent isInitialView={isInitialView} />
       </PageLayout>
-    </>
+    </motion.div>
   );
 };
 
