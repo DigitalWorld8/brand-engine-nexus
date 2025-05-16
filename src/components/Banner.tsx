@@ -35,7 +35,7 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-brand-primary/95 via-brand-secondary/95 to-brand-accent-violet/95 text-white backdrop-blur-sm cursor-pointer pointer-events-enabled"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-brand-primary/95 via-brand-secondary/95 to-brand-accent-violet/95 text-white backdrop-blur-sm cursor-pointer"
           onClick={onBannerClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -68,7 +68,7 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
             
             <motion.div
               className={cn(
-                "flex flex-col items-center mt-16 pointer-events-enabled",
+                "flex flex-col items-center mt-16",
                 "transition-all duration-300",
                 isHovered ? "transform scale-110" : ""
               )}
