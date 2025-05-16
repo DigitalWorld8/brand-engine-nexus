@@ -1,0 +1,49 @@
+
+/* Basic motion keyframes - fade, slide, scale animations */
+
+/* Fade animation with modernized timing */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Float animation with more natural easing */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-15px) translateZ(0);
+  }
+}
+
+/* Enhanced subtle bounce animation with better easing */
+@keyframes subtle-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0) translateZ(0);
+  }
+  40% {
+    transform: translateY(8px) translateZ(0);
+  }
+  60% {
+    transform: translateY(4px) translateZ(0);
+  }
+}
+
+/* Slide up animation with better acceleration curve */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+  }
+}

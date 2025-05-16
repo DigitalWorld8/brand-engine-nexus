@@ -1,0 +1,22 @@
+
+/* Progress and circular animations */
+
+/* Circular progress animation */
+@keyframes circular-progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+  100% {
+    stroke-dasharray: var(--progress) 100;
+  }
+}
+
+/* Soft rock for hover states */
+@keyframes soft-rock {
+  0%, 100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
