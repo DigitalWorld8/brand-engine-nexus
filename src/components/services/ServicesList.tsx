@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/carousel";
 import { motion, AnimatePresence } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Check } from 'lucide-react';
 
 interface ServiceItem {
   title: string;
@@ -212,13 +214,46 @@ const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: Se
                     </motion.svg>
                     {service.title}
                   </h4>
-                  <p className="mt-1 sm:mt-2 text-gray-600 text-xs sm:text-sm pl-5 sm:pl-6">{service.description}</p>
+                  <p className="mt-1 sm:mt-2 text-gray-600 text-xs sm:text-sm pl-5 sm:pl-6 mb-3">{service.description}</p>
+                  <div className="pl-5 sm:pl-6">
+                    <Button 
+                      variant="outline" 
+                      size="sm" 
+                      className="text-xs bg-white hover:bg-brand-primary hover:text-white border-brand-primary/30"
+                    >
+                      Learn more
+                      <ArrowRight className="ml-1 h-3 w-3" />
+                    </Button>
+                  </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+      
+      {/* Main CTA button */}
+      <motion.div 
+        className="mt-12 text-center"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        <Button 
+          size="lg" 
+          className="bg-brand-primary text-white hover:bg-brand-accent-blue group transition-all duration-300 px-8 py-6 text-lg shadow-lg hover:shadow-xl"
+        >
+          <span>Check All Our Services</span>
+          <motion.div
+            className="ml-2 inline-block"
+            animate={{ x: [0, 5, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5, repeatDelay: 0.5 }}
+          >
+            <ArrowRight className="h-5 w-5" />
+          </motion.div>
+        </Button>
+      </motion.div>
     </div>
   );
 };

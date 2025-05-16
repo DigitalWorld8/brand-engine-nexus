@@ -3,6 +3,8 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from 'framer-motion';
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 interface ServiceItemProps {
   title: string;
@@ -18,7 +20,11 @@ const ServiceItem = ({ title, description }: ServiceItemProps) => (
     whileHover={{ x: 5, transition: { duration: 0.2 } }}
   >
     <h4 className="text-base md:text-lg font-semibold mb-1">{title}</h4>
-    <p className="text-sm md:text-base text-gray-600">{description}</p>
+    <p className="text-sm md:text-base text-gray-600 mb-2">{description}</p>
+    <Button variant="outline" size="sm" className="text-xs mt-1 bg-white hover:bg-brand-primary hover:text-white">
+      Learn more
+      <ArrowRight className="ml-1 h-3 w-3" />
+    </Button>
   </motion.div>
 );
 

@@ -88,7 +88,17 @@ const ServicePopup = ({ service, isOpen, onClose }: ServicePopupProps) => {
                       </h4>
                       <Badge variant="outline" className="bg-white">Core</Badge>
                     </div>
-                    <p className="mt-2 text-gray-600 text-sm pl-6">{item.description}</p>
+                    <p className="mt-2 text-gray-600 text-sm pl-6 mb-3">{item.description}</p>
+                    <div className="pl-6">
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="text-xs bg-white hover:bg-brand-primary hover:text-white border-brand-primary/30"
+                      >
+                        Learn more
+                        <ArrowRight className="ml-1 h-3 w-3" />
+                      </Button>
+                    </div>
                   </motion.div>
                 ))}
               </div>

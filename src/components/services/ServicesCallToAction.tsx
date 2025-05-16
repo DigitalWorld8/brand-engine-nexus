@@ -1,10 +1,11 @@
 
 import React from 'react';
 import { ArrowRight, MessageSquare } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 
 const ServicesCallToAction = () => {
   return (
-    <div className="mt-24 text-center relative">
+    <div className="mt-16 text-center relative">
       {/* Background decoration - removed skew transform */}
       <div className="absolute inset-0 bg-gradient-to-r from-brand-primary/5 via-brand-accent-blue/10 to-brand-primary/5 rounded-3xl -z-10"></div>
       
@@ -18,21 +19,22 @@ const ServicesCallToAction = () => {
         </p>
         
         <div className="flex flex-wrap justify-center gap-4">
-          <a 
-            href="#contact" 
-            className="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-accent-blue hover:from-brand-primary/90 hover:to-brand-accent-blue/90 text-white font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl"
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-brand-primary to-brand-accent-blue hover:from-brand-primary/90 hover:to-brand-accent-blue/90 text-white font-medium transition-all hover:scale-105 shadow-lg hover:shadow-xl px-8"
           >
             <span className="relative z-10 text-lg">Let's Discuss Your Project</span>
             <ArrowRight className="ml-2 h-5 w-5" />
-          </a>
+          </Button>
           
-          <a 
-            href="#contact" 
-            className="inline-flex items-center px-8 py-4 rounded-xl bg-white border border-brand-primary/20 text-brand-primary font-medium transition-all hover:scale-105 shadow-md hover:shadow-lg hover:bg-brand-primary/5"
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="bg-white border border-brand-primary/20 text-brand-primary font-medium transition-all hover:scale-105 shadow-md hover:shadow-lg hover:bg-brand-primary/5 px-8"
           >
             <MessageSquare className="mr-2 h-5 w-5" />
             <span>Schedule a Call</span>
-          </a>
+          </Button>
         </div>
       </div>
     </div>
