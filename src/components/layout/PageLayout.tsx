@@ -34,17 +34,39 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsReady(true);
-    }, isMobile ? 0 : 10); // Reduced from 30ms to 10ms for faster initialization
+    }, isMobile ? 0 : 10);
+    
     return () => clearTimeout(timer);
   }, [isMobile]);
+  
+  // Enforce scroll lock
+  useEffect(() => {
+    // Force scroll to top when locked
+    if (scrollLocked && !isMobile) {
+      // Force scroll position to top - use multiple techniques to ensure it works
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      
+      console.log('Scroll locked state:', scrollLocked);
+    }
+  }, [scrollLocked, isMobile]);
 
   return (
-    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'} ${scrollLocked ? '' : 'animations-complete'}`}>
+    <div 
+      className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'} ${scrollLocked ? 'scroll-locked' : 'animations-complete'}`}
+      style={{
+        height: scrollLocked ? '100vh' : 'auto',
+        position: scrollLocked ? 'fixed' : 'relative',
+        width: scrollLocked ? '100%' : 'auto',
+        overflow: scrollLocked ? 'hidden' : 'visible',
+      }}
+    >
       {/* Left and right purple side edges with dynamic width - hidden on mobile */}
       {!isMobile && (
         <>
-          <div className={`${getSideEdgeClasses()} side-edge-left`}></div>
-          <div className={`${getSideEdgeClasses()} side-edge-right`}></div>
+          <div className={`${getSideEdgeClasses()} side-edge-left pointer-events-enabled`}></div>
+          <div className={`${getSideEdgeClasses()} side-edge-right pointer-events-enabled`}></div>
         </>
       )}
       
@@ -52,15 +74,17 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       {!isMobile && <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'}`}></div>}
       
       {/* The navbar is now outside the content-container since it's fixed positioned */}
-      <Navbar />
+      <div className="pointer-events-enabled">
+        <Navbar />
+      </div>
       
-      <div className={`content-container ${isScrolled || isMobile ? 'w-full rounded-none' : ''} z-10 relative`}>
+      <div className={`content-container ${isScrolled || isMobile ? 'w-full rounded-none' : ''} z-10 relative ${scrollLocked ? 'pointer-events-enabled' : ''}`}>
         <div 
           style={{
             opacity: opacityFactor,
-            marginTop: isMobile ? '60px' : isScrolled ? '64px' : '100px', // Increased top margin on mobile for the header
-            marginBottom: isMobile ? '70px' : '0', // Add bottom margin on mobile for the bottom navbar
-            transition: 'opacity 0.2s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.15s cubic-bezier(0.33, 1, 0.68, 1), margin-bottom 0.15s cubic-bezier(0.33, 1, 0.68, 1)' // Reduced from 0.35s/0.25s to 0.2s/0.15s
+            marginTop: isMobile ? '60px' : isScrolled ? '64px' : '100px',
+            marginBottom: isMobile ? '70px' : '0',
+            transition: 'opacity 0.2s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.15s cubic-bezier(0.33, 1, 0.68, 1), margin-bottom 0.15s cubic-bezier(0.33, 1, 0.68, 1)'
           }} 
           className="move it to top a bit"
         >
@@ -69,13 +93,13 @@ const PageLayout: React.FC<PageLayoutProps> = ({
           transformOrigin: 'center top',
           marginBottom: isInitialView && !isMobile ? '0' : '0',
           marginTop: isMobile ? '0' : isInitialView ? '16vh' : '6vh',
-          transition: 'transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.2s cubic-bezier(0.33, 1, 0.68, 1)' // Reduced from 0.35s to 0.2s
+          transition: 'transform 0.2s cubic-bezier(0.33, 1, 0.68, 1), margin-top 0.2s cubic-bezier(0.33, 1, 0.68, 1)'
         }}>
             {/* Add overlay div that controls the blur opacity based on scroll with smoother transitions */}
             {isInitialView && !isMobile && <div className="absolute inset-0 z-10 pointer-events-none" style={{
             backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
             backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
-            transition: 'backdrop-filter 0.2s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.2s cubic-bezier(0.33, 1, 0.68, 1)', // Reduced from 0.35s to 0.2s
+            transition: 'backdrop-filter 0.2s cubic-bezier(0.33, 1, 0.68, 1), background-color 0.2s cubic-bezier(0.33, 1, 0.68, 1)',
             willChange: 'backdrop-filter, background-color'
           }} />}
             
