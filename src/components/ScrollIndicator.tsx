@@ -14,13 +14,13 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   
   useEffect(() => {
     // Set initial visibility based on scroll position when component mounts
-    if (window.scrollY > 25) { // Reduced from 50 to 25 for faster hiding
+    if (window.scrollY > 25) {
       setIsVisible(false);
     }
     
     const handleScroll = () => {
       // Hide the indicator when user scrolls down more than threshold
-      if (window.scrollY > 25) { // Reduced from 50 to 25 for faster hiding
+      if (window.scrollY > 25) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
@@ -37,23 +37,18 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   }, []);
   
   const handleClick = () => {
-    // Check if scroll is locked by inspecting body class
-    if (document.body.classList.contains('scroll-locked')) {
-      return; // Don't allow scrolling if locked
-    }
-    
     if (isScrolling) return; // Prevent multiple clicks during animation
     
     setIsScrolling(true);
     
-    // Scroll down to explore content - even faster scroll
+    // Scroll down to explore content with Apple-like smoothness
     const startPosition = window.scrollY;
     const targetPosition = window.innerHeight; // Scroll down one viewport height
     const distance = targetPosition - startPosition;
-    const duration = 300; // Reduced from 450ms to 300ms for faster scroll
+    const duration = 800; // Increased for smoother Apple-like animation
     const startTime = performance.now();
     
-    // Optimized cubic easing function for smooth scrolling
+    // Apple-like easing function
     const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
     
     const scrollStep = (timestamp: number) => {
@@ -63,7 +58,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
       
       window.scrollTo({
         top: startPosition + distance * easedProgress,
-        behavior: 'auto' // Use 'auto' instead of default to bypass smooth scroll for better performance
+        behavior: 'auto'
       });
       
       if (progress < 1) {
@@ -90,7 +85,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
         className
       )}
       style={{
-        transition: 'opacity 0.15s cubic-bezier(0.33, 1, 0.68, 1), transform 0.15s cubic-bezier(0.33, 1, 0.68, 1)', // Reduced from 0.2s to 0.15s
+        transition: 'opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)', 
         willChange: 'opacity, transform'
       }}
       onMouseEnter={() => setIsHovered(true)}
@@ -103,7 +98,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           isScrolling ? "pointer-events-none" : ""
         )}
         style={{
-          transition: 'transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1)', // Reduced from 0.15s to 0.1s
+          transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
           willChange: 'transform'
         }}
         onClick={handleClick}
@@ -117,7 +112,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           <div 
             className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-accent-blue to-brand-primary" 
             style={{
-              animation: 'pulse-down 1s cubic-bezier(0.45, 0, 0.55, 1) infinite', // Reduced from 1.4s to 1s
+              animation: 'pulse-down 1.8s cubic-bezier(0.22, 1, 0.36, 1) infinite',
               willChange: 'transform',
               transform: 'translateZ(0)'
             }}
@@ -131,7 +126,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
             isHovered ? "scale-110" : "scale-100"
           )}
           style={{
-            transition: 'transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1)', // Reduced from 0.15s to 0.1s
+            transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
             willChange: 'transform'
           }}
         >
@@ -142,7 +137,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
           <div 
             className="relative bg-white p-3 w-16 h-16 rounded-full flex items-center justify-center shadow-lg border border-brand-light-gray"
             style={{
-              animation: 'subtle-bounce 1s cubic-bezier(0.45, 0, 0.55, 1) infinite', // Reduced from 1.5s to 1s
+              animation: 'subtle-bounce 2s cubic-bezier(0.22, 1, 0.36, 1) infinite',
               willChange: 'transform',
               transform: 'translateZ(0)'
             }}
@@ -153,7 +148,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
                 isHovered ? "translate-y-[2px]" : ""
               )}
               style={{
-                transition: 'transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1)', // Reduced from 0.15s to 0.1s
+                transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)',
                 willChange: 'transform'
               }}
               strokeWidth={2.5} 

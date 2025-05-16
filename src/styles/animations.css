@@ -1,19 +1,20 @@
+
 /* Import all animation modules */
 @import './animations/keyframes.css';
 @import './animations/transitions.css';
 @import './animations/effects.css';
 @import './animations/interactions.css';
 
-/* Add new initial view styling with ultra-smooth transitions */
+/* Add new initial view styling with Apple-like ultra-smooth transitions */
 .initial-view-content {
   opacity: 0.95;
   filter: blur(0px);
-  animation: initial-view-fade-in 0.35s cubic-bezier(0.33, 1, 0.68, 1) forwards; /* Reduced from 0.5s to 0.35s, improved easing */
+  animation: initial-view-fade-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   position: relative;
-  will-change: opacity, filter, transform; /* More complete will-change */
-  transform: translateZ(0); /* Force GPU acceleration */
-  backface-visibility: hidden; /* Prevent flickering */
-  perspective: 1000; /* Improved 3D performance */
+  will-change: opacity, filter, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
 }
 
 @keyframes initial-view-fade-in {
@@ -29,11 +30,11 @@
   }
 }
 
-/* Better handling for CTA buttons in initial view */
+/* Better handling for CTA buttons with Apple-like transitions */
 .cta-semi-active {
   opacity: 0.9;
   transform: scale(1) translateZ(0);
-  transition: all 0.15s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.2s, improved easing */
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: auto;
   will-change: opacity, transform;
 }
@@ -43,7 +44,7 @@
   transform: scale(1.02) translateZ(0);
 }
 
-/* New floating logo animation with reduced jitter */
+/* Apple-like floating logo animation */
 @keyframes logo-float {
   0%, 100% {
     transform: translateY(0) translateZ(0);
@@ -54,22 +55,22 @@
 }
 
 .logo-float {
-  animation: logo-float 3s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Improved easing */
+  animation: logo-float 3s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   will-change: transform;
-  backface-visibility: hidden; /* Prevent flickering */
+  backface-visibility: hidden;
 }
 
-/* Glowing effect for the brand logo container with smoother transition */
+/* Glowing effect with Apple-like smooth transitions */
 .logo-glow {
   box-shadow: 0 0 15px rgba(27, 20, 100, 0.5);
-  transition: box-shadow 0.2s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.3s, improved easing */
+  transition: box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .logo-glow:hover {
   box-shadow: 0 0 25px rgba(27, 20, 100, 0.7);
 }
 
-/* Scroll down indicator animation with faster transitions */
+/* Apple-like scroll down indicator animation */
 @keyframes pulse-opacity {
   0%, 100% {
     opacity: 0.8;
@@ -82,12 +83,12 @@
 }
 
 .pulse-opacity {
-  animation: pulse-opacity 1.2s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Reduced from 1.5s, improved easing */
+  animation: pulse-opacity 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   will-change: opacity, transform;
   backface-visibility: hidden;
 }
 
-/* Scrolling dot animation - updated to move more at the top */
+/* Scrolling dot animation with Apple-like smoothness */
 @keyframes scroll-down-dot {
   0% {
     top: 15%;
@@ -104,7 +105,7 @@
 }
 
 .scrolling-dot {
-  animation: scroll-down-dot 1.5s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation: scroll-down-dot 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
   will-change: transform, opacity;
   backface-visibility: hidden;
 }

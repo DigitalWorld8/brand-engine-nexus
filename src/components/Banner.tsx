@@ -16,11 +16,8 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
   
   // Enhanced banner interaction - respond to scroll attempts
   useEffect(() => {
-    // Check if body has scroll-locked class
-    const isScrollLocked = document.body.classList.contains('scroll-locked');
-    
-    // Only hide banner when user has scrolled past threshold AND scrolling is allowed
-    if (hasScrolled && visible && initialScrollBuffer > 50 && !isScrollLocked) {
+    // Hide banner when user has scrolled past threshold
+    if (hasScrolled && visible && initialScrollBuffer > 50) {
       onBannerClick();
     }
   }, [hasScrolled, visible, onBannerClick, initialScrollBuffer]);
@@ -34,8 +31,8 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-brand-primary/95 via-brand-secondary/95 to-brand-accent-violet/95 text-white backdrop-blur-sm cursor-pointer pointer-events-enabled"
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-brand-primary/95 via-brand-secondary/95 to-brand-accent-violet/95 text-white backdrop-blur-sm cursor-pointer"
           onClick={onBannerClick}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -44,7 +41,7 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
+              transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-tight">
                 <span className="relative">
@@ -61,26 +58,26 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
               className="text-xl md:text-2xl mb-12 font-medium text-white/90"
               initial={{ y: -10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
               Transform ideas into scalable experiences through smart branding, marketing, and automation solutions
             </motion.p>
             
             <motion.div
               className={cn(
-                "flex flex-col items-center mt-16 pointer-events-enabled",
-                "transition-all duration-300",
+                "flex flex-col items-center mt-16",
+                "transition-all duration-500",
                 isHovered ? "transform scale-110" : ""
               )}
               initial={{ y: -10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
+              transition={{ delay: 0.6, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="text-xl font-medium mb-4">Click to Explore</div>
               
               <div className={cn(
                 "relative flex items-center justify-center",
-                "transition-all duration-300",
+                "transition-all duration-500",
                 isHovered ? "transform translate-y-2" : ""
               )}>
                 <div className="absolute inset-0 rounded-full bg-white opacity-20 blur-md"></div>
