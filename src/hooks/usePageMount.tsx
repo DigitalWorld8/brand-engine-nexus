@@ -10,6 +10,48 @@ export function usePageMount() {
   const isMobile = useIsMobile();
   const animationTimeoutRef = useRef<number | null>(null);
   
+  // Immediately apply scroll lock to html and body elements
+  useEffect(() => {
+    if (scrollLocked && !isMobile) {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = '0';
+      document.body.style.left = '0';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+      
+      // Force the window to top
+      window.scrollTo(0, 0);
+      
+      document.body.classList.add('scroll-locked');
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+      
+      document.body.classList.remove('scroll-locked');
+      document.body.classList.add('animations-complete');
+    }
+    
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+      
+      document.body.classList.remove('scroll-locked');
+      document.body.classList.remove('animations-complete');
+    };
+  }, [scrollLocked, isMobile]);
+  
   // Add a listener to prevent scroll events
   useEffect(() => {
     const preventScroll = (e: Event) => {
@@ -23,22 +65,32 @@ export function usePageMount() {
 
     // Apply multiple event listeners to capture all scroll attempts
     if (scrollLocked && !isMobile) {
-      window.addEventListener('wheel', preventScroll, { passive: false });
-      window.addEventListener('touchmove', preventScroll, { passive: false });
+      window.addEventListener('wheel', preventScroll, { passive: false, capture: true });
+      window.addEventListener('touchmove', preventScroll, { passive: false, capture: true });
+      window.addEventListener('DOMMouseScroll', preventScroll, { passive: false, capture: true } as any);
+      window.addEventListener('mousewheel', preventScroll, { passive: false, capture: true } as any);
       window.addEventListener('keydown', (e) => {
-        // Prevent arrow keys, space, page up/down from scrolling
-        if ([32, 33, 34, 37, 38, 39, 40].includes(e.keyCode) && scrollLocked) {
+        // Prevent arrow keys, space, page up/down, home/end from scrolling
+        if ([32, 33, 34, 35, 36, 37, 38, 39, 40].includes(e.keyCode) && scrollLocked) {
           e.preventDefault();
           return false;
         }
         return true;
-      }, { passive: false });
+      }, { passive: false, capture: true });
+      
+      // Disable touch scrolling
+      document.addEventListener('touchstart', preventScroll, { passive: false, capture: true });
+      document.addEventListener('touchend', preventScroll, { passive: false, capture: true });
     }
     
     return () => {
-      window.removeEventListener('wheel', preventScroll);
-      window.removeEventListener('touchmove', preventScroll);
-      window.removeEventListener('keydown', preventScroll);
+      window.removeEventListener('wheel', preventScroll, { capture: true } as any);
+      window.removeEventListener('touchmove', preventScroll, { capture: true } as any);
+      window.removeEventListener('DOMMouseScroll', preventScroll, { capture: true } as any);
+      window.removeEventListener('mousewheel', preventScroll, { capture: true } as any);
+      window.removeEventListener('keydown', preventScroll, { capture: true } as any);
+      document.removeEventListener('touchstart', preventScroll, { capture: true } as any);
+      document.removeEventListener('touchend', preventScroll, { capture: true } as any);
     };
   }, [scrollLocked, isMobile]);
   
@@ -56,9 +108,9 @@ export function usePageMount() {
       return;
     }
     
-    // Add scroll lock class to body - make sure this is applied properly
-    document.body.classList.add('scroll-locked');
-    
+    // Make sure scroll is at top on load
+    window.scrollTo(0, 0);
+        
     // Use requestAnimationFrame for smoother initial load
     requestAnimationFrame(() => {
       // Longer delay to ensure smooth animation completion
@@ -67,18 +119,15 @@ export function usePageMount() {
         
         // Release scroll lock after animations complete with a longer delay
         setTimeout(() => {
+          console.log('Preparing to unlock scroll...');
           setScrollLocked(false);
-          document.body.classList.remove('scroll-locked');
-          document.body.classList.add('animations-complete');
           console.log('Animations complete, scroll unlocked');
-        }, 700); // Increased to 700ms to ensure animations are fully complete
-      }, 800); // Increased from 500ms to 800ms for more complete animation
+        }, 1000); // Increased to 1000ms to ensure animations are fully complete
+      }, 1200); // Increased from 800ms to 1200ms for more complete animation
     });
     
     return () => {
       document.body.classList.remove('page-loaded');
-      document.body.classList.remove('scroll-locked');
-      document.body.classList.remove('animations-complete');
       if (animationTimeoutRef.current) {
         clearTimeout(animationTimeoutRef.current);
       }
