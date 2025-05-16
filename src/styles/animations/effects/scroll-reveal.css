@@ -11,3 +11,13 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Disable transition when scrolling up after initial scroll */
+.scrolling-up .reveal {
+  transition: none !important;
+}
+
+.scrolling-up .reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}

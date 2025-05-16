@@ -23,7 +23,8 @@ const PageLayout: React.FC<PageLayoutProps> = ({
 }) => {
   const {
     sideEdgeState,
-    getSideEdgeClasses
+    getSideEdgeClasses,
+    isScrollingUp
   } = useSideEdgeAnimation();
   const [isReady, setIsReady] = useState(false);
   const isMobile = useIsMobile();
@@ -37,6 +38,9 @@ const PageLayout: React.FC<PageLayoutProps> = ({
     
     return () => clearTimeout(timer);
   }, [isMobile]);
+
+  // Determine if we should skip animations for reverse scrolling
+  const skipAnimations = !isInitialView && isScrollingUp;
 
   return (
     <div 
@@ -64,24 +68,24 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             opacity: opacityFactor,
             marginTop: isMobile ? '60px' : isScrolled ? '64px' : '100px',
             marginBottom: isMobile ? '70px' : '0',
-            transition: 'opacity 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.1s cubic-bezier(0.22, 1, 0.36, 1)' // Reduced from 0.2s/0.15s to 0.1s
+            transition: skipAnimations ? 'none' : 'opacity 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.1s cubic-bezier(0.22, 1, 0.36, 1)'
           }} 
           className="move it to top a bit"
         >
           <div className={`transform-gpu relative no-layout-shift ${isInitialView && !isMobile ? 'blur-effect' : ''}`} style={{
-          transform: isReady || isMobile ? `scale(${isMobile ? 1 : scaleFactor})` : 'scale(1)',
-          transformOrigin: 'center top',
-          marginBottom: isInitialView && !isMobile ? '0' : '0',
-          marginTop: isMobile ? '0' : isInitialView ? '16vh' : '6vh',
-          transition: 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.12s cubic-bezier(0.22, 1, 0.36, 1)' // Reduced from 0.2s to 0.12s
-        }}>
+            transform: isReady || isMobile ? `scale(${isMobile ? 1 : scaleFactor})` : 'scale(1)',
+            transformOrigin: 'center top',
+            marginBottom: isInitialView && !isMobile ? '0' : '0',
+            marginTop: isMobile ? '0' : isInitialView ? '16vh' : '6vh',
+            transition: skipAnimations ? 'none' : 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.12s cubic-bezier(0.22, 1, 0.36, 1)'
+          }}>
             {/* Add overlay div that controls the blur opacity based on scroll with smoother transitions */}
             {isInitialView && !isMobile && <div className="absolute inset-0 z-10 pointer-events-none" style={{
-            backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
-            backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
-            transition: 'backdrop-filter 0.12s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.12s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.2s to 0.12s
-            willChange: 'backdrop-filter, background-color'
-          }} />}
+              backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
+              backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
+              transition: skipAnimations ? 'none' : 'backdrop-filter 0.12s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.12s cubic-bezier(0.22, 1, 0.36, 1)',
+              willChange: 'backdrop-filter, background-color'
+            }} />}
             
             {children}
           </div>

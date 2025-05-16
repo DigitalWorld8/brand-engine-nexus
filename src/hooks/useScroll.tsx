@@ -5,13 +5,15 @@ interface ScrollState {
   scrollY: number;
   direction: 'up' | 'down' | null;
   lastScrollY: number;
+  initialScrollOccurred: boolean;
 }
 
 export function useScroll() {
   const [scrollState, setScrollState] = useState<ScrollState>({
     scrollY: typeof window !== 'undefined' ? window.scrollY : 0,
     direction: null,
-    lastScrollY: 0
+    lastScrollY: 0,
+    initialScrollOccurred: false
   });
 
   useEffect(() => {
@@ -22,11 +24,16 @@ export function useScroll() {
         const direction = currentScrollY > prevState.lastScrollY ? 'down' : 
                         currentScrollY < prevState.lastScrollY ? 'up' : 
                         prevState.direction;
-                        
+        
+        // Mark that initial scroll has occurred if scrolling down
+        const initialScrollOccurred = prevState.initialScrollOccurred || 
+                                    (direction === 'down' && currentScrollY > 50);
+        
         return {
           scrollY: currentScrollY,
           direction,
-          lastScrollY: currentScrollY
+          lastScrollY: currentScrollY,
+          initialScrollOccurred
         };
       });
     };
