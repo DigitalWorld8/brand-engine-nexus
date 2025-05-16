@@ -1,9 +1,9 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { cn } from '@/lib/utils';
 import { Badge } from '@/components/ui/badge';
-import { motion, AnimatePresence, useAnimation } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -32,111 +32,21 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const isMobileDevice = useIsMobile();
-  const iconControls = useAnimation();
-  const bgShapeControls = useAnimation();
-  const cardRef = useRef<HTMLDivElement>(null);
   
   // Reset animation state when isActive changes
   useEffect(() => {
     if (isActive) {
       setShouldAnimate(true);
-      
-      // Sequence of animations for the active card
-      const sequence = async () => {
-        await iconControls.start({ 
-          rotate: 360,
-          scale: [1, 1.2, 1],
-          transition: { duration: 1.5 }
-        });
-        
-        // Subtle continuous animation after initial animation
-        iconControls.start({
-          y: [0, -3, 0],
-          transition: { 
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "reverse"
-          }
-        });
-      };
-      
-      sequence();
-      
-      // Animate background shape for active card
-      bgShapeControls.start({
-        scale: 1,
-        opacity: 0.8,
-        x: -10,
-        y: -10,
-        transition: { duration: 0.5 }
-      });
     } else {
       setShouldAnimate(false);
-      
-      // Reset animations
-      iconControls.stop();
-      iconControls.set({ rotate: 0, scale: 1, y: 0 });
-      
-      bgShapeControls.start({
-        scale: 0.8,
-        opacity: 0,
-        x: 0,
-        y: 0,
-        transition: { duration: 0.3 }
-      });
     }
-  }, [isActive, iconControls, bgShapeControls]);
-  
-  // Handle hover enter with sequential animations
-  const handleHoverStart = () => {
-    setIsHovered(true);
-    
-    // Only run hover animations if card is not already active
-    if (!isActive) {
-      iconControls.start({
-        scale: 1.1,
-        rotate: 5,
-        transition: { duration: 0.3 }
-      });
-      
-      bgShapeControls.start({
-        scale: 1.2,
-        opacity: 0.6,
-        x: -10,
-        y: -10,
-        transition: { duration: 0.4 }
-      });
-    }
-  };
-  
-  // Handle hover exit with smooth animations
-  const handleHoverEnd = () => {
-    setIsHovered(false);
-    
-    // Only reset if not active
-    if (!isActive) {
-      iconControls.start({
-        scale: 1,
-        rotate: 0,
-        transition: { duration: 0.3 }
-      });
-      
-      bgShapeControls.start({
-        scale: 0.8,
-        opacity: 0,
-        x: 0,
-        y: 0,
-        transition: { duration: 0.3 }
-      });
-    }
-  };
+  }, [isActive]);
   
   return (
     <Card 
-      ref={cardRef}
       onClick={onClick}
-      onMouseEnter={handleHoverStart}
-      onMouseLeave={handleHoverEnd}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={cn(
         "h-full transition-all duration-500 cursor-pointer group overflow-hidden border border-gray-100",
         isMobile 
@@ -148,12 +58,24 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
       <CardHeader className="relative pb-2 sm:pb-3 px-4 sm:px-6">
         <motion.div 
           className={`w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 transition-all duration-300 ${category.color}`}
-          animate={iconControls}
+          animate={isHovered ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
+          transition={{ duration: 0.3 }}
         >
           <AnimatePresence mode="wait">
             <motion.div
               key={`icon-${isActive}-${shouldAnimate}-${isHovered}`}
-              initial={false}
+              animate={shouldAnimate ? { 
+                rotate: [0, 360],
+                transition: { duration: 1.5, repeat: 0 }
+              } : isHovered ? {
+                y: [0, -5, 0],
+                transition: { duration: 0.5, repeat: 0 }
+              } : {}}
+              onAnimationComplete={() => {
+                if (shouldAnimate) {
+                  setShouldAnimate(false);
+                }
+              }}
             >
               <Icon className="h-6 w-6 sm:h-8 sm:w-8 text-white transition-transform" />
             </motion.div>
@@ -166,11 +88,20 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
           {category.description}
         </CardDescription>
         
-        {/* Animated background shape with improved animation */}
+        {/* Animated background shape */}
         <motion.div 
-          className="absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-tr from-transparent to-brand-light-gray/50"
-          animate={bgShapeControls}
+          className={cn(
+            "absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-tr from-transparent to-brand-light-gray/50",
+            isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+          )}
           initial={{ scale: 0.8, opacity: 0 }}
+          animate={isActive || isHovered ? { 
+            scale: isHovered ? 1.2 : 1, 
+            opacity: 1,
+            x: isHovered ? -10 : 0,
+            y: isHovered ? -10 : 0,
+          } : {}}
+          transition={{ duration: 0.5 }}
         />
       </CardHeader>
       

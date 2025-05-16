@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import ServiceCard from './ServiceCard';
 import {
   Carousel,
@@ -8,7 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ServiceItem {
@@ -33,50 +33,21 @@ interface ServicesListProps {
 const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: ServicesListProps) => {
   const [expandedService, setExpandedService] = useState<ServiceCategory | null>(null);
   const [previousActiveId, setPreviousActiveId] = useState<string | undefined>(undefined);
-  const [isExpanding, setIsExpanding] = useState(false);
-  const expandedRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
 
   // Track active service changes to properly handle animations
   useEffect(() => {
     if (activeServiceId !== previousActiveId) {
       setPreviousActiveId(activeServiceId);
-      
-      // Find the expanded service
-      const service = serviceCategories.find(s => s.title === activeServiceId);
-      
-      if (service) {
-        setIsExpanding(true);
-        // Small delay for smoother animations
-        setTimeout(() => {
-          setExpandedService(service);
-          setIsExpanding(false);
-        }, 150);
-      } else if (expandedService) {
-        setIsExpanding(true);
-        // Small delay before clearing expanded service
-        setTimeout(() => {
-          setExpandedService(null);
-          setIsExpanding(false);
-        }, 150);
-      }
     }
-  }, [activeServiceId, previousActiveId, serviceCategories, expandedService]);
-
-  // Scroll expanded section into view with smooth animation
-  useEffect(() => {
-    if (expandedService && expandedRef.current) {
-      setTimeout(() => {
-        expandedRef.current?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'start'
-        });
-      }, 300);
-    }
-  }, [expandedService]);
+  }, [activeServiceId, previousActiveId]);
 
   const handleServiceClick = (category: ServiceCategory) => {
+    if (expandedService?.title === category.title) {
+      setExpandedService(null);
+    } else {
+      setExpandedService(category);
+    }
     onServiceClick(category);
   };
 
@@ -92,38 +63,7 @@ const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: Se
   
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 0.5,
-        type: "spring",
-        stiffness: 50,
-        damping: 8
-      } 
-    }
-  };
-
-  // Enhanced expanded service variants
-  const expandedVariants = {
-    hidden: { opacity: 0, height: 0, y: -20 },
-    visible: { 
-      opacity: 1, 
-      height: 'auto', 
-      y: 0,
-      transition: { 
-        duration: 0.4,
-        type: "spring",
-        stiffness: 70,
-        damping: 12
-      }
-    },
-    exit: {
-      opacity: 0,
-      height: 0,
-      y: -10,
-      transition: { duration: 0.3 }
-    }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
   return (
@@ -147,7 +87,7 @@ const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: Se
         ))}
       </motion.div>
 
-      {/* Mobile/Tablet view - Enhanced Carousel with improved animations */}
+      {/* Mobile/Tablet view - Enhanced Carousel */}
       <div className="lg:hidden">
         <Carousel className="w-full">
           <CarouselContent>
@@ -157,13 +97,7 @@ const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: Se
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ 
-                    duration: 0.5, 
-                    delay: index * 0.1,
-                    type: "spring",
-                    stiffness: 50,
-                    damping: 8
-                  }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
                   <ServiceCard 
                     category={category}
@@ -182,76 +116,51 @@ const ServicesList = ({ serviceCategories, onServiceClick, activeServiceId }: Se
         </Carousel>
       </div>
       
-      {/* Service details section with improved animations */}
-      <AnimatePresence mode="wait">
-        {expandedService && (
-          <motion.div
-            ref={expandedRef}
-            className="mt-8 p-4 md:p-6 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden"
-            variants={expandedVariants}
-            initial="hidden"
-            animate={isExpanding ? "hidden" : "visible"}
-            exit="exit"
-            key={`expanded-${expandedService.title}`}
-          >
-            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+      {/* Service details section that appears when a service is clicked */}
+      {expandedService && (
+        <motion.div
+          className="mt-8 p-4 md:p-6 bg-white rounded-xl shadow-lg border border-gray-100"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+            <motion.div 
+              className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center ${expandedService.color}`}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 2, ease: "easeInOut" }}
+            >
+              {React.createElement(expandedService.icon, { className: "h-6 w-6 sm:h-7 sm:w-7 text-white" })}
+            </motion.div>
+            <div>
+              <h2 className="text-xl sm:text-2xl font-bold mt-2 sm:mt-0">{expandedService.title}</h2>
+              <p className="text-gray-600 text-sm sm:text-base">{expandedService.description}</p>
+            </div>
+          </div>
+          
+          <h3 className="text-lg font-semibold mb-3 mt-4">Our Services</h3>
+          <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
+            {expandedService.services.map((service, index) => (
               <motion.div 
-                className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center ${expandedService.color}`}
-                initial={{ rotate: 0 }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 2, ease: "easeInOut" }}
+                key={index}
+                className="bg-gray-50 p-3 sm:p-4 rounded-lg hover:shadow-md transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
               >
-                {React.createElement(expandedService.icon, { className: "h-6 w-6 sm:h-7 sm:w-7 text-white" })}
+                <h4 className="font-semibold text-sm sm:text-base flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 sm:h-4 sm:w-4 mr-2 text-brand-primary" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  {service.title}
+                </h4>
+                <p className="mt-1 sm:mt-2 text-gray-600 text-xs sm:text-sm pl-5 sm:pl-6">{service.description}</p>
               </motion.div>
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold mt-2 sm:mt-0">{expandedService.title}</h2>
-                <p className="text-gray-600 text-sm sm:text-base">{expandedService.description}</p>
-              </div>
-            </div>
-            
-            <h3 className="text-lg font-semibold mb-3 mt-4">Our Services</h3>
-            <div className="grid sm:grid-cols-2 gap-3 md:gap-4">
-              {expandedService.services.map((service, index) => (
-                <motion.div 
-                  key={index}
-                  className="bg-gray-50 p-3 sm:p-4 rounded-lg hover:shadow-md transition-all"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ 
-                    duration: 0.3, 
-                    delay: index * 0.08,
-                    type: "spring",
-                    stiffness: 100,
-                    damping: 12
-                  }}
-                  whileHover={{ 
-                    x: 5, 
-                    backgroundColor: "rgba(240, 245, 255, 0.9)",
-                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
-                    transition: { duration: 0.2 } 
-                  }}
-                >
-                  <h4 className="font-semibold text-sm sm:text-base flex items-center">
-                    <motion.svg 
-                      xmlns="http://www.w3.org/2000/svg" 
-                      className="h-3 w-3 sm:h-4 sm:w-4 mr-2 text-brand-primary" 
-                      viewBox="0 0 20 20" 
-                      fill="currentColor"
-                      initial={{ scale: 0.8, opacity: 0.8 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.2, delay: index * 0.08 + 0.2 }}
-                    >
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </motion.svg>
-                    {service.title}
-                  </h4>
-                  <p className="mt-1 sm:mt-2 text-gray-600 text-xs sm:text-sm pl-5 sm:pl-6">{service.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 };
