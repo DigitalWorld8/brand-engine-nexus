@@ -13,8 +13,13 @@ export function useScroll() {
     direction: null,
     lastScrollY: 0
   });
+  const [isReturningVisitor, setIsReturningVisitor] = useState(false);
 
   useEffect(() => {
+    // Check if returning visitor
+    const hasSeenAnimations = localStorage.getItem('hasSeenAnimations') === 'true';
+    setIsReturningVisitor(hasSeenAnimations);
+    
     // For a smoother initial load experience
     const updateScrollPosition = () => {
       setScrollState(prevState => {
@@ -47,6 +52,7 @@ export function useScroll() {
       }
     };
 
+    // Use passive listener for better performance
     window.addEventListener('scroll', handleScroll, { passive: true });
     
     return () => {
@@ -54,5 +60,8 @@ export function useScroll() {
     };
   }, []);
 
-  return scrollState;
+  return {
+    ...scrollState,
+    isReturningVisitor
+  };
 }

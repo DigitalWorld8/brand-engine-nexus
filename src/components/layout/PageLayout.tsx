@@ -27,20 +27,29 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   } = useSideEdgeAnimation();
   const [isReady, setIsReady] = useState(false);
   const isMobile = useIsMobile();
+  const [isReturningVisitor, setIsReturningVisitor] = useState(false);
+
+  // Check if returning visitor
+  useEffect(() => {
+    const hasSeenAnimations = localStorage.getItem('hasSeenAnimations') === 'true';
+    if (hasSeenAnimations) {
+      setIsReturningVisitor(true);
+    }
+  }, []);
 
   // Add a small delay before applying animations to ensure DOM is ready
   // Skip delay on mobile devices
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsReady(true);
-    }, isMobile ? 0 : 0); // Removed delay completely (from 2ms to 0)
+    }, isMobile ? 0 : 0);
     
     return () => clearTimeout(timer);
   }, [isMobile]);
 
   return (
     <div 
-      className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'}`}
+      className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'} ${isReturningVisitor ? 'returning-visitor' : ''}`}
     >
       {/* Left and right purple side edges with dynamic width - hidden on mobile */}
       {!isMobile && (
@@ -64,30 +73,30 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             opacity: opacityFactor,
             marginTop: isMobile ? '60px' : isScrolled ? '64px' : '100px',
             marginBottom: isMobile ? '70px' : '0',
-            transition: 'opacity 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.1s cubic-bezier(0.22, 1, 0.36, 1)' // Reduced from 0.2s/0.15s to 0.1s
+            transition: isReturningVisitor ? 'none' : 'opacity 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.1s cubic-bezier(0.22, 1, 0.36, 1)'
           }} 
           className="move it to top a bit"
         >
-          <div className={`transform-gpu relative no-layout-shift ${isInitialView && !isMobile ? 'blur-effect' : ''}`} style={{
+          <div className={`transform-gpu relative no-layout-shift ${isInitialView && !isMobile && !isReturningVisitor ? 'blur-effect' : ''}`} style={{
           transform: isReady || isMobile ? `scale(${isMobile ? 1 : scaleFactor})` : 'scale(1)',
           transformOrigin: 'center top',
           marginBottom: isInitialView && !isMobile ? '0' : '0',
-          marginTop: isMobile ? '0' : isInitialView ? '16vh' : '6vh',
-          transition: 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.12s cubic-bezier(0.22, 1, 0.36, 1)' // Reduced from 0.2s to 0.12s
+          marginTop: isMobile ? '0' : isInitialView && !isReturningVisitor ? '16vh' : '6vh',
+          transition: isReturningVisitor ? 'none' : 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.12s cubic-bezier(0.22, 1, 0.36, 1)'
         }}>
             {/* Add overlay div that controls the blur opacity based on scroll with smoother transitions */}
-            {isInitialView && !isMobile && <div className="absolute inset-0 z-10 pointer-events-none" style={{
+            {isInitialView && !isMobile && !isReturningVisitor && <div className="absolute inset-0 z-10 pointer-events-none" style={{
             backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
             backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
-            transition: 'backdrop-filter 0.12s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.12s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.2s to 0.12s
+            transition: 'backdrop-filter 0.12s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.12s cubic-bezier(0.22, 1, 0.36, 1)',
             willChange: 'backdrop-filter, background-color'
           }} />}
             
             {children}
           </div>
           
-          {/* Show scroll indicator only on desktop */}
-          {!isMobile && <ScrollIndicator />}
+          {/* Show scroll indicator only on desktop and for first-time visitors */}
+          {!isMobile && !isReturningVisitor && <ScrollIndicator />}
         </div>
       </div>
     </div>

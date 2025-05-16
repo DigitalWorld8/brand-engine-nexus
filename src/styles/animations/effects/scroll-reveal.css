@@ -3,11 +3,20 @@
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.1s ease-out; /* Reduced from 0.25s to 0.1s */
+  transition: all 0.1s ease-out;
   will-change: opacity, transform;
 }
 
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Apply instant reveal for returning visitors */
+.returning-visitor .reveal {
+  transition: none;
+}
+
+.returning-visitor .reveal.active {
+  transition: none;
 }
