@@ -10,7 +10,7 @@ export function useSideEdgeAnimation() {
   // Enhanced smooth scroll handler for Apple-like animations
   const smoothScrollHandler = useCallback((callback: () => void) => {
     let waiting = false;
-    const throttleMs = 5; // Ultra-low value for smoother animations
+    const throttleMs = 3; // Ultra-low value for smoother animations (reduced from 5ms)
     
     return () => {
       if (!waiting) {
@@ -57,7 +57,7 @@ export function useSideEdgeAnimation() {
         
         animationTimeoutRef.current = window.setTimeout(() => {
           setIsAnimating(false);
-        }, 800); // Increased for smoother transitions (Apple-like)
+        }, 400); // Reduced from 800ms to 400ms for faster transitions
       }
     });
     

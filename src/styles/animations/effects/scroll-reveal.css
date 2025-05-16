@@ -3,7 +3,7 @@
 .reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.4s ease-out; /* Reduced from 0.6s to 0.4s */
+  transition: all 0.25s ease-out; /* Reduced from 0.4s to 0.25s */
   will-change: opacity, transform;
 }
 

@@ -31,7 +31,7 @@ export function usePageMount() {
       animationTimeoutRef.current = window.setTimeout(() => {
         setAnimationComplete(true);
         document.body.classList.add('animations-complete');
-      }, 400); // Decreased from 800ms to 400ms for faster animations
+      }, 200); // Decreased from 400ms to 200ms for faster animations
     });
     
     return () => {
