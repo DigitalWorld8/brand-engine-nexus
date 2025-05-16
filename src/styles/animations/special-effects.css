@@ -1,0 +1,32 @@
+
+/* Special visual effects */
+
+/* Subtle background color shift */
+.bg-shift {
+  animation: bg-shift 3s infinite;
+}
+
+/* Micro dots animation */
+.micro-dots {
+  animation: micro-dots 1.5s infinite;
+}
+
+/* Icon pulse animation */
+.icon-pulse {
+  animation: icon-pulse 2s infinite;
+}
+
+/* Smooth background shine */
+.background-shine {
+  animation: background-shine 3s linear infinite;
+}
+
+/* Soft rock for hover states */
+.soft-rock:hover {
+  animation: soft-rock 1s infinite;
+}
+
+/* Quick pop animation */
+.quick-pop {
+  animation: quick-pop 0.5s;
+}
