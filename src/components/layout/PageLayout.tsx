@@ -11,6 +11,7 @@ type PageLayoutProps = {
   isInitialView: boolean;
   scaleFactor: number;
   opacityFactor: number;
+  scrollLocked?: boolean;
 };
 
 const PageLayout: React.FC<PageLayoutProps> = ({
@@ -18,7 +19,8 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   isScrolled,
   isInitialView,
   scaleFactor,
-  opacityFactor
+  opacityFactor,
+  scrollLocked = false
 }) => {
   const {
     sideEdgeState,
@@ -37,7 +39,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   }, [isMobile]);
 
   return (
-    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'}`}>
+    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'} ${scrollLocked ? '' : 'animations-complete'}`}>
       {/* Left and right purple side edges with dynamic width - hidden on mobile */}
       {!isMobile && (
         <>
@@ -80,8 +82,8 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             {children}
           </div>
           
-          {/* Show scroll indicator only on desktop */}
-          {!isMobile && <ScrollIndicator />}
+          {/* Show scroll indicator only on desktop and when scrolling is allowed */}
+          {!isMobile && !scrollLocked && <ScrollIndicator />}
         </div>
       </div>
     </div>

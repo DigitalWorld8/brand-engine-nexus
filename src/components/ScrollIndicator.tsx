@@ -37,6 +37,11 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   }, []);
   
   const handleClick = () => {
+    // Check if scroll is locked by inspecting body class
+    if (document.body.classList.contains('scroll-locked')) {
+      return; // Don't allow scrolling if locked
+    }
+    
     if (isScrolling) return; // Prevent multiple clicks during animation
     
     setIsScrolling(true);

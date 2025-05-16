@@ -19,7 +19,8 @@ const Index = () => {
     mounted,
     showBanner,
     handleBannerClick,
-    opacityFactor
+    opacityFactor,
+    scrollLocked
   } = usePageMount();
 
   // Scale factor that increases as user scrolls (85% to 100%)
@@ -38,6 +39,7 @@ const Index = () => {
         isInitialView={isInitialView}
         scaleFactor={scaleFactor}
         opacityFactor={opacityFactor}
+        scrollLocked={scrollLocked}
       >
         <PageContent isInitialView={isInitialView} />
       </PageLayout>

@@ -16,8 +16,11 @@ const Banner: React.FC<BannerProps> = ({ onBannerClick, visible }) => {
   
   // Enhanced banner interaction - respond to scroll attempts
   useEffect(() => {
-    // Only hide banner when user has scrolled past threshold
-    if (hasScrolled && visible && initialScrollBuffer > 50) {
+    // Check if body has scroll-locked class
+    const isScrollLocked = document.body.classList.contains('scroll-locked');
+    
+    // Only hide banner when user has scrolled past threshold AND scrolling is allowed
+    if (hasScrolled && visible && initialScrollBuffer > 50 && !isScrollLocked) {
       onBannerClick();
     }
   }, [hasScrolled, visible, onBannerClick, initialScrollBuffer]);
