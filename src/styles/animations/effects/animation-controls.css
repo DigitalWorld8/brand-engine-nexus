@@ -14,7 +14,7 @@
   animation: none !important;
 }
 
-/* Scroll lock to prevent scrolling during animations */
+/* Enhanced scroll lock with improved enforcement */
 .scroll-locked {
   overflow: hidden !important;
   overscroll-behavior: none !important;
@@ -22,14 +22,22 @@
   width: 100% !important;
   height: 100% !important;
   touch-action: none !important;
+  /* Add these to prevent any kind of scrolling */
+  pointer-events: none !important;
+}
+
+/* Selectively enable pointer events for interactive elements within locked scroll */
+.scroll-locked .pointer-events-enabled {
+  pointer-events: auto !important;
 }
 
 /* Add a class to indicate that initial animations are complete */
 .animations-complete {
-  overflow: auto;
-  overscroll-behavior: auto;
-  position: static;
-  width: auto;
-  height: auto;
-  touch-action: auto;
+  overflow: auto !important;
+  overscroll-behavior: auto !important;
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  touch-action: auto !important;
+  pointer-events: auto !important;
 }

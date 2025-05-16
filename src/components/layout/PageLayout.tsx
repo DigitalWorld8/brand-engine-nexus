@@ -39,22 +39,34 @@ const PageLayout: React.FC<PageLayoutProps> = ({
     return () => clearTimeout(timer);
   }, [isMobile]);
   
-  // Apply scroll lock class directly for immediate effect
+  // Apply scroll lock class directly to both body and wrapper for immediate effect
   useEffect(() => {
     if (scrollLocked && !isMobile) {
       document.body.classList.add('scroll-locked');
+      // Force scroll position to top
+      window.scrollTo(0, 0);
     } else {
       document.body.classList.remove('scroll-locked');
     }
+    
+    // Log scroll lock state for debugging
+    console.log('Scroll locked state:', scrollLocked);
+    
+    return () => {
+      // Cleanup
+      document.body.classList.remove('scroll-locked');
+    };
   }, [scrollLocked, isMobile]);
 
   return (
-    <div className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'} ${scrollLocked ? '' : 'animations-complete'}`}>
+    <div 
+      className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'} ${scrollLocked ? 'scroll-locked' : 'animations-complete'}`}
+    >
       {/* Left and right purple side edges with dynamic width - hidden on mobile */}
       {!isMobile && (
         <>
-          <div className={`${getSideEdgeClasses()} side-edge-left`}></div>
-          <div className={`${getSideEdgeClasses()} side-edge-right`}></div>
+          <div className={`${getSideEdgeClasses()} side-edge-left pointer-events-enabled`}></div>
+          <div className={`${getSideEdgeClasses()} side-edge-right pointer-events-enabled`}></div>
         </>
       )}
       
@@ -62,9 +74,11 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       {!isMobile && <div className={`top-curved-border ${isScrolled ? 'opacity-0' : 'opacity-100'}`}></div>}
       
       {/* The navbar is now outside the content-container since it's fixed positioned */}
-      <Navbar />
+      <div className="pointer-events-enabled">
+        <Navbar />
+      </div>
       
-      <div className={`content-container ${isScrolled || isMobile ? 'w-full rounded-none' : ''} z-10 relative`}>
+      <div className={`content-container ${isScrolled || isMobile ? 'w-full rounded-none' : ''} z-10 relative ${scrollLocked ? 'pointer-events-enabled' : ''}`}>
         <div 
           style={{
             opacity: opacityFactor,
