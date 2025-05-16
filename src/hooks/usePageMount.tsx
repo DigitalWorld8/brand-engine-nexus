@@ -17,17 +17,15 @@ export function usePageMount() {
     // Add class to body when mounted to control blur effects
     document.body.classList.add('page-loaded');
     
-    // Add scroll lock class to body
-    if (!isMobile) {
-      document.body.classList.add('scroll-locked');
-    }
-    
     // Skip animations on mobile
     if (isMobile) {
       setAnimationComplete(true);
       setScrollLocked(false);
       return;
     }
+    
+    // Add scroll lock class to body - make sure this is applied properly
+    document.body.classList.add('scroll-locked');
     
     // Use requestAnimationFrame for smoother initial load
     requestAnimationFrame(() => {
@@ -39,13 +37,15 @@ export function usePageMount() {
         setTimeout(() => {
           setScrollLocked(false);
           document.body.classList.remove('scroll-locked');
-        }, 200);
-      }, 300); // Reduced from 600ms to 300ms
+          document.body.classList.add('animations-complete');
+        }, 400); // Increased to 400ms to ensure animations are fully complete
+      }, 500); // Increased from 300ms to 500ms
     });
     
     return () => {
       document.body.classList.remove('page-loaded');
       document.body.classList.remove('scroll-locked');
+      document.body.classList.remove('animations-complete');
       if (animationTimeoutRef.current) {
         clearTimeout(animationTimeoutRef.current);
       }
@@ -60,7 +60,7 @@ export function usePageMount() {
       // Scroll to the hero section with optimized animation
       const scrollOptions = { 
         top: window.innerHeight * 0.05,
-        behavior: 'auto' as ScrollBehavior // Changed from 'smooth' to 'auto' for faster response
+        behavior: 'auto' as ScrollBehavior
       };
       
       // Use requestAnimationFrame for smoother scroll initiation

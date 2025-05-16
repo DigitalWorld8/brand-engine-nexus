@@ -17,14 +17,19 @@
 /* Scroll lock to prevent scrolling during animations */
 .scroll-locked {
   overflow: hidden !important;
-  overscroll-behavior: none;
-  height: 100vh;
-  width: 100vw;
-  position: fixed;
+  overscroll-behavior: none !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
+  touch-action: none !important;
 }
 
 /* Add a class to indicate that initial animations are complete */
 .animations-complete {
   overflow: auto;
   overscroll-behavior: auto;
+  position: static;
+  width: auto;
+  height: auto;
+  touch-action: auto;
 }
