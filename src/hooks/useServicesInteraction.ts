@@ -6,6 +6,8 @@ export const useServicesInteraction = () => {
   const [activeService, setActiveService] = useState<ServiceCategory | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isInView, setIsInView] = useState(false);
+  const [lastInteractedService, setLastInteractedService] = useState<string | null>(null);
+  const [interactionCount, setInteractionCount] = useState(0);
 
   // Track when section comes into view
   useEffect(() => {
@@ -27,8 +29,16 @@ export const useServicesInteraction = () => {
   }, []);
 
   const handleServiceClick = (service: ServiceCategory) => {
+    // Track if this is the same service being clicked again
+    const isRepeatedClick = service.title === activeService?.title;
+    
+    // Update interaction metrics
+    setLastInteractedService(service.title);
+    setInteractionCount(prev => prev + 1);
+    
+    // Set animation states
     setIsAnimating(true);
-    setActiveService(service);
+    setActiveService(isRepeatedClick ? null : service);
     
     // Scroll to services section when a service is selected
     const servicesSection = document.getElementById('services');
@@ -46,6 +56,8 @@ export const useServicesInteraction = () => {
     activeService,
     isAnimating,
     isInView,
+    lastInteractedService,
+    interactionCount,
     handleServiceClick,
   };
 };

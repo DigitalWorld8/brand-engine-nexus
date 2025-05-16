@@ -128,3 +128,123 @@
     background-position: -200% 0;
   }
 }
+
+/* NEW MICROINTERACTION ANIMATIONS */
+
+/* Micro-expand animation for small highlight effects */
+@keyframes micro-expand {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Directional hint animation */
+@keyframes hint-right {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes hint-left {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-3px);
+  }
+}
+
+/* Subtle attention getter */
+@keyframes subtle-attention {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+/* Text reveal animation */
+@keyframes text-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Circular progress animation */
+@keyframes circular-progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+  100% {
+    stroke-dasharray: var(--progress) 100;
+  }
+}
+
+/* Soft rock for hover states */
+@keyframes soft-rock {
+  0%, 100% {
+    transform: rotate(-1deg);
+  }
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+/* Quick pop animation */
+@keyframes quick-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Focus ring pulse */
+@keyframes focus-ring-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(89, 106, 233, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(89, 106, 233, 0.2);
+  }
+}
+
+/* Subtle background color shift */
+@keyframes bg-shift {
+  0%, 100% {
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+  50% {
+    background-color: rgba(89, 106, 233, 0.08);
+  }
+}
+
+/* Micro dots animation */
+@keyframes micro-dots {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}

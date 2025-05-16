@@ -11,7 +11,7 @@ import { serviceCategories } from '@/data/serviceCategories';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const Services = () => {
-  const { activeService, isAnimating, isInView, handleServiceClick } = useServicesInteraction();
+  const { activeService, isAnimating, isInView, interactionCount, handleServiceClick } = useServicesInteraction();
   const isMobile = useIsMobile();
 
   // Animation variants
@@ -38,10 +38,11 @@ const Services = () => {
       {/* Decorative Elements - hide some on mobile */}
       {!isMobile && <ServicesDecorative isInView={isInView} />}
       
-      {/* Background Elements */}
+      {/* Background Elements with microinteractions */}
       <ServicesBackgroundElements 
         activeService={Boolean(activeService)} 
-        isAnimating={isAnimating} 
+        isAnimating={isAnimating}
+        interactionCount={interactionCount}
       />
       
       <motion.div 
@@ -61,7 +62,7 @@ const Services = () => {
           <ServicesHeader />
         </motion.div>
 
-        {/* Service Categories with enhanced inline display */}
+        {/* Service Categories with enhanced microinteractions */}
         <ServicesList 
           serviceCategories={serviceCategories} 
           onServiceClick={handleServiceClick}
@@ -76,7 +77,7 @@ const Services = () => {
           transition={{ duration: 0.7, delay: 0.4 }}
           className="relative"
         >
-          {/* Decorative elements - simplified on mobile */}
+          {/* Decorative elements with microinteractions - simplified on mobile */}
           {!isMobile ? (
             <>
               <motion.div 
@@ -105,6 +106,16 @@ const Services = () => {
                   delay: 1
                 }}
               />
+              
+              {/* New microinteraction element that responds to service selection */}
+              {activeService && (
+                <motion.div
+                  className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-brand-primary/5 blur-xl"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: [0, 2, 0], opacity: [0, 0.5, 0] }}
+                  transition={{ duration: 1.5 }}
+                />
+              )}
             </>
           ) : (
             <motion.div 

@@ -30,19 +30,42 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
   const Icon = category.icon;
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [hasClicked, setHasClicked] = useState(false);
+  const [isPulsing, setIsPulsing] = useState(false);
   
   // Reset animation state when isActive changes
   useEffect(() => {
     if (isActive) {
       setShouldAnimate(true);
+      setIsPulsing(true);
+      
+      // Reset pulsing after a short delay
+      const timer = setTimeout(() => {
+        setIsPulsing(false);
+      }, 2000);
+      
+      return () => clearTimeout(timer);
     } else {
       setShouldAnimate(false);
+      setIsPulsing(false);
     }
   }, [isActive]);
   
+  const handleClick = () => {
+    setHasClicked(true);
+    setIsPulsing(true);
+    
+    // Reset pulsing after animation completes
+    setTimeout(() => {
+      setIsPulsing(false);
+    }, 2000);
+    
+    onClick();
+  };
+  
   return (
     <Card 
-      onClick={onClick}
+      onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={cn(
@@ -50,15 +73,26 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
         isMobile 
           ? "border-l-4 border-l-transparent hover:border-l-brand-primary rounded-xl"
           : "border-t-4 border-t-transparent hover:border-t-brand-primary hover:-translate-y-1 rounded-2xl shadow-md hover:shadow-lg",
-        isActive && "border-t-brand-primary shadow-lg -translate-y-1 bg-white"
+        isActive && "border-t-brand-primary shadow-lg -translate-y-1 bg-white",
+        isPulsing && "pulse-active"
       )}
     >
       <CardHeader className="relative pb-3">
         <motion.div 
-          className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 ${category.color}`}
+          className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300 ${category.color} relative`}
           animate={isHovered ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
           transition={{ duration: 0.3 }}
         >
+          {/* Micro-ripple effect on hover */}
+          {isHovered && (
+            <motion.div
+              className="absolute inset-0 rounded-2xl bg-white opacity-30"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1.2, opacity: 0 }}
+              transition={{ duration: 1, repeat: Infinity }}
+            />
+          )}
+          
           <AnimatePresence mode="wait">
             <motion.div
               key={`icon-${isActive}-${shouldAnimate}-${isHovered}`}
@@ -67,7 +101,7 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
                 transition: { duration: 1.5, repeat: 0 }
               } : isHovered ? {
                 y: [0, -5, 0],
-                transition: { duration: 0.5, repeat: 0 }
+                transition: { duration: 0.5, repeat: Infinity, repeatType: "reverse" }
               } : {}}
               onAnimationComplete={() => {
                 if (shouldAnimate) {
@@ -79,14 +113,20 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
             </motion.div>
           </AnimatePresence>
         </motion.div>
-        <CardTitle className="text-xl md:text-2xl relative z-10 group-hover:text-brand-primary transition-colors">
-          {category.title}
-        </CardTitle>
-        <CardDescription className="mt-2 text-gray-600 relative z-10 text-base">
-          {category.description}
-        </CardDescription>
         
-        {/* Animated background shape */}
+        <motion.div
+          animate={isHovered ? { x: 3 } : { x: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          <CardTitle className="text-xl md:text-2xl relative z-10 group-hover:text-brand-primary transition-colors">
+            {category.title}
+          </CardTitle>
+          <CardDescription className="mt-2 text-gray-600 relative z-10 text-base">
+            {category.description}
+          </CardDescription>
+        </motion.div>
+        
+        {/* Animated background shape with reactive behavior */}
         <motion.div 
           className={cn(
             "absolute -bottom-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-tr from-transparent to-brand-light-gray/50",
@@ -101,6 +141,16 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
           } : {}}
           transition={{ duration: 0.5 }}
         />
+        
+        {/* Subtle highlight on active service */}
+        {isActive && (
+          <motion.div
+            className="absolute inset-0 bg-brand-primary/5 rounded-xl pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.5, 0] }}
+            transition={{ duration: 2, repeat: 1 }}
+          />
+        )}
       </CardHeader>
       
       <CardContent className="pb-4">
@@ -110,7 +160,13 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
             animate={isHovered ? { x: 3 } : { x: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <span className="mr-2">Explore services</span>
+            <motion.span 
+              className="mr-2"
+              animate={isHovered ? { x: 2 } : { x: 0 }}
+              transition={{ duration: 0.2, delay: 0.1 }}
+            >
+              Explore services
+            </motion.span>
             <motion.div 
               className={cn(
                 "w-6 h-6 rounded-full flex items-center justify-center transform", 
@@ -126,10 +182,22 @@ const ServiceCard = ({ category, onClick, isMobile = false, isActive = false }: 
             </motion.div>
           </motion.div>
           <motion.div
-            animate={isHovered ? { scale: 1.1 } : { scale: 1 }}
+            animate={isHovered ? { 
+              scale: 1.1,
+              y: isHovered ? -2 : 0
+            } : { 
+              scale: 1,
+              y: 0
+            }}
             transition={{ duration: 0.2 }}
           >
-            <Badge variant="outline" className="text-xs bg-white">
+            <Badge 
+              variant="outline" 
+              className={cn(
+                "text-xs bg-white transition-colors",
+                isActive && "bg-brand-primary/5"
+              )}
+            >
               {category.services.length} solutions
             </Badge>
           </motion.div>
