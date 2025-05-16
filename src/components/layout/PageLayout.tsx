@@ -33,7 +33,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsReady(true);
-    }, isMobile ? 0 : 2); // Reduced from 5ms to 2ms
+    }, isMobile ? 0 : 0); // Removed delay completely (from 2ms to 0)
     
     return () => clearTimeout(timer);
   }, [isMobile]);
@@ -64,7 +64,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             opacity: opacityFactor,
             marginTop: isMobile ? '60px' : isScrolled ? '64px' : '100px',
             marginBottom: isMobile ? '70px' : '0',
-            transition: 'opacity 0.2s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.15s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.15s cubic-bezier(0.22, 1, 0.36, 1)' // Reduced from 0.3s/0.2s to 0.2s/0.15s
+            transition: 'opacity 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.1s cubic-bezier(0.22, 1, 0.36, 1)' // Reduced from 0.2s/0.15s to 0.1s
           }} 
           className="move it to top a bit"
         >
@@ -73,13 +73,13 @@ const PageLayout: React.FC<PageLayoutProps> = ({
           transformOrigin: 'center top',
           marginBottom: isInitialView && !isMobile ? '0' : '0',
           marginTop: isMobile ? '0' : isInitialView ? '16vh' : '6vh',
-          transition: 'transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.2s cubic-bezier(0.22, 1, 0.36, 1)' // Reduced from 0.3s to 0.2s
+          transition: 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.12s cubic-bezier(0.22, 1, 0.36, 1)' // Reduced from 0.2s to 0.12s
         }}>
             {/* Add overlay div that controls the blur opacity based on scroll with smoother transitions */}
             {isInitialView && !isMobile && <div className="absolute inset-0 z-10 pointer-events-none" style={{
             backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
             backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
-            transition: 'backdrop-filter 0.2s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.3s to 0.2s
+            transition: 'backdrop-filter 0.12s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.12s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.2s to 0.12s
             willChange: 'backdrop-filter, background-color'
           }} />}
             

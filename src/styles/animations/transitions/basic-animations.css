@@ -1,22 +1,22 @@
 
 /* Basic animation classes */
 .animate-float {
-  animation: float 3s ease-in-out infinite; /* Reduced from 4s to 3s */
+  animation: float 2.5s ease-in-out infinite; /* Reduced from 3s to 2.5s */
 }
   
 .animate-subtle-bounce {
-  animation: subtle-bounce 0.7s ease-in-out infinite; /* Reduced from 1s to 0.7s */
+  animation: subtle-bounce 0.5s ease-in-out infinite; /* Reduced from 0.7s to 0.5s */
 }
   
 .animate-pulse-down {
-  animation: pulse-down 0.7s ease-in-out infinite; /* Reduced from 1s to 0.7s */
+  animation: pulse-down 0.5s ease-in-out infinite; /* Reduced from 0.7s to 0.5s */
 }
   
 .animate-slide-up {
-  animation: slide-up 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards; /* Reduced from 0.2s to 0.15s */
+  animation: slide-up 0.1s cubic-bezier(0.16, 1, 0.3, 1) forwards; /* Reduced from 0.15s to 0.1s */
 }
   
 .animate-gradient-bg {
   background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite; /* Reduced from 4s to 3s */
+  animation: gradient-shift 2.5s ease infinite; /* Reduced from 3s to 2.5s */
 }

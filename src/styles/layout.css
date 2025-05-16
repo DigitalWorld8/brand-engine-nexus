@@ -10,7 +10,7 @@
   .content-container {
     @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.5s to 0.3s */
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.3s to 0.2s */
     will-change: width, border-radius;
     transform: translateZ(0);
   }
@@ -18,14 +18,14 @@
   .top-curved-border {
     @apply w-full h-16 absolute top-0 left-0;
     background-color: #1b1464; /* This is the brand-primary color */
-    transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.5s to 0.3s */
+    transition: opacity 0.15s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.3s to 0.15s */
     will-change: opacity;
   }
   
   /* Side edges - purple sidebars with scroll-dependent width */
   .side-edge {
     @apply fixed top-0 h-full bg-brand-primary z-0;
-    transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.5s to 0.3s */
+    transition: width 0.15s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.3s to 0.15s */
     will-change: width, transform;
     transform: translateZ(0);
   }
@@ -65,7 +65,7 @@
     bottom: 0;
     background: linear-gradient(180deg, rgba(27,20,100,0) 0%, rgba(9,164,213,0.15) 50%, rgba(27,20,100,0) 100%);
     transform: translateY(-100%) translateZ(0);
-    animation: side-edge-flow 4s cubic-bezier(0.22, 1, 0.36, 1) infinite; /* Reduced from 6s to 4s */
+    animation: side-edge-flow 3s cubic-bezier(0.22, 1, 0.36, 1) infinite; /* Reduced from 4s to 3s */
     will-change: transform;
     backface-visibility: hidden;
   }
@@ -83,17 +83,17 @@
 
 /* Extended duration classes with Apple-like smoothness */
 .duration-800 {
-  transition-duration: 800ms;
+  transition-duration: 400ms; /* Reduced from 800ms to 400ms */
   will-change: auto;
 }
 
 .duration-900 {
-  transition-duration: 900ms;
+  transition-duration: 450ms; /* Reduced from 900ms to 450ms */
   will-change: auto;
 }
 
 .duration-1000 {
-  transition-duration: 1000ms;
+  transition-duration: 500ms; /* Reduced from 1000ms to 500ms */
   will-change: auto;
 }
 
@@ -118,7 +118,7 @@
 }
 
 .page-reveal {
-  animation: page-reveal 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards; /* Reduced from 0.5s to 0.3s */
+  animation: page-reveal 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards; /* Reduced from 0.3s to 0.15s */
   will-change: transform, opacity;
   backface-visibility: hidden;
 }
