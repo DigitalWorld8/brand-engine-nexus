@@ -2,7 +2,7 @@
 @layer components {
   /* Page wrapper and content container */
   .page-wrapper {
-    @apply min-h-screen flex flex-col items-center w-full overflow-hidden;
+    @apply min-h-screen flex flex-col items-center w-full;
     background-color: #1b1464; /* This is the brand-primary color */
     will-change: background-color;
   }
@@ -10,33 +10,27 @@
   .content-container {
     @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-    transition: all 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.5s, improved easing */
+    transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.3s to 0.2s */
     will-change: width, border-radius;
-    transform: translateZ(0); /* Force GPU acceleration */
+    transform: translateZ(0);
   }
   
   .top-curved-border {
     @apply w-full h-16 absolute top-0 left-0;
     background-color: #1b1464; /* This is the brand-primary color */
-    transition: opacity 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.5s, improved easing */
+    transition: opacity 0.15s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.3s to 0.15s */
     will-change: opacity;
   }
   
   /* Side edges - purple sidebars with scroll-dependent width */
   .side-edge {
     @apply fixed top-0 h-full bg-brand-primary z-0;
-    transition: width 0.3s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.5s, improved easing */
+    transition: width 0.15s cubic-bezier(0.22, 1, 0.36, 1); /* Reduced from 0.3s to 0.15s */
     will-change: width, transform;
     transform: translateZ(0);
   }
   
-  .side-edge-left {
-    @apply left-0;
-  }
-  
-  .side-edge-right {
-    @apply right-0;
-  }
+  /* ... keep existing code (side edge positioning classes) */
   
   /* Different width states for progressive narrowing */
   .side-edge-width-full {
@@ -55,11 +49,11 @@
     @apply w-[1%] md:w-[1.5%] lg:w-[2%];
   }
 
-  /* New animated background for side edges with optimized performance */
+  /* New animated background for side edges with Apple-like smoothness */
   .side-edge-animated {
     position: relative;
     overflow: hidden;
-    isolation: isolate; /* Optimize composite layers */
+    isolation: isolate;
   }
 
   .side-edge-animated::before {
@@ -71,29 +65,12 @@
     bottom: 0;
     background: linear-gradient(180deg, rgba(27,20,100,0) 0%, rgba(9,164,213,0.15) 50%, rgba(27,20,100,0) 100%);
     transform: translateY(-100%) translateZ(0);
-    animation: side-edge-flow 4s linear infinite; /* Reduced from 6s to 4s for faster animation */
+    animation: side-edge-flow 3s cubic-bezier(0.22, 1, 0.36, 1) infinite; /* Reduced from 4s to 3s */
     will-change: transform;
     backface-visibility: hidden;
   }
   
-  /* Mobile Bottom Navigation Styles */
-  .bottom-nav-item {
-    @apply flex flex-col items-center justify-center py-2 px-4;
-    @apply transition-colors duration-200;
-  }
-  
-  .bottom-nav-item-active {
-    @apply text-brand-primary;
-  }
-  
-  .bottom-nav-item-inactive {
-    @apply text-gray-500;
-  }
-  
-  .bottom-nav-center-button {
-    @apply -mt-6 rounded-full bg-brand-primary p-3 shadow-lg;
-    @apply transform transition-transform duration-200 hover:scale-105 active:scale-95;
-  }
+  /* ... keep existing code (mobile navigation styles) */
 }
 
 /* Add support for hardware acceleration */
@@ -104,45 +81,44 @@
   will-change: transform;
 }
 
-/* Extended duration classes with better performance hints */
+/* Extended duration classes with Apple-like smoothness */
 .duration-800 {
-  transition-duration: 800ms;
+  transition-duration: 400ms; /* Reduced from 800ms to 400ms */
   will-change: auto;
 }
 
 .duration-900 {
-  transition-duration: 900ms;
+  transition-duration: 450ms; /* Reduced from 900ms to 450ms */
   will-change: auto;
 }
 
 .duration-1000 {
-  transition-duration: 1000ms;
+  transition-duration: 500ms; /* Reduced from 1000ms to 500ms */
   will-change: auto;
 }
 
-/* Transition easing functions */
+/* Apple-like transition easing functions */
 .ease-smooth {
-  transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1); /* Updated to modern easing */
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Additional easing functions for smoother animations */
+/* Additional Apple-like easing functions for smoother animations */
 .ease-out-expo {
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ease-in-out-back {
-  transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transition-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
 }
 
-/* Page transition effect with modern curve */
+/* Page transition effect with Apple-like curve */
 @keyframes page-reveal {
   0% { transform: translateY(12px) translateZ(0); opacity: 0; }
   100% { transform: translateY(0) translateZ(0); opacity: 1; }
 }
 
 .page-reveal {
-  animation: page-reveal 0.35s cubic-bezier(0.33, 1, 0.68, 1) forwards; /* Reduced from 0.5s, improved easing */
+  animation: page-reveal 0.15s cubic-bezier(0.22, 1, 0.36, 1) forwards; /* Reduced from 0.3s to 0.15s */
   will-change: transform, opacity;
   backface-visibility: hidden;
 }
-

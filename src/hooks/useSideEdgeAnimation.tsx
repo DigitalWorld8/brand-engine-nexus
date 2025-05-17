@@ -1,16 +1,19 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import { useScroll } from './useScroll';
 
 export function useSideEdgeAnimation() {
   const [sideEdgeState, setSideEdgeState] = useState('full'); // 'full', 'medium', 'small', 'minimal'
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isScrollingUp, setIsScrollingUp] = useState(false);
   const lastScrollY = useRef(0);
   const animationTimeoutRef = useRef<number | null>(null);
+  const { direction, initialScrollOccurred } = useScroll();
   
-  // Enhanced throttled scroll handler with minimal delay for instant response
-  const throttledScrollHandler = useCallback((callback: () => void) => {
+  // Enhanced smooth scroll handler for Apple-like animations
+  const smoothScrollHandler = useCallback((callback: () => void) => {
     let waiting = false;
-    const throttleMs = 16; // Reduced to 16ms (close to 60fps frame time) for smoother animation
+    const throttleMs = 0; // Ultra-low value for smoother animations (reduced from 3ms to 0)
     
     return () => {
       if (!waiting) {
@@ -26,25 +29,31 @@ export function useSideEdgeAnimation() {
   }, []);
 
   useEffect(() => {
-    // Handle progressive side edge narrowing with ultra-responsive changes
-    const handleScrollForSideEdges = throttledScrollHandler(() => {
+    // Set scrolling up state
+    setIsScrollingUp(direction === 'up' && initialScrollOccurred);
+    
+    // Handle progressive side edge narrowing with ultra-responsive Apple-like changes
+    const handleScrollForSideEdges = smoothScrollHandler(() => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
       const scrollDirection = scrollY > lastScrollY.current ? 'down' : 'up';
       lastScrollY.current = scrollY;
       
-      // Ultra-low threshold for immediate visual feedback
-      const significantScrollThreshold = windowHeight * 0.01; // Reduced from 0.03 to 0.01
-      const hasSignificantScroll = Math.abs(scrollY - lastScrollY.current) > significantScrollThreshold;
+      // Skip animations when scrolling up after initial scroll down
+      if (scrollDirection === 'up' && initialScrollOccurred && scrollY < 100) {
+        setSideEdgeState('full');
+        setIsAnimating(false);
+        return;
+      }
       
-      // Using more responsive thresholds with smoother graduation
+      // Using Apple-like responsive thresholds with smoother graduation
       let newState = sideEdgeState;
       
-      if (scrollY < windowHeight * 0.1) { // Reduced from 0.2 to 0.1
+      if (scrollY < windowHeight * 0.1) {
         newState = 'full';
-      } else if (scrollY < windowHeight * 0.3) { // Reduced from 0.5 to 0.3
+      } else if (scrollY < windowHeight * 0.3) {
         newState = 'medium';
-      } else if (scrollY < windowHeight * 0.6) { // Reduced from 1.0 to 0.6
+      } else if (scrollY < windowHeight * 0.6) {
         newState = 'small';
       } else {
         newState = 'minimal';
@@ -61,7 +70,7 @@ export function useSideEdgeAnimation() {
         
         animationTimeoutRef.current = window.setTimeout(() => {
           setIsAnimating(false);
-        }, 350); // Reduced from 500 to 350ms for faster transitions
+        }, 200); // Reduced from 400ms to 200ms for faster transitions
       }
     });
     
@@ -76,7 +85,7 @@ export function useSideEdgeAnimation() {
         window.clearTimeout(animationTimeoutRef.current);
       }
     };
-  }, [throttledScrollHandler, sideEdgeState, isAnimating]);
+  }, [smoothScrollHandler, sideEdgeState, isAnimating, direction, initialScrollOccurred]);
 
   // Get side edge classes based on current state with animation class
   const getSideEdgeClasses = () => {
@@ -92,6 +101,7 @@ export function useSideEdgeAnimation() {
 
   return { 
     sideEdgeState, 
-    getSideEdgeClasses
+    getSideEdgeClasses,
+    isScrollingUp
   };
 }

@@ -1,0 +1,23 @@
+
+/* Interactive scroll reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.1s ease-out; /* Reduced from 0.25s to 0.1s */
+  will-change: opacity, transform;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Disable transition when scrolling up after initial scroll */
+.scrolling-up .reveal {
+  transition: none !important;
+}
+
+.scrolling-up .reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}

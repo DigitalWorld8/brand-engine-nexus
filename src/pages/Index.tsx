@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import { usePageMount } from '@/hooks/usePageMount';
 import PageLayout from '@/components/layout/PageLayout';
@@ -12,15 +12,27 @@ const Index = () => {
     scrollProgress,
     isScrolled,
     hasScrolled,
-    initialScrollBuffer
+    initialScrollBuffer,
+    isScrollingUp,
+    initialScrollOccurred
   } = useNavbarScroll();
   
   const {
     mounted,
     showBanner,
     handleBannerClick,
-    opacityFactor
+    opacityFactor,
+    animationComplete
   } = usePageMount();
+
+  // Add class to body when scrolling up to disable animations
+  useEffect(() => {
+    if (isScrollingUp) {
+      document.body.classList.add('scrolling-up');
+    } else {
+      document.body.classList.remove('scrolling-up');
+    }
+  }, [isScrollingUp]);
 
   // Scale factor that increases as user scrolls (85% to 100%)
   // Create a more noticeable visual response to initial scroll attempts

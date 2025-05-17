@@ -1,0 +1,43 @@
+
+/* Flow and directional animations */
+
+/* Modern pulse-down animation with digital effect - much faster */
+@keyframes pulse-down {
+  0% {
+    transform: translateY(-100%) translateZ(0);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%) translateZ(0);
+    opacity: 0.8;
+  }
+}
+
+/* Optimized shine effect animation */
+@keyframes shine {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Side edge flow animation - much faster and smoother */
+@keyframes side-edge-flow {
+  0% { transform: translateY(-100%) translateZ(0); }
+  100% { transform: translateY(100%) translateZ(0); }
+}
+
+/* Smooth background shine */
+@keyframes background-shine {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
