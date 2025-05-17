@@ -5,7 +5,7 @@ import { usePageMount } from '@/hooks/usePageMount';
 import PageLayout from '@/components/layout/PageLayout';
 import PageContent from '@/components/layout/PageContent';
 import Banner from '@/components/Banner';
-import ParallaxElement from '@/components/effects/ParallaxElement';
+import ParallaxElement from '@/components/effects/ParallaxEffect';
 
 const Index = () => {
   const {
