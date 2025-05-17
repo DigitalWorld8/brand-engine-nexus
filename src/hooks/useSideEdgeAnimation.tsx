@@ -10,19 +10,16 @@ export function useSideEdgeAnimation() {
   const animationTimeoutRef = useRef<number | null>(null);
   const { direction, initialScrollOccurred } = useScroll();
   
-  // Enhanced smooth scroll handler for Apple-like animations
+  // Ultra-smooth scroll handler
   const smoothScrollHandler = useCallback((callback: () => void) => {
     let waiting = false;
-    const throttleMs = 0; // Ultra-low value for smoother animations (reduced from 3ms to 0)
-    
+    // No throttle for maximum smoothness
     return () => {
       if (!waiting) {
         waiting = true;
         window.requestAnimationFrame(() => {
           callback();
-          setTimeout(() => {
-            waiting = false;
-          }, throttleMs);
+          waiting = false;
         });
       }
     };
@@ -32,7 +29,7 @@ export function useSideEdgeAnimation() {
     // Set scrolling up state
     setIsScrollingUp(direction === 'up' && initialScrollOccurred);
     
-    // Handle progressive side edge narrowing with ultra-responsive Apple-like changes
+    // Handle progressive side edge narrowing with ultra-responsive changes
     const handleScrollForSideEdges = smoothScrollHandler(() => {
       const scrollY = window.scrollY;
       const windowHeight = window.innerHeight;
@@ -46,14 +43,14 @@ export function useSideEdgeAnimation() {
         return;
       }
       
-      // Using Apple-like responsive thresholds with smoother graduation
+      // Using more sensitive, responsive thresholds
       let newState = sideEdgeState;
       
-      if (scrollY < windowHeight * 0.1) {
+      if (scrollY < windowHeight * 0.05) {
         newState = 'full';
-      } else if (scrollY < windowHeight * 0.3) {
+      } else if (scrollY < windowHeight * 0.2) {
         newState = 'medium';
-      } else if (scrollY < windowHeight * 0.6) {
+      } else if (scrollY < windowHeight * 0.4) {
         newState = 'small';
       } else {
         newState = 'minimal';
@@ -63,14 +60,14 @@ export function useSideEdgeAnimation() {
         setIsAnimating(true);
         setSideEdgeState(newState);
         
-        // Allow next animation after current one completes with minimal lag
+        // Much shorter animation completion time
         if (animationTimeoutRef.current) {
           window.clearTimeout(animationTimeoutRef.current);
         }
         
         animationTimeoutRef.current = window.setTimeout(() => {
           setIsAnimating(false);
-        }, 200); // Reduced from 400ms to 200ms for faster transitions
+        }, 100); // Ultra-fast transition completion
       }
     });
     
