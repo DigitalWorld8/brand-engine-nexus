@@ -10,7 +10,7 @@ export function usePageMount() {
   const animationTimeoutRef = useRef<number | null>(null);
   
   useEffect(() => {
-    // First set mounted to true
+    // First set mounted to true immediately
     setMounted(true);
     
     // Add class to body when mounted to control blur effects
@@ -25,13 +25,10 @@ export function usePageMount() {
     // Make sure scroll is at top on load for best animation experience
     window.scrollTo(0, 0);
         
-    // Use requestAnimationFrame for smoother initial load
+    // No delay for smoother initial load
     requestAnimationFrame(() => {
-      // Short delay for smooth animation
-      animationTimeoutRef.current = window.setTimeout(() => {
-        setAnimationComplete(true);
-        document.body.classList.add('animations-complete');
-      }, 100); // Decreased from 200ms to 100ms for faster animations
+      setAnimationComplete(true);
+      document.body.classList.add('animations-complete');
     });
     
     return () => {

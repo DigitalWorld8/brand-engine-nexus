@@ -2,12 +2,12 @@
 /* Staggered fade in animations */
 .staggered-fade-in > * {
   @apply opacity-0;
-  animation: fade-in 0.1s ease-out forwards; /* Reduced from 0.15s to 0.1s */
+  animation: fade-in 0.08s ease-out forwards;
 }
   
-.staggered-fade-in > *:nth-child(1) { animation-delay: 0.01s; } /* Reduced from 0.02s to 0.01s */
-.staggered-fade-in > *:nth-child(2) { animation-delay: 0.02s; } /* Reduced from 0.04s to 0.02s */
-.staggered-fade-in > *:nth-child(3) { animation-delay: 0.03s; } /* Reduced from 0.06s to 0.03s */
-.staggered-fade-in > *:nth-child(4) { animation-delay: 0.04s; } /* Reduced from 0.08s to 0.04s */
-.staggered-fade-in > *:nth-child(5) { animation-delay: 0.05s; } /* Reduced from 0.1s to 0.05s */
-.staggered-fade-in > *:nth-child(6) { animation-delay: 0.06s; } /* Reduced from 0.12s to 0.06s */
+.staggered-fade-in > *:nth-child(1) { animation-delay: 0.01s; }
+.staggered-fade-in > *:nth-child(2) { animation-delay: 0.015s; }
+.staggered-fade-in > *:nth-child(3) { animation-delay: 0.02s; }
+.staggered-fade-in > *:nth-child(4) { animation-delay: 0.025s; }
+.staggered-fade-in > *:nth-child(5) { animation-delay: 0.03s; }
+.staggered-fade-in > *:nth-child(6) { animation-delay: 0.035s; }

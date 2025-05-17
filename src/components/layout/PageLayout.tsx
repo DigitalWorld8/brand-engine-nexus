@@ -32,11 +32,10 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   // Add a small delay before applying animations to ensure DOM is ready
   // Skip delay on mobile devices
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsReady(true);
-    }, isMobile ? 0 : 0); // Removed delay completely (from 2ms to 0)
+    // Set ready immediately to prevent any delay in animations
+    setIsReady(true);
     
-    return () => clearTimeout(timer);
+    return () => {};
   }, [isMobile]);
 
   // Determine if we should skip animations for reverse scrolling
@@ -68,7 +67,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             opacity: opacityFactor,
             marginTop: isMobile ? '60px' : isScrolled ? '64px' : '100px',
             marginBottom: isMobile ? '70px' : '0',
-            transition: skipAnimations ? 'none' : 'opacity 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.1s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.1s cubic-bezier(0.22, 1, 0.36, 1)'
+            transition: skipAnimations ? 'none' : 'opacity 0.08s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.08s cubic-bezier(0.22, 1, 0.36, 1), margin-bottom 0.08s cubic-bezier(0.22, 1, 0.36, 1)'
           }} 
           className="move it to top a bit"
         >
@@ -77,13 +76,13 @@ const PageLayout: React.FC<PageLayoutProps> = ({
             transformOrigin: 'center top',
             marginBottom: isInitialView && !isMobile ? '0' : '0',
             marginTop: isMobile ? '0' : isInitialView ? '16vh' : '6vh',
-            transition: skipAnimations ? 'none' : 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.12s cubic-bezier(0.22, 1, 0.36, 1)'
+            transition: skipAnimations ? 'none' : 'transform 0.08s cubic-bezier(0.22, 1, 0.36, 1), margin-top 0.08s cubic-bezier(0.22, 1, 0.36, 1)'
           }}>
             {/* Add overlay div that controls the blur opacity based on scroll with smoother transitions */}
             {isInitialView && !isMobile && <div className="absolute inset-0 z-10 pointer-events-none" style={{
               backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
               backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
-              transition: skipAnimations ? 'none' : 'backdrop-filter 0.12s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.12s cubic-bezier(0.22, 1, 0.36, 1)',
+              transition: skipAnimations ? 'none' : 'backdrop-filter 0.08s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.08s cubic-bezier(0.22, 1, 0.36, 1)',
               willChange: 'backdrop-filter, background-color'
             }} />}
             
