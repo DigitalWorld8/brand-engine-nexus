@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar';
 import ScrollIndicator from '@/components/ScrollIndicator';
 import { useSideEdgeAnimation } from '@/hooks/useSideEdgeAnimation';
 import { useIsMobile } from '@/hooks/use-mobile';
+import BackToTop from '@/components/BackToTop';
+import ParticleBackground from '@/components/effects/ParticleBackground';
 
 type PageLayoutProps = {
   children: React.ReactNode;
@@ -45,6 +47,9 @@ const PageLayout: React.FC<PageLayoutProps> = ({
     <div 
       className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'}`}
     >
+      {/* Particle background effect */}
+      <ParticleBackground />
+      
       {/* Left and right purple side edges with dynamic width - hidden on mobile */}
       {!isMobile && (
         <>
@@ -93,6 +98,9 @@ const PageLayout: React.FC<PageLayoutProps> = ({
           {!isMobile && <ScrollIndicator />}
         </div>
       </div>
+      
+      {/* Back to top button */}
+      <BackToTop />
     </div>
   );
 };

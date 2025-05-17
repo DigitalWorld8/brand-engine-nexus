@@ -1,0 +1,56 @@
+
+/* Particle animation keyframes */
+
+@keyframes float-particle {
+  0%, 100% {
+    transform: translateY(0) translateX(0) translateZ(0);
+  }
+  33% {
+    transform: translateY(-10px) translateX(5px) translateZ(0);
+  }
+  66% {
+    transform: translateY(5px) translateX(-5px) translateZ(0);
+  }
+}
+
+@keyframes pulse-particle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2) translateZ(0);
+  }
+}
+
+@keyframes rotate-particle {
+  0% {
+    transform: rotate(0deg) translateZ(0);
+  }
+  100% {
+    transform: rotate(360deg) translateZ(0);
+  }
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+.particle-floating {
+  animation: float-particle 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.particle-pulsing {
+  animation: pulse-particle 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.particle-rotating {
+  animation: rotate-particle 12s linear infinite;
+}

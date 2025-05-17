@@ -5,11 +5,11 @@
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px) translateZ(0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateZ(0);
   }
 }
 
@@ -29,10 +29,10 @@
     transform: translateY(0) translateZ(0);
   }
   40% {
-    transform: translateY(8px) translateZ(0);
+    transform: translateY(-8px) translateZ(0);
   }
   60% {
-    transform: translateY(4px) translateZ(0);
+    transform: translateY(-4px) translateZ(0);
   }
 }
 
@@ -40,10 +40,66 @@
 @keyframes slide-up {
   from {
     opacity: 0;
-    transform: translateY(16px) translateZ(0);
+    transform: translateY(20px) translateZ(0);
   }
   to {
     opacity: 1;
     transform: translateY(0) translateZ(0);
+  }
+}
+
+/* New pulse down animation */
+@keyframes pulse-down {
+  0%, 100% {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(8px) translateZ(0);
+    opacity: 0.8;
+  }
+}
+
+/* New keyframes for enhanced visual motion */
+@keyframes ripple {
+  0% {
+    transform: scale(0) translateZ(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20) translateZ(0);
+    opacity: 0;
+  }
+}
+
+@keyframes micro-bounce {
+  0%, 100% {
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    transform: scale(0.95) translateZ(0);
+  }
+}
+
+/* Slide in animation for elements coming from the side */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px) translateZ(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
   }
 }

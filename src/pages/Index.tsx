@@ -5,6 +5,7 @@ import { usePageMount } from '@/hooks/usePageMount';
 import PageLayout from '@/components/layout/PageLayout';
 import PageContent from '@/components/layout/PageContent';
 import Banner from '@/components/Banner';
+import ParallaxElement from '@/components/effects/ParallaxElement';
 
 const Index = () => {
   const {
@@ -51,6 +52,7 @@ const Index = () => {
         scaleFactor={scaleFactor}
         opacityFactor={opacityFactor}
       >
+        {/* Wrap PageContent with a parallax provider */}
         <PageContent isInitialView={isInitialView} />
       </PageLayout>
     </>
