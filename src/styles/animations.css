@@ -5,11 +5,11 @@
 @import './animations/effects.css';
 @import './animations/interactions.css';
 
-/* Modern initial view styling with ultra-smooth transitions */
+/* Add new initial view styling with Apple-like ultra-smooth transitions */
 .initial-view-content {
-  opacity: 0;
+  opacity: 0.95;
   filter: blur(0px);
-  animation: initial-view-fade-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: initial-view-fade-in 0.2s cubic-bezier(0.33, 1, 0.68, 1) forwards; /* Reduced from 0.4s to 0.2s */
   position: relative;
   will-change: opacity, filter, transform;
   transform: translateZ(0);
@@ -19,132 +19,101 @@
 
 @keyframes initial-view-fade-in {
   0% {
-    opacity: 0;
+    opacity: 0.6;
     filter: blur(2px);
-    transform: translateY(10px) translateZ(0) scale(0.98);
+    transform: translateY(5px) translateZ(0);
   }
   100% {
     opacity: 1;
     filter: blur(0);
-    transform: translateY(0) translateZ(0) scale(1);
+    transform: translateY(0) translateZ(0);
   }
 }
 
-/* Improved CTA button animations with subtle spring effect */
+/* Better handling for CTA buttons with Apple-like transitions */
 .cta-semi-active {
-  opacity: 0.95;
+  opacity: 0.9;
   transform: scale(1) translateZ(0);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.15s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.2s to 0.15s */
   pointer-events: auto;
   will-change: opacity, transform;
 }
 
 .cta-semi-active:hover {
   opacity: 1;
-  transform: scale(1.03) translateZ(0);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: scale(1.02) translateZ(0);
 }
 
-/* Enhanced floating logo animation with subtle rotation */
+/* Apple-like floating logo animation */
 @keyframes logo-float {
   0%, 100% {
-    transform: translateY(0) rotate(0deg) translateZ(0);
+    transform: translateY(0) translateZ(0);
   }
   50% {
-    transform: translateY(-8px) rotate(1deg) translateZ(0);
+    transform: translateY(-5px) translateZ(0);
   }
 }
 
 .logo-float {
-  animation: logo-float 3s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation: logo-float 1.5s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Reduced from 2s to 1.5s */
   will-change: transform;
   backface-visibility: hidden;
 }
 
-/* Modern glowing effect with gradient */
+/* Glowing effect with Apple-like smooth transitions */
 .logo-glow {
-  box-shadow: 0 0 20px rgba(27, 20, 100, 0.4), 0 0 60px rgba(27, 20, 100, 0.1);
-  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 15px rgba(27, 20, 100, 0.5);
+  transition: box-shadow 0.15s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.2s to 0.15s */
 }
 
 .logo-glow:hover {
-  box-shadow: 0 0 30px rgba(27, 20, 100, 0.6), 0 0 80px rgba(27, 20, 100, 0.2);
+  box-shadow: 0 0 25px rgba(27, 20, 100, 0.7);
 }
 
-/* Advanced pulse opacity animation */
+/* Apple-like scroll down indicator animation */
 @keyframes pulse-opacity {
   0%, 100% {
     opacity: 0.8;
-    transform: scale(0.97) translateZ(0);
+    transform: scale(0.98) translateZ(0);
   }
   50% {
     opacity: 1;
-    transform: scale(1.02) translateZ(0);
+    transform: scale(1) translateZ(0);
   }
 }
 
 .pulse-opacity {
-  animation: pulse-opacity 2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  animation: pulse-opacity 1s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Reduced from 1.5s to 1s */
   will-change: opacity, transform;
   backface-visibility: hidden;
 }
 
-/* Enhanced scrolling dot animation */
+/* Scrolling dot animation with Apple-like smoothness */
 @keyframes scroll-down-dot {
   0% {
     top: 15%;
-    opacity: 0.7;
-    transform: scale(0.8);
+    opacity: 0.8;
   }
   50% {
     top: 40%;
     opacity: 1;
-    transform: scale(1);
   }
   100% {
     top: 15%;
-    opacity: 0.7;
-    transform: scale(0.8);
+    opacity: 0.8;
   }
 }
 
 .scrolling-dot {
-  animation: scroll-down-dot 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) infinite;
-  will-change: transform, opacity, top;
+  animation: scroll-down-dot 1s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Reduced from 1.5s to 1s */
+  will-change: transform, opacity;
   backface-visibility: hidden;
 }
 
-/* Enhanced layout shift prevention */
+/* Prevent layout shifts during animations */
 .no-layout-shift {
   transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
   perspective: 1000;
-}
-
-/* New modern loading animation */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.loading-shimmer {
-  background: linear-gradient(90deg, 
-    rgba(255, 255, 255, 0.05) 0%, 
-    rgba(255, 255, 255, 0.2) 50%, 
-    rgba(255, 255, 255, 0.05) 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  will-change: background-position;
-}
-
-/* Spring transition effect for interactive elements */
-.spring-transition {
-  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  will-change: transform, opacity;
 }
