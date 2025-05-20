@@ -62,7 +62,6 @@ const Index = () => {
         scaleFactor={scaleFactor}
         opacityFactor={opacityFactor}
       >
-        {/* Wrap PageContent with a parallax provider */}
         <PageContent isInitialView={isInitialView} />
       </PageLayout>
     </>

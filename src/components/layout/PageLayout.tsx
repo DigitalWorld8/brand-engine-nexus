@@ -31,25 +31,29 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   const [isReady, setIsReady] = useState(false);
   const isMobile = useIsMobile();
   const contentRef = useRef<HTMLDivElement>(null);
+  const prevScrollDirectionRef = useRef(isScrollingUp);
 
   // Add a small delay before applying animations to ensure DOM is ready
-  // Skip delay on mobile devices
   useEffect(() => {
     // Set ready immediately to prevent any delay in animations
     setIsReady(true);
-    
-    return () => {};
-  }, [isMobile]);
+  }, []);
 
   // Determine if we should skip animations for reverse scrolling
   const skipAnimations = !isInitialView && isScrollingUp;
+  const transitionDuration = skipAnimations ? '0ms' : '80ms';
+  
+  // Track direction changes to prevent janky transitions
+  useEffect(() => {
+    prevScrollDirectionRef.current = isScrollingUp;
+  }, [isScrollingUp]);
 
   // Apply hardware acceleration and optimized blur transition styles
   const blurOverlayStyle = isInitialView && !isMobile ? {
     backgroundColor: `rgba(255, 255, 255, ${0.1 + (scaleFactor - 0.85) * 3})`,
     backdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
     WebkitBackdropFilter: `blur(${4 - (scaleFactor - 0.85) * 25}px)`,
-    transition: skipAnimations ? 'none' : 'all 0.08s cubic-bezier(0.22, 1, 0.36, 1)',
+    transition: skipAnimations ? 'none' : `all ${transitionDuration} cubic-bezier(0.22, 1, 0.36, 1)`,
     willChange: 'backdrop-filter, background-color',
     transform: 'translate3d(0,0,0)'
   } : {};
@@ -59,7 +63,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
     opacity: opacityFactor,
     marginTop: isMobile ? '60px' : isScrolled ? '64px' : '100px',
     marginBottom: isMobile ? '70px' : '0',
-    transition: skipAnimations ? 'none' : 'all 0.08s cubic-bezier(0.22, 1, 0.36, 1)',
+    transition: skipAnimations ? 'none' : `all ${transitionDuration} cubic-bezier(0.22, 1, 0.36, 1)`,
     willChange: skipAnimations ? 'auto' : 'opacity, margin-top, margin-bottom',
     transform: 'translate3d(0,0,0)'
   };
@@ -69,7 +73,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
     transformOrigin: 'center top',
     marginBottom: isInitialView && !isMobile ? '0' : '0',
     marginTop: isMobile ? '0' : isInitialView ? '16vh' : '6vh',
-    transition: skipAnimations ? 'none' : 'all 0.08s cubic-bezier(0.22, 1, 0.36, 1)',
+    transition: skipAnimations ? 'none' : `all ${transitionDuration} cubic-bezier(0.22, 1, 0.36, 1)`,
     willChange: skipAnimations ? 'auto' : 'transform, margin-top'
   };
 
@@ -78,7 +82,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
       className={`page-wrapper ${isScrolled ? 'bg-transparent' : 'bg-brand-primary'} ${isReady ? 'ready' : 'pre-animation'}`}
     >
       {/* Particle background effect with reduced particle count for better performance */}
-      <ParticleBackground particleCount={10} />
+      <ParticleBackground particleCount={8} />
       
       {/* Left and right purple side edges with dynamic width - hidden on mobile */}
       {!isMobile && (
@@ -100,14 +104,14 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         <div 
           ref={contentRef}
           style={contentTransformStyle} 
-          className="move it to top a bit"
+          className="transform-gpu"
         >
           <div className={`transform-gpu relative no-layout-shift ${isInitialView && !isMobile ? 'blur-effect' : ''}`} 
                style={innerContentStyle}>
             {/* Add overlay div that controls the blur opacity based on scroll with smoother transitions */}
             {isInitialView && !isMobile && 
               <div 
-                className="absolute inset-0 z-10 pointer-events-none" 
+                className="absolute inset-0 z-10 pointer-events-none transform-gpu" 
                 style={blurOverlayStyle} 
               />
             }

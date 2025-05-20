@@ -16,15 +16,15 @@ const BackToTop: React.FC = () => {
     const checkScroll = () => {
       const scrollY = window.scrollY;
       
-      // Only process if scroll position actually changed
-      if (scrollY !== lastScrollY.current) {
+      // Only process if scroll position actually changed significantly
+      if (Math.abs(scrollY - lastScrollY.current) > 5) {
         lastScrollY.current = scrollY;
         
         const threshold = window.innerHeight * 0.5;
-        if (scrollY > threshold && !visible) {
-          setVisible(true);
-        } else if (scrollY <= threshold && visible) {
-          setVisible(false);
+        const shouldBeVisible = scrollY > threshold;
+        
+        if (shouldBeVisible !== visible) {
+          setVisible(shouldBeVisible);
         }
       }
       
@@ -46,32 +46,29 @@ const BackToTop: React.FC = () => {
     if (scrollingRef.current) return;
     scrollingRef.current = true;
     
-    // Use native smooth scrolling for better performance
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    // Use smooth performant scrolling with RAF
+    const startPosition = window.scrollY;
+    const startTime = performance.now();
+    const duration = Math.min(1000, 500 + startPosition / 2); // Dynamic duration based on scroll position
     
-    // Reset scrolling flag after animation completes
-    const resetScrolling = () => {
-      if (window.scrollY <= 10 || Date.now() - startTime > 1500) {
-        scrollingRef.current = false;
-        window.removeEventListener('scroll', resetScrollingOnScroll);
+    // Easing function for natural motion
+    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+    
+    const animateScroll = (timestamp: number) => {
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeOutCubic(progress);
+      
+      window.scrollTo(0, startPosition * (1 - easedProgress));
+      
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll);
       } else {
-        requestAnimationFrame(resetScrolling);
-      }
-    };
-    
-    const startTime = Date.now();
-    const resetScrollingOnScroll = () => {
-      if (window.scrollY <= 10) {
         scrollingRef.current = false;
-        window.removeEventListener('scroll', resetScrollingOnScroll);
       }
     };
     
-    window.addEventListener('scroll', resetScrollingOnScroll, { passive: true });
-    requestAnimationFrame(resetScrolling);
+    requestAnimationFrame(animateScroll);
   };
 
   return (
@@ -80,14 +77,12 @@ const BackToTop: React.FC = () => {
       className={cn(
         'fixed bottom-6 right-6 z-50 p-3 rounded-full shadow-lg',
         'bg-brand-primary text-white',
-        'transform-gpu transition-all duration-300 ease-out-expo',
-        'flex items-center justify-center',
-        'hover:bg-brand-primary/90 hover:shadow-xl hover:scale-105',
-        visible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'
+        'transform-gpu transition-all duration-300 ease-out-expo'
       )}
       style={{
-        willChange: 'transform, opacity',
-        transform: `translate3d(0, ${visible ? 0 : 64}px, 0)`
+        opacity: visible ? 1 : 0,
+        transform: `translate3d(0, ${visible ? 0 : 16}px, 0)`,
+        pointerEvents: visible ? 'auto' : 'none'
       }}
       aria-label="Back to top"
     >

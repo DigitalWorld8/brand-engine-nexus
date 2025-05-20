@@ -23,7 +23,13 @@ export function usePageMount() {
     }
     
     // Make sure scroll is at top on load for best animation experience
-    window.scrollTo(0, 0);
+    if (window.scrollY > 0) {
+      // If page is refreshed while scrolled down, don't jump to top
+      setAnimationComplete(true);
+    } else {
+      // If coming to the page fresh, ensure we're at the top
+      window.scrollTo(0, 0);
+    }
         
     // No delay for smoother initial load
     requestAnimationFrame(() => {
@@ -48,7 +54,7 @@ export function usePageMount() {
       // Scroll to the hero section with optimized animation
       const scrollOptions = { 
         top: window.innerHeight * 0.05,
-        behavior: 'smooth' as ScrollBehavior // Using smooth scroll for Apple-like feeling
+        behavior: 'smooth' as ScrollBehavior
       };
       
       // Use requestAnimationFrame for smoother scroll initiation

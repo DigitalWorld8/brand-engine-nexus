@@ -20,6 +20,7 @@ const ParallaxElement: React.FC<ParallaxElementProps> = ({
   const requestRef = useRef<number>();
   const isMobile = useIsMobile();
   const lastScrollY = useRef(0);
+  const isVisibleRef = useRef(false);
 
   // Skip parallax on mobile for performance
   if (isMobile) {
@@ -27,7 +28,7 @@ const ParallaxElement: React.FC<ParallaxElementProps> = ({
   }
 
   useEffect(() => {
-    // Optimize scroll handler with RAF
+    // Optimize scroll handler with RAF and element visibility check
     const updateParallax = () => {
       if (!elementRef.current) return;
       
@@ -40,8 +41,12 @@ const ParallaxElement: React.FC<ParallaxElementProps> = ({
         const rect = elementRef.current.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         
+        // Check if element is in viewport with buffer
+        const isVisible = rect.top < windowHeight + 200 && rect.bottom > -200;
+        isVisibleRef.current = isVisible;
+        
         // Only update when element is in view with buffer zone
-        if (rect.top < windowHeight + 100 && rect.bottom > -100) {
+        if (isVisible) {
           // Calculate how far through the element we've scrolled (0-1)
           const elementScrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
           
@@ -49,7 +54,7 @@ const ParallaxElement: React.FC<ParallaxElementProps> = ({
           const directionMultiplier = direction === 'up' ? -1 : 1;
           const parallaxOffset = elementScrollProgress * speed * 20 * directionMultiplier;
           
-          // Apply transform directly to the element for better performance
+          // Use transform for better performance
           setOffset(parallaxOffset);
         }
       }
@@ -70,7 +75,7 @@ const ParallaxElement: React.FC<ParallaxElementProps> = ({
   return (
     <div 
       ref={elementRef} 
-      className={className}
+      className={`transform-gpu ${className}`}
       style={{ 
         transform: `translate3d(0, ${offset}px, 0)`,
         willChange: 'transform',

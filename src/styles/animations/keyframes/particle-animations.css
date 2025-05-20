@@ -1,4 +1,3 @@
-
 /* Particle animation keyframes with optimized transforms */
 
 @keyframes float-particle {
@@ -32,6 +31,8 @@
     transform: rotate3d(0, 0, 1, 360deg);
   }
 }
+
+/* Base classes moved to particle-effects.css for better organization */
 
 .particle {
   position: absolute;
