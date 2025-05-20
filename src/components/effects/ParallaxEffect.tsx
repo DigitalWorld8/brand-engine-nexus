@@ -17,67 +17,46 @@ const ParallaxElement: React.FC<ParallaxElementProps> = ({
 }) => {
   const [offset, setOffset] = useState(0);
   const elementRef = useRef<HTMLDivElement>(null);
-  const requestRef = useRef<number>();
   const isMobile = useIsMobile();
-  const lastScrollY = useRef(0);
-  const isVisibleRef = useRef(false);
-
+  
   // Skip parallax on mobile for performance
   if (isMobile) {
     return <div className={className}>{children}</div>;
   }
 
   useEffect(() => {
-    // Optimize scroll handler with RAF and element visibility check
-    const updateParallax = () => {
+    const handleScroll = () => {
       if (!elementRef.current) return;
       
-      const currentScrollY = window.scrollY;
+      const rect = elementRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
       
-      // Only process if scroll position actually changed
-      if (currentScrollY !== lastScrollY.current) {
-        lastScrollY.current = currentScrollY;
+      // Only update when element is in view
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        // Calculate how far through the element we've scrolled (0-1)
+        const elementScrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
         
-        const rect = elementRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
+        // Calculate parallax offset based on direction and speed
+        const directionMultiplier = direction === 'up' ? -1 : 1;
+        const parallaxOffset = elementScrollProgress * speed * 20 * directionMultiplier;
         
-        // Check if element is in viewport with buffer
-        const isVisible = rect.top < windowHeight + 200 && rect.bottom > -200;
-        isVisibleRef.current = isVisible;
-        
-        // Only update when element is in view with buffer zone
-        if (isVisible) {
-          // Calculate how far through the element we've scrolled (0-1)
-          const elementScrollProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
-          
-          // Calculate parallax offset based on direction and speed
-          const directionMultiplier = direction === 'up' ? -1 : 1;
-          const parallaxOffset = elementScrollProgress * speed * 20 * directionMultiplier;
-          
-          // Use transform for better performance
-          setOffset(parallaxOffset);
-        }
-      }
-      
-      requestRef.current = requestAnimationFrame(updateParallax);
-    };
-    
-    // Start the animation loop
-    requestRef.current = requestAnimationFrame(updateParallax);
-    
-    return () => {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
+        setOffset(parallaxOffset);
       }
     };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial calculation
+    
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [speed, direction]);
 
   return (
     <div 
       ref={elementRef} 
-      className={`transform-gpu ${className}`}
+      className={className}
       style={{ 
-        transform: `translate3d(0, ${offset}px, 0)`,
+        transform: `translateY(${offset}px)`,
+        transition: 'transform 0.05s cubic-bezier(0.16, 1, 0.3, 1)',
         willChange: 'transform',
         backfaceVisibility: 'hidden'
       }}
