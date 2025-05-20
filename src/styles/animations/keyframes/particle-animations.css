@@ -1,35 +1,35 @@
 
-/* Particle animation keyframes */
+/* Particle animation keyframes with optimized transforms */
 
 @keyframes float-particle {
   0%, 100% {
-    transform: translateY(0) translateX(0) translateZ(0);
+    transform: translate3d(0, 0, 0);
   }
   33% {
-    transform: translateY(-10px) translateX(5px) translateZ(0);
+    transform: translate3d(5px, -10px, 0);
   }
   66% {
-    transform: translateY(5px) translateX(-5px) translateZ(0);
+    transform: translate3d(-5px, 5px, 0);
   }
 }
 
 @keyframes pulse-particle {
   0%, 100% {
     opacity: 0.3;
-    transform: scale(1) translateZ(0);
+    transform: scale3d(1, 1, 1);
   }
   50% {
     opacity: 0.6;
-    transform: scale(1.2) translateZ(0);
+    transform: scale3d(1.2, 1.2, 1);
   }
 }
 
 @keyframes rotate-particle {
   0% {
-    transform: rotate(0deg) translateZ(0);
+    transform: rotate3d(0, 0, 1, 0deg);
   }
   100% {
-    transform: rotate(360deg) translateZ(0);
+    transform: rotate3d(0, 0, 1, 360deg);
   }
 }
 
@@ -38,17 +38,18 @@
   border-radius: 50%;
   pointer-events: none;
   will-change: transform, opacity;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   perspective: 1000;
+  contain: layout style paint;
 }
 
 .particle-floating {
-  animation: float-particle 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation: float-particle 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
 }
 
 .particle-pulsing {
-  animation: pulse-particle 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  animation: pulse-particle 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
 }
 
 .particle-rotating {

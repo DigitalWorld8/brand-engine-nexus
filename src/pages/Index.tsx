@@ -1,11 +1,11 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useNavbarScroll } from '@/hooks/useNavbarScroll';
 import { usePageMount } from '@/hooks/usePageMount';
 import PageLayout from '@/components/layout/PageLayout';
 import PageContent from '@/components/layout/PageContent';
 import Banner from '@/components/Banner';
-import ParallaxElement from '@/components/effects/ParallaxEffect';
+import ParallaxEffect from '@/components/effects/ParallaxEffect';
 
 const Index = () => {
   const {
@@ -33,13 +33,23 @@ const Index = () => {
     } else {
       document.body.classList.remove('scrolling-up');
     }
+    
+    // Add hardware acceleration class to body
+    document.body.classList.add('hardware-accelerated');
+    
+    return () => {
+      document.body.classList.remove('hardware-accelerated', 'scrolling-up');
+    };
   }, [isScrollingUp]);
 
   // Scale factor that increases as user scrolls (85% to 100%)
   // Create a more noticeable visual response to initial scroll attempts
-  const scaleFactor = isInitialView 
-    ? Math.max(0.85, 0.85 + (initialScrollBuffer / 1000)) 
-    : 1;
+  // Use useMemo to optimize calculation
+  const scaleFactor = useMemo(() => 
+    isInitialView 
+      ? Math.max(0.85, 0.85 + (initialScrollBuffer / 1000)) 
+      : 1
+  , [isInitialView, initialScrollBuffer]);
   
   return (
     <>
