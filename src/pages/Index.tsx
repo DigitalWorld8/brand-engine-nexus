@@ -5,7 +5,7 @@ import { usePageMount } from '@/hooks/usePageMount';
 import PageLayout from '@/components/layout/PageLayout';
 import PageContent from '@/components/layout/PageContent';
 import Banner from '@/components/Banner';
-import ParallaxElement from '@/components/effects/ParallaxEffect';
+import ParallaxEffect from '@/components/effects/ParallaxEffect';
 
 const Index = () => {
   const {
@@ -52,8 +52,10 @@ const Index = () => {
         scaleFactor={scaleFactor}
         opacityFactor={opacityFactor}
       >
-        {/* Wrap PageContent with a parallax provider */}
-        <PageContent isInitialView={isInitialView} />
+        {/* Use ParallaxEffect to add depth to the page content */}
+        <ParallaxEffect speed={0.3} direction="up">
+          <PageContent isInitialView={isInitialView} />
+        </ParallaxEffect>
       </PageLayout>
     </>
   );

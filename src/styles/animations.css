@@ -9,12 +9,13 @@
 .initial-view-content {
   opacity: 0.95;
   filter: blur(0px);
-  animation: initial-view-fade-in 0.2s cubic-bezier(0.33, 1, 0.68, 1) forwards; /* Reduced from 0.35s to 0.2s */
+  animation: initial-view-fade-in 0.18s cubic-bezier(0.33, 1, 0.68, 1) forwards; /* Optimized timing */
   position: relative;
-  will-change: opacity, filter, transform; /* More complete will-change */
-  transform: translateZ(0); /* Force GPU acceleration */
-  backface-visibility: hidden; /* Prevent flickering */
-  perspective: 1000; /* Improved 3D performance */
+  will-change: opacity, filter, transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  contain: layout paint;
 }
 
 @keyframes initial-view-fade-in {
@@ -33,37 +34,40 @@
 /* Better handling for CTA buttons in initial view */
 .cta-semi-active {
   opacity: 0.9;
-  transform: scale(1) translateZ(0);
-  transition: all 0.1s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.15s to 0.1s */
+  transform: scale3d(1, 1, 1);
+  transition: all 0.08s cubic-bezier(0.33, 1, 0.68, 1); /* Optimized timing */
   pointer-events: auto;
   will-change: opacity, transform;
+  contain: layout paint;
 }
 
 .cta-semi-active:hover {
   opacity: 1;
-  transform: scale(1.02) translateZ(0);
+  transform: scale3d(1.02, 1.02, 1);
 }
 
 /* New floating logo animation with reduced jitter */
 @keyframes logo-float {
   0%, 100% {
-    transform: translateY(0) translateZ(0);
+    transform: translate3d(0, 0, 0);
   }
   50% {
-    transform: translateY(-5px) translateZ(0);
+    transform: translate3d(0, -5px, 0);
   }
 }
 
 .logo-float {
-  animation: logo-float 2s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Reduced from 3s to 2s */
+  animation: logo-float 2s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Optimized timing */
   will-change: transform;
-  backface-visibility: hidden; /* Prevent flickering */
+  backface-visibility: hidden;
+  contain: layout paint;
 }
 
 /* Glowing effect for the brand logo container with smoother transition */
 .logo-glow {
   box-shadow: 0 0 15px rgba(27, 20, 100, 0.5);
-  transition: box-shadow 0.15s cubic-bezier(0.33, 1, 0.68, 1); /* Reduced from 0.2s to 0.15s */
+  transition: box-shadow 0.12s cubic-bezier(0.33, 1, 0.68, 1); /* Optimized timing */
+  will-change: box-shadow;
 }
 
 .logo-glow:hover {
@@ -74,18 +78,19 @@
 @keyframes pulse-opacity {
   0%, 100% {
     opacity: 0.8;
-    transform: scale(0.98) translateZ(0);
+    transform: scale3d(0.98, 0.98, 1);
   }
   50% {
     opacity: 1;
-    transform: scale(1) translateZ(0);
+    transform: scale3d(1, 1, 1);
   }
 }
 
 .pulse-opacity {
-  animation: pulse-opacity 0.8s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Reduced from 1.2s to 0.8s */
+  animation: pulse-opacity 0.7s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Optimized timing */
   will-change: opacity, transform;
   backface-visibility: hidden;
+  contain: layout paint;
 }
 
 /* Scrolling dot animation - updated to move more at the top */
@@ -105,9 +110,10 @@
 }
 
 .scrolling-dot {
-  animation: scroll-down-dot 1s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Reduced from 1.5s to 1s */
+  animation: scroll-down-dot 0.9s cubic-bezier(0.45, 0, 0.55, 1) infinite; /* Optimized timing */
   will-change: transform, opacity;
   backface-visibility: hidden;
+  contain: layout paint;
 }
 
 /* Prevent layout shifts during animations */
@@ -116,4 +122,20 @@
   backface-visibility: hidden;
   -webkit-font-smoothing: subpixel-antialiased;
   perspective: 1000;
+  contain: layout paint style;
+}
+
+/* Add hardware acceleration for scrolled content */
+.hardware-accelerate {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: layout paint;
+}
+
+/* Avoid paint during scroll transitions */
+.avoid-paint {
+  will-change: transform;
+  transform: translateZ(0);
+  contain: layout paint;
 }
