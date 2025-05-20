@@ -40,17 +40,28 @@
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
-  perspective: 1000;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 }
 
 .particle-floating {
   animation: float-particle 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  will-change: transform;
 }
 
 .particle-pulsing {
   animation: pulse-particle 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  will-change: transform, opacity;
 }
 
 .particle-rotating {
   animation: rotate-particle 12s linear infinite;
+  will-change: transform;
+}
+
+/* Composite only properties to reduce paint operations */
+.particle-optimized {
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+  animation-timeline: scroll();
 }

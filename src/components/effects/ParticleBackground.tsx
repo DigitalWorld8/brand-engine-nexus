@@ -7,6 +7,17 @@ interface ParticleBackgroundProps {
   particleCount?: number;
 }
 
+interface ParticleType {
+  x: number;
+  y: number;
+  size: number;
+  speedX: number;
+  speedY: number;
+  opacity: number;
+  update: () => void;
+  draw: () => void;
+}
+
 const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
   particleColor = 'rgba(27, 20, 100, 0.2)',
   particleCount = 15
@@ -27,20 +38,34 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
     if (!ctx) return;
 
     let animationFrameId: number;
-    let particles: Particle[] = [];
+    let particles: ParticleType[] = [];
+    let lastTime = 0;
 
     // Set canvas dimensions to match window
     const setCanvasSize = () => {
+      if (!canvas) return;
+      
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
 
     // Initialize canvas size
     setCanvasSize();
-    window.addEventListener('resize', setCanvasSize);
+    
+    // Optimize resize handler with debounce
+    let resizeTimeout: number | null = null;
+    const handleResize = () => {
+      if (resizeTimeout) {
+        window.clearTimeout(resizeTimeout);
+      }
+      resizeTimeout = window.setTimeout(() => {
+        setCanvasSize();
+      }, 200);
+    };
+    window.addEventListener('resize', handleResize);
 
     // Particle class
-    class Particle {
+    class Particle implements ParticleType {
       x: number;
       y: number;
       size: number;
@@ -52,8 +77,8 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
         this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 0.3 - 0.15;
-        this.speedY = Math.random() * 0.3 - 0.15;
+        this.speedX = Math.random() * 0.2 - 0.1; // Reduced speed for smoother motion
+        this.speedY = Math.random() * 0.2 - 0.1; // Reduced speed for smoother motion
         this.opacity = Math.random() * 0.5 + 0.1;
       }
 
@@ -83,25 +108,33 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       particles.push(new Particle());
     }
 
-    // Animation loop
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Animation loop with frame timing
+    const animate = (timestamp: number) => {
+      // Calculate time delta between frames to maintain consistent speed
+      const deltaTime = timestamp - lastTime;
+      lastTime = timestamp;
       
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
+      // Only clear and redraw at ~60fps (16.7ms per frame) to avoid overloading the GPU
+      if (deltaTime < 33) { // ~30fps minimum to maintain smoothness
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(particle => {
+          particle.update();
+          particle.draw();
+        });
+      }
       
       animationFrameId = requestAnimationFrame(animate);
     };
 
     // Start animation
-    animate();
+    animationFrameId = requestAnimationFrame(animate);
 
     // Cleanup
     return () => {
       cancelAnimationFrame(animationFrameId);
-      window.removeEventListener('resize', setCanvasSize);
+      window.removeEventListener('resize', handleResize);
+      if (resizeTimeout) window.clearTimeout(resizeTimeout);
     };
   }, [particleColor, particleCount]);
 

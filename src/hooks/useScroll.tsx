@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 interface ScrollState {
   scrollY: number;
@@ -15,51 +15,62 @@ export function useScroll() {
     lastScrollY: 0,
     initialScrollOccurred: false
   });
+  
+  const ticking = useRef(false);
+  const lastScrollY = useRef(typeof window !== 'undefined' ? window.scrollY : 0);
+  const initialScrollOccurredRef = useRef(false);
+  const directionRef = useRef<'up' | 'down' | null>(null);
 
   useEffect(() => {
     // For a smoother initial load experience
     const updateScrollPosition = () => {
-      setScrollState(prevState => {
+      if (ticking.current) return;
+      
+      ticking.current = true;
+      
+      requestAnimationFrame(() => {
         const currentScrollY = window.scrollY;
-        const direction = currentScrollY > prevState.lastScrollY ? 'down' : 
-                        currentScrollY < prevState.lastScrollY ? 'up' : 
-                        prevState.direction;
+        const direction = currentScrollY > lastScrollY.current ? 'down' : 
+                        currentScrollY < lastScrollY.current ? 'up' : 
+                        directionRef.current;
         
         // Mark that initial scroll has occurred if scrolling down
-        const initialScrollOccurred = prevState.initialScrollOccurred || 
-                                    (direction === 'down' && currentScrollY > 50);
+        if (!initialScrollOccurredRef.current && direction === 'down' && currentScrollY > 50) {
+          initialScrollOccurredRef.current = true;
+        }
         
-        return {
-          scrollY: currentScrollY,
-          direction,
-          lastScrollY: currentScrollY,
-          initialScrollOccurred
-        };
+        // Only update state if something has changed
+        if (
+          currentScrollY !== scrollState.scrollY || 
+          direction !== directionRef.current ||
+          initialScrollOccurredRef.current !== scrollState.initialScrollOccurred
+        ) {
+          setScrollState({
+            scrollY: currentScrollY,
+            direction,
+            lastScrollY: currentScrollY,
+            initialScrollOccurred: initialScrollOccurredRef.current
+          });
+          
+          // Update refs
+          directionRef.current = direction;
+        }
+        
+        lastScrollY.current = currentScrollY;
+        ticking.current = false;
       });
     };
     
     // Initial check
     updateScrollPosition();
     
-    // Optimized scroll listener with request animation frame
-    let ticking = false;
-    
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateScrollPosition();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Create passive event listener
+    window.addEventListener('scroll', updateScrollPosition, { passive: true });
     
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', updateScrollPosition);
     };
-  }, []);
+  }, [scrollState.scrollY, scrollState.initialScrollOccurred]);
 
   return scrollState;
 }
