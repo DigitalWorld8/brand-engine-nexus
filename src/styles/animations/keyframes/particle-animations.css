@@ -33,6 +33,30 @@
   }
 }
 
+/* Mobile optimized versions with shorter distance */
+@keyframes float-particle-mobile {
+  0%, 100% {
+    transform: translateY(0) translateX(0) translateZ(0);
+  }
+  33% {
+    transform: translateY(-6px) translateX(3px) translateZ(0);
+  }
+  66% {
+    transform: translateY(3px) translateX(-3px) translateZ(0);
+  }
+}
+
+@keyframes pulse-particle-mobile {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1) translateZ(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.1) translateZ(0);
+  }
+}
+
 .particle {
   position: absolute;
   border-radius: 50%;
@@ -53,6 +77,23 @@
 
 .particle-rotating {
   animation: rotate-particle 12s linear infinite;
+}
+
+/* Use mobile-optimized animations on touch devices */
+@media (max-width: 768px) {
+  .particle-floating {
+    animation-name: float-particle-mobile;
+    animation-duration: 3.5s;
+  }
+  
+  .particle-pulsing {
+    animation-name: pulse-particle-mobile;
+    animation-duration: 2.5s;
+  }
+  
+  .particle-rotating {
+    animation-duration: 10s;
+  }
 }
 
 /* Particle base styles moved to effects/particles.css */

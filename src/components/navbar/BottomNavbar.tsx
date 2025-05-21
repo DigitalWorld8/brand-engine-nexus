@@ -22,11 +22,15 @@ const BottomNavItem = ({ icon, label, isActive = false, onClick }: BottomNavItem
     onClick={onClick}
     className={cn(
       "flex flex-col items-center justify-center py-2",
-      "transition-colors",
+      "transition-all duration-200 ease-out-expo",
+      "active:scale-90 touch-ripple-effect",
       isActive ? "text-brand-primary" : "text-gray-500"
     )}
   >
-    <div className="mb-1">
+    <div className={cn(
+      "mb-1 transition-transform duration-300",
+      isActive ? "scale-110" : "scale-100"
+    )}>
       {icon}
     </div>
     <span className="text-xs font-medium">{label}</span>
@@ -39,7 +43,7 @@ const ServiceItem = ({ icon: Icon, color, title, description }: {
   title: string;
   description: string;
 }) => (
-  <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+  <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 active:bg-gray-100 transition-colors touch-ripple-effect">
     <div className={`${color} w-10 h-10 rounded-lg flex items-center justify-center`}>
       <Icon className="h-5 w-5 text-white" />
     </div>
@@ -53,10 +57,19 @@ const ServiceItem = ({ icon: Icon, color, title, description }: {
 const BottomNavbar = () => {
   const [activeItem, setActiveItem] = useState('home');
   const [servicesDialogOpen, setServicesDialogOpen] = useState(false);
+  const [touchedItem, setTouchedItem] = useState<string | null>(null);
   
   const handleServicesToggle = () => {
     setServicesDialogOpen(true);
     setActiveItem('services');
+  };
+  
+  const handleTouchStart = (item: string) => {
+    setTouchedItem(item);
+  };
+  
+  const handleTouchEnd = () => {
+    setTouchedItem(null);
   };
   
   return (
@@ -65,7 +78,7 @@ const BottomNavbar = () => {
         <div className="max-w-lg mx-auto px-4 py-1">
           <div className="flex items-center justify-around">
             <BottomNavItem
-              icon={<Home className="h-5 w-5" />}
+              icon={<Home className={cn("h-5 w-5", touchedItem === 'home' ? "animate-micro-pulse" : "")} />}
               label="Home"
               isActive={activeItem === 'home'}
               onClick={() => {
@@ -74,7 +87,7 @@ const BottomNavbar = () => {
             />
             
             <BottomNavItem
-              icon={<Menu className="h-5 w-5" />}
+              icon={<Menu className={cn("h-5 w-5", touchedItem === 'about' ? "animate-micro-pulse" : "")} />}
               label="About"
               isActive={activeItem === 'about'}
               onClick={() => {
@@ -83,14 +96,14 @@ const BottomNavbar = () => {
             />
             
             <BottomNavItem
-              icon={<Sparkles className="h-5 w-5" />}
+              icon={<Sparkles className={cn("h-5 w-5", touchedItem === 'services' ? "animate-micro-pulse" : "")} />}
               label="Services"
               isActive={activeItem === 'services'}
               onClick={handleServicesToggle}
             />
             
             <BottomNavItem
-              icon={<Search className="h-5 w-5" />}
+              icon={<Search className={cn("h-5 w-5", touchedItem === 'blog' ? "animate-micro-pulse" : "")} />}
               label="Blog"
               isActive={activeItem === 'blog'}
               onClick={() => {
@@ -99,7 +112,7 @@ const BottomNavbar = () => {
             />
             
             <BottomNavItem
-              icon={<Phone className="h-5 w-5" />}
+              icon={<Phone className={cn("h-5 w-5", touchedItem === 'contact' ? "animate-micro-pulse" : "")} />}
               label="Contact"
               isActive={activeItem === 'contact'}
               onClick={() => {
@@ -143,7 +156,8 @@ const BottomNavbar = () => {
           <div className="mt-4">
             <a 
               href="#services" 
-              className="block w-full py-3 text-center bg-brand-primary/10 text-brand-primary font-medium rounded-lg"
+              className="block w-full py-3 text-center bg-brand-primary/10 text-brand-primary font-medium rounded-lg 
+                         active:scale-98 transition-transform touch-ripple-effect"
               onClick={() => setServicesDialogOpen(false)}
             >
               View All Services

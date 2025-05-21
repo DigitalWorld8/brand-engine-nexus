@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import ServiceCard from './ServiceCard';
 import { ServiceCategory } from '@/types/services.types';
@@ -22,6 +22,8 @@ const ServiceCarouselView = ({
   onServiceClick, 
   activeServiceId 
 }: ServiceCarouselViewProps) => {
+  const [touchedIndex, setTouchedIndex] = useState<number | null>(null);
+  
   return (
     <Carousel className="w-full">
       <CarouselContent>
@@ -37,6 +39,9 @@ const ServiceCarouselView = ({
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onTouchStart={() => setTouchedIndex(index)}
+              onTouchEnd={() => setTouchedIndex(null)}
+              className={touchedIndex === index ? "touch-active" : ""}
             >
               <ServiceCard 
                 category={category}
@@ -49,8 +54,14 @@ const ServiceCarouselView = ({
         ))}
       </CarouselContent>
       <div className="flex justify-center mt-6 gap-3">
-        <CarouselPrevious className="relative static transform-none rounded-full border-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white transition-colors" />
-        <CarouselNext className="relative static transform-none rounded-full border-brand-primary/20 text-brand-primary hover:bg-brand-primary hover:text-white transition-colors" />
+        <CarouselPrevious 
+          className="relative static transform-none rounded-full border-brand-primary/20 text-brand-primary 
+                    hover:bg-brand-primary hover:text-white transition-colors active:scale-95 touch-ripple-effect" 
+        />
+        <CarouselNext 
+          className="relative static transform-none rounded-full border-brand-primary/20 text-brand-primary 
+                    hover:bg-brand-primary hover:text-white transition-colors active:scale-95 touch-ripple-effect" 
+        />
       </div>
     </Carousel>
   );

@@ -1,0 +1,82 @@
+
+/* Touch-specific animations and interactions */
+
+/* Touch ripple effect */
+@keyframes touch-ripple {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.animate-touch-ripple {
+  animation: touch-ripple 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Quick micro pulse for icons */
+@keyframes micro-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-micro-pulse {
+  animation: micro-pulse 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Touch feedback for buttons */
+.touch-ripple-effect {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.touch-ripple-effect::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1) translate(-50%, -50%);
+  transform-origin: 50% 50%;
+}
+
+.touch-ripple-effect:active::after {
+  opacity: 0.3;
+  transform: scale(30) translate(-50%, -50%);
+  transition: transform 0.6s, opacity 0.6s;
+}
+
+/* Scale feedback for touch devices */
+.active\:scale-98:active {
+  transform: scale(0.98);
+}
+
+.active\:scale-95:active {
+  transform: scale(0.95);
+}
+
+/* Optimized animations for mobile */
+@media (max-width: 768px) {
+  .animate-optimized {
+    animation-duration: 0.8s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+}

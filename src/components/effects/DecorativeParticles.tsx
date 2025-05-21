@@ -20,8 +20,12 @@ const DecorativeParticles: React.FC<ParticleProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   
-  // Reduce particle count on mobile for performance
+  // Reduce particle count and increase performance optimizations on mobile
   const actualCount = isMobile ? Math.floor(count / 2) : count;
+  // Reduce particle size on mobile
+  const actualSize: [number, number] = isMobile ? [Math.max(3, size[0] - 1), Math.max(5, size[1] - 2)] : size;
+  // Increase animation speed slightly on mobile for better visual effect
+  const actualSpeed: [number, number] = isMobile ? [speed[0] * 1.2, speed[1] * 1.2] : speed;
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -34,22 +38,30 @@ const DecorativeParticles: React.FC<ParticleProps> = ({
       const particle = document.createElement('div');
       
       // Random properties
-      const randomSize = Math.floor(Math.random() * (size[1] - size[0]) + size[0]);
+      const randomSize = Math.floor(Math.random() * (actualSize[1] - actualSize[0]) + actualSize[0]);
       const randomColor = colors[Math.floor(Math.random() * colors.length)];
       const randomX = Math.random() * 100;
       const randomY = Math.random() * 100;
       const randomDelay = Math.random() * 5;
-      const randomDuration = Math.random() * (speed[1] - speed[0]) + speed[0];
+      const randomDuration = Math.random() * (actualSpeed[1] - actualSpeed[0]) + actualSpeed[0];
       const randomOpacity = Math.random() * 0.5 + 0.1;
       
       // Apply styles
       particle.className = 'particle absolute rounded-full';
       
-      // Select random animation type
-      const animationTypes = ['particle-floating', 'particle-pulsing', 'particle-rotating'];
+      // Select animation type based on device - simpler animations for mobile
+      const animationTypes = isMobile 
+        ? ['particle-floating', 'particle-pulsing'] // Simplified for mobile
+        : ['particle-floating', 'particle-pulsing', 'particle-rotating'];
+      
       const randomAnimation = animationTypes[Math.floor(Math.random() * animationTypes.length)];
       
       particle.classList.add(randomAnimation);
+      
+      // Add mobile-specific optimizations
+      if (isMobile) {
+        particle.classList.add('mobile-optimized');
+      }
       
       Object.assign(particle.style, {
         width: `${randomSize}px`,
@@ -73,7 +85,7 @@ const DecorativeParticles: React.FC<ParticleProps> = ({
         containerRef.current.innerHTML = '';
       }
     };
-  }, [actualCount, colors, size, speed, isMobile]);
+  }, [actualCount, colors, actualSize, actualSpeed, isMobile]);
 
   return <div ref={containerRef} className={containerClassName} />;
 };
