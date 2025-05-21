@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Building2, 
   ShoppingBag, 
@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
+import useScrollReveal from '@/hooks/useScrollReveal';
+import { cn } from '@/lib/utils';
 
 const industriesData = [
   {
@@ -81,17 +83,64 @@ const industriesData = [
 ];
 
 const Industries = () => {
+  const [activeTab, setActiveTab] = useState("Corporate");
+  const [isChanging, setIsChanging] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  
+  // Optimized scroll reveal for better performance
+  const { ref: sectionRef, isVisible } = useScrollReveal({ 
+    threshold: 0.15,
+    rootMargin: '0px 0px -100px 0px'
+  });
+  
+  // Handle tab changes with optimized animation
+  const handleTabChange = (value: string) => {
+    setIsChanging(true);
+    setActiveTab(value);
+    
+    // Reset changing state after animation completes
+    setTimeout(() => {
+      setIsChanging(false);
+    }, 300);
+  };
+
+  // Apply transform hardware acceleration to content
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.style.transform = 'translateZ(0)';
+      contentRef.current.style.backfaceVisibility = 'hidden';
+    }
+  }, []);
+
   return (
-    <section id="industries" className="section py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <section 
+      id="industries" 
+      className="section py-24 bg-white"
+      ref={sectionRef}
+    >
+      <div className={cn(
+        "max-w-7xl mx-auto px-4 transition-opacity duration-500",
+        isVisible ? "opacity-100" : "opacity-0"
+      )}>
         <div className="text-center max-w-4xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6 text-brand-primary">Industries We Serve</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <h2 className={cn(
+            "text-4xl md:text-6xl font-bold mb-6 text-brand-primary",
+            isVisible ? "industries-reveal active" : "industries-reveal"
+          )}>Industries We Serve</h2>
+          <p className={cn(
+            "text-xl text-gray-600 max-w-3xl mx-auto",
+            isVisible ? "industries-reveal active" : "industries-reveal",
+            "transition-all delay-100"
+          )}>
             Brand Engine delivers tailored solutions across diverse industries, bringing industry-specific expertise to every project.
           </p>
         </div>
 
-        <Tabs defaultValue="Corporate" className="w-full">
+        <Tabs 
+          value={activeTab} 
+          onValueChange={handleTabChange} 
+          className="w-full"
+        >
           <div className="flex justify-center mb-12">
             <Card className="border-none shadow-lg rounded-2xl overflow-hidden">
               <TabsList className="h-auto p-4 grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-4 bg-gray-50 rounded-xl">
@@ -99,9 +148,16 @@ const Industries = () => {
                   <TabsTrigger 
                     key={industry.name} 
                     value={industry.name}
-                    className="data-[state=active]:bg-white data-[state=active]:shadow-md px-3 py-2.5 rounded-lg flex flex-col items-center gap-2 transition-all"
+                    className={cn(
+                      "data-[state=active]:bg-white data-[state=active]:shadow-md px-3 py-2.5 rounded-lg flex flex-col items-center gap-2",
+                      "transition-all duration-300 transform-gpu",
+                      "hover:scale-[1.02]"
+                    )}
                   >
-                    <div className={`${industry.color} text-white p-2.5 rounded-lg`}>
+                    <div className={cn(
+                      `${industry.color} text-white p-2.5 rounded-lg`,
+                      "transform-gpu transition-all duration-300"
+                    )}>
                       <industry.icon className="h-5 w-5" />
                     </div>
                     <span className="hidden sm:inline text-xs font-medium">{industry.name}</span>
@@ -111,37 +167,58 @@ const Industries = () => {
             </Card>
           </div>
 
-          {industriesData.map((industry) => (
-            <TabsContent key={industry.name} value={industry.name} className="focus-visible:outline-none">
-              <Card className="border-none shadow-xl rounded-3xl overflow-hidden">
-                <CardContent className="p-8">
-                  <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
-                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${industry.color} shadow-lg`}>
-                      <industry.icon className="h-8 w-8 text-white" />
+          <div ref={contentRef} className={cn(
+            "transition-opacity",
+            isChanging ? "opacity-90" : "opacity-100"
+          )}>
+            {industriesData.map((industry) => (
+              <TabsContent 
+                key={industry.name} 
+                value={industry.name} 
+                className="focus-visible:outline-none"
+              >
+                <Card className="border-none shadow-xl rounded-3xl overflow-hidden transform-gpu">
+                  <CardContent className="p-8">
+                    <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-8">
+                      <div className={cn(
+                        `w-16 h-16 rounded-2xl flex items-center justify-center ${industry.color} shadow-lg`,
+                        "transform-gpu transition-all duration-300"
+                      )}>
+                        <industry.icon className="h-8 w-8 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-2xl font-bold mb-3">{industry.name}</h3>
+                        <p className="text-gray-600 text-lg">{industry.description}</p>
+                      </div>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-bold mb-3">{industry.name}</h3>
-                      <p className="text-gray-600 text-lg">{industry.description}</p>
-                    </div>
-                  </div>
 
-                  <div className="mt-10">
-                    <h4 className="font-semibold text-lg mb-4">We work with:</h4>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                      {industry.examples.map((example, index) => (
-                        <div 
-                          key={index} 
-                          className="bg-gray-50 rounded-xl p-5 text-center shadow-sm hover:shadow-md transition-shadow"
-                        >
-                          <p className="font-medium">{example}</p>
-                        </div>
-                      ))}
+                    <div className="mt-10">
+                      <h4 className="font-semibold text-lg mb-4">We work with:</h4>
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        {industry.examples.map((example, index) => (
+                          <div 
+                            key={index} 
+                            className={cn(
+                              "bg-gray-50 rounded-xl p-5 text-center",
+                              "transform-gpu transition-all duration-300",
+                              "hover:shadow-md hover:bg-gray-100"
+                            )}
+                            style={{
+                              transitionDelay: `${index * 50}ms`,
+                              transform: 'translateZ(0)',
+                              backfaceVisibility: 'hidden'
+                            }}
+                          >
+                            <p className="font-medium">{example}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          ))}
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            ))}
+          </div>
         </Tabs>
 
         <div className="mt-16 text-center">
@@ -150,7 +227,11 @@ const Industries = () => {
           </p>
           <a 
             href="#contact" 
-            className="inline-flex items-center px-8 py-3 rounded-lg bg-brand-accent-blue hover:bg-brand-accent-blue/90 text-white font-medium transition-all hover:scale-105"
+            className={cn(
+              "inline-flex items-center px-8 py-3 rounded-lg",
+              "bg-brand-accent-blue hover:bg-brand-accent-blue/90 text-white font-medium",
+              "transform-gpu transition-all duration-300 hover:scale-105"
+            )}
           >
             Get in Touch
           </a>

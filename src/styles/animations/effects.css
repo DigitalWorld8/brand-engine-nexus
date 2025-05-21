@@ -4,3 +4,6 @@
 @import './effects/blur-effects.css';
 @import './effects/content-visibility.css';
 @import './effects/animation-controls.css';
+@import './effects/particles.css';
+@import './effects/hardware-acceleration.css';
+

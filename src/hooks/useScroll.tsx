@@ -1,5 +1,6 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { rafThrottle } from '@/lib/utils';
 
 interface ScrollState {
   scrollY: number;
@@ -15,44 +16,53 @@ export function useScroll() {
     lastScrollY: 0,
     initialScrollOccurred: false
   });
+  
+  // Use refs to avoid recreating functions on each render
+  const scrollRef = useRef({
+    lastScrollY: typeof window !== 'undefined' ? window.scrollY : 0,
+    initialScrollOccurred: false,
+    ticking: false
+  });
 
   useEffect(() => {
     // For a smoother initial load experience
     const updateScrollPosition = () => {
-      setScrollState(prevState => {
-        const currentScrollY = window.scrollY;
-        const direction = currentScrollY > prevState.lastScrollY ? 'down' : 
-                        currentScrollY < prevState.lastScrollY ? 'up' : 
-                        prevState.direction;
-        
-        // Mark that initial scroll has occurred if scrolling down
-        const initialScrollOccurred = prevState.initialScrollOccurred || 
-                                    (direction === 'down' && currentScrollY > 50);
-        
-        return {
-          scrollY: currentScrollY,
-          direction,
-          lastScrollY: currentScrollY,
-          initialScrollOccurred
-        };
+      const currentScrollY = window.scrollY;
+      const direction = currentScrollY > scrollRef.current.lastScrollY ? 'down' : 
+                     currentScrollY < scrollRef.current.lastScrollY ? 'up' : 
+                     scrollState.direction;
+      
+      // Mark that initial scroll has occurred if scrolling down
+      const initialScrollOccurred = scrollRef.current.initialScrollOccurred || 
+                                 (direction === 'down' && currentScrollY > 50);
+      
+      // Update ref values
+      scrollRef.current.lastScrollY = currentScrollY;
+      scrollRef.current.initialScrollOccurred = initialScrollOccurred;
+      
+      // Only update state if values have changed
+      setScrollState({
+        scrollY: currentScrollY,
+        direction,
+        lastScrollY: currentScrollY,
+        initialScrollOccurred
       });
+      
+      scrollRef.current.ticking = false;
     };
     
     // Initial check
     updateScrollPosition();
     
-    // Optimized scroll listener with request animation frame
-    let ticking = false;
-    
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
+    // Optimized scroll listener with request animation frame and throttling
+    const handleScroll = rafThrottle(() => {
+      if (!scrollRef.current.ticking) {
+        requestAnimationFrame(() => {
           updateScrollPosition();
-          ticking = false;
         });
-        ticking = true;
+        scrollRef.current.ticking = true;
       }
-    };
+    });
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     

@@ -1,0 +1,44 @@
+
+/* Hardware acceleration utilities */
+
+.transform-gpu {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Optimized animation base classes */
+.animate-optimized {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+/* Performance classes for different animation types */
+.transition-optimized {
+  transition-property: transform, opacity;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Smooth animation curves */
+.transition-smooth {
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Prevent layout thrashing with composite layers */
+.composite-layer {
+  transform: translateZ(0);
+  will-change: transform;
+  z-index: 1;
+}
+
+/* Helper class for optimizing list item animations */
+.optimize-children > * {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}

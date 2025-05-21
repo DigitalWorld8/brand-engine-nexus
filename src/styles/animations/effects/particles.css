@@ -1,0 +1,30 @@
+
+/* Optimized particle animations with hardware acceleration */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+}
+
+.particle-floating {
+  animation: float-particle 4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.particle-pulsing {
+  animation: pulse-particle 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.particle-rotating {
+  animation: rotate-particle 12s linear infinite;
+}
+
+/* Improved performance for particle animations */
+@media (prefers-reduced-motion: no-preference) {
+  .particle {
+    transition: opacity 0.3s ease;
+  }
+}
