@@ -17,9 +17,14 @@ const IndustryExamples = ({ examples }: IndustryExamplesProps) => {
             className={cn(
               "bg-gray-50 rounded-xl p-5 text-center",
               "transform-gpu transition-all duration-300",
-              "hover:shadow-md hover:bg-gray-100"
+              "hover:shadow-md hover:bg-gray-100 hover:scale-105",
+              "animate-optimized"
             )}
             style={{
+              animationName: "quick-pop",
+              animationDuration: "0.5s",
+              animationDelay: `${index * 75}ms`,
+              animationFillMode: "both",
               transitionDelay: `${index * 50}ms`,
               transform: 'translateZ(0)',
               backfaceVisibility: 'hidden'

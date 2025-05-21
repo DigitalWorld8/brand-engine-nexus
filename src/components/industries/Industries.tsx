@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { Tabs } from "@/components/ui/tabs";
 import useScrollReveal from '@/hooks/useScrollReveal';
 import { cn } from '@/lib/utils';
 import { industriesData } from './data/industriesData';
@@ -45,8 +45,9 @@ const Industries = () => {
       ref={sectionRef}
     >
       <div className={cn(
-        "max-w-7xl mx-auto px-4 transition-opacity duration-500",
-        isVisible ? "opacity-100" : "opacity-0"
+        "max-w-7xl mx-auto px-4 transition-all duration-500",
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+        "transform-gpu"
       )}>
         <div className="text-center max-w-4xl mx-auto mb-16">
           <h2 className={cn(
@@ -69,10 +70,13 @@ const Industries = () => {
         >
           <IndustriesTabs industries={industriesData} />
 
-          <div ref={contentRef} className={cn(
-            "transition-opacity",
-            isChanging ? "opacity-90" : "opacity-100"
-          )}>
+          <div 
+            ref={contentRef} 
+            className={cn(
+              "transition-all duration-300 transform-gpu",
+              isChanging ? "opacity-90 scale-[0.99]" : "opacity-100 scale-100"
+            )}
+          >
             {industriesData.map((industry) => (
               <IndustryContent 
                 key={industry.name}
