@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Building2, 
@@ -9,7 +8,9 @@ import {
   Briefcase, 
   Car, 
   Globe, 
-  Store 
+  Store,
+  Scissors,
+  Plane
 } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
@@ -65,6 +66,20 @@ const industriesData = [
     color: "bg-brand-primary",
     description: "Drive engagement with powerful automotive branding and innovative digital showrooms that bring vehicles to life online.",
     examples: ["Car Dealerships", "Auto Repair Shops", "Parts Retailers", "Vehicle Customization"]
+  },
+  {
+    name: "Hair Dresser Salons",
+    icon: Scissors,
+    color: "bg-brand-accent-blue",
+    description: "Elevate your salon's presence with stylish branding and digital solutions that attract clients and streamline appointment bookings.",
+    examples: ["Beauty Salons", "Barber Shops", "Hair Studios", "Spa & Wellness Centers"]
+  },
+  {
+    name: "Airlines",
+    icon: Plane,
+    color: "bg-brand-accent-violet",
+    description: "Create seamless travel experiences with intuitive digital platforms and distinctive branding that builds passenger loyalty and trust.",
+    examples: ["Commercial Airlines", "Charter Services", "Travel Agencies", "Airport Services"]
   },
   {
     name: "International Business",
@@ -143,7 +158,7 @@ const Industries = () => {
         >
           <div className="flex justify-center mb-12">
             <Card className="border-none shadow-lg rounded-2xl overflow-hidden">
-              <TabsList className="h-auto p-4 grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-9 gap-4 bg-gray-50 rounded-xl">
+              <TabsList className="h-auto p-4 grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-11 gap-4 bg-gray-50 rounded-xl">
                 {industriesData.map((industry) => (
                   <TabsTrigger 
                     key={industry.name} 

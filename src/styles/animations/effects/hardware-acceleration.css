@@ -42,3 +42,33 @@
   backface-visibility: hidden;
   will-change: transform, opacity;
 }
+
+/* Specific optimizations for industries section */
+.industries-tabs-container {
+  contain: content;
+  transform: translateZ(0);
+}
+
+.industry-icon {
+  will-change: transform;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateZ(0);
+}
+
+.industry-icon:hover {
+  transform: translateZ(0) scale(1.1);
+}
+
+/* Reduce repainting for tab switching */
+.industry-tab-content {
+  contain: paint style layout;
+  transform: translateZ(0);
+}
+
+/* Optimize animations for specific screen sizes */
+@media (max-width: 768px) {
+  .optimize-mobile {
+    transition-duration: 0.2s;
+    transition-delay: 0s !important;
+  }
+}
