@@ -14,15 +14,11 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isMobile = useIsMobile();
   
-  // Skip particles on mobile for performance
-  if (isMobile) {
-    return null;
-  }
-
   useEffect(() => {
+    // Skip rendering particles on mobile for performance
+    if (isMobile || !canvasRef.current) return;
+    
     const canvas = canvasRef.current;
-    if (!canvas) return;
-
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
@@ -103,9 +99,10 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', setCanvasSize);
     };
-  }, [particleColor, particleCount]);
+  }, [particleColor, particleCount, isMobile]);
 
-  return (
+  // Conditionally render canvas based on mobile
+  return isMobile ? null : (
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0 opacity-50"
