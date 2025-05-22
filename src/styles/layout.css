@@ -5,12 +5,13 @@
     @apply min-h-screen flex flex-col items-center w-full;
     background-color: #1b1464; /* This is the brand-primary color */
     will-change: background-color;
+    transition: background-color 0.3s;
   }
   
   .content-container {
     @apply w-[90%] md:w-[85%] lg:w-[80%] bg-background min-h-screen rounded-t-[3rem] mt-16 overflow-hidden;
     box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-    transition: all 0.08s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: width 0.3s, border-radius 0.3s;
     will-change: width, border-radius;
     transform: translateZ(0);
   }
@@ -18,19 +19,26 @@
   .top-curved-border {
     @apply w-full h-16 absolute top-0 left-0;
     background-color: #1b1464; /* This is the brand-primary color */
-    transition: opacity 0.08s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.3s;
     will-change: opacity;
   }
   
   /* Side edges - purple sidebars with scroll-dependent width */
   .side-edge {
     @apply fixed top-0 h-full bg-brand-primary z-0;
-    transition: width 0.08s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: width, transform;
+    transition: width 0.3s;
+    will-change: width;
     transform: translateZ(0);
   }
   
-  /* ... keep existing code (side edge positioning classes) */
+  /* Side edge positioning */
+  .side-edge-left {
+    @apply left-0;
+  }
+  
+  .side-edge-right {
+    @apply right-0;
+  }
   
   /* Different width states for progressive narrowing */
   .side-edge-width-full {
@@ -49,31 +57,28 @@
     @apply w-[1%] md:w-[1.5%] lg:w-[2%];
   }
 
-  /* New animated background for side edges with Apple-like smoothness */
+  /* Animated background for side edges - removed overly complex animations */
   .side-edge-animated {
     position: relative;
     overflow: hidden;
     isolation: isolate;
   }
 
-  .side-edge-animated::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(27,20,100,0) 0%, rgba(9,164,213,0.15) 50%, rgba(27,20,100,0) 100%);
-    transform: translateY(-100%) translateZ(0);
-    animation: side-edge-flow 3s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-    will-change: transform;
-    backface-visibility: hidden;
+  /* Mobile navigation styles */
+  .mobile-bottom-nav {
+    @apply fixed bottom-0 left-0 right-0 bg-white shadow-top flex justify-around items-center py-2 z-50;
   }
-  
-  /* ... keep existing code (mobile navigation styles) */
+
+  .mobile-nav-item {
+    @apply flex flex-col items-center justify-center text-xs text-gray-500;
+  }
+
+  .mobile-nav-item.active {
+    @apply text-brand-primary;
+  }
 }
 
-/* Add support for hardware acceleration */
+/* Hardware acceleration support classes */
 .transform-gpu {
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -81,44 +86,11 @@
   will-change: transform;
 }
 
-/* Extended duration classes with Apple-like smoothness */
-.duration-800 {
-  transition-duration: 250ms;
-  will-change: auto;
-}
-
-.duration-900 {
-  transition-duration: 300ms;
-  will-change: auto;
-}
-
-.duration-1000 {
-  transition-duration: 350ms;
-  will-change: auto;
-}
-
 /* Apple-like transition easing functions */
 .ease-smooth {
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Additional Apple-like easing functions for smoother animations */
 .ease-out-expo {
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.ease-in-out-back {
-  transition-timing-function: cubic-bezier(0.83, 0, 0.17, 1);
-}
-
-/* Page transition effect with Apple-like curve */
-@keyframes page-reveal {
-  0% { transform: translateY(12px) translateZ(0); opacity: 0; }
-  100% { transform: translateY(0) translateZ(0); opacity: 1; }
-}
-
-.page-reveal {
-  animation: page-reveal 0.08s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
 }

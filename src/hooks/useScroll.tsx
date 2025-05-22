@@ -1,6 +1,5 @@
 
 import { useState, useEffect, useRef } from 'react';
-import { rafThrottle } from '@/lib/utils';
 
 interface ScrollState {
   scrollY: number;
@@ -21,16 +20,26 @@ export function useScroll() {
   const scrollRef = useRef({
     lastScrollY: typeof window !== 'undefined' ? window.scrollY : 0,
     initialScrollOccurred: false,
-    ticking: false
+    ticking: false,
+    prevScrollY: 0
   });
 
   useEffect(() => {
     // For a smoother initial load experience
     const updateScrollPosition = () => {
       const currentScrollY = window.scrollY;
+      
+      // Skip tiny scroll updates to prevent jank
+      if (Math.abs(currentScrollY - scrollRef.current.prevScrollY) < 1) {
+        scrollRef.current.ticking = false;
+        return;
+      }
+      
+      scrollRef.current.prevScrollY = currentScrollY;
+      
       const direction = currentScrollY > scrollRef.current.lastScrollY ? 'down' : 
-                     currentScrollY < scrollRef.current.lastScrollY ? 'up' : 
-                     scrollState.direction;
+                      currentScrollY < scrollRef.current.lastScrollY ? 'up' : 
+                      scrollState.direction;
       
       // Mark that initial scroll has occurred if scrolling down
       const initialScrollOccurred = scrollRef.current.initialScrollOccurred || 
@@ -40,7 +49,7 @@ export function useScroll() {
       scrollRef.current.lastScrollY = currentScrollY;
       scrollRef.current.initialScrollOccurred = initialScrollOccurred;
       
-      // Only update state if values have changed
+      // Update state with the new values
       setScrollState({
         scrollY: currentScrollY,
         direction,
@@ -54,15 +63,13 @@ export function useScroll() {
     // Initial check
     updateScrollPosition();
     
-    // Optimized scroll listener with request animation frame and throttling
-    const handleScroll = rafThrottle(() => {
+    // Optimized scroll listener with requestAnimationFrame
+    const handleScroll = () => {
       if (!scrollRef.current.ticking) {
-        requestAnimationFrame(() => {
-          updateScrollPosition();
-        });
+        requestAnimationFrame(updateScrollPosition);
         scrollRef.current.ticking = true;
       }
-    });
+    };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     

@@ -9,12 +9,12 @@
   perspective: 1000;
   -webkit-perspective: 1000;
   -webkit-font-smoothing: subpixel-antialiased;
-  will-change: transform, opacity;
+  will-change: transform;
 }
 
-/* Optimized animation base classes with better cross-browser support */
+/* High-performance base classes */
 .animate-optimized {
-  will-change: transform, opacity;
+  will-change: transform;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   backface-visibility: hidden;
@@ -23,10 +23,10 @@
   -webkit-perspective: 1000;
 }
 
-/* Performance classes for different animation types */
+/* Performance classes for transitions */
 .transition-optimized {
-  transition-property: transform, opacity;
-  will-change: transform, opacity;
+  transition-property: transform;
+  will-change: transform;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   backface-visibility: hidden;
@@ -38,18 +38,18 @@
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* High-performance transitions for touch devices */
+/* Touch device optimizations */
 .touch-optimized {
   transition-duration: 0.2s !important;
   transition-delay: 0s !important;
-  will-change: transform, opacity;
+  will-change: transform;
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
 
-/* Prevent layout thrashing with composite layers */
+/* Optimize layout shifting */
 .composite-layer {
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
@@ -57,54 +57,37 @@
   z-index: 1;
 }
 
-/* Helper class for optimizing list item animations */
+/* Helper for list item animations */
 .optimize-children > * {
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  will-change: transform, opacity;
-}
-
-/* Specific optimizations for industries section */
-.industries-tabs-container {
-  contain: content;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
-
-.industry-icon {
   will-change: transform;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
 }
 
-.industry-icon:hover {
-  transform: translateZ(0) scale(1.1);
-  -webkit-transform: translateZ(0) scale(1.1);
-}
-
-/* Reduce repainting for tab switching */
-.industry-tab-content {
-  contain: paint style layout;
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
-
-/* Memory and performance optimizations for specific elements */
+/* Reduce animation complexity on mobile */
 @media (max-width: 768px) {
-  .optimize-mobile {
-    transition-duration: 0.2s !important;
-    transition-delay: 0s !important;
-    contain: paint style layout;
-  }
-  
-  /* Reduce animation complexity on mobile */
   .simplify-mobile-animations {
     animation-duration: 0.3s !important;
     animation-iteration-count: 1 !important;
-    contain: paint style layout;
-    will-change: auto; /* Only use will-change for critical animations */
+    will-change: auto;
   }
+  
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Prevent paint during scroll */
+.will-change-scroll {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Force hardware acceleration for fixed elements */
+.fixed-optimized {
+  -webkit-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+  will-change: transform;
 }

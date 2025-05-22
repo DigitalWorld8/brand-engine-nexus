@@ -79,15 +79,22 @@
   transform: scale(0.95) translateZ(0);
 }
 
-/* Optimized animations for mobile */
-@media (max-width: 768px) {
+/* Override all transition durations on touch devices to improve responsiveness */
+@media (hover: none) and (pointer: coarse) {
+  * {
+    transition-duration: 0.2s !important;
+  }
+  
+  .scroll-container, .scroll-content {
+    -webkit-overflow-scrolling: touch;
+  }
+  
   .animate-optimized {
-    animation-duration: 0.5s !important;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
-    will-change: transform, opacity;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
+    animation-duration: 0.2s !important;
+  }
+  
+  /* Disable hover effects on touch devices */
+  *:hover {
+    transition-property: none !important;
   }
 }
