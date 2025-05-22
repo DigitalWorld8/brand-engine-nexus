@@ -3,17 +3,24 @@
 
 .transform-gpu {
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   perspective: 1000;
+  -webkit-perspective: 1000;
   -webkit-font-smoothing: subpixel-antialiased;
+  will-change: transform, opacity;
 }
 
-/* Optimized animation base classes */
+/* Optimized animation base classes with better cross-browser support */
 .animate-optimized {
   will-change: transform, opacity;
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   perspective: 1000;
+  -webkit-perspective: 1000;
 }
 
 /* Performance classes for different animation types */
@@ -21,7 +28,9 @@
   transition-property: transform, opacity;
   will-change: transform, opacity;
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 /* Smooth animation curves */
@@ -29,9 +38,21 @@
   transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* High-performance transitions for touch devices */
+.touch-optimized {
+  transition-duration: 0.2s !important;
+  transition-delay: 0s !important;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 /* Prevent layout thrashing with composite layers */
 .composite-layer {
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   will-change: transform;
   z-index: 1;
 }
@@ -39,7 +60,9 @@
 /* Helper class for optimizing list item animations */
 .optimize-children > * {
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   will-change: transform, opacity;
 }
 
@@ -47,28 +70,41 @@
 .industries-tabs-container {
   contain: content;
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .industry-icon {
   will-change: transform;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .industry-icon:hover {
   transform: translateZ(0) scale(1.1);
+  -webkit-transform: translateZ(0) scale(1.1);
 }
 
 /* Reduce repainting for tab switching */
 .industry-tab-content {
   contain: paint style layout;
   transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
-/* Optimize animations for specific screen sizes */
+/* Memory and performance optimizations for specific elements */
 @media (max-width: 768px) {
   .optimize-mobile {
-    transition-duration: 0.2s;
+    transition-duration: 0.2s !important;
     transition-delay: 0s !important;
+    contain: paint style layout;
+  }
+  
+  /* Reduce animation complexity on mobile */
+  .simplify-mobile-animations {
+    animation-duration: 0.3s !important;
+    animation-iteration-count: 1 !important;
+    contain: paint style layout;
+    will-change: auto; /* Only use will-change for critical animations */
   }
 }

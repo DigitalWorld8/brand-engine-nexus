@@ -12,6 +12,8 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
   particleCount = 15
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const particlesRef = useRef<any[]>([]);
+  const animationRef = useRef<number | null>(null);
   const isMobile = useIsMobile();
   
   useEffect(() => {
@@ -21,9 +23,6 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
-    let animationFrameId: number;
-    let particles: Particle[] = [];
 
     // Set canvas dimensions to match window
     const setCanvasSize = () => {
@@ -75,20 +74,22 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
     }
 
     // Create particles
+    const particles = [];
     for (let i = 0; i < particleCount; i++) {
       particles.push(new Particle());
     }
+    particlesRef.current = particles;
 
-    // Animation loop
+    // Animation loop with optimized requestAnimationFrame handling
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
-      particles.forEach(particle => {
+      particlesRef.current.forEach(particle => {
         particle.update();
         particle.draw();
       });
       
-      animationFrameId = requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame(animate);
     };
 
     // Start animation
@@ -96,7 +97,9 @@ const ParticleBackground: React.FC<ParticleBackgroundProps> = ({
 
     // Cleanup
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
       window.removeEventListener('resize', setCanvasSize);
     };
   }, [particleColor, particleCount, isMobile]);

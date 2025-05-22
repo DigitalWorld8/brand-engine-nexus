@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import ServiceCard from './ServiceCard';
 import { ServiceCategory } from '@/types/services.types';
@@ -23,9 +23,35 @@ const ServiceCarouselView = ({
   activeServiceId 
 }: ServiceCarouselViewProps) => {
   const [touchedIndex, setTouchedIndex] = useState<number | null>(null);
+  const touchTimeout = useRef<number | null>(null);
+  
+  const handleTouchStart = useCallback((index: number) => {
+    setTouchedIndex(index);
+  }, []);
+  
+  const handleTouchEnd = useCallback(() => {
+    // Use setTimeout to create a small delay before removing the touch effect
+    if (touchTimeout.current) {
+      window.clearTimeout(touchTimeout.current);
+    }
+    
+    touchTimeout.current = window.setTimeout(() => {
+      setTouchedIndex(null);
+      touchTimeout.current = null;
+    }, 150);
+  }, []);
+  
+  // Clean up timeout on unmount
+  React.useEffect(() => {
+    return () => {
+      if (touchTimeout.current) {
+        window.clearTimeout(touchTimeout.current);
+      }
+    };
+  }, []);
   
   return (
-    <Carousel className="w-full">
+    <Carousel className="w-full transform-gpu">
       <CarouselContent>
         {serviceCategories.map((category, index) => (
           <CarouselItem 
@@ -39,9 +65,14 @@ const ServiceCarouselView = ({
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onTouchStart={() => setTouchedIndex(index)}
-              onTouchEnd={() => setTouchedIndex(null)}
-              className={touchedIndex === index ? "touch-active" : ""}
+              onTouchStart={() => handleTouchStart(index)}
+              onTouchEnd={handleTouchEnd}
+              className={`transform-gpu ${touchedIndex === index ? "touch-active" : ""}`}
+              style={{
+                willChange: 'transform, opacity',
+                backfaceVisibility: 'hidden',
+                WebkitBackfaceVisibility: 'hidden'
+              }}
             >
               <ServiceCard 
                 category={category}
