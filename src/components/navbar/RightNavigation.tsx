@@ -14,8 +14,9 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Code, Globe, Palette } from 'lucide-react';
+import { Code, Globe, Palette, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface RightNavigationProps {
@@ -38,7 +39,7 @@ const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState
       {/* Right Side Nav Items */}
       <NavigationMenu className="hidden md:flex">
         <NavigationMenuList>
-          {/* Services with dropdown menu */}
+          {/* Services with detailed dropdown menu */}
           <NavigationMenuItem className="relative">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -73,48 +74,130 @@ const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState
                   </svg>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="center" className="w-[350px] p-4">
+              <DropdownMenuContent align="center" className="w-[480px] p-6 bg-white shadow-lg border">
+                {/* Digital Services Group */}
                 <DropdownMenuGroup>
-                  <div className="grid grid-cols-1 gap-3">
-                    <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3 mb-4">
                       <div className="bg-gradient-to-r from-[#1b1464] to-[#3a2b9e] w-10 h-10 rounded-lg flex items-center justify-center">
                         <Code className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-medium">Digital Services</h3>
-                        <p className="text-xs text-gray-500">Web applications, automation & more</p>
+                        <h3 className="font-semibold text-[#1b1464]">Digital Services</h3>
+                        <p className="text-xs text-gray-500">Web applications, automation & AI</p>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="ml-13 space-y-1">
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>AI Solutions</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Digital Transformation</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Digital Automation</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Custom Web Applications</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    </div>
+                  </div>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator className="my-4" />
+
+                {/* Digital Marketing Group */}
+                <DropdownMenuGroup>
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3 mb-4">
                       <div className="bg-gradient-to-r from-[#596ae9] to-[#7986f1] w-10 h-10 rounded-lg flex items-center justify-center">
                         <Globe className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-medium">Digital Marketing</h3>
+                        <h3 className="font-semibold text-[#596ae9]">Digital Marketing</h3>
                         <p className="text-xs text-gray-500">SEO, content & social media</p>
                       </div>
                     </div>
                     
-                    <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="ml-13 space-y-1">
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Search Engine Optimization</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Web Content Writing</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Blogging (English + Arabic)</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Email Marketing</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Social Media Strategy</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    </div>
+                  </div>
+                </DropdownMenuGroup>
+
+                <DropdownMenuSeparator className="my-4" />
+
+                {/* Design & Branding Group */}
+                <DropdownMenuGroup>
+                  <div className="mb-4">
+                    <div className="flex items-center gap-3 mb-4">
                       <div className="bg-gradient-to-r from-[#09a4d5] to-[#35bde8] w-10 h-10 rounded-lg flex items-center justify-center">
                         <Palette className="h-5 w-5 text-white" />
                       </div>
                       <div>
-                        <h3 className="font-medium">Design & Branding</h3>
+                        <h3 className="font-semibold text-[#09a4d5]">Design & Branding</h3>
                         <p className="text-xs text-gray-500">Logos, identity & visual systems</p>
                       </div>
                     </div>
-                  </div>
-                  
-                  <div className="mt-3 pt-3 border-t">
-                    <DropdownMenuItem asChild>
-                      <a href="#services" className="flex justify-center w-full text-brand-primary font-medium cursor-pointer">
-                        View All Services
-                      </a>
-                    </DropdownMenuItem>
+                    
+                    <div className="ml-13 space-y-1">
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Brand Identity Design</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Logo Design (English + Arabic)</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Social Media Visuals</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Business Cards & Stationery</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <div className="text-sm py-2 px-3 hover:bg-gray-50 rounded transition-colors cursor-pointer group flex items-center justify-between">
+                        <span>Brand Guidelines</span>
+                        <ChevronRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    </div>
                   </div>
                 </DropdownMenuGroup>
+                
+                <DropdownMenuSeparator className="my-4" />
+                
+                <div className="pt-2">
+                  <DropdownMenuItem asChild>
+                    <a href="#services" className="flex justify-center w-full text-brand-primary font-medium cursor-pointer py-2">
+                      View All Services
+                    </a>
+                  </DropdownMenuItem>
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
           </NavigationMenuItem>
