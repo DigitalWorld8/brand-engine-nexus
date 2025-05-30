@@ -39,7 +39,7 @@ const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState
       {/* Right Side Nav Items */}
       <NavigationMenu className="hidden md:flex">
         <NavigationMenuList>
-          {/* Services with detailed dropdown menu */}
+          {/* Services with vertical dropdown menu */}
           <NavigationMenuItem className="relative">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -74,7 +74,7 @@ const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState
                   </svg>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="center" className="w-[480px] p-6 bg-white shadow-lg border">
+              <DropdownMenuContent align="center" className="w-[400px] p-6 bg-white shadow-lg border">
                 {/* Digital Services Group */}
                 <DropdownMenuGroup>
                   <div className="mb-6">
