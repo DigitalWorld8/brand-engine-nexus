@@ -13,48 +13,42 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
   const [isScrolling, setIsScrolling] = useState(false);
   
   useEffect(() => {
-    // Set initial visibility based on scroll position when component mounts
-    if (window.scrollY > 25) {
+    if (window.scrollY > 50) {
       setIsVisible(false);
     }
     
     const handleScroll = () => {
-      // Hide the indicator when user scrolls down more than threshold
-      if (window.scrollY > 25) {
+      if (window.scrollY > 50) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
     };
     
-    // Add scroll event listener with passive flag for better performance
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Cleanup function to remove event listener
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
   const handleClick = () => {
-    if (isScrolling) return; // Prevent multiple clicks during animation
+    if (isScrolling) return;
     
     setIsScrolling(true);
     
-    // Scroll down to explore content with Apple-like smoothness
     const startPosition = window.scrollY;
-    const targetPosition = window.innerHeight; // Scroll down one viewport height
+    const targetPosition = window.innerHeight;
     const distance = targetPosition - startPosition;
-    const duration = 300; // Reduced from 400ms to 300ms for faster animation
+    const duration = 800; // Slower, more elegant animation
     const startTime = performance.now();
     
-    // Apple-like easing function
-    const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+    // Enhanced easing function for smoother animation
+    const easeInOutQuart = (t: number) => {
+      return t < 0.5 ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t;
+    };
     
     const scrollStep = (timestamp: number) => {
       const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      const easedProgress = easeOutCubic(progress);
+      const easedProgress = easeInOutQuart(progress);
       
       window.scrollTo({
         top: startPosition + distance * easedProgress,
@@ -65,8 +59,6 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
         window.requestAnimationFrame(scrollStep);
       } else {
         setIsScrolling(false);
-        
-        // Hide indicator after scrolling is complete
         setIsVisible(false);
       }
     };
@@ -74,7 +66,6 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     window.requestAnimationFrame(scrollStep);
   };
   
-  // If not visible, don't render the component at all
   if (!isVisible) return null;
   
   return (
@@ -85,7 +76,7 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
         className
       )}
       style={{
-        transition: 'opacity 0.15s cubic-bezier(0.22, 1, 0.36, 1), transform 0.15s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.25s to 0.15s
+        transition: 'opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1)',
         willChange: 'opacity, transform'
       }}
       onMouseEnter={() => setIsHovered(true)}
@@ -93,62 +84,63 @@ const ScrollIndicator = ({ className }: ScrollIndicatorProps) => {
     >
       <div 
         className={cn(
-          "flex flex-col items-center gap-4 cursor-pointer",
-          isHovered ? "translate-y-[-5px]" : "",
+          "flex flex-col items-center gap-6 cursor-pointer",
+          isHovered ? "translate-y-[-8px]" : "",
           isScrolling ? "pointer-events-none" : ""
         )}
         style={{
-          transition: 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.2s to 0.12s
+          transition: 'transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)',
           willChange: 'transform'
         }}
         onClick={handleClick}
       >
-        <p className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-primary drop-shadow-sm">
+        <p className="text-lg md:text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-brand-accent-blue to-brand-primary drop-shadow-sm animate-pulse">
           SCROLL TO EXPLORE
         </p>
         
-        {/* Animated line with improved performance */}
-        <div className="w-[3px] h-16 relative overflow-hidden bg-gradient-to-b from-brand-accent-blue/20 to-brand-primary/20 rounded-full">
+        {/* Enhanced animated line */}
+        <div className="w-[3px] h-20 relative overflow-hidden bg-gradient-to-b from-brand-accent-blue/20 to-brand-primary/20 rounded-full">
           <div 
-            className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-brand-accent-blue to-brand-primary" 
+            className="absolute top-0 left-0 w-full bg-gradient-to-b from-brand-accent-blue to-brand-primary rounded-full" 
             style={{
-              animation: 'pulse-down 0.6s cubic-bezier(0.22, 1, 0.36, 1) infinite', // Reduced from 0.8s to 0.6s
+              height: '30%',
+              animation: 'scroll-flow 2s cubic-bezier(0.165, 0.84, 0.44, 1) infinite',
               willChange: 'transform',
               transform: 'translateZ(0)'
             }}
           ></div>
         </div>
         
-        {/* Animated mouse pointer in glowing circle with optimized transitions */}
+        {/* Enhanced mouse pointer with glow effect */}
         <div 
           className={cn(
             "relative flex items-center justify-center",
-            isHovered ? "scale-110" : "scale-100"
+            isHovered ? "scale-125" : "scale-100"
           )}
           style={{
-            transition: 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.2s to 0.12s
+            transition: 'transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)',
             willChange: 'transform'
           }}
         >
-          {/* Glowing background effect */}
-          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-30 blur-md scale-125"></div>
+          {/* Enhanced glowing background */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-br from-brand-accent-blue to-brand-primary opacity-40 blur-lg scale-150 animate-pulse"></div>
           
-          {/* Button with animation */}
+          {/* Enhanced button with better animation */}
           <div 
-            className="relative bg-white p-3 w-16 h-16 rounded-full flex items-center justify-center shadow-lg border border-brand-light-gray"
+            className="relative bg-white p-4 w-20 h-20 rounded-full flex items-center justify-center shadow-2xl border border-brand-light-gray"
             style={{
-              animation: 'subtle-bounce 0.8s cubic-bezier(0.22, 1, 0.36, 1) infinite', // Reduced from 1s to 0.8s
+              animation: 'gentle-float 3s cubic-bezier(0.165, 0.84, 0.44, 1) infinite',
               willChange: 'transform',
               transform: 'translateZ(0)'
             }}
           >
             <MousePointerClick 
               className={cn(
-                "h-8 w-8 text-brand-primary",
-                isHovered ? "translate-y-[2px]" : ""
+                "h-10 w-10 text-brand-primary",
+                isHovered ? "translate-y-[3px] scale-110" : ""
               )}
               style={{
-                transition: 'transform 0.12s cubic-bezier(0.22, 1, 0.36, 1)', // Reduced from 0.2s to 0.12s
+                transition: 'transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)',
                 willChange: 'transform'
               }}
               strokeWidth={2.5} 
