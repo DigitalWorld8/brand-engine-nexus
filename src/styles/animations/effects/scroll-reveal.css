@@ -1,9 +1,9 @@
 
-/* Interactive scroll reveal animations with improved performance */
+/* Enhanced scroll reveal animations with improved performance */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
   will-change: opacity, transform;
   backface-visibility: hidden;
   perspective: 1000;
@@ -16,7 +16,7 @@
 
 /* Disable transition when scrolling up after initial scroll */
 .scrolling-up .reveal {
-  transition: none !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
 .scrolling-up .reveal.active {
@@ -24,11 +24,11 @@
   transform: translateY(0);
 }
 
-/* Optimized reveal for industries section */
+/* Enhanced reveal for industries section */
 .industries-reveal {
   opacity: 0;
-  transform: translateY(15px);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(30px) scale(0.95);
+  transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
   will-change: opacity, transform;
   transform: translateZ(0);
   backface-visibility: hidden;
@@ -36,32 +36,78 @@
 
 .industries-reveal.active {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
-/* Staggered reveal for industry items */
+/* Enhanced staggered reveal for industry items */
 .industry-item {
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+              transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   will-change: opacity, transform;
   backface-visibility: hidden;
 }
 
 .industry-item.active {
   opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Enhanced staggered delays with smoother timing */
+.industry-item:nth-child(1) { transition-delay: 0ms; }
+.industry-item:nth-child(2) { transition-delay: 100ms; }
+.industry-item:nth-child(3) { transition-delay: 200ms; }
+.industry-item:nth-child(4) { transition-delay: 300ms; }
+.industry-item:nth-child(5) { transition-delay: 400ms; }
+.industry-item:nth-child(6) { transition-delay: 500ms; }
+.industry-item:nth-child(7) { transition-delay: 600ms; }
+.industry-item:nth-child(8) { transition-delay: 700ms; }
+.industry-item:nth-child(9) { transition-delay: 800ms; }
+.industry-item:nth-child(10) { transition-delay: 900ms; }
+.industry-item:nth-child(11) { transition-delay: 1000ms; }
+
+/* New fade-up animation for cards */
+.fade-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: opacity, transform;
+}
+
+.fade-up.active {
+  opacity: 1;
   transform: translateY(0);
 }
 
-/* Apply staggered delay based on industry position */
-.industry-item:nth-child(1) { transition-delay: 0ms; }
-.industry-item:nth-child(2) { transition-delay: 50ms; }
-.industry-item:nth-child(3) { transition-delay: 100ms; }
-.industry-item:nth-child(4) { transition-delay: 150ms; }
-.industry-item:nth-child(5) { transition-delay: 200ms; }
-.industry-item:nth-child(6) { transition-delay: 250ms; }
-.industry-item:nth-child(7) { transition-delay: 300ms; }
-.industry-item:nth-child(8) { transition-delay: 350ms; }
-.industry-item:nth-child(9) { transition-delay: 400ms; }
-.industry-item:nth-child(10) { transition-delay: 450ms; }
-.industry-item:nth-child(11) { transition-delay: 500ms; }
+/* Slide in from sides */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: opacity, transform;
+}
+
+.slide-in-left.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+  will-change: opacity, transform;
+}
+
+.slide-in-right.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Enhanced parallax scroll effect */
+.parallax-scroll {
+  transform: translateY(0);
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
