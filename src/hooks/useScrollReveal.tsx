@@ -1,32 +1,34 @@
+
 import { useEffect, useRef, useState } from "react";
 import { useScroll } from "./useScroll";
+import { debounce } from "@/lib/utils";
 
 interface ScrollRevealOptions {
   threshold?: number;
   rootMargin?: string;
   delay?: number;
-  animationType?: 'fade-up' | 'slide-left' | 'slide-right' | 'bounce-in';
 }
 
 export function useScrollReveal({ 
-  threshold = 0.15, 
-  rootMargin = "0px 0px -50px 0px",
-  delay = 0,
-  animationType = 'fade-up'
+  threshold = 0.1, 
+  rootMargin = "0px",
+  delay = 0
 }: ScrollRevealOptions = {}) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const { direction, initialScrollOccurred } = useScroll();
   
+  // Check if scrolling up after initial scroll down
   const isScrollingUp = direction === 'up' && initialScrollOccurred;
 
   useEffect(() => {
-    // If scrolling up after initial scroll down, instantly show elements
+    // If scrolling up after scrolling down, instantly show all elements
     if (isScrollingUp && !isVisible) {
       setIsVisible(true);
       return;
     }
     
+    // Performance optimized - create observer once and only when needed
     let observer: IntersectionObserver | null = null;
     let timeoutId: number | null = null;
     
@@ -34,25 +36,26 @@ export function useScrollReveal({
       const [entry] = entries;
       
       if (entry.isIntersecting) {
+        // Use setTimeout for delayed reveal if needed
         if (delay > 0) {
           timeoutId = window.setTimeout(() => {
             setIsVisible(true);
           }, delay);
         } else {
-          requestAnimationFrame(() => {
-            setIsVisible(true);
-          });
+          setIsVisible(true);
         }
         
-        // Keep observing for better scroll experience
-        // Don't disconnect immediately to allow re-triggering if needed
+        // Disconnect after visibility is set to true for performance
+        if (ref.current && observer) {
+          observer.unobserve(ref.current);
+        }
       }
     };
     
-    // Enhanced observer with better performance settings
-    const createObserver = () => {
+    // Debounced observer creation for better performance during rapid scrolling
+    const createObserver = debounce(() => {
       observer = new IntersectionObserver(handleIntersection, {
-        threshold: Array.from({ length: 11 }, (_, i) => i * 0.1), // Multiple thresholds for smoother animation
+        threshold,
         rootMargin,
       });
       
@@ -60,14 +63,9 @@ export function useScrollReveal({
       if (currentRef) {
         observer.observe(currentRef);
       }
-    };
+    }, 100);
     
-    // Use requestIdleCallback if available for better performance
-    if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(createObserver, { timeout: 100 });
-    } else {
-      setTimeout(createObserver, 0);
-    }
+    createObserver();
     
     return () => {
       if (timeoutId) {
@@ -80,18 +78,7 @@ export function useScrollReveal({
     };
   }, [threshold, rootMargin, isScrollingUp, delay]);
 
-  // Get animation class based on type
-  const getAnimationClass = () => {
-    const baseClass = animationType;
-    return isVisible ? `${baseClass} active` : baseClass;
-  };
-
-  return { 
-    ref, 
-    isVisible, 
-    isScrollingUp,
-    animationClass: getAnimationClass()
-  };
+  return { ref, isVisible, isScrollingUp };
 }
 
 export default useScrollReveal;
