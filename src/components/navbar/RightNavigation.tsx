@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Phone, Sparkles } from 'lucide-react';
@@ -74,7 +73,12 @@ const RightNavigation = ({ onServicesToggle, servicesOpen: externalServicesState
                   </svg>
                 </button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="center" className="w-[900px] p-6 bg-white shadow-lg border">
+              <DropdownMenuContent 
+                align="center" 
+                side="bottom"
+                className="w-[900px] p-6 bg-white shadow-lg border z-50"
+                sideOffset={8}
+              >
                 <div className="grid grid-cols-3 gap-8">
                   {/* Digital Services Group */}
                   <DropdownMenuGroup>
